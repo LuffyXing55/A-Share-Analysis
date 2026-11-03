@@ -1,0 +1,46 @@
+name: 数据源自检 (probe)
+
+# 手动触发，或推送到 claude/probe* 分支时触发。只读取公开数据，结果作为短期 artifact 保存（3 天后自动删除），
+# 不会把任何原始数据提交进仓库。
+on:
+  workflow_dispatch:
+    inputs:
+      history:
+        description: "同时下载海外标的 10 年日线（研究用）"
+        type: boolean
+        default: false
+  push:
+    branches: ["claude/probe*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: probe
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Probe sources
+        run: |
+          if [ "${{ github.event_name }}" = "push" ] || [ "${{ inputs.history }}" = "true" ]; then
+            python scripts/probe_sources.py --out probe_out --history
+          else
+            python scripts/probe_sources.py --out probe_out
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: probe-result
+          path: probe_out
+          retention-days: 3

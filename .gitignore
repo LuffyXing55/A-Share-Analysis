@@ -1,0 +1,15 @@
+# 原始数据与缓存：不进入公开仓库（数据源版权归原提供方）
+data/
+data_raw/
+cache/
+*.parquet
+*.tar.gz
+*.bin
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+.env
+logs/
+.pytest_cache/

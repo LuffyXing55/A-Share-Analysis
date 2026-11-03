@@ -1,0 +1,351 @@
+"""实时 / 日更数据源。所有函数都返回纯 Python 数据结构或 DataFrame，失败抛 SourceUnavailable。
+
+股票代码内部统一用小写带市场前缀：sh600519 / sz000001。
+接口细节出处：docs/资料汇编 第 1.2–1.5 节（腾讯、新浪、东财数据中心、push2ex、快讯）。
+"""
+from __future__ import annotations
+
+import hashlib
+import io
+import re
+import time
+from datetime import datetime
+from typing import Iterable
+from urllib.parse import urlencode
+
+import pandas as pd
+
+from .http import Fetcher, SourceUnavailable
+
+_fetcher: Fetcher | None = None
+
+
+def fetcher() -> Fetcher:
+    global _fetcher
+    if _fetcher is None:
+        _fetcher = Fetcher()
+    return _fetcher
+
+
+def set_fetcher(f: Fetcher) -> None:
+    global _fetcher
+    _fetcher = f
+
+
+def normalize_code(code: str) -> str:
+    c = code.strip().lower().replace(".sh", "").replace(".sz", "").replace(".bj", "")
+    if c[:2] in ("sh", "sz", "bj"):
+        return c
+    if c.startswith(("6", "9")):
+        return "sh" + c
+    if c.startswith(("8", "4", "92")):
+        return "bj" + c
+    return "sz" + c
+
+
+def _f(x: str) -> float | None:
+    try:
+        v = float(x)
+        return v
+    except (TypeError, ValueError):
+        return None
+
+
+# ---------------------------------------------------------------- 腾讯
+def tencent_quotes(codes: Iterable[str], batch: int = 60) -> list[dict]:
+    """腾讯 qt.gtimg.cn 实时行情（≤60 只 / 次，GBK）。"""
+    codes = [normalize_code(c) for c in codes]
+    out: list[dict] = []
+    for i in range(0, len(codes), batch):
+        chunk = codes[i : i + batch]
+        r = fetcher().get("https://qt.gtimg.cn/q=" + ",".join(chunk), encoding="gbk")
+        for line in r.text.strip().split(";"):
+            if "=" not in line:
+                continue
+            key, val = line.split("=", 1)
+            code = key.strip().replace("v_", "")
+            f = val.strip().strip('"').split("~")
+            if len(f) < 50:
+                continue
+            out.append({
+                "code": code,
+                "name": f[1],
+                "price": _f(f[3]),
+                "prev_close": _f(f[4]),
+                "open": _f(f[5]),
+                "volume_lots": _f(f[6]),
+                "time": f[30],
+                "pct": _f(f[32]),
+                "high": _f(f[33]),
+                "low": _f(f[34]),
+                "amount": (_f(f[37]) or 0.0) * 1e4,  # 万元 → 元
+                "turnover": _f(f[38]),
+                "pe_ttm": _f(f[39]),
+                "float_mv": (_f(f[44]) or 0.0) * 1e8,  # 亿元 → 元
+                "total_mv": (_f(f[45]) or 0.0) * 1e8,
+                "pb": _f(f[46]),
+                "limit_up": _f(f[47]),
+                "limit_down": _f(f[48]),
+                "vol_ratio": _f(f[49]),
+                "source": "tencent",
+            })
+    return out
+
+
+def tencent_index(codes: Iterable[str]) -> list[dict]:
+    """指数简版 q=s_sh000001：市场~名称~代码~最新价~涨跌额~涨跌幅~成交量~成交额(万)。"""
+    q = ",".join("s_" + c for c in codes)
+    r = fetcher().get("https://qt.gtimg.cn/q=" + q, encoding="gbk")
+    out = []
+    for line in r.text.strip().split(";"):
+        if "=" not in line:
+            continue
+        key, val = line.split("=", 1)
+        f = val.strip().strip('"').split("~")
+        if len(f) < 6:
+            continue
+        out.append({"code": key.strip().replace("v_s_", ""), "name": f[1], "price": _f(f[3]),
+                    "chg": _f(f[4]), "pct": _f(f[5]), "amount": (_f(f[7]) or 0) * 1e4})
+    return out
+
+
+def tencent_kline(code: str, count: int = 320, adj: str = "qfq", period: str = "day") -> pd.DataFrame:
+    """腾讯日 K：每条 [日期,开,收,高,低,成交量(手)]。"""
+    code = normalize_code(code)
+    url = "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get"
+    r = fetcher().get(url, params={"param": f"{code},{period},,,{count},{adj}"})
+    js = r.json()
+    node = js.get("data", {}).get(code, {})
+    rows = node.get(adj + period) or node.get(period) or []
+    df = pd.DataFrame([x[:6] for x in rows], columns=["date", "open", "close", "high", "low", "volume"])
+    if df.empty:
+        return df
+    df["date"] = pd.to_datetime(df["date"])
+    for c in ["open", "close", "high", "low", "volume"]:
+        df[c] = pd.to_numeric(df[c], errors="coerce")
+    return df
+
+
+# ---------------------------------------------------------------- 新浪
+SINA_HEADERS = {"Referer": "https://finance.sina.com.cn/"}
+
+
+def sina_quotes(codes: Iterable[str], batch: int = 600) -> list[dict]:
+    codes = [normalize_code(c) for c in codes]
+    out = []
+    for i in range(0, len(codes), batch):
+        chunk = codes[i : i + batch]
+        r = fetcher().get("https://hq.sinajs.cn/list=" + ",".join(chunk), headers=SINA_HEADERS,
+                          encoding="gbk")
+        for m in re.finditer(r'hq_str_(\w+)="([^"]*)"', r.text):
+            code, body = m.group(1), m.group(2)
+            f = body.split(",")
+            if len(f) < 32:
+                continue
+            prev = _f(f[2])
+            price = _f(f[3])
+            out.append({
+                "code": code, "name": f[0], "open": _f(f[1]), "prev_close": prev, "price": price,
+                "high": _f(f[4]), "low": _f(f[5]), "volume_lots": (_f(f[8]) or 0) / 100,
+                "amount": _f(f[9]), "time": f"{f[30]} {f[31]}",
+                "pct": (price / prev - 1) * 100 if price and prev else None, "source": "sina",
+            })
+    return out
+
+
+# ---------------------------------------------------------------- 东方财富数据中心
+DC_URL = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+
+
+def em_datacenter(report: str, filter_: str = "", columns: str = "ALL", sort_columns: str = "",
+                  sort_types: str = "", page_size: int = 500, max_pages: int = 40,
+                  extra: dict | None = None) -> pd.DataFrame:
+    rows: list[dict] = []
+    page = 1
+    while page <= max_pages:
+        params = {"reportName": report, "columns": columns, "pageSize": page_size,
+                  "pageNumber": page, "source": "WEB", "client": "WEB"}
+        if filter_:
+            params["filter"] = filter_
+        if sort_columns:
+            params["sortColumns"] = sort_columns
+            params["sortTypes"] = sort_types or "-1"
+        if extra:
+            params.update(extra)
+        js = fetcher().get(DC_URL, params=params).json()
+        res = js.get("result") or {}
+        data = res.get("data") or []
+        rows.extend(data)
+        pages = int(res.get("pages") or 1)
+        if page >= pages:
+            break
+        page += 1
+    return pd.DataFrame(rows)
+
+
+def em_performance(report_date: str, max_pages: int = 30) -> pd.DataFrame:
+    """业绩报表（含公告日期 NOTICE_DATE、ROE、营收/净利同比、毛利率）。report_date: 'YYYY-MM-DD' 季末。"""
+    return em_datacenter("RPT_LICO_FN_CPD", f"(REPORTDATE='{report_date}')",
+                         sort_columns="UPDATE_DATE,SECURITY_CODE", sort_types="-1,-1",
+                         max_pages=max_pages)
+
+
+def em_forecast(report_date: str, max_pages: int = 20) -> pd.DataFrame:
+    """业绩预告。"""
+    url_df = []
+    page = 1
+    while page <= max_pages:
+        params = {"reportName": "RPT_PUBLIC_OP_NEWPREDICT", "columns": "ALL", "pageSize": 500,
+                  "pageNumber": page, "sortColumns": "NOTICE_DATE,SECURITY_CODE",
+                  "sortTypes": "-1,-1", "filter": f"(REPORT_DATE='{report_date}')"}
+        js = fetcher().get("https://datacenter.eastmoney.com/securities/api/data/v1/get",
+                           params=params).json()
+        res = js.get("result") or {}
+        url_df.extend(res.get("data") or [])
+        if page >= int(res.get("pages") or 1):
+            break
+        page += 1
+    return pd.DataFrame(url_df)
+
+
+def em_lift_schedule(start: str, end: str) -> pd.DataFrame:
+    """限售解禁（个股，区间）。"""
+    return em_datacenter("RPT_LIFT_STAGE", f"(FREE_DATE>='{start}')(FREE_DATE<='{end}')",
+                         sort_columns="FREE_DATE", sort_types="1", max_pages=10)
+
+
+def em_billboard(start: str, end: str) -> pd.DataFrame:
+    """龙虎榜明细。"""
+    return em_datacenter("RPT_DAILYBILLBOARD_DETAILSNEW",
+                         f"(TRADE_DATE<='{end}')(TRADE_DATE>='{start}')",
+                         sort_columns="SECURITY_CODE,TRADE_DATE", sort_types="1,-1",
+                         page_size=500, max_pages=10)
+
+
+# ---------------------------------------------------------------- 东财 push2ex 情绪
+def em_limit_pool(kind: str = "zt", date: str | None = None) -> list[dict]:
+    """涨停池 zt / 跌停 dt / 炸板 zb。单请求返回当日全部。"""
+    name = {"zt": ("getTopicZTPool", "fbt:asc"), "dt": ("getTopicDTPool", "fund:asc"),
+            "zb": ("getTopicZBPool", "fbt:asc")}[kind]
+    date = date or datetime.now().strftime("%Y%m%d")
+    url = f"https://push2ex.eastmoney.com/{name[0]}"
+    params = {"ut": "7eea3edcaed734bea9cbfc24409ed989", "dpt": "wz.ztzt", "Pageindex": 0,
+              "pagesize": 10000, "sort": name[1], "date": date}
+    js = fetcher().get(url, params=params).json()
+    return ((js.get("data") or {}).get("pool")) or []
+
+
+def em_clist_page(page: int = 1, size: int = 100, fid: str = "f3") -> list[dict]:
+    """东财全市场快照的单页（push2，低频使用）。"""
+    params = {"pn": page, "pz": size, "po": 1, "np": 1, "fltt": 2, "invt": 2, "fid": fid,
+              "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23",
+              "fields": "f12,f14,f2,f3,f5,f6,f8,f9,f10,f20,f21,f23,f62,f100",
+              "ut": "bd1d9ddb04089700cf9c27f6f7426281"}
+    js = fetcher().get("https://push2.eastmoney.com/api/qt/clist/get", params=params).json()
+    return ((js.get("data") or {}).get("diff")) or []
+
+
+# ---------------------------------------------------------------- 新闻快讯
+def em_fast_news(size: int = 100) -> list[dict]:
+    params = {"client": "web", "biz": "web_724", "fastColumn": "102", "sortEnd": "",
+              "pageSize": size, "req_trace": int(time.time() * 1000)}
+    js = fetcher().get("https://np-weblist.eastmoney.com/comm/web/getFastNewsList",
+                       params=params).json()
+    items = ((js.get("data") or {}).get("fastNewsList")) or []
+    return [{"title": x.get("title", ""), "content": x.get("summary", ""),
+             "time": x.get("showTime", ""), "source": "东方财富快讯",
+             "url": f"https://finance.eastmoney.com/a/{x.get('code')}.html"} for x in items]
+
+
+def sina_7x24(size: int = 50) -> list[dict]:
+    params = {"page": 1, "page_size": size, "zhibo_id": 152, "tag_id": 0, "dire": "f",
+              "dpc": 1, "pagesize": size, "type": 1}
+    js = fetcher().get("https://zhibo.sina.com.cn/api/zhibo/feed", params=params).json()
+    items = (((js.get("result") or {}).get("data") or {}).get("feed") or {}).get("list") or []
+    out = []
+    for x in items:
+        text = re.sub(r"<[^>]+>", "", x.get("rich_text", ""))
+        out.append({"title": text[:60], "content": text, "time": x.get("create_time", ""),
+                    "source": "新浪7x24", "url": x.get("docurl") or ""})
+    return out
+
+
+def cls_telegraph(size: int = 50) -> list[dict]:
+    p = {"app": "CailianpressWeb", "category": "", "last_time": int(time.time()), "os": "web",
+         "refresh_type": "1", "rn": str(size), "sv": "8.4.6"}
+    p["sign"] = hashlib.md5(hashlib.sha1(urlencode(p).encode()).hexdigest().encode()).hexdigest()
+    js = fetcher().get("https://www.cls.cn/v1/roll/get_roll_list", params=p).json()
+    items = ((js.get("data") or {}).get("roll_data")) or []
+    return [{"title": x.get("title") or (x.get("content") or "")[:60],
+             "content": x.get("content", ""),
+             "time": datetime.fromtimestamp(int(x.get("ctime", 0))).strftime("%Y-%m-%d %H:%M:%S"),
+             "source": "财联社", "important": x.get("level") in ("A", "B"),
+             "url": x.get("shareurl") or ""} for x in items]
+
+
+def all_news(size: int = 60) -> list[dict]:
+    """合并多源快讯，任一源失败不影响其他源。"""
+    news: list[dict] = []
+    errors = {}
+    for fn in (cls_telegraph, em_fast_news, sina_7x24):
+        try:
+            news.extend(fn(size))
+        except Exception as e:  # noqa: BLE001
+            errors[fn.__name__] = str(e)[:120]
+    seen, uniq = set(), []
+    for n in sorted(news, key=lambda x: x.get("time", ""), reverse=True):
+        k = n["content"][:40]
+        if k in seen:
+            continue
+        seen.add(k)
+        uniq.append(n)
+    return uniq
+
+
+# ---------------------------------------------------------------- 海外：Yahoo / FRED
+def yahoo_chart(symbol: str, rng: str = "1y", interval: str = "1d") -> pd.DataFrame:
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+    js = fetcher().get(url, params={"range": rng, "interval": interval}).json()
+    res = (js.get("chart") or {}).get("result") or []
+    if not res:
+        raise SourceUnavailable(f"yahoo 无数据 {symbol}")
+    r0 = res[0]
+    ts = r0.get("timestamp") or []
+    q = (r0.get("indicators") or {}).get("quote", [{}])[0]
+    df = pd.DataFrame({"date": pd.to_datetime(ts, unit="s"), "close": q.get("close"),
+                       "open": q.get("open"), "high": q.get("high"), "low": q.get("low"),
+                       "volume": q.get("volume")})
+    df["date"] = df["date"].dt.tz_localize("UTC").dt.tz_convert("America/New_York").dt.normalize()
+    df["date"] = df["date"].dt.tz_localize(None)
+    return df.dropna(subset=["close"])
+
+
+def fred_series(series_id: str) -> pd.DataFrame:
+    r = fetcher().get("https://fred.stlouisfed.org/graph/fredgraph.csv", params={"id": series_id})
+    df = pd.read_csv(io.StringIO(r.text))
+    df.columns = ["date", "value"]
+    df["date"] = pd.to_datetime(df["date"])
+    df["value"] = pd.to_numeric(df["value"], errors="coerce")
+    return df.dropna()
+
+
+# ---------------------------------------------------------------- 申万行业
+SW_XLS = "https://www.swsresearch.com/swindex/pdf/SwClass2021/StockClassifyUse_stock.xls"
+
+
+def sw_industry_history() -> pd.DataFrame:
+    """申万 2021 版个股行业归属历史（股票代码, 计入日期, 行业代码, 更新日期）。"""
+    import requests
+
+    try:
+        r = requests.get(SW_XLS, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+    except requests.exceptions.SSLError:
+        # 申万官网证书链在部分环境不完整（资料汇编 1.0 / akshare 同样处理）。
+        # 这里只下载一个公开的 xls 分类表，不发送任何凭据，因此仅对该文件放宽校验。
+        import urllib3
+
+        urllib3.disable_warnings()
+        r = requests.get(SW_XLS, headers={"User-Agent": "Mozilla/5.0"}, timeout=30, verify=False)
+    r.raise_for_status()
+    df = pd.read_excel(io.BytesIO(r.content), dtype={"股票代码": str, "行业代码": str})
+    return df
