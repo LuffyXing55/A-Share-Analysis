@@ -29,7 +29,11 @@ def _affected(picks: list[dict], industries: list[str], chains: list[str] | None
 
 def upcoming_events(cfg: dict, picks: list[dict], today: date, days: int = 21) -> list[dict]:
     out = []
-    for e in cfg.get("events", []):
+    manual = cfg.get("events", [])
+    taken = {(e["date"], e.get("category")) for e in manual}
+    auto = [e for e in recurring_events(today, days) if (e["date"], e["category"]) not in taken
+            and not any(e["date"] == m["date"] and ("LPR" in m["title"]) and "LPR" in e["title"] for m in manual)]
+    for e in manual + auto:
         d0 = date.fromisoformat(e["date"])
         d1 = date.fromisoformat(e.get("end", e["date"]))
         if d1 < today - timedelta(days=1) or d0 > today + timedelta(days=days):
@@ -40,6 +44,34 @@ def upcoming_events(cfg: dict, picks: list[dict], today: date, days: int = 21) -
         out.append(item)
     out.sort(key=lambda x: (x["date"], -x.get("importance", 1)))
     return out
+
+
+def recurring_events(today: date, days: int, is_trading_day=None) -> list[dict]:
+    """自动生成的周期性事件：LPR（每月 20 日，遇周末顺延）、统计局 PMI（月末）、本站月末换仓。"""
+    out = []
+    end = today + timedelta(days=days)
+    d = date(today.year, today.month, 1)
+    while d <= end:
+        lpr = date(d.year, d.month, 20)
+        while lpr.weekday() >= 5:
+            lpr += timedelta(days=1)
+        nxt = date(d.year + (d.month == 12), d.month % 12 + 1, 1)
+        last = nxt - timedelta(days=1)
+        lastbd = last
+        while lastbd.weekday() >= 5 or (is_trading_day and not is_trading_day(lastbd)):
+            lastbd -= timedelta(days=1)
+        out += [
+            {"date": str(lpr), "time": "09:00", "title": "LPR 报价（自动生成，按惯例）", "category": "中国货币",
+             "importance": 1, "confidence": "推测", "industries": ["银行", "房地产", "非银金融"]},
+            {"date": str(last), "time": "09:30", "title": "统计局官方制造业 PMI（自动生成，按惯例）",
+             "category": "中国数据", "importance": 2, "confidence": "推测",
+             "industries": ["机械设备", "基础化工", "有色金属"]},
+            {"date": str(lastbd), "time": "收盘后", "title": "本站月度换仓：选出下月 30 强", "category": "本站",
+             "importance": 2, "confidence": "官方", "industries": [],
+             "scenarios": "上月持仓若仍在全市场前 280 名会优先保留，其余按综合分替换。"},
+        ]
+        d = nxt
+    return [e for e in out if today - timedelta(days=1) <= date.fromisoformat(e["date"]) <= end]
 
 
 def themes(cfg: dict, picks: list[dict]) -> list[dict]:

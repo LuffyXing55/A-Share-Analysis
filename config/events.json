@@ -1,64 +1,569 @@
 {
-  "_说明": "事件日历（北京时间）。来源：docs/资料汇编 第 6、7 部分（2026-11-03 查证）。confidence: 官方=官方日程已验证，媒体=媒体所述，推测=按惯例推测。可以直接编辑本文件增删事件，网站每天自动读取。",
-  "events": [
-    {"date": "2026-11-04", "title": "美国中期选举结果陆续公布", "category": "海外政治", "importance": 2, "confidence": "官方",
-     "industries": ["电子", "电力设备", "机械设备", "纺织服饰", "轻工制造"],
-     "scenarios": "民主党双胜→财政扩张受限、关税受制衡、美元或走弱；分裂国会→12-11 停摆风险上升；共和党保住→延续现有政策"},
-    {"date": "2026-11-05", "end": "2026-11-10", "title": "第九届进博会（上海）", "category": "国内政策", "importance": 1, "confidence": "官方",
-     "industries": ["商贸零售", "社会服务", "食品饮料"], "scenarios": "进口与消费相关政策信号"},
-    {"date": "2026-11-06", "time": "21:30", "title": "美国10月非农就业", "category": "美国数据", "importance": 3, "confidence": "官方",
-     "industries": ["电子", "计算机", "通信", "有色金属"], "scenarios": "就业强→强化12月加息预期、成长承压；就业降温→加息预期退潮"},
-    {"date": "2026-11-09", "time": "09:30", "title": "国家统计局10月CPI/PPI", "category": "中国数据", "importance": 2, "confidence": "官方",
-     "industries": ["基础化工", "钢铁", "有色金属", "食品饮料"], "scenarios": "PPI 已由负转正（9月+5.0%），继续走高利好周期品"},
-    {"date": "2026-11-09", "title": "BIS「50%关联规则」暂停原到期日（是否随休战顺延待确认）", "category": "中美关系", "importance": 3, "confidence": "媒体",
-     "industries": ["电子", "计算机"], "scenarios": "顺延→无事件；未顺延→半导体设备/国产替代波动加大"},
-    {"date": "2026-11-10", "time": "21:30", "title": "美国10月CPI", "category": "美国数据", "importance": 3, "confidence": "官方",
-     "industries": ["电子", "计算机", "通信", "传媒", "有色金属"], "scenarios": "通胀超预期→强化加息、美债美元走强；回落→利好成长与新兴市场"},
-    {"date": "2026-11-10", "title": "中国稀土管制暂停原到期日（是否顺延待确认）；芯联集成解禁约87亿元", "category": "中美关系", "importance": 2, "confidence": "媒体",
-     "industries": ["有色金属", "电子"], "scenarios": "稀土与半导体设备对此高度敏感"},
-    {"date": "2026-11-12", "title": "MSCI 11月审议结果公布；电投水电解禁约118亿元", "category": "指数调整", "importance": 1, "confidence": "官方",
-     "industries": ["电子", "有色金属", "公用事业"], "scenarios": "新纳入股有被动买盘，剔除股有卖压"},
-    {"date": "2026-11-13", "time": "21:30", "title": "美国10月PPI", "category": "美国数据", "importance": 1, "confidence": "官方", "industries": []},
-    {"date": "2026-11-16", "time": "10:00", "title": "统计局10月国民经济运行（工业、社零、固投、房地产）+70城房价", "category": "中国数据", "importance": 2, "confidence": "官方",
-     "industries": ["房地产", "建筑材料", "家用电器", "食品饮料", "商贸零售"], "scenarios": "数据走弱→政策加码预期升温"},
-    {"date": "2026-11-18", "time": "06:00", "title": "英伟达FY2027 Q3财报（美东11-17盘后）", "category": "海外公司", "importance": 3, "confidence": "官方",
-     "industries": ["电子", "通信", "计算机"], "chains": ["ai_server", "cpo", "ai_pcb", "liquid_cool"],
-     "scenarios": "超预期→A股算力链超跌反弹；符合预期但指引谨慎→资金再平衡；不及预期→费半二次下杀"},
-    {"date": "2026-11-18", "end": "2026-11-19", "title": "APEC 深圳（中美元首预计会晤）", "category": "中美关系", "importance": 3, "confidence": "媒体",
-     "industries": ["电子", "有色金属", "交通运输", "农林牧渔", "国防军工"], "scenarios": "更大协议或再延期→外资偏好修复；破裂→出口管制与稀土管制加码"},
-    {"date": "2026-11-20", "title": "LPR报价（惯例）", "category": "中国货币", "importance": 1, "confidence": "推测", "industries": ["银行", "房地产", "非银金融"]},
-    {"date": "2026-11-25", "time": "21:30", "title": "美国Q3 GDP二次估计 + 10月PCE", "category": "美国数据", "importance": 2, "confidence": "官方", "industries": []},
-    {"date": "2026-11-27", "time": "09:30", "title": "统计局1-10月工业企业利润；中证指数12月定期调整方案（收盘后，推测）", "category": "中国数据", "importance": 1, "confidence": "官方", "industries": []},
-    {"date": "2026-11-30", "time": "09:30", "title": "统计局11月PMI；MSCI 11月调整生效", "category": "中国数据", "importance": 2, "confidence": "官方",
-     "industries": ["机械设备", "基础化工", "建筑装饰"], "scenarios": "10月制造业PMI 49.3（-0.8），继续走弱则稳增长加码预期升温"},
-    {"date": "2026-12-04", "time": "21:30", "title": "美国11月非农就业", "category": "美国数据", "importance": 3, "confidence": "官方", "industries": ["电子", "计算机", "有色金属"]},
-    {"date": "2026-12-07", "end": "2026-12-13", "title": "恒指调整生效（恒生科技扩容至50只）；珠海航展", "category": "指数调整", "importance": 1, "confidence": "媒体", "industries": ["国防军工", "传媒"]},
-    {"date": "2026-12-09", "time": "09:30", "title": "统计局11月CPI/PPI", "category": "中国数据", "importance": 2, "confidence": "官方", "industries": []},
-    {"date": "2026-12-10", "time": "03:00", "title": "美联储FOMC决议（2026年最后一次，带点阵图）", "category": "美联储", "importance": 3, "confidence": "官方",
-     "industries": ["电子", "计算机", "通信", "传媒", "有色金属", "银行"],
-     "scenarios": "(a) 加息且点阵图上移→美债美元走强、成长承压；(b) 加息但暗示到顶→利空出尽；(c) 意外暂停→利好新兴市场与科技。市场对12月加息定价约75-85%"},
-    {"date": "2026-12-10", "time": "21:30", "title": "美国11月CPI；中央经济工作会议约在此前后", "category": "美国数据", "importance": 3, "confidence": "官方",
-     "industries": ["食品饮料", "家用电器", "建筑材料", "钢铁", "电力设备", "房地产"],
-     "scenarios": "CEWC 提高赤字率/扩大消费补贴/强化反内卷→消费、建材、钢铁、光伏受益"},
-    {"date": "2026-12-11", "title": "美国联邦临时拨款到期；沪深300/中证500/中证1000/科创50调整生效（推测）", "category": "海外政治", "importance": 2, "confidence": "推测", "industries": []},
-    {"date": "2026-12-14", "end": "2026-12-15", "title": "G20 迈阿密（习近平预计出席）", "category": "中美关系", "importance": 2, "confidence": "媒体", "industries": ["电子", "有色金属"]},
-    {"date": "2026-12-15", "title": "统计局11月国民经济运行+70城房价；美国11月PPI(21:30)", "category": "中国数据", "importance": 2, "confidence": "官方", "industries": ["房地产", "家用电器"]},
-    {"date": "2026-12-21", "title": "LPR报价（12-20为周日顺延，推测）", "category": "中国货币", "importance": 1, "confidence": "推测", "industries": ["银行", "房地产"]},
-    {"date": "2026-12-23", "time": "21:30", "title": "美国Q3 GDP三次估计 + 11月PCE", "category": "美国数据", "importance": 1, "confidence": "官方", "industries": []},
-    {"date": "2026-12-31", "time": "09:30", "title": "统计局12月PMI；A股2026年最后交易日", "category": "中国数据", "importance": 2, "confidence": "官方", "industries": []},
-    {"date": "2027-01-08", "time": "21:30", "title": "美国12月非农就业", "category": "美国数据", "importance": 2, "confidence": "官方", "industries": []},
-    {"date": "2027-01-10", "title": "中美关税休战到期日", "category": "中美关系", "importance": 3, "confidence": "媒体",
-     "industries": ["电子", "有色金属", "交通运输", "农林牧渔", "机械设备"], "scenarios": "再延期→中性偏好；破裂→关税与出口管制加码，出口链与半导体承压"},
-    {"date": "2027-01-13", "time": "21:30", "title": "美国12月CPI", "category": "美国数据", "importance": 3, "confidence": "官方", "industries": []},
-    {"date": "2027-01-28", "time": "03:00", "title": "美联储2027年首次FOMC决议", "category": "美联储", "importance": 3, "confidence": "官方", "industries": ["电子", "计算机", "有色金属"]},
-    {"date": "2027-01-29", "title": "年报业绩预告披露截止（集中在1月下旬，注意「暴雷」）", "category": "业绩", "importance": 3, "confidence": "媒体",
-     "industries": ["传媒", "计算机", "医药生物", "房地产"], "scenarios": "高商誉中小市值公司亏损预告集中；预喜率高的有色、电子、化工主线强化"}
-  ],
-  "themes": [
-    {"title": "美联储加息周期", "text": "2026-09-16 加息 25bp 至 3.75–4.00%，10-28 维持（10–2）。主席 Warsh。12 月加息概率约 75–85%。加息→美债美元走强，压制 A 股成长股估值与北向偏好。", "industries": ["电子", "计算机", "通信", "传媒"]},
-    {"title": "AI 泡沫争论与算力链", "text": "10-30 费城半导体 -7.2%，A 股创业板指 10 月 -23%、科创50 -24%。英伟达 11-17 财报是算力链方向的关键催化。", "industries": ["电子", "通信", "计算机"]},
-    {"title": "中美关系窗口", "text": "关税休战延至 2027-01-10；稀土管制与 BIS 50% 规则暂停是否顺延未见官方文件；APEC（11-18/19）与 G20（12-14/15）为观察窗口。", "industries": ["电子", "有色金属", "农林牧渔"]},
-    {"title": "中东地缘与油价", "text": "霍尔木兹受阻后布伦特一度 $113，11-02 因斡旋跌至约 $105–108。油价回落利好航空、化工下游，压制石油石化。", "industries": ["石油石化", "交通运输", "基础化工"]},
-    {"title": "国内稳市与去杠杆", "text": "两融余额从 3.03 万亿降至约 2.34 万亿，成交额从 6 月日均 3.1 万亿降至约 1.8 万亿。观察融资余额止跌与宽基 ETF 净申购。", "industries": ["非银金融", "银行"]}
-  ]
+ "_说明": "事件日历（北京时间）。来源：docs/资料汇编 第 6、7 部分（2026-11-03 查证）。confidence: 官方=官方日程已验证，媒体=媒体所述，推测=按惯例推测。可以直接编辑本文件增删事件，网站每天自动读取。",
+ "events": [
+  {
+   "date": "2026-11-04",
+   "title": "美国中期选举结果陆续公布",
+   "category": "海外政治",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "电力设备",
+    "机械设备",
+    "纺织服饰",
+    "轻工制造"
+   ],
+   "scenarios": "民主党双胜→财政扩张受限、关税受制衡、美元或走弱；分裂国会→12-11 停摆风险上升；共和党保住→延续现有政策"
+  },
+  {
+   "date": "2026-11-05",
+   "end": "2026-11-10",
+   "title": "第九届进博会（上海）",
+   "category": "国内政策",
+   "importance": 1,
+   "confidence": "官方",
+   "industries": [
+    "商贸零售",
+    "社会服务",
+    "食品饮料"
+   ],
+   "scenarios": "进口与消费相关政策信号"
+  },
+  {
+   "date": "2026-11-06",
+   "time": "21:30",
+   "title": "美国10月非农就业",
+   "category": "美国数据",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属"
+   ],
+   "scenarios": "就业强→强化12月加息预期、成长承压；就业降温→加息预期退潮"
+  },
+  {
+   "date": "2026-11-09",
+   "time": "09:30",
+   "title": "国家统计局10月CPI/PPI",
+   "category": "中国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": [
+    "基础化工",
+    "钢铁",
+    "有色金属",
+    "食品饮料"
+   ],
+   "scenarios": "PPI 已由负转正（9月+5.0%），继续走高利好周期品"
+  },
+  {
+   "date": "2026-11-09",
+   "title": "BIS「50%关联规则」暂停原到期日（是否随休战顺延待确认）",
+   "category": "中美关系",
+   "importance": 3,
+   "confidence": "媒体",
+   "industries": [
+    "电子",
+    "计算机"
+   ],
+   "scenarios": "顺延→无事件；未顺延→半导体设备/国产替代波动加大"
+  },
+  {
+   "date": "2026-11-10",
+   "time": "21:30",
+   "title": "美国10月CPI",
+   "category": "美国数据",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "传媒",
+    "有色金属"
+   ],
+   "scenarios": "通胀超预期→强化加息、美债美元走强；回落→利好成长与新兴市场"
+  },
+  {
+   "date": "2026-11-10",
+   "title": "中国稀土管制暂停原到期日（是否顺延待确认）；芯联集成解禁约87亿元",
+   "category": "中美关系",
+   "importance": 2,
+   "confidence": "媒体",
+   "industries": [
+    "有色金属",
+    "电子"
+   ],
+   "scenarios": "稀土与半导体设备对此高度敏感"
+  },
+  {
+   "date": "2026-11-12",
+   "title": "MSCI 11月审议结果公布；电投水电解禁约118亿元",
+   "category": "指数调整",
+   "importance": 1,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "有色金属",
+    "公用事业"
+   ],
+   "scenarios": "新纳入股有被动买盘，剔除股有卖压"
+  },
+  {
+   "date": "2026-11-13",
+   "time": "21:30",
+   "title": "美国10月PPI",
+   "category": "美国数据",
+   "importance": 1,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2026-11-16",
+   "time": "10:00",
+   "title": "统计局10月国民经济运行（工业、社零、固投、房地产）+70城房价",
+   "category": "中国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": [
+    "房地产",
+    "建筑材料",
+    "家用电器",
+    "食品饮料",
+    "商贸零售"
+   ],
+   "scenarios": "数据走弱→政策加码预期升温"
+  },
+  {
+   "date": "2026-11-18",
+   "time": "06:00",
+   "title": "英伟达FY2027 Q3财报（美东11-17盘后）",
+   "category": "海外公司",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "通信",
+    "计算机"
+   ],
+   "chains": [
+    "ai_server",
+    "cpo",
+    "ai_pcb",
+    "liquid_cool"
+   ],
+   "scenarios": "超预期→A股算力链超跌反弹；符合预期但指引谨慎→资金再平衡；不及预期→费半二次下杀"
+  },
+  {
+   "date": "2026-11-18",
+   "end": "2026-11-19",
+   "title": "APEC 深圳（中美元首预计会晤）",
+   "category": "中美关系",
+   "importance": 3,
+   "confidence": "媒体",
+   "industries": [
+    "电子",
+    "有色金属",
+    "交通运输",
+    "农林牧渔",
+    "国防军工"
+   ],
+   "scenarios": "更大协议或再延期→外资偏好修复；破裂→出口管制与稀土管制加码"
+  },
+  {
+   "date": "2026-11-20",
+   "title": "LPR报价（惯例）",
+   "category": "中国货币",
+   "importance": 1,
+   "confidence": "推测",
+   "industries": [
+    "银行",
+    "房地产",
+    "非银金融"
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "time": "21:30",
+   "title": "美国Q3 GDP二次估计 + 10月PCE",
+   "category": "美国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2026-11-27",
+   "time": "09:30",
+   "title": "统计局1-10月工业企业利润；中证指数12月定期调整方案（收盘后，推测）",
+   "category": "中国数据",
+   "importance": 1,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2026-11-30",
+   "time": "09:30",
+   "title": "统计局11月PMI；MSCI 11月调整生效",
+   "category": "中国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": [
+    "机械设备",
+    "基础化工",
+    "建筑装饰"
+   ],
+   "scenarios": "10月制造业PMI 49.3（-0.8），继续走弱则稳增长加码预期升温"
+  },
+  {
+   "date": "2026-12-04",
+   "time": "21:30",
+   "title": "美国11月非农就业",
+   "category": "美国数据",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "有色金属"
+   ]
+  },
+  {
+   "date": "2026-12-07",
+   "end": "2026-12-13",
+   "title": "恒指调整生效（恒生科技扩容至50只）；珠海航展",
+   "category": "指数调整",
+   "importance": 1,
+   "confidence": "媒体",
+   "industries": [
+    "国防军工",
+    "传媒"
+   ]
+  },
+  {
+   "date": "2026-12-09",
+   "time": "09:30",
+   "title": "统计局11月CPI/PPI",
+   "category": "中国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2026-12-10",
+   "time": "03:00",
+   "title": "美联储FOMC决议（2026年最后一次，带点阵图）",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "传媒",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "(a) 加息且点阵图上移→美债美元走强、成长承压；(b) 加息但暗示到顶→利空出尽；(c) 意外暂停→利好新兴市场与科技。市场对12月加息定价约75-85%"
+  },
+  {
+   "date": "2026-12-10",
+   "time": "21:30",
+   "title": "美国11月CPI；中央经济工作会议约在此前后",
+   "category": "美国数据",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "食品饮料",
+    "家用电器",
+    "建筑材料",
+    "钢铁",
+    "电力设备",
+    "房地产"
+   ],
+   "scenarios": "CEWC 提高赤字率/扩大消费补贴/强化反内卷→消费、建材、钢铁、光伏受益"
+  },
+  {
+   "date": "2026-12-11",
+   "title": "美国联邦临时拨款到期；沪深300/中证500/中证1000/科创50调整生效（推测）",
+   "category": "海外政治",
+   "importance": 2,
+   "confidence": "推测",
+   "industries": []
+  },
+  {
+   "date": "2026-12-14",
+   "end": "2026-12-15",
+   "title": "G20 迈阿密（习近平预计出席）",
+   "category": "中美关系",
+   "importance": 2,
+   "confidence": "媒体",
+   "industries": [
+    "电子",
+    "有色金属"
+   ]
+  },
+  {
+   "date": "2026-12-15",
+   "title": "统计局11月国民经济运行+70城房价；美国11月PPI(21:30)",
+   "category": "中国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": [
+    "房地产",
+    "家用电器"
+   ]
+  },
+  {
+   "date": "2026-12-21",
+   "title": "LPR报价（12-20为周日顺延，推测）",
+   "category": "中国货币",
+   "importance": 1,
+   "confidence": "推测",
+   "industries": [
+    "银行",
+    "房地产"
+   ]
+  },
+  {
+   "date": "2026-12-23",
+   "time": "21:30",
+   "title": "美国Q3 GDP三次估计 + 11月PCE",
+   "category": "美国数据",
+   "importance": 1,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2026-12-31",
+   "time": "09:30",
+   "title": "统计局12月PMI；A股2026年最后交易日",
+   "category": "中国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2027-01-08",
+   "time": "21:30",
+   "title": "美国12月非农就业",
+   "category": "美国数据",
+   "importance": 2,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2027-01-10",
+   "title": "中美关税休战到期日",
+   "category": "中美关系",
+   "importance": 3,
+   "confidence": "媒体",
+   "industries": [
+    "电子",
+    "有色金属",
+    "交通运输",
+    "农林牧渔",
+    "机械设备"
+   ],
+   "scenarios": "再延期→中性偏好；破裂→关税与出口管制加码，出口链与半导体承压"
+  },
+  {
+   "date": "2027-01-13",
+   "time": "21:30",
+   "title": "美国12月CPI",
+   "category": "美国数据",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": []
+  },
+  {
+   "date": "2027-01-28",
+   "time": "03:00",
+   "title": "美联储2027年首次FOMC决议",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "有色金属"
+   ]
+  },
+  {
+   "date": "2027-01-29",
+   "title": "年报业绩预告披露截止（集中在1月下旬，注意「暴雷」）",
+   "category": "业绩",
+   "importance": 3,
+   "confidence": "媒体",
+   "industries": [
+    "传媒",
+    "计算机",
+    "医药生物",
+    "房地产"
+   ],
+   "scenarios": "高商誉中小市值公司亏损预告集中；预喜率高的有色、电子、化工主线强化"
+  },
+  {
+   "date": "2027-03-18",
+   "time": "02:00/03:00",
+   "title": "美联储FOMC决议（带点阵图）",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "加息/鹰派→美债美元走强、成长承压；暂停/转鸽→利好成长与新兴市场"
+  },
+  {
+   "date": "2027-04-29",
+   "time": "02:00/03:00",
+   "title": "美联储FOMC决议",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "加息/鹰派→美债美元走强、成长承压；暂停/转鸽→利好成长与新兴市场"
+  },
+  {
+   "date": "2027-06-10",
+   "time": "02:00/03:00",
+   "title": "美联储FOMC决议（带点阵图）",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "加息/鹰派→美债美元走强、成长承压；暂停/转鸽→利好成长与新兴市场"
+  },
+  {
+   "date": "2027-07-29",
+   "time": "02:00/03:00",
+   "title": "美联储FOMC决议",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "加息/鹰派→美债美元走强、成长承压；暂停/转鸽→利好成长与新兴市场"
+  },
+  {
+   "date": "2027-09-16",
+   "time": "02:00/03:00",
+   "title": "美联储FOMC决议（带点阵图）",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "加息/鹰派→美债美元走强、成长承压；暂停/转鸽→利好成长与新兴市场"
+  },
+  {
+   "date": "2027-10-28",
+   "time": "02:00/03:00",
+   "title": "美联储FOMC决议",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "加息/鹰派→美债美元走强、成长承压；暂停/转鸽→利好成长与新兴市场"
+  },
+  {
+   "date": "2027-12-09",
+   "time": "02:00/03:00",
+   "title": "美联储FOMC决议（带点阵图）",
+   "category": "美联储",
+   "importance": 3,
+   "confidence": "官方",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "有色金属",
+    "银行"
+   ],
+   "scenarios": "加息/鹰派→美债美元走强、成长承压；暂停/转鸽→利好成长与新兴市场"
+  }
+ ],
+ "themes": [
+  {
+   "title": "美联储加息周期",
+   "text": "2026-09-16 加息 25bp 至 3.75–4.00%，10-28 维持（10–2）。主席 Warsh。12 月加息概率约 75–85%。加息→美债美元走强，压制 A 股成长股估值与北向偏好。",
+   "industries": [
+    "电子",
+    "计算机",
+    "通信",
+    "传媒"
+   ]
+  },
+  {
+   "title": "AI 泡沫争论与算力链",
+   "text": "10-30 费城半导体 -7.2%，A 股创业板指 10 月 -23%、科创50 -24%。英伟达 11-17 财报是算力链方向的关键催化。",
+   "industries": [
+    "电子",
+    "通信",
+    "计算机"
+   ]
+  },
+  {
+   "title": "中美关系窗口",
+   "text": "关税休战延至 2027-01-10；稀土管制与 BIS 50% 规则暂停是否顺延未见官方文件；APEC（11-18/19）与 G20（12-14/15）为观察窗口。",
+   "industries": [
+    "电子",
+    "有色金属",
+    "农林牧渔"
+   ]
+  },
+  {
+   "title": "中东地缘与油价",
+   "text": "霍尔木兹受阻后布伦特一度 $113，11-02 因斡旋跌至约 $105–108。油价回落利好航空、化工下游，压制石油石化。",
+   "industries": [
+    "石油石化",
+    "交通运输",
+    "基础化工"
+   ]
+  },
+  {
+   "title": "国内稳市与去杠杆",
+   "text": "两融余额从 3.03 万亿降至约 2.34 万亿，成交额从 6 月日均 3.1 万亿降至约 1.8 万亿。观察融资余额止跌与宽基 ETF 净申购。",
+   "industries": [
+    "非银金融",
+    "银行"
+   ]
+  }
+ ]
 }

@@ -45,14 +45,16 @@
     renderModel();
   }
 
-  function tile(n, v, c, digits) {
-    return `<div class="tile"><div class="n">${esc(n)}</div><div class="v ${cls(c)}">${fmtNum(v, digits ?? 2)}</div><div class="c ${cls(c)}">${fmtPct(c)}</div></div>`;
+  function tile(n, v, c, digits, bp) {
+    const chg = (bp !== undefined && bp !== null) ? `${bp > 0 ? "+" : ""}${Number(bp).toFixed(1)}bp` : fmtPct(c);
+    const dir = (bp !== undefined && bp !== null) ? bp : c;
+    return `<div class="tile"><div class="n">${esc(n)}</div><div class="v ${cls(dir)}">${fmtNum(v, digits ?? 2)}</div><div class="c ${cls(dir)}">${chg}</div></div>`;
   }
 
   function renderMarket(m) {
     $("#index-tiles").innerHTML = (m.indices || []).map((x) => tile(x.name, x.price, x.pct)).join("") +
       (m.breadth ? `<div class="tile"><div class="n">涨停 / 跌停 / 炸板</div><div class="v">${m.breadth.zt ?? "—"} / ${m.breadth.dt ?? "—"} / ${m.breadth.zb ?? "—"}</div><div class="c flat">${esc(m.breadth.note || "")}</div></div>` : "");
-    $("#global-tiles").innerHTML = (m.global || []).map((x) => tile(x.name, x.price, x.pct, x.price > 1000 ? 0 : 2)).join("");
+    $("#global-tiles").innerHTML = (m.global || []).map((x) => tile(x.name, x.price, x.pct, x.price > 1000 ? 0 : 2, x.bp)).join("");
     $("#market-time").textContent = m.time ? "行情时间 " + m.time : "";
     const r = m.regime;
     $("#regime").innerHTML = r ? `<b>市场状态：${esc(r.level)}</b> · ${esc(r.text)}` : "";
@@ -62,8 +64,10 @@
     const d = state.dash;
     const key = state.sort;
     const rows = [...(d.picks || [])].sort((a, b) => (b[key] ?? -1) - (a[key] ?? -1));
-    $("#picks-hint").textContent = "综合分 = 价值投资分与短线分加权（0–100，越高越看好，为30只入选股在全市场中的分位）。点击任意一行查看原因、海外联动与新闻。" +
+    $("#picks-hint").textContent = "综合分 = 0.7×价值投资分 + 0.3×短线分。分数是在全市场约 4000 只股票中的分位（0–100），入选股都在前列，所以差距体现在小数位；条形长度按 30 只之间的相对高低显示。点击任意一行查看原因、海外联动与新闻。" +
       (state.live ? " 本地模式下每分钟刷新，盘中价格变化会实时影响短线分。" : "");
+    const tv = rows.map((p) => p.total).filter((v) => v !== null && v !== undefined);
+    const tmin = Math.min(...tv), tmax = Math.max(...tv);
     $("#picks-body").innerHTML = rows.map((p, i) => {
       const ch = (p.prev_rank && p.rank) ? p.prev_rank - p.rank : null;
       const chTxt = ch === null ? '<span class="flat">新</span>' : ch > 0 ? `<span class="up">↑${ch}</span>` : ch < 0 ? `<span class="down">↓${-ch}</span>` : '<span class="flat">–</span>';
@@ -75,8 +79,8 @@
         <td>${key === "total" ? p.rank : i + 1}</td><td>${chTxt}</td>
         <td class="l"><b>${esc(p.name)}</b><span class="code">${esc(p.code.slice(2))}</span></td>
         <td class="l hide-s">${esc(p.industry || "")}</td>
-        <td><span class="score">${fmtNum(p.total, 0)}</span><span class="bar" style="width:${Math.max(2, (p.total || 0) * 0.5)}px"></span></td>
-        <td>${fmtNum(p.value, 0)}</td><td>${fmtNum(p.short, 0)}</td>
+        <td><span class="score">${fmtNum(p.total, 1)}</span><span class="bar" style="width:${tmax > tmin ? 4 + 46 * ((p.total || tmin) - tmin) / (tmax - tmin) : 25}px"></span></td>
+        <td>${fmtNum(p.value, 1)}</td><td>${fmtNum(p.short, 1)}</td>
         <td class="${cls(p.pct_today)}">${fmtPct(p.pct_today)}</td>
         <td class="hide-s ${cls(p.ret_since_pick)}">${fmtPct(p.ret_since_pick)}</td>
         <td class="hide-s l">${sig.join("")}</td></tr>`;

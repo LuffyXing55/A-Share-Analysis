@@ -466,10 +466,10 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
         rates = S.em_treasury_yield(pages=1)
         r = rates.dropna(subset=["us10y"])
         market["global"].append({"symbol": "US10Y", "name": "美债10Y(%)", "price": float(r["us10y"].iloc[-1]),
-                                 "pct": float(r["us10y"].iloc[-1] / r["us10y"].iloc[-2] - 1)})
+                                 "pct": None, "bp": round(float(r["us10y"].iloc[-1] - r["us10y"].iloc[-2]) * 100, 1)})
         rc = rates.dropna(subset=["cn10y"])
         market["global"].append({"symbol": "CN10Y", "name": "中债10Y(%)", "price": float(rc["cn10y"].iloc[-1]),
-                                 "pct": float(rc["cn10y"].iloc[-1] / rc["cn10y"].iloc[-2] - 1)})
+                                 "pct": None, "bp": round(float(rc["cn10y"].iloc[-1] - rc["cn10y"].iloc[-2]) * 100, 1)})
         ctx.note("中美国债收益率", True)
     except Exception as e:  # noqa: BLE001
         ctx.note("中美国债收益率", False, str(e))
