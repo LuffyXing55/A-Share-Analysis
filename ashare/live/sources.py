@@ -36,10 +36,10 @@ def normalize_code(code: str) -> str:
     c = code.strip().lower().replace(".sh", "").replace(".sz", "").replace(".bj", "")
     if c[:2] in ("sh", "sz", "bj"):
         return c
+    if c.startswith(("92", "8", "4")):
+        return "bj" + c
     if c.startswith(("6", "9")):
         return "sh" + c
-    if c.startswith(("8", "4", "92")):
-        return "bj" + c
     return "sz" + c
 
 

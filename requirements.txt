@@ -8,4 +8,3 @@ lightgbm>=4.3
 xlrd>=2.0
 fastapi>=0.110
 uvicorn>=0.29
-jieba>=0.42
