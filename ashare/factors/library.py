@@ -26,6 +26,12 @@ SHORT_FACTORS = [
 ]
 
 
+# 实盘可稳定获取的因子（腾讯快照 + GitHub 日线即可计算）。sp/dy/增长类需要 Tushare 级别的历史估值数据，
+# 实盘拿不到稳定来源，因此最终模型不使用（回测显示它们的增量贡献很小，见 docs/回测报告.md）。
+RESEARCH_ONLY = {"sp", "dy", "e_growth", "s_growth", "e_revision"}
+PROD_FACTORS = sorted((set(VALUE_FACTORS) | set(SHORT_FACTORS)) - RESEARCH_ONLY)
+
+
 def _ret(close: pd.DataFrame) -> pd.DataFrame:
     return close.pct_change(fill_method=None)
 
@@ -65,7 +71,8 @@ def compute_factors(p: Panel, which: set[str] | None = None) -> dict[str, pd.Dat
     if want("rev_20"):
         f["rev_20"] = -(close / close.shift(20) - 1)
     if want("mom_250_20"):
-        f["mom_250_20"] = close.shift(20) / close.shift(250) - 1
+        # A 股 12-1 动量无效甚至反向（资料汇编 3.2；本项目回测 IC≈-0.02），取负号作为长期反转
+        f["mom_250_20"] = -(close.shift(20) / close.shift(250) - 1)
     # ---------------- 波动 / 特质波动 / 彩票
     if want("vol_20"):
         f["vol_20"] = -_roll_std(r, 20)
@@ -80,8 +87,15 @@ def compute_factors(p: Panel, which: set[str] | None = None) -> dict[str, pd.Dat
     if want("amihud_20"):
         illiq = r.abs() / (amount.where(amount > 0) * 1000.0) * 1e8   # 每亿元成交的价格冲击
         f["amihud_20"] = np.log1p(_roll_mean(illiq, 20))
-    if "turnover_rate_f" in p:
+    t = None
+    if "circ_mv" in p:
+        # 换手率 = 成交量(股) / 流通股本；流通股本 = 流通市值 / 原始价格。回测与实盘统一用这一口径。
+        raw_px = close / p["factor"]
+        float_shares = (p["circ_mv"] * 1e4 / raw_px).where(lambda x: x > 0)
+        t = (vol * p["factor"] * 100.0 / float_shares * 100.0).clip(upper=100)
+    elif "turnover_rate_f" in p:
         t = p["turnover_rate_f"]
+    if t is not None:
         if want("turn_20"):
             f["turn_20"] = -np.log1p(_roll_mean(t, 20))
         if want("turn_5"):
@@ -102,19 +116,21 @@ def compute_factors(p: Panel, which: set[str] | None = None) -> dict[str, pd.Dat
     if want("ovn_20") or want("intra_20") or want("gap_1"):
         ovn = open_ / close.shift(1) - 1
         intra = close / open_ - 1
+        # 本项目回测：日内涨幅高 → 未来收益低（日内反转，ICIR≈-0.5）；隔夜涨幅高 → 未来略好
         if want("ovn_20"):
-            f["ovn_20"] = -_roll_mean(ovn, 20)
+            f["ovn_20"] = _roll_mean(ovn, 20)
         if want("intra_20"):
-            f["intra_20"] = _roll_mean(intra, 20)
+            f["intra_20"] = -_roll_mean(intra, 20)
         if want("gap_1"):
-            f["gap_1"] = -ovn
+            f["gap_1"] = ovn
     if want("close_pos_1"):
         rng = (high - low).where(lambda x: x > 0)
         f["close_pos_1"] = -((close - low) / rng)
     if want("dist_ma20"):
         f["dist_ma20"] = -(close / _roll_mean(close, 20) - 1)
     if want("high52"):
-        f["high52"] = close / close.rolling(250, min_periods=120).max()
+        # 离 52 周高点越远越好（A 股中期反转）
+        f["high52"] = -(close / close.rolling(250, min_periods=120).max())
     if want("limit_up_5"):
         lim = _limit_pct(close.columns)
         hit = (r >= lim.values[None, :] - 0.003).astype("float32").where(r.notna())

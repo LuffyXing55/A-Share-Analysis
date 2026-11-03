@@ -385,9 +385,10 @@ def em_margin_daily(pages: int = 2) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------- 海外：腾讯美股 K 线 / 新浪外盘期货
-US_SUFFIX = [".OQ", ".N", ".AM", ""]
-TENCENT_US_INDEX = {"^IXIC": "us.IXIC", "^GSPC": "us.INX", "^DJI": "us.DJI", "^SOX": "us.SOX",
-                    "^NDX": "us.NDX"}
+US_SUFFIX = [".OQ", ".N", ".AM", ".PS", ""]
+TENCENT_US_INDEX = {"^IXIC": "us.IXIC", "^GSPC": "us.INX", "^DJI": "us.DJI", "^NDX": "us.NDX"}
+# 腾讯没有的指数用 ETF 代替（行情走势基本一致）
+US_PROXY = {"^SOX": "SOXX", "^VIX": "VIXY", "^HSI": "EWH", "DX-Y.NYB": "UUP", "^TNX": "IEF"}
 SINA_FUTURES = {"GC=F": "GC", "SI=F": "SI", "HG=F": "HG", "CL=F": "CL", "BZ=F": "OIL",
                 "ZS=F": "S", "ZC=F": "C"}
 
@@ -405,14 +406,22 @@ def _tencent_us_try(code: str, start: str, end: str) -> pd.DataFrame:
 def tencent_us_kline(symbol: str, start: str = "2016-01-01", end: str | None = None) -> pd.DataFrame:
     """腾讯美股/美股指数日 K（前复权）。按年分段请求（每次最多 640 条）。"""
     end = end or datetime.now().strftime("%Y-%m-%d")
+    symbol = US_PROXY.get(symbol, symbol)
     cands = [TENCENT_US_INDEX[symbol]] if symbol in TENCENT_US_INDEX else [f"us{symbol}{s}" for s in US_SUFFIX]
     for code in cands:
         try:
-            probe = _tencent_us_try(code, (pd.Timestamp(end) - pd.Timedelta(days=20)).strftime("%Y-%m-%d"), end)
+            probe = _tencent_us_try(code, (pd.Timestamp(end) - pd.Timedelta(days=30)).strftime("%Y-%m-%d"), end)
         except Exception:  # noqa: BLE001
             continue
-        if probe.empty:
+        # 后缀不对时腾讯只返回 1 条「最新价」占位数据，因此要求至少 5 条
+        if len(probe) < 5:
             continue
+        if pd.Timestamp(start) >= pd.Timestamp(end) - pd.Timedelta(days=30):
+            probe["date"] = pd.to_datetime(probe["date"])
+            for c in ["open", "close", "high", "low", "volume"]:
+                probe[c] = pd.to_numeric(probe[c], errors="coerce")
+            probe.attrs["tencent_code"] = code
+            return probe
         parts = []
         y0, y1 = pd.Timestamp(start).year, pd.Timestamp(end).year
         for y in range(y0, y1 + 1, 2):

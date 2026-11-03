@@ -50,8 +50,8 @@ def st_proxy(p: dict) -> pd.DataFrame:
 
 
 def universe(p: dict, min_amount_wan: float = 2000.0, min_age: int = 250,
-             drop_bottom_liq: float = 0.15) -> pd.DataFrame:
-    """可投资股票池（布尔表）。"""
+             drop_bottom_liq: float = 0.15, st: pd.DataFrame | None = None) -> pd.DataFrame:
+    """可投资股票池（布尔表）。st：实盘时传入按股票名称判断的 ST 表，回测时用 st_proxy 近似。"""
     close, amount = p["close"], p["amount"]
     traded = close.notna() & (p["volume"] > 0)
     age = traded.cumsum()
@@ -62,7 +62,7 @@ def universe(p: dict, min_amount_wan: float = 2000.0, min_age: int = 250,
     raw_price = close / p["factor"]
     u = traded & (age >= min_age) & (active60 >= 0.8) & liq_ok & (liq_rank > drop_bottom_liq)
     u &= raw_price >= 2.0
-    u &= ~st_proxy(p)
+    u &= ~(st if st is not None else st_proxy(p))
     return u
 
 

@@ -1,0 +1,88 @@
+name: 每日更新与发布 (daily)
+
+# 时间均为 UTC：
+#   11:23 UTC = 北京 19:23（收盘后完整计算；上游日线数据约在北京 18:47 更新）
+#   13:07 UTC = 北京 21:07（兜底重跑：若前一次因上游数据延迟失败）
+#   00:47 UTC = 北京 08:47（开盘前：刷新隔夜美股联动信号、新闻与观察清单）
+# GitHub 的定时任务可能延迟 15–120 分钟，这不影响结果，只影响更新时间。
+on:
+  schedule:
+    - cron: "23 11 * * 1-5"
+    - cron: "7 13 * * 1-5"
+    - cron: "47 0 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "close = 收盘后完整计算；premarket = 只刷新海外与新闻"
+        default: close
+        type: choice
+        options: [close, premarket]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: daily
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TZ: Asia/Shanghai
+      ASHARE_CACHE: data
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Decide mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "mode=${{ inputs.mode }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "47 0 * * 1-5" ]; then
+            echo "mode=premarket" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=close" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run pipeline
+        run: python -m ashare.pipeline.daily --mode ${{ steps.mode.outputs.mode }}
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site_data
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "data: $(date +%F) ${{ steps.mode.outputs.mode }} 更新"
+            for i in 1 2 3; do git pull --rebase --autostash && git push && break; sleep 5; done
+          fi
+      - name: Build site
+        run: |
+          mkdir -p _site/data
+          cp -r web/* _site/
+          cp site_data/dashboard.json _site/data/
+          [ -f site_data/backtest.json ] && cp site_data/backtest.json _site/data/ || true
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

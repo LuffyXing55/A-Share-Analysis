@@ -1,0 +1,491 @@
+"""每日流水线：计算全市场因子与分数 → 月度 30 强 → 每日排名 → 海外/新闻/事件 → 网站 JSON。
+
+用法：
+  python -m ashare.pipeline.daily --mode close      # 收盘后（完整计算，GitHub Actions 每个交易日傍晚运行）
+  python -m ashare.pipeline.daily --mode premarket  # 开盘前（只刷新海外信号、新闻与观察清单）
+
+输出目录 site_data/：
+  dashboard.json   网站主数据       backtest.json  回测展示数据（由训练脚本生成）
+  state/picks_YYYY-MM.json   每月入选名单（选出后整月固定）
+  state/daily_YYYY-MM.json   月内每日分数与排名历史
+  state/latest.json          最近一次完整计算的 30 只股票基础分（供开盘前与本地实时模式复用）
+  state/factor_dist.json     全市场因子分布分位点（本地实时模式用来给盘中数据重新排名）
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import traceback
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+from ..data.industry import l1_of
+from ..factors.library import compute_factors
+from ..live import sources as S
+from ..macro import overseas as OV
+from ..macro import watch as W
+from ..macro.linkage import CHAINS
+from ..model.predict import FACTOR_LABELS, Model, explain, matrix
+from ..news.sentiment import aggregate, match_news_to_stocks
+from ..research.common import universe
+from .history import default_cache_dir, ensure_qlib_data, recent_panels
+from .snapshot import append_today_bar, basics_from_snapshot, market_snapshot
+
+BJ = timezone(timedelta(hours=8))
+ROOT = Path(__file__).resolve().parents[2]
+INDEX_CODES = [("sh000001", "上证指数"), ("sz399001", "深证成指"), ("sz399006", "创业板指"),
+               ("sh000688", "科创50"), ("sh000300", "沪深300"), ("sh000905", "中证500"), ("sh000852", "中证1000")]
+
+
+def now_bj() -> datetime:
+    return datetime.now(BJ)
+
+
+def read_json(path: Path, default=None):
+    try:
+        return json.loads(path.read_text())
+    except Exception:  # noqa: BLE001
+        return default
+
+
+def write_json(path: Path, obj) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=0, default=_default))
+    tmp.replace(path)
+
+
+def _default(o):
+    if isinstance(o, (np.floating,)):
+        return None if not np.isfinite(o) else float(o)
+    if isinstance(o, (np.integer,)):
+        return int(o)
+    if isinstance(o, (pd.Timestamp, datetime)):
+        return str(o)
+    return str(o)
+
+
+def clean(x, nd=4):
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return None
+    return round(v, nd) if np.isfinite(v) else None
+
+
+# ------------------------------------------------------------------ 交易日历
+def trading_calendar(qlib_root: Path | None) -> pd.DatetimeIndex:
+    days = []
+    if qlib_root is not None:
+        for f in ["day.txt", "day_future.txt"]:
+            p = qlib_root / "calendars" / f
+            if p.exists():
+                days += p.read_text().split()
+    cal = pd.DatetimeIndex(sorted(set(pd.to_datetime(days)))) if days else pd.DatetimeIndex([])
+    # 日历之外的未来日期用工作日近似（节假日未知，见资料汇编 0.3(i)）
+    last = cal[-1] if len(cal) else pd.Timestamp(now_bj().date()) - pd.Timedelta(days=400)
+    extra = pd.bdate_range(last + pd.Timedelta(days=1), last + pd.Timedelta(days=120))
+    return cal.append(extra)
+
+
+def is_last_trading_day_of_month(d: pd.Timestamp, cal: pd.DatetimeIndex) -> bool:
+    nxt = cal[cal > d]
+    return len(nxt) > 0 and nxt[0].month != d.month
+
+
+# ------------------------------------------------------------------ 数据准备
+class Context:
+    def __init__(self, out_dir: Path, settings: dict):
+        self.out = out_dir
+        self.state = out_dir / "state"
+        self.settings = settings
+        self.sources: dict[str, str] = {}
+        self.log: list[str] = []
+
+    def note(self, key: str, ok: bool, msg: str = "") -> None:
+        self.sources[key] = "ok" if ok else f"失败：{msg[:100]}"
+        self.log.append(f"{'OK ' if ok else 'ERR'} {key} {msg}")
+        print(self.log[-1], flush=True)
+
+
+def load_industry(ctx: Context) -> pd.DataFrame:
+    """申万行业（东财业绩报表 PUBLISHNAME），缓存一周。"""
+    cache = ctx.state / "industry.json"
+    cached = read_json(cache, {})
+    if cached and cached.get("date", "") >= (now_bj() - timedelta(days=7)).strftime("%Y-%m-%d"):
+        return pd.DataFrame(cached["rows"])
+    rows = []
+    try:
+        y = now_bj().year
+        for rd in [f"{y}-09-30", f"{y}-06-30", f"{y-1}-12-31", f"{y}-03-31"]:
+            df = S.em_performance(rd, max_pages=15)
+            if len(df) > 1000:
+                df["code"] = df["SECUCODE"].str.split(".").map(lambda x: x[1].lower() + x[0])
+                rows = df[["code", "SECURITY_NAME_ABBR", "PUBLISHNAME", "WEIGHTAVG_ROE", "YSTZ", "SJLTZ",
+                           "NOTICE_DATE", "DATATYPE"]].rename(columns={
+                    "SECURITY_NAME_ABBR": "name", "PUBLISHNAME": "l2", "WEIGHTAVG_ROE": "roe_report",
+                    "YSTZ": "rev_yoy", "SJLTZ": "np_yoy", "NOTICE_DATE": "notice_date", "DATATYPE": "report"})
+                rows["l1"] = rows["l2"].map(l1_of)
+                break
+        ctx.note("东财业绩报表/行业", len(rows) > 0)
+    except Exception as e:  # noqa: BLE001
+        ctx.note("东财业绩报表/行业", False, str(e))
+    if len(rows):
+        write_json(cache, {"date": now_bj().strftime("%Y-%m-%d"),
+                           "rows": rows.astype(object).where(rows.notna(), None).to_dict(orient="records")})
+        return rows
+    return pd.DataFrame(cached.get("rows", [])) if cached else pd.DataFrame(columns=["code", "l1"])
+
+
+def compute_scores(ctx: Context, qlib_root: Path):
+    st_cfg = ctx.settings["universe"]
+    p = recent_panels(qlib_root, days=420)
+    codes = list(p["close"].columns)
+    ctx.note("GitHub 日线数据", True, f"{len(codes)} 只，截至 {p['close'].index[-1].date()}")
+    snap = pd.DataFrame()
+    try:
+        snap = market_snapshot(codes)
+        ctx.note("腾讯全市场快照", len(snap) > 1000, f"{len(snap)} 只")
+    except Exception as e:  # noqa: BLE001
+        ctx.note("腾讯全市场快照", False, str(e))
+    today = pd.Timestamp(now_bj().date())
+    after_close = now_bj().hour >= 15
+    if len(snap) and after_close and p["close"].index[-1] < today:
+        tstamps = snap["time"].astype(str).str[:8]
+        if (tstamps == today.strftime("%Y%m%d")).mean() > 0.5:
+            p = append_today_bar(p, snap, today)
+            ctx.log.append("用腾讯快照补齐了今日日线")
+    if len(snap):
+        p.update(basics_from_snapshot(p, snap))
+    st = None
+    if len(snap):
+        st_row = snap["is_st"].reindex(p["close"].columns).fillna(False) | \
+            snap["is_delist"].reindex(p["close"].columns).fillna(False)
+        st = pd.DataFrame(False, index=p["close"].index, columns=p["close"].columns)
+        st.iloc[-1] = st_row.values
+    u = universe(p, st_cfg["min_amount_wan"], st_cfg["min_age_days"], st_cfg["drop_bottom_liquidity"], st=st)
+    fac = compute_factors(p)
+    d = p["close"].index[-1]
+    mask = u.loc[d]
+    ranks = {k: v.loc[d].where(mask).rank(pct=True) for k, v in fac.items()}
+    raw_last = {k: v.loc[d].where(mask) for k, v in fac.items()}
+    return p, snap, mask, ranks, raw_last, d
+
+
+def score_universe(ranks: dict, mask: pd.Series, models: dict) -> pd.DataFrame:
+    codes = list(mask[mask].index)
+    out = pd.DataFrame(index=codes)
+    for key, m in models.items():
+        X = matrix(ranks, m.features, codes)
+        pred = m.predict(X)
+        out[key + "_raw"] = pred
+        out[key] = pd.Series(pred, index=codes).rank(pct=True) * 100
+    return out
+
+
+def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict) -> list[str]:
+    key = "monthly" if "monthly" in scores else "total"
+    s = scores[key].sort_values(ascending=False)
+    cap, n = settings.get("industry_cap", 5), settings.get("top_n", 30)
+    cnt, chosen = {}, []
+    for code in s.index:
+        g = industry.get(code)
+        if g and cnt.get(g, 0) >= cap:
+            continue
+        cnt[g] = cnt.get(g, 0) + 1
+        chosen.append(code)
+        if len(chosen) >= n:
+            break
+    return chosen
+
+
+def factor_distribution(raw_last: dict) -> dict:
+    qs = np.linspace(0, 1, 101)
+    out = {}
+    for k, v in raw_last.items():
+        x = v.dropna().values
+        if len(x) > 100:
+            out[k] = [clean(q, 6) for q in np.quantile(x, qs)]
+    return out
+
+
+# ------------------------------------------------------------------ 主流程
+def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str | Path | None = None) -> dict:
+    out = Path(out_dir)
+    settings = read_json(ROOT / "config" / "settings.json", {})
+    ctx = Context(out, settings)
+    mdir = Path(models_dir or ROOT / "models")
+    models = {"value": Model(mdir / "value_model.txt"), "short": Model(mdir / "short_model.txt")}
+    if (mdir / "monthly_model.txt").exists():
+        models["monthly"] = Model(mdir / "monthly_model.txt")
+    w = settings.get("score_weights", {"value": 0.6, "short": 0.4})
+    latest = read_json(ctx.state / "latest.json", {})
+    industry_df = load_industry(ctx)
+    ind_map = dict(zip(industry_df.get("code", []), industry_df.get("l1", []))) if len(industry_df) else {}
+    name_map = dict(zip(industry_df.get("code", []), industry_df.get("name", []))) if len(industry_df) else {}
+    qlib_root = None
+    cal = trading_calendar(None)
+
+    if mode == "close":
+        qlib_root = ensure_qlib_data(default_cache_dir())
+        cal = trading_calendar(qlib_root)
+        p, snap, mask, ranks, raw_last, d = compute_scores(ctx, qlib_root)
+        if len(snap):
+            name_map.update(snap["name"].to_dict())
+        sc = score_universe(ranks, mask, models)
+        sc["total"] = (w["value"] * sc["value"] + w["short"] * sc["short"]).rank(pct=True) * 100
+        month = f"{d.year}-{d.month:02d}"
+        picks_file = ctx.state / f"picks_{month}.json"
+        picks_state = read_json(picks_file)
+        industry = pd.Series(ind_map)
+        if picks_state is None:
+            # 本月还没有组合（首次运行或上月最后一天未运行）：立即选出
+            chosen = select_picks(sc, industry, settings)
+            picks_state = {"month": month, "pick_date": str(d.date()), "codes": chosen,
+                           "entry_close": {c: clean((p["close"] / p["factor"]).loc[d, c]) for c in chosen},
+                           "note": "月中补选" if d.day > 7 else "月初选出"}
+            write_json(picks_file, picks_state)
+        if is_last_trading_day_of_month(d, cal):
+            nxt = cal[cal > d][0]
+            nmonth = f"{nxt.year}-{nxt.month:02d}"
+            nfile = ctx.state / f"picks_{nmonth}.json"
+            if not nfile.exists():
+                chosen = select_picks(sc, industry, settings)
+                write_json(nfile, {"month": nmonth, "pick_date": str(d.date()), "codes": chosen,
+                                   "entry_close": {c: clean((p["close"] / p["factor"]).loc[d, c]) for c in chosen},
+                                   "note": "上月最后一个交易日收盘后选出"})
+        codes = picks_state["codes"]
+        # 入选股若已不在股票池（停牌/ST），单独打分
+        missing = [c for c in codes if c not in sc.index]
+        for c in missing:
+            sc.loc[c] = np.nan
+        expl = {k: explain(m, matrix(ranks, m.features, codes), codes, ranks) for k, m in models.items()
+                if k in ("value", "short")}
+        raw = p["close"] / p["factor"]
+        base = {}
+        for c in codes:
+            pc = raw[c].dropna()
+            base[c] = {
+                "code": c, "name": name_map.get(c, c), "industry": ind_map.get(c),
+                "value": clean(sc.loc[c, "value"], 1), "short_model": clean(sc.loc[c, "short"], 1),
+                "total_base": clean(sc.loc[c, "total"], 1),
+                "price": clean(pc.iloc[-1], 3) if len(pc) else None,
+                "pct_today": clean(pc.iloc[-1] / pc.iloc[-2] - 1) if len(pc) > 1 else None,
+                "ret_since_pick": clean(pc.iloc[-1] / picks_state["entry_close"].get(c) - 1)
+                if picks_state["entry_close"].get(c) else None,
+                "is_st": bool(snap["is_st"].get(c, False)) if len(snap) else False,
+                "reasons_value": expl.get("value", {}).get(c, []),
+                "reasons_short": expl.get("short", {}).get(c, []),
+                "pe_ttm": clean(snap["pe_ttm"].get(c)) if len(snap) else None,
+                "pb": clean(snap["pb"].get(c)) if len(snap) else None,
+                "total_mv_yi": clean(snap["total_mv"].get(c) / 1e8, 1) if len(snap) and c in snap.index else None,
+            }
+        ew = raw.pct_change(fill_method=None).where(mask).mean(axis=1)
+        latest = {"data_date": str(d.date()), "month": month, "pick_date": picks_state["pick_date"],
+                  "base": base, "ew_ret20": clean((1 + ew.tail(20)).prod() - 1),
+                  "universe_n": int(mask.sum())}
+        write_json(ctx.state / "latest.json", latest)
+        qs = np.linspace(0, 1, 101)
+        pred_dist = {k: [clean(x, 6) for x in np.quantile(sc[k + "_raw"].dropna().values, qs)]
+                     for k in models if k + "_raw" in sc}
+        write_json(ctx.state / "factor_dist.json", {"date": str(d.date()), "dist": factor_distribution(raw_last),
+                                                    "pred_dist": pred_dist, "weights": w})
+        track = update_track(ctx, raw, mask, d)
+    else:
+        if not latest:
+            raise SystemExit("还没有任何收盘后的计算结果，请先运行 --mode close")
+        track = read_json(ctx.state / "track.json", [])
+
+    return build_dashboard(ctx, latest, track, mode)
+
+
+def update_track(ctx: Context, raw: pd.DataFrame, mask: pd.Series, d: pd.Timestamp) -> list:
+    """实盘跟踪：每个月组合自选出日收盘到月末（或今天）的等权收益，对比股票池等权。"""
+    rows = []
+    for f in sorted(ctx.state.glob("picks_*.json")):
+        ps = read_json(f)
+        if not ps:
+            continue
+        pdate = pd.Timestamp(ps["pick_date"])
+        if pdate not in raw.index or pdate >= d:
+            continue
+        end_month = pd.Timestamp(ps["month"] + "-01") + pd.offsets.MonthEnd(0)
+        end = min(d, raw.index[raw.index <= end_month].max())
+        if end <= pdate:
+            continue
+        r = (raw.loc[end] / raw.loc[pdate] - 1)
+        port = r.reindex(ps["codes"]).mean()
+        bench = r.where(mask).mean()
+        rows.append({"month": ps["month"], "pick_date": ps["pick_date"], "ret": clean(port), "bench": clean(bench),
+                     "excess": clean(port - bench), "status": "已完成" if end < d else "进行中"})
+    write_json(ctx.state / "track.json", rows)
+    return rows
+
+
+def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
+    s = ctx.settings
+    ov_cfg = s.get("overlay", {})
+    w = s.get("score_weights", {"value": 0.6, "short": 0.4})
+    base = latest["base"]
+    codes = list(base)
+    # ---- 海外
+    stats = OV.load_linkage_stats(ROOT / "config" / "linkage_stats.json")
+    quotes = {}
+    try:
+        quotes = OV.fetch_overseas(OV.needed_symbols(codes))
+        ok = sum(1 for q in quotes.values() if q.get("ok"))
+        ctx.note("海外行情(腾讯美股/新浪期货)", ok > 0, f"{ok}/{len(quotes)}")
+    except Exception as e:  # noqa: BLE001
+        ctx.note("海外行情(腾讯美股/新浪期货)", False, str(e))
+    # ---- 新闻
+    news = []
+    try:
+        news = S.all_news(80)
+        ctx.note("新闻快讯", len(news) > 0, f"{len(news)} 条")
+    except Exception as e:  # noqa: BLE001
+        ctx.note("新闻快讯", False, str(e))
+    names = {c: base[c]["name"] for c in codes}
+    chain_kw = {}
+    for c in codes:
+        kws = []
+        for ch in CHAINS:
+            if c in ch["a_shares"]:
+                kws += [ch["name"].split("/")[0].split("(")[0]]
+        if kws:
+            chain_kw[c] = kws
+    matched = match_news_to_stocks(news, names, chain_kw)
+    news_out = []
+    for n in news[:60]:
+        from ..news.sentiment import score_text
+
+        st = score_text(n.get("title", "") + n.get("content", ""))
+        txt = n.get("title", "") + n.get("content", "")
+        picks_hit = [c for c, nm in names.items() if len(nm) >= 2 and nm.replace("*", "").replace("ST", "") in txt]
+        news_out.append({**n, "content": n.get("content", "")[:300], "sentiment": st.score, "events": st.events,
+                         "picks": picks_hit})
+    # ---- 组装 30 只
+    picks = []
+    for c in codes:
+        b = base[c]
+        pred_ex, chains = OV.chain_signals(c, quotes, stats, ov_cfg.get("overseas_min_t", 2.0))
+        ov_pts = float(np.clip(pred_ex * ov_cfg.get("overseas_points_per_pct", 8.0),
+                               -ov_cfg.get("overseas_cap", 10.0), ov_cfg.get("overseas_cap", 10.0)))
+        items = matched.get(c, [])
+        ns = aggregate(items)
+        news_pts = float(np.clip(ns * ov_cfg.get("news_points", 6.0), -6, 6)) if items else 0.0
+        short = None if b["short_model"] is None else float(np.clip(b["short_model"] + ov_pts + news_pts, 0, 100))
+        val = b["value"]
+        total = None if val is None or short is None else w["value"] * val + w["short"] * short
+        picks.append({**b, "short": clean(short, 1), "total": clean(total, 1), "chains": chains,
+                      "signals": {"overseas": round(ov_pts / 4, 2), "overseas_pred_pct": round(pred_ex, 3),
+                                  "news": ns, "news_points": round(news_pts, 1), "overseas_points": round(ov_pts, 1)},
+                      "news": [{k: x.get(k) for k in ("time", "source", "title", "url", "sentiment", "events", "match")}
+                               for x in items[:6]]})
+    ranked = sorted(picks, key=lambda x: -(x["total"] or -1))
+    hist_file = ctx.state / f"daily_{latest['month']}.json"
+    hist = read_json(hist_file, {})
+    prev_dates = sorted(k for k in hist if k < latest["data_date"])
+    prev = hist[prev_dates[-1]] if prev_dates else {}
+    for i, p in enumerate(ranked, 1):
+        p["rank"] = i
+        p["prev_rank"] = (prev.get(p["code"]) or [None] * 4)[3]
+    if mode == "close":
+        hist[latest["data_date"]] = {p["code"]: [p["total"], p["value"], p["short"], p["rank"]] for p in ranked}
+        write_json(hist_file, hist)
+    history = {c: [[dte, *(hist[dte].get(c) or [None] * 4)[:3]] for dte in sorted(hist)] for c in codes}
+    # ---- 市场
+    market = {"indices": [], "global": []}
+    try:
+        idx = S.tencent_index([c for c, _ in INDEX_CODES])
+        nm = dict(INDEX_CODES)
+        market["indices"] = [{"code": x["code"], "name": nm.get(x["code"], x["name"]), "price": x["price"],
+                              "pct": (x["pct"] or 0) / 100} for x in idx]
+        ctx.note("指数行情", len(idx) > 0)
+    except Exception as e:  # noqa: BLE001
+        ctx.note("指数行情", False, str(e))
+    for sym, nm in OV.DISPLAY.items():
+        q = quotes.get(sym) or {}
+        if q.get("ok"):
+            market["global"].append({"symbol": sym, "name": nm, "price": q["price"], "pct": q["pct"], "date": q["date"]})
+    rates = margin = None
+    try:
+        rates = S.em_treasury_yield(pages=1)
+        r = rates.dropna(subset=["us10y"])
+        market["global"].append({"symbol": "US10Y", "name": "美债10Y(%)", "price": float(r["us10y"].iloc[-1]),
+                                 "pct": float(r["us10y"].iloc[-1] / r["us10y"].iloc[-2] - 1)})
+        rc = rates.dropna(subset=["cn10y"])
+        market["global"].append({"symbol": "CN10Y", "name": "中债10Y(%)", "price": float(rc["cn10y"].iloc[-1]),
+                                 "pct": float(rc["cn10y"].iloc[-1] / rc["cn10y"].iloc[-2] - 1)})
+        ctx.note("中美国债收益率", True)
+    except Exception as e:  # noqa: BLE001
+        ctx.note("中美国债收益率", False, str(e))
+    try:
+        margin = S.em_margin_daily(pages=1)
+        ctx.note("两融余额", len(margin) > 0)
+    except Exception as e:  # noqa: BLE001
+        ctx.note("两融余额", False, str(e))
+    breadth = None
+    if mode == "close":
+        try:
+            breadth = {"zt": len(S.em_limit_pool("zt")), "dt": len(S.em_limit_pool("dt")),
+                       "zb": len(S.em_limit_pool("zb"))}
+            ctx.note("涨跌停池", True)
+        except Exception as e:  # noqa: BLE001
+            ctx.note("涨跌停池", False, str(e))
+            breadth = latest.get("breadth")
+        latest["breadth"] = breadth
+        write_json(ctx.state / "latest.json", latest)
+    else:
+        breadth = latest.get("breadth")
+    market["breadth"] = breadth
+    mchg = None
+    if margin is not None and len(margin) > 6:
+        m = margin.dropna(subset=["fin_balance"])
+        mchg = float(m["fin_balance"].iloc[-1] / m["fin_balance"].iloc[-6] - 1)
+    market["regime"] = W.regime(market["indices"], breadth, latest.get("ew_ret20"), mchg)
+    market["time"] = now_bj().strftime("%Y-%m-%d %H:%M")
+    # ---- 观察清单
+    ev_cfg = W.load_events(ROOT / "config" / "events.json")
+    today = now_bj().date()
+    watch = {"signals": W.live_signals(quotes, ranked, rates, margin, breadth),
+             "events": W.upcoming_events(ev_cfg, ranked, today, s.get("watch_days_ahead", 21)),
+             "themes": W.themes(ev_cfg, ranked)}
+    dash = {
+        "generated_at": now_bj().strftime("%Y-%m-%d %H:%M"), "mode": mode, "data_date": latest["data_date"],
+        "month": latest["month"], "pick_date": latest["pick_date"], "universe_n": latest.get("universe_n"),
+        "market": market, "picks": ranked, "history": history, "watch": watch, "news": news_out,
+        "track": track, "sources": ctx.sources, "method": METHOD_HTML,
+        "factor_labels": FACTOR_LABELS,
+    }
+    write_json(ctx.out / "dashboard.json", dash)
+    (ctx.state / "run_log.txt").write_text("\n".join(ctx.log))
+    return dash
+
+
+METHOD_HTML = """
+<p><b>股票池</b>：沪深主板、创业板、科创板；剔除 ST/*ST/退市整理、上市不满约 1 年（250 个交易日）、近 60 日交易不足 80%、日均成交额低于 2000 万元或处于全市场最低 15%、股价低于 2 元的股票。</p>
+<p><b>价值投资分（中期，约 1 个月）</b>：LightGBM 模型，用估值（E/P、B/P、ROE）、风险（低波动、低特质波动、无暴涨）、交易拥挤度（低换手、换手未异常放大、非流动性）与中长期反转等 25 个因子，预测未来 20 个交易日相对收益的排序，输出全市场分位（0–100）。</p>
+<p><b>短线分（约 1 周）</b>：同样的因子，但训练目标是未来 5 个交易日的相对收益；在此基础上叠加两项实时调整：①海外联动——入选股所在产业链的海外标的（如英伟达、黄金、铜）隔夜涨跌 × 历史回归系数（只使用 2016–2022 年样本内 t 值大于 2 的配对，2023 年后样本外检验有效），最多 ±10 分；②新闻情绪——财联社/东财/新浪快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>
+<p><b>综合分</b> = 0.6 × 价值分 + 0.4 × 短线分。每月最后一个交易日收盘后，用综合模型在全市场中选出 30 只（同一申万一级行业最多 5 只），整月固定；月内每天根据最新数据重新打分、重新排名。</p>
+<p><b>回测方法</b>：2016 年起走步训练（每半年用此前 6 年数据重新训练，训练样本与预测期之间留出持有期长度的间隔，避免未来函数）；信号日次日按成交均价成交，一字涨停买不进、一字跌停卖不出，买入成本 0.15%、卖出成本 0.25%（含印花税）。数据含已退市股票，避免幸存者偏差。</p>
+<p><b>局限</b>：2020 年以前没有估值数据，早期回测只用量价因子；行业分类为当前快照；新闻情绪与事件影响为规则判断，未经回测；模型基于历史规律，市场结构变化时可能失效。</p>
+"""
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--mode", choices=["close", "premarket"], default="close")
+    ap.add_argument("--out", default=str(ROOT / "site_data"))
+    args = ap.parse_args()
+    try:
+        run(args.mode, args.out)
+    except Exception:  # noqa: BLE001
+        traceback.print_exc()
+        raise
+
+
+if __name__ == "__main__":
+    main()
