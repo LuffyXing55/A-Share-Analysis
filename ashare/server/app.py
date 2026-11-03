@@ -82,7 +82,13 @@ class LiveEngine:
         scores = {}
         try:
             fb = {c: (latest["base"].get(c) or {}).get("feat_ranks") or {} for c in codes}
-            scores = RT.live_scores(self.ensure_models(), fdist, self.hist, quotes, now, fallback_ranks=fb)
+            today_mkt = None
+            for x in live["market"].get("indices", []):
+                if x.get("code") in ("sh000985", "sh000852") and x.get("pct") is not None:
+                    today_mkt = x["pct"]
+                    break
+            scores = RT.live_scores(self.ensure_models(), fdist, self.hist, quotes, now, fallback_ranks=fb,
+                                    today_mkt=today_mkt)
         except Exception:  # noqa: BLE001
             traceback.print_exc()
         # 海外行情每 10 分钟、新闻每 3 分钟刷新

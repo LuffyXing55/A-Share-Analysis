@@ -66,19 +66,39 @@ def build_mini_panels(hist: dict[str, pd.DataFrame], quotes: dict[str, dict], no
     return p
 
 
+def attach_market(p: dict, mkt_hist: dict | None, today_mkt: float | None) -> dict:
+    """特质波动需要「全市场等权日收益」：历史部分来自收盘流水线保存的序列，今天用中证全指涨跌幅近似。"""
+    if not mkt_hist:
+        return p
+    s = pd.Series({pd.Timestamp(k): v for k, v in mkt_hist.items()}, dtype="float64")
+    idx = p["close"].index
+    m = s.reindex(idx)
+    if today_mkt is not None and pd.isna(m.iloc[-1]):
+        m.iloc[-1] = today_mkt
+    p["mkt_ret"] = m
+    return p
+
+
 def pct_from_dist(x: float, dist: list[float]) -> float:
+    """按全市场分位点把原始值换算成分位（0~1）。遇到并列值（离散因子，如近 5 日涨停次数）取并列区间的中点，
+    与收盘流水线 rank(pct=True) 的平均排名口径一致。"""
     if x is None or not np.isfinite(x) or not dist:
         return np.nan
     q = np.array([v if v is not None else np.nan for v in dist], dtype=float)
     if np.isnan(q).any():
         return np.nan
+    n = len(q) - 1
+    lo, hi = np.searchsorted(q, x, "left"), np.searchsorted(q, x, "right")
+    if hi - lo >= 2:
+        return float((lo + hi - 1) / 2 / n)
     return float(np.interp(x, q, np.linspace(0, 1, len(q))))
 
 
 def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: datetime | None = None,
-                fallback_ranks: dict | None = None) -> dict:
+                fallback_ranks: dict | None = None, today_mkt: float | None = None) -> dict:
     now = now or datetime.now(BJ)
     p = build_mini_panels(hist, quotes, now)
+    p = attach_market(p, fdist.get("mkt_ret"), today_mkt)
     fac = compute_factors(p)
     last = {k: v.iloc[-1] for k, v in fac.items()}
     dist = fdist.get("dist", {})

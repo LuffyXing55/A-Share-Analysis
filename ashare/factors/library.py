@@ -57,7 +57,10 @@ def compute_factors(p: Panel, which: set[str] | None = None) -> dict[str, pd.Dat
     close, open_, high, low = p["close"], p["open"], p["high"], p["low"]
     vol, amount = p["volume"], p["amount"]
     r = _ret(close)
-    mkt = r.mean(axis=1)
+    # 市场收益：默认用面板内全部股票等权；实盘盘中只有 30 只股票时由调用方传入全市场序列
+    mkt = p["mkt_ret"].reindex(r.index) if "mkt_ret" in p else r.mean(axis=1)
+    if "mkt_ret" in p:
+        mkt = mkt.fillna(r.mean(axis=1))
     f: dict[str, pd.DataFrame] = {}
 
     def want(name: str) -> bool:

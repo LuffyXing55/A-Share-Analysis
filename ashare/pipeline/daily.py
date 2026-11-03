@@ -38,7 +38,8 @@ from .snapshot import append_today_bar, basics_from_snapshot, market_snapshot
 BJ = timezone(timedelta(hours=8))
 ROOT = Path(__file__).resolve().parents[2]
 INDEX_CODES = [("sh000001", "上证指数"), ("sz399001", "深证成指"), ("sz399006", "创业板指"),
-               ("sh000688", "科创50"), ("sh000300", "沪深300"), ("sh000905", "中证500"), ("sh000852", "中证1000")]
+               ("sh000688", "科创50"), ("sh000300", "沪深300"), ("sh000905", "中证500"), ("sh000852", "中证1000"),
+               ("sh000985", "中证全指")]
 
 
 def now_bj() -> datetime:
@@ -341,8 +342,10 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         qs = np.linspace(0, 1, 101)
         pred_dist = {k: [clean(x, 6) for x in np.quantile(sc[k + "_raw"].dropna().values, qs)]
                      for k in ("value", "short")}
+        mret = p["close"].pct_change(fill_method=None).mean(axis=1).tail(300)
         write_json(ctx.state / "factor_dist.json", {"date": str(d.date()), "dist": factor_distribution(raw_last),
-                                                    "pred_dist": pred_dist, "weights": w, "tail_weights": tail_w})
+                                                    "pred_dist": pred_dist, "weights": w, "tail_weights": tail_w,
+                                                    "mkt_ret": {str(k.date()): clean(v, 6) for k, v in mret.items()}})
         track = update_track(ctx, raw, mask, d)
     else:
         track = read_json(ctx.state / "track.json", [])
