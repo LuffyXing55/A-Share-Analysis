@@ -54,6 +54,16 @@ def main() -> None:
         except Exception as e:  # noqa: BLE001
             log.append(f"global {sym} FAIL {str(e)[:150]}")
 
+    # 单位核对：腾讯日 K 的成交量（主板 vs 科创板）与实时行情成交量（手）对比
+    for code in ["sh600519", "sh688981", "sz300750"]:
+        try:
+            k = S.tencent_kline(code, 5)
+            q = S.tencent_quotes([code])[0]
+            log.append(f"unit {code}: kline_last={k['volume'].iloc[-1]} date={k['date'].iloc[-1].date()} "
+                       f"quote_vol_lots={q['volume_lots']} quote_time={q['time']}")
+        except Exception as e:  # noqa: BLE001
+            log.append(f"unit {code} FAIL {e}")
+
     (out / "fetch_log.txt").write_text("\n".join(log))
     print("\n".join(log))
     with tarfile.open("research_out.tar.gz", "w:gz") as tar:
