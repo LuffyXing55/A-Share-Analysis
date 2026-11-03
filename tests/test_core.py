@@ -56,6 +56,16 @@ def test_tencent_parse():
     assert q["limit_up"] == 11.07 and q["limit_down"] == 9.05
 
 
+def test_tencent_star_market_volume_unit():
+    sample = TENCENT_SAMPLE.replace("v_sh600000", "v_sh688981").replace("~600000~", "~688981~")
+    S.set_fetcher(_FakeFetcher(sample))
+    try:
+        q = S.tencent_quotes(["sh688981"])[0]
+    finally:
+        S.set_fetcher(None)
+    assert abs(q["volume_lots"] - 9775.51) < 1e-6   # 科创板原始单位为股，需要 /100
+
+
 def test_sentiment():
     assert score_text("公司三季度净利润大幅增长，超预期").score > 0.5
     assert score_text("公司收到证监会立案调查通知书").score < -0.5

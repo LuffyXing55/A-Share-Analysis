@@ -36,16 +36,20 @@ def train_one(feat_dir: Path, label: str, horizon: int, features: list[str], yea
     return model, info
 
 
-def build_backtest_json(research: Path, tag: str, site: Path) -> None:
-    nav = pd.read_csv(research / f"nav_{tag}.csv", index_col=0, parse_dates=True).iloc[:, 0]
+def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
+    nav = pd.read_csv(nav_path, index_col=0, parse_dates=True).iloc[:, 0]
     b1 = pd.read_csv(research / "bench_全A等权(股票池).csv", index_col=0, parse_dates=True).iloc[:, 0]
     b2 = pd.read_csv(research / "bench_csi500等权.csv", index_col=0, parse_dates=True).iloc[:, 0]
-    start = pd.Timestamp("2016-01-01")
-    nav, b1, b2 = nav[nav.index >= start], b1.reindex(nav.index).ffill(), b2.reindex(nav.index).ffill()
+    # 从策略第一次真正建仓的日期开始比较（尾部加权需要约 18 个月历史才能给出第一组权重，2016-02 才首次建仓）
+    moved = nav[(nav - nav.iloc[0]).abs() > 1e-9]
+    start = moved.index[0] - pd.Timedelta(days=1) if len(moved) else nav.index[0]
+    nav = nav[nav.index >= start]
+    b1, b2 = b1.reindex(nav.index).ffill(), b2.reindex(nav.index).ffill()
     nav, b1, b2 = nav / nav.iloc[0], b1 / b1.iloc[0], b2 / b2.iloc[0]
     wk = nav.resample("W-FRI").last().dropna()
     rows = []
-    for s, e, lab in [("2016-01-01", "2026-12-31", "2016至今"), ("2016-01-01", "2019-12-31", "2016-2019"),
+    s0 = str(nav.index[0].date())
+    for s, e, lab in [(s0, "2026-12-31", f"{s0[:7]}至今"), (s0, "2019-12-31", f"{s0[:7]}~2019"),
                       ("2020-01-01", "2026-12-31", "2020至今"), ("2023-01-01", "2026-12-31", "2023至今"),
                       ("2025-01-01", "2026-12-31", "2025至今")]:
         m = (nav.index >= s) & (nav.index <= e)
@@ -60,12 +64,15 @@ def build_backtest_json(research: Path, tag: str, site: Path) -> None:
                    "bench2": [round(float(x), 4) for x in b2.reindex(wk.index).values],
                    "strategy_name": "30强策略（扣费后）", "bench_name": "全A等权（股票池）", "bench2_name": "中证500成分等权"},
            "metrics": rows,
-           "note": "走步回测（样本外）：每半年用此前 6 年数据重训模型，每月最后一个交易日收盘后选 30 只、次日按均价成交，"
+           "note": "走步回测（样本外）：中期分的因子权重每月只用过去 36 个月已实现数据确定，短线模型每半年用此前 6 年数据重训；"
+                   "每月最后一个交易日收盘后选 30 只（同行业≤5 只，老持仓仍在前 280 名则保留），次日按均价成交，"
                    "含交易成本（买 0.15% / 卖 0.25%）、一字涨跌停无法成交、停牌顺延。2020 年前无估值数据，只用量价因子。"
                    "回测不代表未来收益。",
-           "model": tag, "generated": datetime.now().strftime("%Y-%m-%d")}
+           "model": "尾部加权合成×0.7 + LightGBM短线×0.3，价值过滤，行业≤5只，持仓缓冲250名", "generated": datetime.now().strftime("%Y-%m-%d")}
     site.mkdir(parents=True, exist_ok=True)
-    (site / "backtest.json").write_text(json.dumps(out, ensure_ascii=False))
+    from ..pipeline.daily import sanitize
+
+    (site / "backtest.json").write_text(json.dumps(sanitize(out), ensure_ascii=False, allow_nan=False))
 
 
 def main() -> None:
@@ -74,12 +81,13 @@ def main() -> None:
     ap.add_argument("--research", default="data/research")
     ap.add_argument("--models", default="models")
     ap.add_argument("--site", default="site_data")
-    ap.add_argument("--bt-tag", default="GBM_blend_P_buf")
+    ap.add_argument("--nav", default="data/research_v2/sweep_w0.7_buf250_cap5.csv")
     args = ap.parse_args()
     feat_dir, mdir = Path(args.feat), Path(args.models)
     mdir.mkdir(parents=True, exist_ok=True)
     features = [f for f in PROD_FACTORS if (feat_dir / f"f_{f}.parquet").exists()]
-    for name, label, hz in [("value", "20", 20), ("short", "5", 5)]:
+    # 中期分（价值投资分）使用「尾部加权合成」（ashare/model/tail.py，无需训练）；这里只训练短线模型
+    for name, label, hz in [("short", "5", 5)]:
         model, info = train_one(feat_dir, label, hz, features)
         model.save_model(str(mdir / f"{name}_model.txt"))
         imp = dict(zip(features, model.feature_importance("gain").round(1).tolist()))
@@ -87,7 +95,7 @@ def main() -> None:
                 "importance_gain": imp, "trained_at": datetime.now().strftime("%Y-%m-%d %H:%M")}
         (mdir / f"{name}_model.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1))
         print(name, info)
-    build_backtest_json(Path(args.research), args.bt_tag, Path(args.site))
+    build_backtest_json(Path(args.research), Path(args.nav), Path(args.site))
 
 
 if __name__ == "__main__":

@@ -135,3 +135,19 @@ GLOBAL_SYMBOLS = sorted({s for c in CHAINS for s in c["overseas"]} | set(MACRO_S
 
 def chains_for_stock(code: str) -> list[dict]:
     return [c for c in CHAINS if code in c["a_shares"]]
+
+
+# 行业层面的海外参照（每只入选股至少有一个海外参照）。β 由 ashare/research/linkage_study.py 用历史数据估计：
+# 「海外标的 d 日涨跌」对「该申万一级行业次一交易日相对全市场的等权超额收益」的回归。
+INDUSTRY_OVERSEAS: dict[str, list[str]] = {
+    "电子": ["^SOX", "NVDA", "AAPL"], "计算机": ["^IXIC", "MSFT"], "通信": ["NVDA", "COHR"],
+    "传媒": ["^IXIC", "NFLX"], "有色金属": ["HG=F", "GC=F"], "石油石化": ["CL=F", "BZ=F"],
+    "煤炭": ["CL=F"], "基础化工": ["CL=F"], "钢铁": ["HG=F"], "汽车": ["TSLA"],
+    "电力设备": ["TSLA", "LIT"], "医药生物": ["XBI", "LLY"], "国防军工": ["ITA", "LMT"],
+    "农林牧渔": ["ZS=F", "ZC=F"], "机械设备": ["HG=F", "^GSPC"], "家用电器": ["^GSPC", "XRT"],
+    "食品饮料": ["PGJ"], "银行": ["PGJ"], "非银金融": ["PGJ", "^GSPC"], "房地产": ["PGJ"],
+    "建筑材料": ["HG=F"], "建筑装饰": ["HG=F"], "交通运输": ["CL=F"], "公用事业": ["CL=F"],
+    "轻工制造": ["^GSPC"], "纺织服饰": ["XRT"], "商贸零售": ["XRT", "PGJ"], "社会服务": ["PGJ"],
+    "美容护理": ["XRT"], "环保": ["^GSPC"], "综合": ["^GSPC"],
+}
+GLOBAL_SYMBOLS = sorted(set(GLOBAL_SYMBOLS) | {s for v in INDUSTRY_OVERSEAS.values() for s in v})

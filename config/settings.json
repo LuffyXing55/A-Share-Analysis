@@ -2,9 +2,16 @@
   "_说明": "网站与模型的参数。修改后下一次运行生效。",
   "top_n": 30,
   "industry_cap": 5,
-  "score_weights": {"value": 0.6, "short": 0.4},
+  "score_weights": {
+    "value": 0.7,
+    "short": 0.3
+  },
   "selection_score": "monthly",
-  "universe": {"min_amount_wan": 2000, "min_age_days": 250, "drop_bottom_liquidity": 0.15},
+  "universe": {
+    "min_amount_wan": 2000,
+    "min_age_days": 250,
+    "drop_bottom_liquidity": 0.15
+  },
   "overlay": {
     "overseas_points_per_pct": 8.0,
     "overseas_cap": 10.0,
@@ -12,5 +19,7 @@
     "news_points": 6.0
   },
   "watch_days_ahead": 21,
-  "intraday_refresh_seconds": 120
+  "intraday_refresh_seconds": 120,
+  "value_filter": true,
+  "hold_buffer": 250
 }

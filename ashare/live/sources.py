@@ -67,13 +67,15 @@ def tencent_quotes(codes: Iterable[str], batch: int = 60) -> list[dict]:
             f = val.strip().strip('"').split("~")
             if len(f) < 50:
                 continue
+            # 实测（2026-11-03）：科创板（688/689）腾讯返回的成交量单位是「股」，主板/创业板是「手」
+            vol_div = 100.0 if code.startswith(("sh688", "sh689")) else 1.0
             out.append({
                 "code": code,
                 "name": f[1],
                 "price": _f(f[3]),
                 "prev_close": _f(f[4]),
                 "open": _f(f[5]),
-                "volume_lots": _f(f[6]),
+                "volume_lots": (_f(f[6]) or 0.0) / vol_div,
                 "time": f[30],
                 "pct": _f(f[32]),
                 "high": _f(f[33]),
@@ -123,6 +125,8 @@ def tencent_kline(code: str, count: int = 320, adj: str = "qfq", period: str = "
     df["date"] = pd.to_datetime(df["date"])
     for c in ["open", "close", "high", "low", "volume"]:
         df[c] = pd.to_numeric(df[c], errors="coerce")
+    if code.startswith(("sh688", "sh689")):
+        df["volume"] = df["volume"] / 100.0      # 科创板：股 → 手
     return df
 
 

@@ -23,11 +23,12 @@ import numpy as np
 import pandas as pd
 
 from ..data.industry import l1_of
-from ..factors.library import compute_factors
+from ..factors.library import compute_factors, industry_factors
 from ..live import sources as S
 from ..macro import overseas as OV
 from ..macro import watch as W
 from ..macro.linkage import CHAINS
+from ..model import tail as TAIL
 from ..model.predict import FACTOR_LABELS, Model, explain, matrix
 from ..news.sentiment import aggregate, match_news_to_stocks
 from ..research.common import universe
@@ -51,10 +52,25 @@ def read_json(path: Path, default=None):
         return default
 
 
+def sanitize(o):
+    """递归把 NaN/Inf 换成 None（浏览器的 JSON.parse 不接受 NaN）。"""
+    if isinstance(o, dict):
+        return {str(k): sanitize(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [sanitize(v) for v in o]
+    if isinstance(o, (float, np.floating)):
+        return float(o) if np.isfinite(o) else None
+    if isinstance(o, np.integer):
+        return int(o)
+    if isinstance(o, np.bool_):
+        return bool(o)
+    return o
+
+
 def write_json(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
-    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=0, default=_default))
+    tmp.write_text(json.dumps(sanitize(obj), ensure_ascii=False, indent=0, default=_default, allow_nan=False))
     tmp.replace(path)
 
 
@@ -168,6 +184,9 @@ def compute_scores(ctx: Context, qlib_root: Path):
         st.iloc[-1] = st_row.values
     u = universe(p, st_cfg["min_amount_wan"], st_cfg["min_age_days"], st_cfg["drop_bottom_liquidity"], st=st)
     fac = compute_factors(p)
+    ind = getattr(ctx, "industry_map", None)
+    if ind:
+        fac.update(industry_factors(p["close"], u, pd.Series(ind)))
     d = p["close"].index[-1]
     mask = u.loc[d]
     ranks = {k: v.loc[d].where(mask).rank(pct=True) for k, v in fac.items()}
@@ -175,25 +194,35 @@ def compute_scores(ctx: Context, qlib_root: Path):
     return p, snap, mask, ranks, raw_last, d
 
 
-def score_universe(ranks: dict, mask: pd.Series, models: dict) -> pd.DataFrame:
+def score_universe(ranks: dict, mask: pd.Series, short_model: Model, tail_w: dict) -> pd.DataFrame:
+    """中期分（价值投资分）= 尾部加权合成；短线分 = LightGBM 5 日模型。均换算为股票池内分位（0–100）。"""
     codes = list(mask[mask].index)
     out = pd.DataFrame(index=codes)
-    for key, m in models.items():
-        X = matrix(ranks, m.features, codes)
-        pred = m.predict(X)
-        out[key + "_raw"] = pred
-        out[key] = pd.Series(pred, index=codes).rank(pct=True) * 100
+    out["value_raw"] = TAIL.score(ranks, tail_w, codes).values
+    out["value"] = out["value_raw"].rank(pct=True) * 100
+    X = matrix(ranks, short_model.features, codes)
+    out["short_raw"] = short_model.predict(X)
+    out["short"] = out["short_raw"].rank(pct=True) * 100
     return out
 
 
-def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict) -> list[str]:
-    key = "monthly" if "monthly" in scores else "total"
-    s = scores[key].sort_values(ascending=False)
+def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict,
+                 previous: list[str] | None = None) -> list[str]:
+    """按综合分选 top_n，同一行业最多 industry_cap 只；上月持仓只要仍在前 top_n+hold_buffer 名就优先保留（降换手）。"""
+    s = scores["total"].dropna()
+    if settings.get("value_filter", True) and "ep_rank" in scores:
+        # 价值过滤：只在盈利、且 E/P 不处于全市场最贵 20% 的股票中选（回测显示提高了稳健性）
+        s = s[scores["ep_rank"].reindex(s.index) > 0.2]
+    s = s.sort_values(ascending=False)
     cap, n = settings.get("industry_cap", 5), settings.get("top_n", 30)
+    buf = settings.get("hold_buffer", 250)
+    rank = pd.Series(np.arange(len(s)), index=s.index)
+    keep = [c for c in (previous or []) if c in rank.index and rank[c] < n + buf]
+    keep = sorted(keep, key=lambda c: rank[c])
     cnt, chosen = {}, []
-    for code in s.index:
+    for code in keep + [c for c in s.index if c not in keep]:
         g = industry.get(code)
-        if g and cnt.get(g, 0) >= cap:
+        if isinstance(g, str) and cnt.get(g, 0) >= cap:
             continue
         cnt[g] = cnt.get(g, 0) + 1
         chosen.append(code)
@@ -218,9 +247,8 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
     settings = read_json(ROOT / "config" / "settings.json", {})
     ctx = Context(out, settings)
     mdir = Path(models_dir or ROOT / "models")
-    models = {"value": Model(mdir / "value_model.txt"), "short": Model(mdir / "short_model.txt")}
-    if (mdir / "monthly_model.txt").exists():
-        models["monthly"] = Model(mdir / "monthly_model.txt")
+    short_model = Model(mdir / "short_model.txt")
+    tail_path = ROOT / "config" / "tail_table.csv"
     w = settings.get("score_weights", {"value": 0.6, "short": 0.4})
     latest = read_json(ctx.state / "latest.json", {})
     industry_df = load_industry(ctx)
@@ -229,45 +257,65 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
     qlib_root = None
     cal = trading_calendar(None)
 
+    ctx.industry_map = {k: v for k, v in ind_map.items() if isinstance(v, str)}
+    if mode == "premarket" and not latest:
+        ctx.log.append("还没有收盘后的结果，改为完整计算")
+        mode = "close"
     if mode == "close":
         qlib_root = ensure_qlib_data(default_cache_dir())
         cal = trading_calendar(qlib_root)
         p, snap, mask, ranks, raw_last, d = compute_scores(ctx, qlib_root)
         if len(snap):
             name_map.update(snap["name"].to_dict())
-        sc = score_universe(ranks, mask, models)
+        raw = p["close"] / p["factor"]
+        table = TAIL.update_table(ctx.state, tail_path, raw)
+        tail_w = TAIL.weights(table, d, available=set(ranks))
+        ctx.note("尾部加权因子", len(tail_w) > 0, ", ".join(f"{k}:{v:.2f}" for k, v in
+                                                     sorted(tail_w.items(), key=lambda x: -x[1])))
+        sc = score_universe(ranks, mask, short_model, tail_w)
         sc["total"] = (w["value"] * sc["value"] + w["short"] * sc["short"]).rank(pct=True) * 100
+        if "ep" in ranks:
+            sc["ep_rank"] = ranks["ep"].reindex(sc.index)
         month = f"{d.year}-{d.month:02d}"
         picks_file = ctx.state / f"picks_{month}.json"
         picks_state = read_json(picks_file)
         industry = pd.Series(ind_map)
+        prev_month = (d - pd.offsets.MonthBegin(1)).strftime("%Y-%m")
+        prev_codes = (read_json(ctx.state / f"picks_{prev_month}.json", {}) or {}).get("codes")
         if picks_state is None:
             # 本月还没有组合（首次运行或上月最后一天未运行）：立即选出
-            chosen = select_picks(sc, industry, settings)
+            chosen = select_picks(sc, industry, settings, prev_codes)
             picks_state = {"month": month, "pick_date": str(d.date()), "codes": chosen,
-                           "entry_close": {c: clean((p["close"] / p["factor"]).loc[d, c]) for c in chosen},
+                           "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
                            "note": "月中补选" if d.day > 7 else "月初选出"}
             write_json(picks_file, picks_state)
         if is_last_trading_day_of_month(d, cal):
+            TAIL.record_members(ctx.state, d, {k: v.where(mask) for k, v in ranks.items()}, mask)
             nxt = cal[cal > d][0]
             nmonth = f"{nxt.year}-{nxt.month:02d}"
             nfile = ctx.state / f"picks_{nmonth}.json"
             if not nfile.exists():
-                chosen = select_picks(sc, industry, settings)
+                chosen = select_picks(sc, industry, settings, picks_state["codes"])
                 write_json(nfile, {"month": nmonth, "pick_date": str(d.date()), "codes": chosen,
-                                   "entry_close": {c: clean((p["close"] / p["factor"]).loc[d, c]) for c in chosen},
+                                   "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
                                    "note": "上月最后一个交易日收盘后选出"})
         codes = picks_state["codes"]
-        # 入选股若已不在股票池（停牌/ST），单独打分
+        # 入选股若已不在股票池（停牌/ST 等），按同样方法单独打分（相对全市场分布）
         missing = [c for c in codes if c not in sc.index]
-        for c in missing:
-            sc.loc[c] = np.nan
-        expl = {k: explain(m, matrix(ranks, m.features, codes), codes, ranks) for k, m in models.items()
-                if k in ("value", "short")}
-        raw = p["close"] / p["factor"]
+        if missing:
+            vr = TAIL.score(ranks, tail_w, missing)
+            sr = pd.Series(short_model.predict(matrix(ranks, short_model.features, missing)), index=missing)
+            for c in missing:
+                sc.loc[c, "value"] = (sc["value_raw"] < vr[c]).mean() * 100 if np.isfinite(vr[c]) else np.nan
+                sc.loc[c, "short"] = (sc["short_raw"] < sr[c]).mean() * 100
+                sc.loc[c, "total"] = np.nan
+        expl_short = explain(short_model, matrix(ranks, short_model.features, codes), codes, ranks)
         base = {}
         for c in codes:
             pc = raw[c].dropna()
+            rv = TAIL.contributions(ranks, tail_w, c)[:6]
+            for r_ in rv:
+                r_["name"] = FACTOR_LABELS.get(r_["factor"], r_["factor"])
             base[c] = {
                 "code": c, "name": name_map.get(c, c), "industry": ind_map.get(c),
                 "value": clean(sc.loc[c, "value"], 1), "short_model": clean(sc.loc[c, "short"], 1),
@@ -277,26 +325,26 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                 "ret_since_pick": clean(pc.iloc[-1] / picks_state["entry_close"].get(c) - 1)
                 if picks_state["entry_close"].get(c) else None,
                 "is_st": bool(snap["is_st"].get(c, False)) if len(snap) else False,
-                "reasons_value": expl.get("value", {}).get(c, []),
-                "reasons_short": expl.get("short", {}).get(c, []),
+                "reasons_value": rv,
+                "reasons_short": expl_short.get(c, []),
                 "pe_ttm": clean(snap["pe_ttm"].get(c)) if len(snap) else None,
                 "pb": clean(snap["pb"].get(c)) if len(snap) else None,
                 "total_mv_yi": clean(snap["total_mv"].get(c) / 1e8, 1) if len(snap) and c in snap.index else None,
+                # 收盘时各因子的全市场分位：本地盘中模式下算不出来的因子（如行业动量）沿用这里的值
+                "feat_ranks": {k: clean(v.get(c), 4) for k, v in ranks.items()},
             }
         ew = raw.pct_change(fill_method=None).where(mask).mean(axis=1)
         latest = {"data_date": str(d.date()), "month": month, "pick_date": picks_state["pick_date"],
                   "base": base, "ew_ret20": clean((1 + ew.tail(20)).prod() - 1),
-                  "universe_n": int(mask.sum())}
+                  "universe_n": int(mask.sum()), "tail_weights": tail_w}
         write_json(ctx.state / "latest.json", latest)
         qs = np.linspace(0, 1, 101)
         pred_dist = {k: [clean(x, 6) for x in np.quantile(sc[k + "_raw"].dropna().values, qs)]
-                     for k in models if k + "_raw" in sc}
+                     for k in ("value", "short")}
         write_json(ctx.state / "factor_dist.json", {"date": str(d.date()), "dist": factor_distribution(raw_last),
-                                                    "pred_dist": pred_dist, "weights": w})
+                                                    "pred_dist": pred_dist, "weights": w, "tail_weights": tail_w})
         track = update_track(ctx, raw, mask, d)
     else:
-        if not latest:
-            raise SystemExit("还没有任何收盘后的计算结果，请先运行 --mode close")
         track = read_json(ctx.state / "track.json", [])
 
     return build_dashboard(ctx, latest, track, mode)
@@ -335,7 +383,7 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     stats = OV.load_linkage_stats(ROOT / "config" / "linkage_stats.json")
     quotes = {}
     try:
-        quotes = OV.fetch_overseas(OV.needed_symbols(codes))
+        quotes = OV.fetch_overseas(OV.needed_symbols(codes, [base[c].get('industry') for c in codes]))
         ok = sum(1 for q in quotes.values() if q.get("ok"))
         ctx.note("海外行情(腾讯美股/新浪期货)", ok > 0, f"{ok}/{len(quotes)}")
     except Exception as e:  # noqa: BLE001
@@ -370,7 +418,7 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     picks = []
     for c in codes:
         b = base[c]
-        pred_ex, chains = OV.chain_signals(c, quotes, stats, ov_cfg.get("overseas_min_t", 2.0))
+        pred_ex, chains = OV.chain_signals(c, quotes, stats, ov_cfg.get("overseas_min_t", 2.0), b.get("industry"))
         ov_pts = float(np.clip(pred_ex * ov_cfg.get("overseas_points_per_pct", 8.0),
                                -ov_cfg.get("overseas_cap", 10.0), ov_cfg.get("overseas_cap", 10.0)))
         items = matched.get(c, [])

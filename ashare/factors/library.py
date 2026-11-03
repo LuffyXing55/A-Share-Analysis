@@ -240,3 +240,20 @@ def neutralize(df: pd.DataFrame, groups: pd.DataFrame | None = None,
         res = y[mask] - X @ beta
         out[i, mask] = res
     return pd.DataFrame(out, index=df.index, columns=df.columns)
+
+
+def industry_factors(close: pd.DataFrame, mask_panel: pd.DataFrame, industry: pd.Series) -> dict[str, pd.DataFrame]:
+    """行业动量（行业内股票池成分的等权 20/60 日收益）与行业内相对强弱。industry：code → 申万一级。"""
+    groups = industry.reindex(close.columns)
+    out = {}
+    for h in (20, 60):
+        sr = close / close.shift(h) - 1
+        ir = pd.DataFrame(np.nan, index=close.index, columns=close.columns, dtype="float64")
+        valid = groups.dropna()
+        for g, cols in valid.groupby(valid).groups.items():
+            cols = list(cols)
+            m = sr[cols].where(mask_panel[cols]).mean(axis=1)
+            ir[cols] = np.repeat(m.values[:, None], len(cols), axis=1)
+        out[f"ind_mom_{h}"] = ir.astype("float32")
+        out[f"rel_ind_{h}"] = (sr - ir).astype("float32")
+    return out

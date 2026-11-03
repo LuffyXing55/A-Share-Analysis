@@ -16,13 +16,13 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from ..macro.linkage import CHAINS
+from ..macro.linkage import CHAINS, INDUSTRY_OVERSEAS
 from .common import load_panels
 
 
 def load_global(gdir: Path) -> dict[str, pd.Series]:
     out = {}
-    for sym in {s for c in CHAINS for s in c["overseas"]}:
+    for sym in {s for c in CHAINS for s in c["overseas"]} | {s for v in INDUSTRY_OVERSEAS.values() for s in v}:
         fn = sym.replace("^", "IDX_").replace("=", "_").replace(".", "_")
         fp = gdir / f"{fn}.csv"
         if not fp.exists():
@@ -61,6 +61,7 @@ def main() -> None:
     ap.add_argument("--global", dest="gdir", required=True)
     ap.add_argument("--out", default="config/linkage_stats.json")
     ap.add_argument("--split", default="2023-01-01")
+    ap.add_argument("--industry", default="")
     args = ap.parse_args()
     p = load_panels("2015-06-01", basic=False)
     close, open_ = p["close"], p["open"]
@@ -109,9 +110,39 @@ def main() -> None:
                             "oos_corr_sig_pos_share": round(float((sig.oos_corr > 0).mean()), 3) if len(sig) else None}
         by_chain = oos[oos.tag == "cc"].groupby("chain")["oos_corr"].mean().sort_values(ascending=False)
         summary["by_chain_oos_corr_cc"] = {k: round(float(v), 4) for k, v in by_chain.items()}
+    # ---------------- 行业层面
+    ind_stats, ind_oos = {}, []
+    if args.industry:
+        ind = pd.read_csv(args.industry).set_index("code")["l1"].reindex(close.columns)
+        for l1, syms in INDUSTRY_OVERSEAS.items():
+            cols = list(ind[ind == l1].index)
+            if len(cols) < 5:
+                continue
+            y = ex_cc[cols].mean(axis=1)
+            for sym in syms:
+                if sym not in g:
+                    continue
+                x = align_next(g[sym].dropna(), a_dates).reindex(a_dates)
+                ins = a_dates < split
+                full, tr = ols(x.values, y.values), ols(x.values[ins], y.values[ins])
+                ind_stats.setdefault(l1, {})[sym] = {"cc": {"full": full, "train": tr}}
+                if tr is not None:
+                    xt, yt = x.values[~ins], y.values[~ins]
+                    m = np.isfinite(xt) & np.isfinite(yt)
+                    if m.sum() > 60:
+                        ind_oos.append({"ind": l1, "sym": sym, "in_t": tr["t"],
+                                        "oos_corr": float(np.corrcoef(tr["beta"] * xt[m], yt[m])[0, 1])})
+        io = pd.DataFrame(ind_oos)
+        if len(io):
+            sig = io[io.in_t.abs() > 2]
+            summary["industry"] = {"pairs": int(len(io)), "sig_pairs": int(len(sig)),
+                                   "oos_corr_sig": round(float(sig.oos_corr.mean()), 4) if len(sig) else None,
+                                   "oos_pos_share": round(float((sig.oos_corr > 0).mean()), 3) if len(sig) else None,
+                                   "top": sig.sort_values("oos_corr", ascending=False).head(12)
+                                   .round(3).to_dict(orient="records")}
     out = {"_说明": "β：海外标的涨1%时，A股次一交易日相对全市场等权的平均超额收益（%）。cc=收盘到收盘，gap=开盘跳空。"
                     "train 为 2016-2022 样本内估计，full 为全样本。summary 为 2023 年以后样本外检验。",
-           "summary": summary, "stats": stats}
+           "summary": summary, "stats": stats, "industry_stats": ind_stats}
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(json.dumps(out, ensure_ascii=False, indent=0, default=float))
     print(json.dumps(summary, ensure_ascii=False, indent=1))

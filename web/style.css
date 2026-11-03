@@ -64,6 +64,7 @@ tbody tr:hover { background: var(--chip); }
 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--muted); }
 .dot.pos { background: var(--up); } .dot.neg { background: var(--down); }
 .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.detail-grid > div { min-width: 0; }
 .chart { width: 100%; margin-bottom: 6px; }
 .chart svg { width: 100%; height: 160px; overflow: visible; display: block; }
 .chart.tall svg { height: 260px; }

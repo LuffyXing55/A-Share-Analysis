@@ -75,7 +75,8 @@ def pct_from_dist(x: float, dist: list[float]) -> float:
     return float(np.interp(x, q, np.linspace(0, 1, len(q))))
 
 
-def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: datetime | None = None) -> dict:
+def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: datetime | None = None,
+                fallback_ranks: dict | None = None) -> dict:
     now = now or datetime.now(BJ)
     p = build_mini_panels(hist, quotes, now)
     fac = compute_factors(p)
@@ -83,14 +84,27 @@ def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: dateti
     dist = fdist.get("dist", {})
     codes = list(p["close"].columns)
     ranks = {k: pd.Series({c: pct_from_dist(last[k].get(c), dist.get(k)) for c in codes}) for k in last}
+    # 盘中算不出来的因子（行业动量等）沿用昨日收盘时的分位
+    for m in models.values():
+        for f in m.features:
+            if f not in ranks or ranks[f].isna().all():
+                ranks[f] = pd.Series({c: ((fallback_ranks or {}).get(c) or {}).get(f, np.nan) for c in codes},
+                                     dtype="float64")
     out = {c: {} for c in codes}
+    pdist = fdist.get("pred_dist") or {}
+    tail_w = fdist.get("tail_weights") or {}
+    if tail_w:
+        from ..model.tail import score as tail_score
+
+        v = tail_score(ranks, tail_w, codes)
+        for c in codes:
+            out[c]["value"] = round(pct_from_dist(v[c], pdist.get("value")) * 100, 1) if pdist.get("value") else None
     for key, m in models.items():
         X = np.column_stack([ranks[f].reindex(codes).values if f in ranks else np.full(len(codes), np.nan)
                              for f in m.features])
         pred = m.predict(X)
-        pd_ = (fdist.get("pred_dist") or {}).get(key)
         for c, v in zip(codes, pred):
-            out[c][key] = round(pct_from_dist(v, pd_) * 100, 1) if pd_ else None
+            out[c][key] = round(pct_from_dist(v, pdist.get(key)) * 100, 1) if pdist.get(key) else None
     return out
 
 

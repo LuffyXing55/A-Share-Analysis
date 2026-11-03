@@ -10,6 +10,10 @@ on:
     - cron: "23 11 * * 1-5"
     - cron: "7 13 * * 1-5"
     - cron: "47 0 * * 1-5"
+  # 代码 / 模型 / 配置有更新并合并到 main 时，立即完整运行一次（机器人提交的 site_data 不会触发）
+  push:
+    branches: [main]
+    paths: ["ashare/**", "config/**", "models/**", "web/**", ".github/workflows/daily.yml"]
   workflow_dispatch:
     inputs:
       mode:

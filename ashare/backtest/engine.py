@@ -79,6 +79,7 @@ def run_backtest(scores: pd.DataFrame, eligible: pd.DataFrame, vwap: pd.DataFram
     holdings = {}
     trades = 0
     prev_px = None
+    prev_d = None
     for i, d in enumerate(dates):
         p_now = px.loc[d].values
         # 1) 持仓按 vwap 涨跌

@@ -45,7 +45,7 @@ class LiveEngine:
         if self.models is None:
             from ..model.predict import Model
 
-            self.models = {k: Model(ROOT / "models" / f"{k}_model.txt") for k in ("value", "short")}
+            self.models = {"short": Model(ROOT / "models" / "short_model.txt")}
         return self.models
 
     def is_trading_time(self, now: datetime) -> bool:
@@ -81,13 +81,14 @@ class LiveEngine:
             pass
         scores = {}
         try:
-            scores = RT.live_scores(self.ensure_models(), fdist, self.hist, quotes, now)
+            fb = {c: (latest["base"].get(c) or {}).get("feat_ranks") or {} for c in codes}
+            scores = RT.live_scores(self.ensure_models(), fdist, self.hist, quotes, now, fallback_ranks=fb)
         except Exception:  # noqa: BLE001
             traceback.print_exc()
         # 海外行情每 10 分钟、新闻每 3 分钟刷新
         if time.time() - self.overseas_ts > 600 or not hasattr(self, "ov_quotes"):
             try:
-                self.ov_quotes = OV.fetch_overseas(OV.needed_symbols(codes))
+                self.ov_quotes = OV.fetch_overseas(OV.needed_symbols(codes, [p.get('industry') for p in dash['picks']]))
             except Exception:  # noqa: BLE001
                 self.ov_quotes = getattr(self, "ov_quotes", {})
             self.overseas_ts = time.time()
@@ -114,7 +115,7 @@ class LiveEngine:
                     p["ret_since_pick"] = (1 + base_ret) * q["price"] / entry - 1
                 p["is_st"] = "ST" in (q.get("name") or "")
             sc = scores.get(c) or {}
-            pred_ex, chains = OV.chain_signals(c, self.ov_quotes, stats, ov_cfg["overseas_min_t"])
+            pred_ex, chains = OV.chain_signals(c, self.ov_quotes, stats, ov_cfg["overseas_min_t"], p.get("industry"))
             ov_pts = float(np.clip(pred_ex * ov_cfg["overseas_points_per_pct"], -ov_cfg["overseas_cap"],
                                    ov_cfg["overseas_cap"]))
             items = matched.get(c, [])
