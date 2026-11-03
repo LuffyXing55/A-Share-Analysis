@@ -349,3 +349,122 @@ def sw_industry_history() -> pd.DataFrame:
     r.raise_for_status()
     df = pd.read_excel(io.BytesIO(r.content), dtype={"股票代码": str, "行业代码": str})
     return df
+
+
+# ---------------------------------------------------------------- 利率 / 两融（东财数据中心，海外 IP 可用）
+def em_treasury_yield(pages: int = 2) -> pd.DataFrame:
+    """中美国债收益率（日度）：中国 2/5/10/30 年、美国 2/5/10/30 年。"""
+    rows = []
+    for page in range(1, pages + 1):
+        params = {"type": "RPTA_WEB_TREASURYYIELD", "sty": "ALL", "st": "SOLAR_DATE", "sr": "-1",
+                  "token": "894050c76af8597a853f5b408b759f5d", "p": page, "ps": 500,
+                  "pageNo": page, "pageNum": page}
+        js = fetcher().get("https://datacenter.eastmoney.com/api/data/get", params=params).json()
+        rows.extend((js.get("result") or {}).get("data") or [])
+    df = pd.DataFrame(rows)
+    if df.empty:
+        return df
+    df = df.rename(columns={"SOLAR_DATE": "date", "EMM00588704": "cn2y", "EMM00166466": "cn10y",
+                            "EMG00001306": "us2y", "EMG00001310": "us10y", "EMG00001312": "us30y"})
+    keep = [c for c in ["date", "cn2y", "cn10y", "us2y", "us10y", "us30y"] if c in df.columns]
+    df = df[keep].copy()
+    df["date"] = pd.to_datetime(df["date"])
+    return df.sort_values("date").reset_index(drop=True)
+
+
+def em_margin_daily(pages: int = 2) -> pd.DataFrame:
+    """两融账户统计（日度）：融资余额、融券余额等。"""
+    df = em_datacenter("RPTA_WEB_MARGIN_DAILYTRADE", sort_columns="STATISTICS_DATE",
+                       sort_types="-1", page_size=500, max_pages=pages)
+    if df.empty:
+        return df
+    df = df.rename(columns={"STATISTICS_DATE": "date", "FIN_BALANCE": "fin_balance",
+                            "LOAN_BALANCE": "loan_balance"})
+    df["date"] = pd.to_datetime(df["date"])
+    return df.sort_values("date").reset_index(drop=True)
+
+
+# ---------------------------------------------------------------- 海外：腾讯美股 K 线 / 新浪外盘期货
+US_SUFFIX = [".OQ", ".N", ".AM", ""]
+TENCENT_US_INDEX = {"^IXIC": "us.IXIC", "^GSPC": "us.INX", "^DJI": "us.DJI", "^SOX": "us.SOX",
+                    "^NDX": "us.NDX"}
+SINA_FUTURES = {"GC=F": "GC", "SI=F": "SI", "HG=F": "HG", "CL=F": "CL", "BZ=F": "OIL",
+                "ZS=F": "S", "ZC=F": "C"}
+
+
+def _tencent_us_try(code: str, start: str, end: str) -> pd.DataFrame:
+    url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
+    r = fetcher().get(url, params={"_var": "kline_dayqfq", "param": f"{code},day,{start},{end},640,qfq"})
+    txt = r.text
+    js = __import__("json").loads(txt[txt.find("{"):])
+    node = (js.get("data") or {}).get(code) or {}
+    rows = node.get("qfqday") or node.get("day") or []
+    return pd.DataFrame([x[:6] for x in rows], columns=["date", "open", "close", "high", "low", "volume"])
+
+
+def tencent_us_kline(symbol: str, start: str = "2016-01-01", end: str | None = None) -> pd.DataFrame:
+    """腾讯美股/美股指数日 K（前复权）。按年分段请求（每次最多 640 条）。"""
+    end = end or datetime.now().strftime("%Y-%m-%d")
+    cands = [TENCENT_US_INDEX[symbol]] if symbol in TENCENT_US_INDEX else [f"us{symbol}{s}" for s in US_SUFFIX]
+    for code in cands:
+        try:
+            probe = _tencent_us_try(code, (pd.Timestamp(end) - pd.Timedelta(days=20)).strftime("%Y-%m-%d"), end)
+        except Exception:  # noqa: BLE001
+            continue
+        if probe.empty:
+            continue
+        parts = []
+        y0, y1 = pd.Timestamp(start).year, pd.Timestamp(end).year
+        for y in range(y0, y1 + 1, 2):
+            s = max(pd.Timestamp(start), pd.Timestamp(f"{y}-01-01")).strftime("%Y-%m-%d")
+            e = min(pd.Timestamp(end), pd.Timestamp(f"{y+1}-12-31")).strftime("%Y-%m-%d")
+            try:
+                parts.append(_tencent_us_try(code, s, e))
+            except Exception:  # noqa: BLE001
+                pass
+        df = pd.concat(parts, ignore_index=True) if parts else probe
+        df["date"] = pd.to_datetime(df["date"])
+        for c in ["open", "close", "high", "low", "volume"]:
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+        df = df.drop_duplicates("date").sort_values("date").reset_index(drop=True)
+        df.attrs["tencent_code"] = code
+        return df
+    raise SourceUnavailable(f"腾讯美股无数据 {symbol}")
+
+
+def sina_global_futures(symbol: str) -> pd.DataFrame:
+    """新浪外盘期货日 K（GC 黄金、SI 白银、HG 铜、CL 原油、OIL 布伦特、S 大豆、C 玉米）。"""
+    sym = SINA_FUTURES.get(symbol, symbol)
+    today = f"{datetime.today().year}_{datetime.today().month}_{datetime.today().day}"
+    url = (f"https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_S{today}=/"
+           "GlobalFuturesService.getGlobalFuturesDailyKLine")
+    r = fetcher().get(url, params={"symbol": sym, "_": today, "source": "web"})
+    txt = r.text
+    df = pd.read_json(io.StringIO(txt[txt.find("["): txt.rfind("]") + 1]))
+    df["date"] = pd.to_datetime(df["date"])
+    for c in ["open", "high", "low", "close", "volume"]:
+        if c in df.columns:
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+    return df
+
+
+def overseas_daily(symbol: str, start: str = "2016-01-01") -> pd.DataFrame:
+    """统一入口：期货走新浪，其余走腾讯；都失败再试 Yahoo（本地 Mac 网络下通常可用）。"""
+    errors = []
+    if symbol in SINA_FUTURES:
+        try:
+            df = sina_global_futures(symbol)
+            return df[df["date"] >= pd.Timestamp(start)].reset_index(drop=True)
+        except Exception as e:  # noqa: BLE001
+            errors.append(str(e))
+    else:
+        try:
+            return tencent_us_kline(symbol, start)
+        except Exception as e:  # noqa: BLE001
+            errors.append(str(e))
+    try:
+        df = yahoo_chart(symbol, "10y")
+        return df[df["date"] >= pd.Timestamp(start)].reset_index(drop=True)
+    except Exception as e:  # noqa: BLE001
+        errors.append(str(e))
+    raise SourceUnavailable(f"{symbol}: " + " | ".join(errors))
