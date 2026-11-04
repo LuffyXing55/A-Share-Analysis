@@ -13,3 +13,6 @@ venv/
 .env
 logs/
 .pytest_cache/
+research_out/
+probe_out/
+_site/

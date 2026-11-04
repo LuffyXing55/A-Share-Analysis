@@ -1,7 +1,8 @@
-"""研究数据抓取（在 GitHub Actions 上运行，供离线回测使用）。
+"""研究数据抓取（在本地电脑上运行，供离线回测使用）。
 
 抓取内容：东财业绩报表（含行业分类）、全部 A 股名称、海外标的与期货日线、中美国债收益率、两融余额。
-输出：一个 tar.gz。工作流随后会用公钥加密后再输出，原始数据不会以明文出现在公开仓库或日志中。
+输出：一个 tar.gz，只保存在本地，不要提交进仓库（.gitignore 已忽略 *.tar.gz）。
+用法：python scripts/research_fetch.py --out research_out
 """
 from __future__ import annotations
 
