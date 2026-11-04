@@ -42,7 +42,8 @@ def select(scores: pd.Series, eligible: pd.Series, cfg: BTConfig, industry: pd.S
     keep: list[str] = []
     if current and cfg.hold_buffer > 0:
         ranks = pd.Series(np.arange(len(s)), index=s.index)
-        keep = [c for c in current if c in ranks.index and ranks[c] < cfg.top_n + cfg.hold_buffer]
+        keep = sorted((c for c in current if c in ranks.index and ranks[c] < cfg.top_n + cfg.hold_buffer),
+                      key=lambda c: ranks[c])
     chosen: list[str] = []
     count: dict = {}
     for c in keep + [c for c in s.index if c not in keep]:
@@ -201,3 +202,15 @@ def equal_weight_index(vwap: pd.DataFrame, members: pd.DataFrame, rebalance: pd.
                 if names:
                     w = pd.Series(1.0 / len(names), index=names)
     return pd.Series(nav, index=idx)
+
+
+def period_metrics(nav: pd.Series, bench: pd.Series, start: str, end: str,
+                   turnover: pd.Series | None = None) -> dict:
+    """区间指标：以区间开始前最后一个交易日的净值为基点（不漏掉区间首日的收益），策略与基准同一基点。"""
+    s, e = pd.Timestamp(start), pd.Timestamp(end)
+    prior = nav.index[nav.index < s]
+    begin = prior[-1] if len(prior) else nav.index[0]
+    n = nav[(nav.index >= begin) & (nav.index <= e)]
+    b = bench.reindex(n.index).ffill()
+    tv = turnover[(turnover.index > begin) & (turnover.index <= e)] if turnover is not None else None
+    return metrics(n / n.iloc[0], b / b.iloc[0], tv)

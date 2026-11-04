@@ -18,15 +18,15 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from ..backtest.engine import BTConfig, metrics, run_backtest
+from ..backtest.engine import BTConfig, period_metrics, run_backtest
 from ..factors.library import PROD_FACTORS
 from ..model.tail import label_realized_dates
 from .common import month_ends
 from .tail_composite import EXTRA, composite, tail_table, tail_weights
 
-SEL = ("2016-02-01", "2024-12-31")       # 选参期
+SEL = ("2016-01-01", "2024-12-31")       # 选参期（策略 2016-01-04 首次持仓，含 2016 年 1 月熔断）
 HOLD = ("2025-01-01", "2026-12-31")      # 保留期（不参与任何选择）
-FULL = ("2016-02-01", "2026-12-31")
+FULL = ("2016-01-01", "2026-12-31")
 G = {}
 
 
@@ -105,8 +105,7 @@ def run_one(cfg: tuple) -> dict:
     res.nav.to_csv(G["out"] / f"nav_{tag}.csv")
     row = {"tag": tag, "lookback": lb, "value": vk, "w_value": wv, "buffer": buf}
     for lab, (s, e) in {"sel": SEL, "hold": HOLD, "full": FULL}.items():
-        n = res.nav[s:e]
-        m = metrics(n / n.iloc[0], G["bench"][s:e], res.turnover[s:e])
+        m = period_metrics(res.nav, G["bench"], s, e, res.turnover)
         row.update({f"{lab}_excess": m["超额年化"], f"{lab}_ir": m["信息比"], f"{lab}_ann": m["年化收益"],
                     f"{lab}_mdd": m["最大回撤"], f"{lab}_win": m["月胜率(跑赢基准)"], f"{lab}_turn": m["年换手(单边)"]})
     return row

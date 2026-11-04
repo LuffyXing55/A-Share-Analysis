@@ -56,6 +56,15 @@ def upcoming_events(cfg: dict, picks: list[dict], today: date, days: int = 21) -
     return out
 
 
+def _rebalance_text() -> str:
+    try:
+        st = json.loads((Path(__file__).resolve().parents[2] / "config" / "settings.json").read_text())
+        n = int(st.get("top_n", 30)) + int(st.get("hold_buffer", 400))
+    except Exception:  # noqa: BLE001
+        n = 430
+    return f"上月持仓若仍在（盈利且估值过滤后的）股票池前 {n} 名会优先保留，其余按综合分替换。"
+
+
 def recurring_events(today: date, days: int, is_trading_day=None) -> list[dict]:
     """自动生成的周期性事件：LPR（每月 20 日，遇周末顺延）、统计局 PMI（月末）、本站月末换仓。"""
     out = []
@@ -78,7 +87,7 @@ def recurring_events(today: date, days: int, is_trading_day=None) -> list[dict]:
              "industries": ["机械设备", "基础化工", "有色金属"]},
             {"date": str(lastbd), "time": "收盘后", "title": "本站月度换仓：选出下月 30 强", "category": "本站",
              "importance": 2, "confidence": "官方", "industries": [],
-             "scenarios": "上月持仓若仍在全市场前 280 名会优先保留，其余按综合分替换。"},
+             "scenarios": _rebalance_text()},
         ]
         d = nxt
     return [e for e in out if today - timedelta(days=1) <= date.fromisoformat(e["date"]) <= end]

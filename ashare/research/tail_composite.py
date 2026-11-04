@@ -34,7 +34,7 @@ def tail_weights(tt: pd.DataFrame, asof: pd.Timestamp, lookback: int = 36, min_o
     """与实盘共用 ashare.model.tail.weights：只用「标签实现日 ≤ asof」的月份（按交易日判断，不用自然日近似）。"""
     from ..model import tail as TAIL
 
-    return TAIL.weights(tt, asof, lookback=lookback, min_t=min_t, realized=realized)
+    return TAIL.weights(tt, asof, lookback=lookback, min_t=min_t, realized=realized, min_obs=min_obs)
 
 
 def composite(feats: dict, w: dict, d) -> pd.Series:

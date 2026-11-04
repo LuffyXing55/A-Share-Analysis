@@ -29,12 +29,13 @@
     render();
     if (state.live && !state.timer) state.timer = setInterval(async () => {
       try { state.dash = await getJSON("/api/live"); render(); } catch (e) { /* 保留上一轮 */ }
-    }, 60000);
+    }, 30000);
   }
 
   function render() {
     const d = state.dash;
-    $("#subline").textContent = `数据日期 ${d.data_date} · 更新于 ${d.generated_at} · 本月组合 ${d.month}（${d.pick_date} 收盘后选出）`;
+    $("#subline").textContent = `数据日期 ${d.data_date} · 更新于 ${d.generated_at} · 本月组合 ${d.month}（${d.pick_date} 收盘后选出）` +
+      (d.picks_note && d.picks_note.includes("不完整") ? ` · ⚠ ${d.picks_note}` : "");
     const mb = $("#mode-badge");
     mb.textContent = state.live ? "● 盘中实时（本地）" : "日更（GitHub）";
     mb.className = "mode" + (state.live ? " live" : "");
@@ -65,7 +66,7 @@
     const key = state.sort;
     const rows = [...(d.picks || [])].sort((a, b) => (b[key] ?? -1) - (a[key] ?? -1));
     $("#picks-hint").textContent = "综合分 = 0.6×价值投资分 + 0.4×短线分。分数是在全市场约 4000 只股票中的分位（0–100），入选股都在前列，所以差距体现在小数位；条形长度按 30 只之间的相对高低显示。点击任意一行查看原因、海外联动与新闻。" +
-      (state.live ? " 本地模式下每分钟刷新，盘中价格变化会实时影响短线分。" : "");
+      (state.live ? " 本地模式下盘中每 1 分钟重算一次（页面每 30 秒拉取），价格变化会实时影响分数和排名。" : "");
     const tv = rows.map((p) => p.total).filter((v) => v !== null && v !== undefined);
     const tmin = Math.min(...tv), tmax = Math.max(...tv);
     $("#picks-body").innerHTML = rows.map((p, i) => {

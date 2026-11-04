@@ -31,7 +31,7 @@ from ..macro.linkage import CHAINS
 from ..model import tail as TAIL
 from ..model.predict import FACTOR_LABELS, Model, explain, matrix
 from ..news.sentiment import aggregate, match_news_to_stocks
-from ..research.common import universe
+from ..research.common import month_ends, universe
 from .history import default_cache_dir, ensure_qlib_data, recent_panels
 from .snapshot import append_today_bar, basics_from_snapshot, market_snapshot
 
@@ -175,6 +175,7 @@ def compute_scores(ctx: Context, qlib_root: Path):
         if (tstamps == today.strftime("%Y%m%d")).mean() > 0.5:
             p = append_today_bar(p, snap, today)
             ctx.log.append("用腾讯快照补齐了今日日线")
+            ctx.snapshot_bar = True
     if len(snap):
         p.update(basics_from_snapshot(p, snap))
     st = None
@@ -237,7 +238,7 @@ def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict,
         s = s[prof & (pe_pct <= vf.get("max_pe_pct_among_profitable", 0.7))]
     s = s.sort_values(ascending=False)
     cap, n = settings.get("industry_cap", 5), settings.get("top_n", 30)
-    buf = settings.get("hold_buffer", 250)
+    buf = settings.get("hold_buffer", 400)
     rank = pd.Series(np.arange(len(s)), index=s.index)
     keep = [c for c in (previous or []) if c in rank.index and rank[c] < n + buf]
     keep = sorted(keep, key=lambda c: rank[c])
@@ -293,15 +294,30 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         if len(snap):
             name_map.update(snap["name"].to_dict())
         raw = p["close"] / p["factor"]
-        # 补记上一个月末的前 5% 名单（若那天流水线没跑成）：用价格面板重算当时的因子分位
-        prev_me = raw.index[raw.index < d.replace(day=1)]
-        if len(prev_me) and hasattr(ctx, "fac_full") and prev_me[-1] in ctx.u_full.index:
-            pd_me = prev_me[-1]
+        # 补记名单：价格面板里「晚于尾部表最后一行、早于今天、又没有名单文件」的所有月末（流水线没跑成的月份）。
+        # 历史月末没有当时的估值快照，估值类因子会缺失，文件里用 partial 字段标明。
+        table0 = TAIL.load_table(tail_path)
+        last_row = table0.index.max() if len(table0) else pd.Timestamp("1900-01-01")
+        st_now = (snap["is_st"] | snap["is_delist"]).reindex(raw.columns).fillna(False) if len(snap) else None
+        for pd_me in month_ends(raw.index[raw.index < d]):
+            if pd_me <= last_row or (ctx.state / f"tail_members_{pd_me.date()}.json").exists():
+                continue
+            if raw.index.get_loc(pd_me) < 260:          # 因子需要约 250 天历史
+                continue
             m_me = ctx.u_full.loc[pd_me]
-            r_me = {k: v.loc[pd_me].where(m_me).rank(pct=True) for k, v in ctx.fac_full.items()
-                    if v.loc[pd_me].where(m_me).notna().sum() > 500}
-            TAIL.backfill_members(ctx.state, pd_me, r_me, m_me)
-        table = TAIL.update_table(ctx.state, tail_path, p["vwap"])
+            if st_now is not None:
+                m_me = m_me & ~st_now
+            r_me, partial = {}, []
+            for k, v in ctx.fac_full.items():
+                x = v.loc[pd_me].where(m_me)
+                if x.notna().sum() > 500:
+                    r_me[k] = x.rank(pct=True)
+                else:
+                    partial.append(k)
+            TAIL.backfill_members(ctx.state, pd_me, r_me, m_me, partial=partial)
+            ctx.note(f"补记尾部名单 {pd_me.date()}", True, f"缺少：{','.join(partial) or '无'}")
+        table = TAIL.update_table(ctx.state, tail_path, p["vwap"],
+                                  last_is_snapshot=getattr(ctx, "snapshot_bar", False))
         tail_w = TAIL.weights(table, d, available=set(ranks))
         ctx.note("尾部加权因子", len(tail_w) > 0, ", ".join(f"{k}:{v:.2f}" for k, v in
                                                      sorted(tail_w.items(), key=lambda x: -x[1])))
@@ -323,11 +339,17 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
             ctx.note("选股数据完整性", False, f"快照覆盖率 {cov:.0%} < 95%，本次不锁定新组合，等待下一次运行")
         prev_codes = (read_json(ctx.state / f"picks_{prev_month}.json", {}) or {}).get("codes")
         if picks_state is None and not can_pick:
-            # 数据不完整又没有本月组合：暂时沿用上月组合展示（不写文件），下一次运行再正式选
-            picks_state = read_json(ctx.state / f"picks_{prev_month}.json")
-            if picks_state is None:
-                raise SystemExit("首次运行时腾讯快照不完整，无法选股；请稍后重试")
-            picks_state = {**picks_state, "note": "数据不完整，暂时沿用上月组合"}
+            # 数据不完整又没有本月组合：沿用最近一份组合展示（不写文件），下一次运行再正式选；
+            # 一份都没有时，临时选出一组只用于展示（同样不写文件），其余数据照常发布
+            older = sorted(ctx.state.glob("picks_*.json"))
+            picks_state = read_json(older[-1]) if older else None
+            if picks_state is not None:
+                picks_state = {**picks_state, "note": f"数据不完整，暂时沿用 {picks_state['month']} 的组合，等待下一次运行正式选出"}
+            else:
+                chosen = select_picks(sc, industry, settings, None)
+                picks_state = {"month": month, "pick_date": str(d.date()), "codes": chosen,
+                               "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
+                               "note": "数据不完整，这是临时组合（未锁定），下一次运行会正式选出"}
         if picks_state is None:
             # 本月还没有组合（首次运行或上月最后一天未运行）：立即选出
             chosen = select_picks(sc, industry, settings, prev_codes)
@@ -335,8 +357,10 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                            "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
                            "note": "月中补选" if d.day > 7 else "月初选出"}
             write_json(picks_file, picks_state)
-        if is_last_trading_day_of_month(d, cal):
+        if is_last_trading_day_of_month(d, cal) and can_pick:
+            # 只在数据完整时记录月末名单（避免 21:07 的重跑用不完整数据覆盖）
             TAIL.record_members(ctx.state, d, {k: v.where(mask) for k, v in ranks.items()}, mask)
+        if is_last_trading_day_of_month(d, cal):
             nxt = cal[cal > d][0]
             nmonth = f"{nxt.year}-{nxt.month:02d}"
             nfile = ctx.state / f"picks_{nmonth}.json"
@@ -387,6 +411,7 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
             }
         ew = raw.pct_change(fill_method=None).loc[:, mask[mask].index].mean(axis=1)
         latest = {"data_date": str(d.date()), "month": month, "pick_date": picks_state["pick_date"],
+                  "picks_note": picks_state.get("note", ""),
                   "base": base, "ew_ret20": clean((1 + ew.tail(20)).prod() - 1),
                   "universe_n": int(mask.sum()), "tail_weights": tail_w}
         write_json(ctx.state / "latest.json", latest)
@@ -561,6 +586,7 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     dash = {
         "generated_at": now_bj().strftime("%Y-%m-%d %H:%M"), "mode": mode, "data_date": latest["data_date"],
         "month": latest["month"], "pick_date": latest["pick_date"], "universe_n": latest.get("universe_n"),
+        "picks_note": latest.get("picks_note", ""),
         "market": market, "picks": ranked, "history": history, "watch": watch, "news": news_out,
         "track": track, "sources": ctx.sources, "method": METHOD_HTML,
         "factor_labels": FACTOR_LABELS,

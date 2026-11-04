@@ -52,24 +52,34 @@ def _f(x: str) -> float | None:
 
 
 # ---------------------------------------------------------------- 腾讯
-def tencent_quotes(codes: Iterable[str], batch: int = 60) -> list[dict]:
-    """腾讯 qt.gtimg.cn 实时行情（≤60 只 / 次，GBK）。"""
+def tencent_quotes(codes: Iterable[str], batch: int = 60, budget_sec: float = 300.0) -> list[dict]:
+    """腾讯 qt.gtimg.cn 实时行情（≤60 只 / 次，GBK）。失败批次在域名冷却结束后重试一次；总耗时不超过 budget_sec。"""
     codes = [normalize_code(c) for c in codes]
     out: list[dict] = []
     chunks = [codes[i : i + batch] for i in range(0, len(codes), batch)]
     texts, failed = [], []
+    t0 = time.time()
+    url = "https://qt.gtimg.cn/q="
     for chunk in chunks:
+        if time.time() - t0 > budget_sec:
+            failed.append(chunk)
+            continue
         try:
-            texts.append(fetcher().get("https://qt.gtimg.cn/q=" + ",".join(chunk), encoding="gbk").text)
+            texts.append(fetcher().get(url + ",".join(chunk), encoding="gbk").text)
         except SourceUnavailable:
             failed.append(chunk)  # 单批失败不影响其他批次，稍后重试
-    for chunk in failed[:]:
-        time.sleep(3)
-        try:
-            texts.append(fetcher().get("https://qt.gtimg.cn/q=" + ",".join(chunk), encoding="gbk").text)
-            failed.remove(chunk)
-        except SourceUnavailable:
-            pass
+    # 失败超过一半多半是整体不可用，不再重试；否则等冷却结束后重试一次
+    if failed and len(failed) <= len(chunks) / 2:
+        for chunk in failed[:]:
+            while fetcher().is_blocked("qt.gtimg.cn") and time.time() - t0 < budget_sec:
+                time.sleep(5)
+            if time.time() - t0 > budget_sec:
+                break
+            try:
+                texts.append(fetcher().get(url + ",".join(chunk), encoding="gbk").text)
+                failed.remove(chunk)
+            except SourceUnavailable:
+                pass
     for text in texts:
         for line in text.strip().split(";"):
             if "=" not in line:
@@ -92,11 +102,12 @@ def tencent_quotes(codes: Iterable[str], batch: int = 60) -> list[dict]:
                 "pct": _f(f[32]),
                 "high": _f(f[33]),
                 "low": _f(f[34]),
-                "amount": (_f(f[37]) or 0.0) * 1e4,  # 万元 → 元
+                "amount": None if _f(f[37]) is None else _f(f[37]) * 1e4,  # 万元 → 元
                 "turnover": _f(f[38]),
                 "pe_ttm": _f(f[39]),
-                "float_mv": (_f(f[44]) or 0.0) * 1e8,  # 亿元 → 元
-                "total_mv": (_f(f[45]) or 0.0) * 1e8,
+                # 空字段保留为 None（不要写成 0），覆盖率检查才能识别缺失
+                "float_mv": None if not _f(f[44]) else _f(f[44]) * 1e8,  # 亿元 → 元
+                "total_mv": None if not _f(f[45]) else _f(f[45]) * 1e8,
                 "pb": _f(f[46]),
                 "limit_up": _f(f[47]),
                 "limit_down": _f(f[48]),
