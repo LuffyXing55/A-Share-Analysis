@@ -68,6 +68,15 @@ def main():
     assert d["mode"] == "live" and len(d["picks"]) == 30
     changed = sum(1 for x in d["picks"] if x.get("pct_today") == 0.02)
     print("live ok; picks with live quote:", changed)
+    # 盘中 K 线：今天的股价 K 线与看好分 K 线（开盘 = 上一次收盘的综合分）
+    p0 = d["picks"][0]
+    assert p0.get("today_bar") and p0["today_bar"]["c"] > 0, "缺少今天的股价 K 线"
+    st = p0.get("score_today")
+    assert st and st["l"] <= min(st["o"], st["c"]) and st["h"] >= max(st["o"], st["c"]), st
+    eng.refresh_once()                                     # 第二次刷新：盘中高低点累计、开盘不变
+    st2 = eng.dash["picks"][0].get("score_today") if eng.dash["picks"][0]["code"] == p0["code"] else None
+    assert st2 is None or st2["o"] == st["o"], (st, st2)
+    print("intraday bars ok:", p0["today_bar"], st)
     t = d.get("tech") or {}
     assert t and len(t["picks"]) == 15, "科技榜缺失"
     print("tech live ok:", [(x["rank"], x["code"], x["total"]) for x in t["picks"][:5]])
@@ -81,6 +90,7 @@ def main():
     assert client.get("/").status_code == 200
     assert client.get("/app.js").status_code == 200
     assert client.get("/data/backtest.json").status_code in (200, 404)
+    assert client.get("/data/chart.json").status_code == 200, "本地服务没有提供 chart.json"
     print("api ok", json.dumps(client.get("/api/status").json(), ensure_ascii=False))
 
 

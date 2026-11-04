@@ -33,6 +33,7 @@ class LiveEngine:
         self.news_ts = 0.0
         self.models = None
         self.models_stamp = None
+        self.score_ohlc = {}      # (榜单, 代码) → 当天盘中看好分的开高低收，用于看好分 K 线
         self.status = "starting"
 
     # ------------------------------------------------------------ 数据加载
@@ -144,12 +145,18 @@ class LiveEngine:
         names = {c: (all_base.get(c) or {}).get("name", c) for c in codes}
         matched = match_news_to_stocks(self.news, names)
 
-        def update(plist, base, sc_map, w):
+        today = now.strftime("%Y-%m-%d")
+
+        def update(plist, base, sc_map, w, which):
             for p in plist:
                 c = p["code"]
                 q = quotes.get(c) or {}
                 b = base.get(c) or {}
+                close_total = p.get("total")          # 上一次收盘计算的综合分 = 今天看好分 K 线的开盘
                 if q.get("price"):
+                    if latest["data_date"] < today:
+                        p["today_bar"] = {"date": today, "o": q.get("open"), "h": q.get("high"), "l": q.get("low"),
+                                          "c": q["price"], "v": q.get("volume_lots")}
                     p["price"] = q["price"]
                     p["pct_today"] = (q["pct"] or 0) / 100
                     entry = b.get("price")
@@ -169,6 +176,15 @@ class LiveEngine:
                 short = None if short_model is None else round(float(np.clip(short_model + ov_pts + news_pts, 0, 100)), 1)
                 p["value"], p["short"] = value, short
                 p["total"] = None if value is None or short is None else round(w["value"] * value + w["short"] * short, 1)
+                if p["total"] is not None and latest["data_date"] < today:
+                    k = (which, c)
+                    o = self.score_ohlc.get(k)
+                    if not o or o["date"] != today:
+                        op = close_total if close_total is not None else p["total"]
+                        o = {"date": today, "o": op, "h": op, "l": op}      # 高低点包含开盘
+                    o["h"], o["l"], o["c"] = max(o["h"], p["total"]), min(o["l"], p["total"]), p["total"]
+                    self.score_ohlc[k] = o
+                    p["score_today"] = dict(o)
                 p["chains"] = chains
                 p["signals"] = {"overseas": round(ov_pts / 4, 2), "news": ns, "overseas_points": round(ov_pts, 1),
                                 "news_points": round(news_pts, 1)}
@@ -183,12 +199,12 @@ class LiveEngine:
             return ranked
 
         tag = now.strftime("%Y-%m-%d") + "（盘中）"
-        live["picks"] = update(live["picks"], latest["base"], scores, settings["score_weights"])
+        live["picks"] = update(live["picks"], latest["base"], scores, settings["score_weights"], "main")
         for p in live["picks"]:
             live["history"].setdefault(p["code"], []).append([tag, p["total"], p["value"], p["short"]])
         if tech:
             tw = (settings.get("tech") or {}).get("score_weights", settings["score_weights"])
-            tech["picks"] = update(tech["picks"], tech_base, scores_tech, tw)
+            tech["picks"] = update(tech["picks"], tech_base, scores_tech, tw, "tech")
             for p in tech["picks"]:
                 tech["history"].setdefault(p["code"], []).append([tag, p["total"], p["value"], p["short"]])
         live["market"]["time"] = now.strftime("%Y-%m-%d %H:%M:%S")

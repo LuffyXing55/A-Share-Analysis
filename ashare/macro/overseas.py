@@ -30,12 +30,26 @@ def fetch_overseas(symbols: list[str], days: int = 90) -> dict[str, dict]:
         if len(df) < 3:
             continue
         r = df["close"].pct_change()
-        sd = r.tail(60).std()
+        # 日常波动用「今天以前」的 60 天，避免今天的大波动把自己的基准抬高
+        sd = r.iloc[:-1].tail(60).std()
         last = df.iloc[-1]
-        out[sym] = {"ok": True, "date": str(pd.Timestamp(last["date"]).date()), "price": float(last["close"]),
-                    "pct": float(r.iloc[-1]), "z": float(r.iloc[-1] / sd) if sd and sd > 0 else None,
+        pct = float(r.iloc[-1])
+        z = float(pct / sd) if sd and sd > 0 else None
+        suspect = suspicious_move(pct, z)
+        out[sym] = {"ok": not suspect, "date": str(pd.Timestamp(last["date"]).date()), "price": float(last["close"]),
+                    "pct": pct, "z": z,
                     "ret5": float(df["close"].iloc[-1] / df["close"].iloc[-6] - 1) if len(df) > 6 else None}
+        if suspect:
+            # 拆股 / 合股、代码切换或数据源错误：不参与信号和海外联动打分
+            out[sym]["error"] = f"数据疑似异常（单日 {pct:+.0%}），已忽略"
     return out
+
+
+def suspicious_move(pct: float, z: float | None) -> bool:
+    """单日涨跌幅明显不合理：超过 ±40%，或超过 ±15% 且大于 10 倍日常波动（指数、大宗、美股大盘股几乎不可能）。"""
+    if pct is None or not np.isfinite(pct):
+        return True
+    return abs(pct) >= 0.40 or (abs(pct) >= 0.15 and z is not None and abs(z) >= 10)
 
 
 def needed_symbols(pick_codes: list[str], industries: list[str] | None = None) -> list[str]:
@@ -65,7 +79,9 @@ def chain_signals(code: str, quotes: dict, stats: dict, min_t: float = 2.0,
 
     def fresh(q: dict) -> bool:
         # 海外收盘日期早于 A 股数据日期 → 已经反映在 A 股价格里，不再计入
-        return q.get("pct") is not None and (min_date is None or str(q.get("date", "")) >= min_date)
+        # 数据疑似异常（ok=False）的不参与打分
+        return bool(q.get("ok")) and q.get("pct") is not None and \
+            (min_date is None or str(q.get("date", "")) >= min_date)
 
     pred_total, details = 0.0, []
     for ch in CHAINS:

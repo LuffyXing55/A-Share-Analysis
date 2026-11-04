@@ -100,12 +100,13 @@ def themes(cfg: dict, picks: list[dict]) -> list[dict]:
 def live_signals(quotes: dict, picks: list[dict], rates: pd.DataFrame | None = None,
                  margin: pd.DataFrame | None = None, breadth: dict | None = None) -> list[dict]:
     sig = []
-    # 1) 海外异动：|z|>=1.5 或 |涨跌|>=3%
+    # 1) 海外异动：涨跌达到日常波动的 2 倍以上，或单日涨跌 ≥ 4%
+    #    用词：≥ 3 倍日常波动或 ≥ 6% 才叫「大涨 / 大跌」，否则叫「明显上涨 / 明显下跌」
     for sym, q in quotes.items():
         if not q.get("ok") or q.get("pct") is None:
             continue
         z = q.get("z") or 0
-        if abs(z) < 1.5 and abs(q["pct"]) < 0.03:
+        if abs(z) < 2 and abs(q["pct"]) < 0.04:
             continue
         name = MACRO_SYMBOLS.get(sym, DISPLAY.get(sym, sym))
         affected, chain_names = [], []
@@ -115,15 +116,16 @@ def live_signals(quotes: dict, picks: list[dict], rates: pd.DataFrame | None = N
                 affected += [p["code"] for p in picks if p["code"] in ch["a_shares"]]
         if not chain_names and sym not in DISPLAY:
             continue
-        direction = "大涨" if q["pct"] > 0 else "大跌"
-        text = f"{q['date']} 收盘 {q['pct']*100:+.2f}%（约 {abs(z):.1f} 倍日常波动）。"
+        big = abs(z) >= 3 or abs(q["pct"]) >= 0.06
+        direction = ("大涨" if big else "明显上涨") if q["pct"] > 0 else ("大跌" if big else "明显下跌")
+        text = f"{q['date']} 收盘 {q['pct']*100:+.2f}%（约为日常单日波动的 {abs(z):.1f} 倍）。"
         if chain_names:
             text += "关联 A 股产业链：" + "、".join(dict.fromkeys(chain_names)) + "。"
             gap, cc = _oos_corr()
             text += (f"历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 {gap:.2f}），"
                      f"对全天超额影响较弱（{cc:.2f}）。")
         sig.append({"title": f"海外异动：{name}{direction}", "text": text, "picks": sorted(set(affected)),
-                    "level": 3 if abs(z) >= 2.5 else 2, "when": f"美股 {q['date']}"})
+                    "level": 3 if big else 2, "when": f"美股 {q['date']}"})
     # 2) 美债收益率
     if rates is not None and len(rates) > 6 and "us10y" in rates:
         r = rates.dropna(subset=["us10y"])

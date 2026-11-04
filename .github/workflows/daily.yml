@@ -82,6 +82,7 @@ jobs:
           cp site_data/dashboard.json _site/data/
           [ -f site_data/backtest.json ] && cp site_data/backtest.json _site/data/ || true
           [ -f site_data/backtest_tech.json ] && cp site_data/backtest_tech.json _site/data/ || true
+          [ -f site_data/chart.json ] && cp site_data/chart.json _site/data/ || true
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -68,10 +68,11 @@ def sanitize(o):
     return o
 
 
-def write_json(path: Path, obj) -> None:
+def write_json(path: Path, obj, compact: bool = False) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
-    tmp.write_text(json.dumps(sanitize(obj), ensure_ascii=False, indent=0, default=_default, allow_nan=False))
+    kw = {"separators": (",", ":")} if compact else {"indent": 0}
+    tmp.write_text(json.dumps(sanitize(obj), ensure_ascii=False, default=_default, allow_nan=False, **kw))
     tmp.replace(path)
 
 
@@ -594,14 +595,23 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                   "picks_note": picks_state.get("note", ""),
                   "base": base, "ew_ret20": clean((1 + ew.tail(20)).prod() - 1),
                   "universe_n": int(mask.sum()), "tail_weights": tail_w}
-        try:
-            all_codes = list(dict.fromkeys(codes + list(((tech or {}).get("base") or {}).keys())))
-            latest["month_trend"] = month_trend(p["close"], ctx.u_full, all_codes, month, d)
-            if can_pick:
-                backfill_month_scores(ctx, p, codes, month, d, tail_w, short_model, w, k_neutral)
-        except Exception as e:  # noqa: BLE001
-            ctx.note("本月走势", False, str(e))
         write_json(ctx.state / "latest.json", latest)
+        try:
+            tech_codes = list(((tech or {}).get("base") or {}).keys())
+            hist_sc = score_history(ctx, p, table, short_model, codes, tech_codes, d, settings, ind_map)
+            chart = {"data_date": str(d.date()),
+                     "kline": kline_data(p, list(dict.fromkeys(codes + tech_codes)), d),
+                     "score_hist": {"main": {k: {c: v[c] for c in codes if c in v} for k, v in
+                                             sorted(hist_sc.get("main", {}).items())},
+                                    "tech": {k: {c: v[c] for c in tech_codes if c in v} for k, v in
+                                             sorted(hist_sc.get("tech", {}).items())}},
+                     "picks": {"main": {"pick_date": picks_state["pick_date"]},
+                               "tech": {"pick_date": (tech or {}).get("pick_date")}}}
+            write_json(Path(out_dir) / "chart.json", chart, compact=True)
+            ctx.note("K线与历史看好分", True, f"{len(chart['kline']['codes'])} 只，{len(chart['kline']['dates'])} 个交易日")
+        except Exception as e:  # noqa: BLE001
+            traceback.print_exc()
+            ctx.note("K线与历史看好分", False, str(e)[:200])
         qs = np.linspace(0, 1, 101)
         pred_dist = {k: [clean(x, 6) for x in np.quantile(sc[k + "_raw"].dropna().values, qs)]
                      for k in ("value", "short")}
@@ -625,67 +635,96 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
     return build_dashboard(ctx, latest, track, mode)
 
 
-def month_trend(close: pd.DataFrame, u_full: pd.DataFrame, codes: list[str], month: str, d: pd.Timestamp) -> dict:
-    """本月走势：入选股与股票池等权自上月最后一个交易日收盘以来的累计涨跌（复权价，净值形式，1 = 不涨不跌）。"""
-    m0 = pd.Timestamp(month + "-01")
-    before = close.index[close.index < m0]
-    if not len(before) or before[-1] >= d:
-        return {}
-    seg = close.loc[before[-1]:d]
-    ret = seg.pct_change(fill_method=None).iloc[1:]
-    um = u_full.reindex(index=ret.index, columns=ret.columns).fillna(False).shift(1).fillna(False)
-    bench = (1 + ret.where(um).mean(axis=1).fillna(0)).cumprod()
-    out = {"dates": [str(x.date()) for x in seg.index], "bench": [1.0] + [clean(x, 4) for x in bench.values],
-           "codes": {}}
-    for c in codes:
-        if c not in seg:
-            continue
-        s = seg[c].ffill()
-        if pd.isna(s.iloc[0]) or s.iloc[0] <= 0:
-            continue
-        out["codes"][c] = [clean(x, 4) for x in (s / s.iloc[0]).values]
-    return out
+def score_history(ctx: Context, p: dict, table: pd.DataFrame, short_model: Model, main_codes: list[str],
+                  tech_codes: list[str], d: pd.Timestamp, settings: dict, ind_map: dict, days: int = 120) -> dict:
+    """K 线图用的「每日看好分」历史（收盘口径，不含海外 / 新闻的盘后调整）。
 
-
-def backfill_month_scores(ctx: Context, p: dict, codes: list[str], month: str, d: pd.Timestamp, tail_w: dict,
-                          short_model: Model, w: dict, k_neutral: int) -> None:
-    """本月组合是月中才选出（或首次运行）时，把本月此前交易日的看好分补算出来，走势图可以看到整个月。
-    口径与收盘计算一致（同一套因子权重、短线模型、市值中性化），但不含海外 / 新闻的盘后调整。"""
-    hist_file = ctx.state / f"daily_{month}.json"
-    hist = read_json(hist_file, {})
+    每个交易日：因子权重只用当天之前已实现的尾部表（与回测一致），短线模型用当前模型（对过去日期属于样本内，
+    网页上标为「回算」）；30 强口径 = 全股票池分位 + 价值分市值中性化；科技榜口径 = 科技股池内分位。
+    结果缓存在 state/score_hist.json，模型或口径变了就整体重算，否则每天只补新的（日期, 股票）。"""
     fac, u = getattr(ctx, "fac_full", None), getattr(ctx, "u_full", None)
     if fac is None or u is None:
-        return
-    m0 = pd.Timestamp(month + "-01")
-    days = [x for x in u.index if m0 <= x < d]
-    changed = False
-    for x in days:
+        return {}
+    k_neutral = int(settings.get("value_size_neutral_buckets") or 0)
+    tcfg = settings.get("tech") or {}
+    inds = set(tcfg.get("industries", ["电子", "计算机", "通信", "传媒"]))
+    w = settings.get("score_weights", {"value": 0.6, "short": 0.4})
+    tw = tcfg.get("score_weights", {"value": 0.5, "short": 0.5})
+    excluded = set(settings.get("exclude_factors", []))
+    version = json.dumps([short_model.meta.get("trained_at"), k_neutral, sorted(excluded), w, tw, sorted(inds)],
+                         ensure_ascii=False)
+    path = ctx.state / "score_hist.json"
+    cache = read_json(path, {}) or {}
+    if cache.get("version") != version:
+        cache = {"version": version, "main": {}, "tech": {}}
+    dates = [x for x in u.index if x <= d][-days:]
+    keep = {str(x.date()) for x in dates}
+    for key in ("main", "tech"):
+        cache[key] = {k: v for k, v in cache[key].items() if k in keep}
+    realized = TAIL.label_realized_dates(table.index, u.index)
+    n_new = 0
+    for x in dates:
         key = str(x.date())
-        have = hist.get(key) or {}
-        need = [c for c in codes if c not in have]
-        if not need:
+        hm, ht = cache["main"].setdefault(key, {}), cache["tech"].setdefault(key, {})
+        need_m = [c for c in main_codes if c not in hm]
+        need_t = [c for c in tech_codes if c not in ht]
+        if not need_m and not need_t:
             continue
         mask_x = u.loc[x]
         if mask_x.sum() < 500:
             continue
         r_x = {k: v.loc[x].where(mask_x).rank(pct=True) for k, v in fac.items()}
+        avail = {k for k, v in r_x.items() if v.notna().sum() > 500} - excluded
+        tw_x = TAIL.weights(table, x, available=avail, realized=realized)
+        if not tw_x:
+            continue
         mv_x = p["total_mv"].loc[x] / 1e4 if "total_mv" in p and x in p["total_mv"].index else None
-        sc_x = score_universe(r_x, mask_x, short_model, tail_w, mv_x, k_neutral)
-        for c in need:
-            if c not in sc_x.index:
+        sc_x = score_universe(r_x, mask_x, short_model, tw_x, mv_x, k_neutral)
+        for c in need_m:
+            if c in sc_x.index:
+                v, s_ = clean(sc_x.loc[c, "value"], 1), clean(sc_x.loc[c, "short"], 1)
+                hm[c] = [None if v is None or s_ is None else clean(w["value"] * v + w["short"] * s_, 1), v, s_]
+            else:
+                hm[c] = None
+        if need_t:
+            tc = [c for c in sc_x.index if ind_map.get(c) in inds and pd.notna(sc_x.loc[c, "value_raw"])]
+            if len(tc) >= 50:
+                tv = sc_x.loc[tc, "value_raw"].rank(pct=True) * 100
+                ts = sc_x.loc[tc, "short_raw"].rank(pct=True) * 100
+            for c in need_t:
+                if len(tc) >= 50 and c in tv.index:
+                    v, s_ = clean(tv[c], 1), clean(ts[c], 1)
+                    ht[c] = [None if v is None or s_ is None else clean(tw["value"] * v + tw["short"] * s_, 1), v, s_]
+                else:
+                    ht[c] = None
+        n_new += 1
+    write_json(path, cache, compact=True)
+    if n_new:
+        ctx.log.append(f"补算了 {n_new} 个交易日的历史看好分")
+    return cache
+
+
+def kline_data(p: dict, codes: list[str], d: pd.Timestamp, days: int = 120) -> dict:
+    """K 线：最近 days 个交易日的前复权 OHLC（复权到最新一天，与行情软件的前复权一致）和成交量（手）。"""
+    close = p["close"]
+    idx = close.index[close.index <= d][-days:]
+    f_last = p["factor"].ffill().iloc[-1]
+    out = {"dates": [str(x.date()) for x in idx], "codes": {}}
+    for c in codes:
+        if c not in close.columns or not np.isfinite(f_last.get(c, np.nan)):
+            continue
+        fl = f_last[c]
+        rows = []
+        for x in idx:
+            o, h, l_, cl = (p[k].at[x, c] for k in ("open", "high", "low", "close"))
+            vol = p["volume"].at[x, c] * p["factor"].at[x, c]
+            if not all(np.isfinite([o, h, l_, cl])) or cl <= 0:
+                rows.append(None)
                 continue
-            v, s = clean(sc_x.loc[c, "value"], 1), clean(sc_x.loc[c, "short"], 1)
-            tot = None if v is None or s is None else clean(w["value"] * v + w["short"] * s, 1)
-            have[c] = [tot, v, s, None]
-        order = sorted((c for c in codes if c in have and have[c][0] is not None), key=lambda c: -have[c][0])
-        for i, c in enumerate(order, 1):
-            if have[c][3] is None:
-                have[c][3] = i
-        hist[key] = have
-        changed = True
-    if changed:
-        write_json(hist_file, hist)
-        ctx.log.append(f"补算了本月 {len(days)} 个交易日的看好分走势")
+            rows.append([round(float(o / fl), 3), round(float(h / fl), 3), round(float(l_ / fl), 3),
+                         round(float(cl / fl), 3), int(vol) if np.isfinite(vol) else None])
+        out["codes"][c] = rows
+    return out
 
 
 def update_track(ctx: Context, raw: pd.DataFrame, mask: pd.Series, d: pd.Timestamp) -> list:
@@ -865,8 +904,7 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
         "generated_at": now_bj().strftime("%Y-%m-%d %H:%M"), "mode": mode, "data_date": latest["data_date"],
         "month": latest["month"], "pick_date": latest["pick_date"], "universe_n": latest.get("universe_n"),
         "picks_note": latest.get("picks_note", ""), "weights": w,
-        "market": market, "picks": ranked, "history": history, "trend": latest.get("month_trend") or {},
-        "tech": tech_out, "watch": watch, "news": news_out,
+        "market": market, "picks": ranked, "history": history, "tech": tech_out, "watch": watch, "news": news_out,
         "track": track, "sources": ctx.sources, "method": METHOD_HTML,
         "factor_labels": FACTOR_LABELS,
     }

@@ -227,3 +227,18 @@ def test_size_buckets_and_neutral_value():
     assert abs(v[g == 0].mean() - v[g == 4].mean()) < 1e-9
     q = list(np.quantile(raw[g == 4], np.linspace(0, 1, 101)))
     assert abs(pct_from_dist(float(raw[g == 4].median()), q) - 0.5) < 0.02
+
+
+def test_overseas_anomaly_wording_and_sanity():
+    from ashare.macro.overseas import suspicious_move
+    from ashare.macro.watch import live_signals
+
+    assert suspicious_move(3.87, 7.7) and suspicious_move(-0.45, None) and suspicious_move(0.18, 12)
+    assert not suspicious_move(0.0249, 1.6) and not suspicious_move(0.20, 3)
+    q = {"GC": {"ok": True, "pct": 0.0249, "z": 1.6, "date": "2026-11-04"},      # 黄金 +2.5%：不够异动
+         "NVDA": {"ok": True, "pct": 0.045, "z": 2.2, "date": "2026-11-03"},     # 明显上涨
+         "AAPL": {"ok": True, "pct": -0.07, "z": -3.5, "date": "2026-11-03"},    # 大跌
+         "COHR": {"ok": False, "pct": 3.87, "z": 7.7, "date": "2026-11-03"}}     # 数据异常：忽略
+    titles = [s["title"] for s in live_signals(q, [])]
+    assert not any("黄金" in t for t in titles) and not any("COHR" in t for t in titles), titles
+    assert any("明显上涨" in t for t in titles) and any("大跌" in t for t in titles), titles
