@@ -128,7 +128,7 @@
 "industry": "建筑装饰",
 "value": 97.4,
 "short_model": 99.8,
-"total_base": 99.6,
+"total_base": 99.7,
 "price": 8.24,
 "pct_today": -0.0072,
 "suspended": false,
@@ -239,125 +239,6 @@
 "rel_ind_20": 0.2743,
 "ind_mom_60": 0.6813,
 "rel_ind_60": 0.4223
-}
-},
-"sz301329": {
-"code": "sz301329",
-"name": "信音电子",
-"industry": "电子",
-"value": 98.7,
-"short_model": 94.7,
-"total_base": 99.4,
-"price": 15.93,
-"pct_today": -0.0233,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0897,
-"pct": 96.9,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0697,
-"pct": 84.2,
-"name": "日内未追高"
-},
-{
-"factor": "size",
-"contrib": 0.0573,
-"pct": 89.2,
-"name": "小市值"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0437,
-"pct": 81.0,
-"name": "低于20日均线"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0345,
-"pct": 79.9,
-"name": "20日回调"
-},
-{
-"factor": "abn_turn",
-"contrib": 0.0332,
-"pct": 89.8,
-"name": "换手未异常放大"
-}
-],
-"reasons_short": [
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0449,
-"pct": 86.1
-},
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.03,
-"pct": 89.2
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.0206,
-"pct": 59.7
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0163,
-"pct": 96.9
-},
-{
-"factor": "intra_20",
-"name": "日内未追高",
-"contrib": 0.0107,
-"pct": 84.2
-}
-],
-"pe_ttm": 45.9,
-"pb": 1.74,
-"total_mv_yi": 27.1,
-"feat_ranks": {
-"rev_1": 0.6825,
-"rev_5": 0.8471,
-"rev_20": 0.7995,
-"mom_250_20": 0.3375,
-"vol_20": 0.5972,
-"vol_60": 0.7357,
-"ivol_20": 0.8615,
-"maxret_20": 0.6662,
-"amihud_20": 0.9691,
-"turn_20": 0.2292,
-"turn_5": 0.2286,
-"abn_turn": 0.8982,
-"vol_ratio_5": 0.4604,
-"pv_corr_20": 0.7185,
-"ovn_20": 0.5764,
-"intra_20": 0.8417,
-"gap_1": 0.2276,
-"close_pos_1": 0.5578,
-"dist_ma20": 0.8104,
-"high52": 0.7315,
-"limit_up_5": 0.5313,
-"ep": 0.5741,
-"bp": 0.6948,
-"roe": 0.4867,
-"e_growth": null,
-"e_revision": null,
-"size": 0.892,
-"ind_mom_20": 0.0529,
-"rel_ind_20": 0.5884,
-"ind_mom_60": 0.1919,
-"rel_ind_60": 0.4089
 }
 },
 "sz001256": {
@@ -479,13 +360,489 @@
 "rel_ind_60": 0.0561
 }
 },
+"sh603315": {
+"code": "sh603315",
+"name": "福鞍股份",
+"industry": "环保",
+"value": 96.3,
+"short_model": 98.6,
+"total_base": 99.3,
+"price": 8.87,
+"pct_today": -0.01,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.072,
+"pct": 87.7,
+"name": "非流动性溢价"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0614,
+"pct": 80.1,
+"name": "日内未追高"
+},
+{
+"factor": "size",
+"contrib": 0.0553,
+"pct": 87.8,
+"name": "小市值"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0528,
+"pct": 94.3,
+"name": "量价背离"
+},
+{
+"factor": "abn_turn",
+"contrib": 0.0365,
+"pct": 93.7,
+"name": "换手未异常放大"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0198,
+"pct": 67.2,
+"name": "20日回调"
+}
+],
+"reasons_short": [
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0527,
+"pct": 98.9
+},
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.03,
+"pct": 87.8
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0282,
+"pct": 80.7
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0172,
+"pct": 61.4
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0154,
+"pct": 87.7
+}
+],
+"pe_ttm": 55.5,
+"pb": 1.65,
+"total_mv_yi": 28.4,
+"feat_ranks": {
+"rev_1": 0.5277,
+"rev_5": 0.5496,
+"rev_20": 0.672,
+"mom_250_20": 0.6847,
+"vol_20": 0.8071,
+"vol_60": 0.7901,
+"ivol_20": 0.9887,
+"maxret_20": 0.7734,
+"amihud_20": 0.8766,
+"turn_20": 0.6857,
+"turn_5": 0.6136,
+"abn_turn": 0.9371,
+"vol_ratio_5": 0.7826,
+"pv_corr_20": 0.9428,
+"ovn_20": 0.8862,
+"intra_20": 0.8007,
+"gap_1": 0.5001,
+"close_pos_1": 0.6807,
+"dist_ma20": 0.6021,
+"high52": 0.8014,
+"limit_up_5": 0.5313,
+"ep": 0.5273,
+"bp": 0.7218,
+"roe": 0.4441,
+"e_growth": null,
+"e_revision": null,
+"size": 0.8781,
+"ind_mom_20": 0.462,
+"rel_ind_20": 0.3519,
+"ind_mom_60": 0.3515,
+"rel_ind_60": 0.1028
+}
+},
+"sz301329": {
+"code": "sz301329",
+"name": "信音电子",
+"industry": "电子",
+"value": 98.7,
+"short_model": 94.7,
+"total_base": 99.2,
+"price": 15.93,
+"pct_today": -0.0233,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0897,
+"pct": 96.9,
+"name": "非流动性溢价"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0697,
+"pct": 84.2,
+"name": "日内未追高"
+},
+{
+"factor": "size",
+"contrib": 0.0573,
+"pct": 89.2,
+"name": "小市值"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0437,
+"pct": 81.0,
+"name": "低于20日均线"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0345,
+"pct": 79.9,
+"name": "20日回调"
+},
+{
+"factor": "abn_turn",
+"contrib": 0.0332,
+"pct": 89.8,
+"name": "换手未异常放大"
+}
+],
+"reasons_short": [
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0449,
+"pct": 86.1
+},
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.03,
+"pct": 89.2
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0206,
+"pct": 59.7
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0163,
+"pct": 96.9
+},
+{
+"factor": "intra_20",
+"name": "日内未追高",
+"contrib": 0.0107,
+"pct": 84.2
+}
+],
+"pe_ttm": 45.9,
+"pb": 1.74,
+"total_mv_yi": 27.1,
+"feat_ranks": {
+"rev_1": 0.6825,
+"rev_5": 0.8471,
+"rev_20": 0.7995,
+"mom_250_20": 0.3375,
+"vol_20": 0.5972,
+"vol_60": 0.7357,
+"ivol_20": 0.8615,
+"maxret_20": 0.6662,
+"amihud_20": 0.9691,
+"turn_20": 0.2292,
+"turn_5": 0.2286,
+"abn_turn": 0.8982,
+"vol_ratio_5": 0.4604,
+"pv_corr_20": 0.7185,
+"ovn_20": 0.5764,
+"intra_20": 0.8417,
+"gap_1": 0.2276,
+"close_pos_1": 0.5578,
+"dist_ma20": 0.8104,
+"high52": 0.7315,
+"limit_up_5": 0.5313,
+"ep": 0.5741,
+"bp": 0.6948,
+"roe": 0.4867,
+"e_growth": null,
+"e_revision": null,
+"size": 0.892,
+"ind_mom_20": 0.0529,
+"rel_ind_20": 0.5884,
+"ind_mom_60": 0.1919,
+"rel_ind_60": 0.4089
+}
+},
+"sz300823": {
+"code": "sz300823",
+"name": "建科智能",
+"industry": "机械设备",
+"value": 95.2,
+"short_model": 99.4,
+"total_base": 99.1,
+"price": 12.32,
+"pct_today": -0.0175,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0924,
+"pct": 98.3,
+"name": "非流动性溢价"
+},
+{
+"factor": "size",
+"contrib": 0.0724,
+"pct": 99.5,
+"name": "小市值"
+},
+{
+"factor": "intra_20",
+"contrib": 0.051,
+"pct": 75.0,
+"name": "日内未追高"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0492,
+"pct": 91.3,
+"name": "量价背离"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0245,
+"pct": 67.4,
+"name": "低于20日均线"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0216,
+"pct": 68.7,
+"name": "20日回调"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0741,
+"pct": 99.5
+},
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0398,
+"pct": 87.5
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0185,
+"pct": 98.3
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.015,
+"pct": 56.7
+},
+{
+"factor": "bp",
+"name": "账面市值比 B/P",
+"contrib": 0.0099,
+"pct": 71.7
+}
+],
+"pe_ttm": 29.16,
+"pb": 1.67,
+"total_mv_yi": 16.1,
+"feat_ranks": {
+"rev_1": 0.6232,
+"rev_5": 0.616,
+"rev_20": 0.6873,
+"mom_250_20": 0.4975,
+"vol_20": 0.5675,
+"vol_60": 0.7477,
+"ivol_20": 0.8747,
+"maxret_20": 0.7618,
+"amihud_20": 0.9833,
+"turn_20": 0.2754,
+"turn_5": 0.255,
+"abn_turn": 0.3595,
+"vol_ratio_5": 0.5742,
+"pv_corr_20": 0.9133,
+"ovn_20": 0.6702,
+"intra_20": 0.7501,
+"gap_1": 0.3182,
+"close_pos_1": 0.6149,
+"dist_ma20": 0.674,
+"high52": 0.3601,
+"limit_up_5": 0.5313,
+"ep": 0.7018,
+"bp": 0.7167,
+"roe": 0.591,
+"e_growth": null,
+"e_revision": null,
+"size": 0.9951,
+"ind_mom_20": 0.3015,
+"rel_ind_20": 0.362,
+"ind_mom_60": 0.5527,
+"rel_ind_60": 0.357
+}
+},
+"sz301158": {
+"code": "sz301158",
+"name": "德石股份",
+"industry": "机械设备",
+"value": 97.4,
+"short_model": 96.0,
+"total_base": 99.0,
+"price": 11.66,
+"pct_today": -0.0144,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0872,
+"pct": 95.6,
+"name": "非流动性溢价"
+},
+{
+"factor": "size",
+"contrib": 0.0651,
+"pct": 94.5,
+"name": "小市值"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0511,
+"pct": 75.0,
+"name": "日内未追高"
+},
+{
+"factor": "abn_turn",
+"contrib": 0.0398,
+"pct": 97.7,
+"name": "换手未异常放大"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0362,
+"pct": 75.7,
+"name": "低于20日均线"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0291,
+"pct": 74.4,
+"name": "量价背离"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0586,
+"pct": 94.5
+},
+{
+"factor": "mom_250_20",
+"name": "长期超跌",
+"contrib": -0.0304,
+"pct": 93.0
+},
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0301,
+"pct": 76.5
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0227,
+"pct": 95.6
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0211,
+"pct": 59.7
+}
+],
+"pe_ttm": 31.4,
+"pb": 1.6,
+"total_mv_yi": 22.7,
+"feat_ranks": {
+"rev_1": 0.5924,
+"rev_5": 0.7095,
+"rev_20": 0.6956,
+"mom_250_20": 0.9299,
+"vol_20": 0.5969,
+"vol_60": 0.4966,
+"ivol_20": 0.7654,
+"maxret_20": 0.9194,
+"amihud_20": 0.9557,
+"turn_20": 0.6158,
+"turn_5": 0.6901,
+"abn_turn": 0.9771,
+"vol_ratio_5": 0.585,
+"pv_corr_20": 0.7439,
+"ovn_20": 0.6346,
+"intra_20": 0.7503,
+"gap_1": 0.2182,
+"close_pos_1": 0.4616,
+"dist_ma20": 0.7574,
+"high52": 0.8736,
+"limit_up_5": 0.5313,
+"ep": 0.678,
+"bp": 0.7357,
+"roe": 0.5557,
+"e_growth": null,
+"e_revision": null,
+"size": 0.9453,
+"ind_mom_20": 0.3015,
+"rel_ind_20": 0.3514,
+"ind_mom_60": 0.5527,
+"rel_ind_60": 0.1768
+}
+},
 "sz301151": {
 "code": "sz301151",
 "name": "冠龙节能",
 "industry": "机械设备",
 "value": 99.2,
 "short_model": 93.2,
-"total_base": 99.3,
+"total_base": 99.0,
 "price": 15.16,
 "pct_today": -0.0344,
 "suspended": false,
@@ -604,7 +961,7 @@
 "industry": "建筑装饰",
 "value": 98.5,
 "short_model": 94.2,
-"total_base": 99.2,
+"total_base": 99.0,
 "price": 9.93,
 "pct_today": -0.009,
 "suspended": false,
@@ -717,608 +1074,13 @@
 "rel_ind_60": 0.1596
 }
 },
-"sz301158": {
-"code": "sz301158",
-"name": "德石股份",
-"industry": "机械设备",
-"value": 97.4,
-"short_model": 96.0,
-"total_base": 99.1,
-"price": 11.66,
-"pct_today": -0.0144,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0872,
-"pct": 95.6,
-"name": "非流动性溢价"
-},
-{
-"factor": "size",
-"contrib": 0.0651,
-"pct": 94.5,
-"name": "小市值"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0511,
-"pct": 75.0,
-"name": "日内未追高"
-},
-{
-"factor": "abn_turn",
-"contrib": 0.0398,
-"pct": 97.7,
-"name": "换手未异常放大"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0362,
-"pct": 75.7,
-"name": "低于20日均线"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0291,
-"pct": 74.4,
-"name": "量价背离"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0586,
-"pct": 94.5
-},
-{
-"factor": "mom_250_20",
-"name": "长期超跌",
-"contrib": -0.0304,
-"pct": 93.0
-},
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0301,
-"pct": 76.5
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0227,
-"pct": 95.6
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.0211,
-"pct": 59.7
-}
-],
-"pe_ttm": 31.4,
-"pb": 1.6,
-"total_mv_yi": 22.7,
-"feat_ranks": {
-"rev_1": 0.5924,
-"rev_5": 0.7095,
-"rev_20": 0.6956,
-"mom_250_20": 0.9299,
-"vol_20": 0.5969,
-"vol_60": 0.4966,
-"ivol_20": 0.7654,
-"maxret_20": 0.9194,
-"amihud_20": 0.9557,
-"turn_20": 0.6158,
-"turn_5": 0.6901,
-"abn_turn": 0.9771,
-"vol_ratio_5": 0.585,
-"pv_corr_20": 0.7439,
-"ovn_20": 0.6346,
-"intra_20": 0.7503,
-"gap_1": 0.2182,
-"close_pos_1": 0.4616,
-"dist_ma20": 0.7574,
-"high52": 0.8736,
-"limit_up_5": 0.5313,
-"ep": 0.678,
-"bp": 0.7357,
-"roe": 0.5557,
-"e_growth": null,
-"e_revision": null,
-"size": 0.9453,
-"ind_mom_20": 0.3015,
-"rel_ind_20": 0.3514,
-"ind_mom_60": 0.5527,
-"rel_ind_60": 0.1768
-}
-},
-"sh603315": {
-"code": "sh603315",
-"name": "福鞍股份",
-"industry": "环保",
-"value": 96.3,
-"short_model": 98.6,
-"total_base": 99.1,
-"price": 8.87,
-"pct_today": -0.01,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.072,
-"pct": 87.7,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0614,
-"pct": 80.1,
-"name": "日内未追高"
-},
-{
-"factor": "size",
-"contrib": 0.0553,
-"pct": 87.8,
-"name": "小市值"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0528,
-"pct": 94.3,
-"name": "量价背离"
-},
-{
-"factor": "abn_turn",
-"contrib": 0.0365,
-"pct": 93.7,
-"name": "换手未异常放大"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0198,
-"pct": 67.2,
-"name": "20日回调"
-}
-],
-"reasons_short": [
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0527,
-"pct": 98.9
-},
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.03,
-"pct": 87.8
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.0282,
-"pct": 80.7
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0172,
-"pct": 61.4
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0154,
-"pct": 87.7
-}
-],
-"pe_ttm": 55.5,
-"pb": 1.65,
-"total_mv_yi": 28.4,
-"feat_ranks": {
-"rev_1": 0.5277,
-"rev_5": 0.5496,
-"rev_20": 0.672,
-"mom_250_20": 0.6847,
-"vol_20": 0.8071,
-"vol_60": 0.7901,
-"ivol_20": 0.9887,
-"maxret_20": 0.7734,
-"amihud_20": 0.8766,
-"turn_20": 0.6857,
-"turn_5": 0.6136,
-"abn_turn": 0.9371,
-"vol_ratio_5": 0.7826,
-"pv_corr_20": 0.9428,
-"ovn_20": 0.8862,
-"intra_20": 0.8007,
-"gap_1": 0.5001,
-"close_pos_1": 0.6807,
-"dist_ma20": 0.6021,
-"high52": 0.8014,
-"limit_up_5": 0.5313,
-"ep": 0.5273,
-"bp": 0.7218,
-"roe": 0.4441,
-"e_growth": null,
-"e_revision": null,
-"size": 0.8781,
-"ind_mom_20": 0.462,
-"rel_ind_20": 0.3519,
-"ind_mom_60": 0.3515,
-"rel_ind_60": 0.1028
-}
-},
-"sz300823": {
-"code": "sz300823",
-"name": "建科智能",
-"industry": "机械设备",
-"value": 95.2,
-"short_model": 99.4,
-"total_base": 98.8,
-"price": 12.32,
-"pct_today": -0.0175,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0924,
-"pct": 98.3,
-"name": "非流动性溢价"
-},
-{
-"factor": "size",
-"contrib": 0.0724,
-"pct": 99.5,
-"name": "小市值"
-},
-{
-"factor": "intra_20",
-"contrib": 0.051,
-"pct": 75.0,
-"name": "日内未追高"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0492,
-"pct": 91.3,
-"name": "量价背离"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0245,
-"pct": 67.4,
-"name": "低于20日均线"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0216,
-"pct": 68.7,
-"name": "20日回调"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0741,
-"pct": 99.5
-},
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0398,
-"pct": 87.5
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0185,
-"pct": 98.3
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.015,
-"pct": 56.7
-},
-{
-"factor": "bp",
-"name": "账面市值比 B/P",
-"contrib": 0.0099,
-"pct": 71.7
-}
-],
-"pe_ttm": 29.16,
-"pb": 1.67,
-"total_mv_yi": 16.1,
-"feat_ranks": {
-"rev_1": 0.6232,
-"rev_5": 0.616,
-"rev_20": 0.6873,
-"mom_250_20": 0.4975,
-"vol_20": 0.5675,
-"vol_60": 0.7477,
-"ivol_20": 0.8747,
-"maxret_20": 0.7618,
-"amihud_20": 0.9833,
-"turn_20": 0.2754,
-"turn_5": 0.255,
-"abn_turn": 0.3595,
-"vol_ratio_5": 0.5742,
-"pv_corr_20": 0.9133,
-"ovn_20": 0.6702,
-"intra_20": 0.7501,
-"gap_1": 0.3182,
-"close_pos_1": 0.6149,
-"dist_ma20": 0.674,
-"high52": 0.3601,
-"limit_up_5": 0.5313,
-"ep": 0.7018,
-"bp": 0.7167,
-"roe": 0.591,
-"e_growth": null,
-"e_revision": null,
-"size": 0.9951,
-"ind_mom_20": 0.3015,
-"rel_ind_20": 0.362,
-"ind_mom_60": 0.5527,
-"rel_ind_60": 0.357
-}
-},
-"sh603335": {
-"code": "sh603335",
-"name": "迪生力",
-"industry": "汽车",
-"value": 99.4,
-"short_model": 89.3,
-"total_base": 98.8,
-"price": 4.76,
-"pct_today": -0.0266,
-"suspended": false,
-"ret_since_pick": -0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0811,
-"pct": 92.4,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0744,
-"pct": 86.5,
-"name": "日内未追高"
-},
-{
-"factor": "size",
-"contrib": 0.0685,
-"pct": 96.8,
-"name": "小市值"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0467,
-"pct": 83.2,
-"name": "低于20日均线"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0385,
-"pct": 82.3,
-"name": "量价背离"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0345,
-"pct": 80.0,
-"name": "20日回调"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0746,
-"pct": 96.8
-},
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.044,
-"pct": 95.0
-},
-{
-"factor": "bp",
-"name": "账面市值比 B/P",
-"contrib": -0.034,
-"pct": 7.0
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.0286,
-"pct": 84.9
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0183,
-"pct": 56.1
-}
-],
-"pe_ttm": 41.31,
-"pb": 7.81,
-"total_mv_yi": 20.4,
-"feat_ranks": {
-"rev_1": 0.7022,
-"rev_5": 0.8615,
-"rev_20": 0.8,
-"mom_250_20": 0.3321,
-"vol_20": 0.8492,
-"vol_60": 0.6554,
-"ivol_20": 0.9501,
-"maxret_20": 0.8761,
-"amihud_20": 0.9241,
-"turn_20": 0.5451,
-"turn_5": 0.5613,
-"abn_turn": 0.8848,
-"vol_ratio_5": 0.2633,
-"pv_corr_20": 0.8231,
-"ovn_20": 0.7029,
-"intra_20": 0.8645,
-"gap_1": 0.8621,
-"close_pos_1": 0.6973,
-"dist_ma20": 0.832,
-"high52": 0.6623,
-"limit_up_5": 0.5313,
-"ep": 0.6023,
-"bp": 0.0702,
-"roe": 0.9522,
-"e_growth": null,
-"e_revision": null,
-"size": 0.9681,
-"ind_mom_20": 0.6359,
-"rel_ind_20": 0.1222,
-"ind_mom_60": 0.643,
-"rel_ind_60": 0.1172
-}
-},
-"sh688077": {
-"code": "sh688077",
-"name": "大地熊",
-"industry": "有色金属",
-"value": 97.5,
-"short_model": 93.4,
-"total_base": 98.6,
-"price": 21.4,
-"pct_today": -0.0246,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0867,
-"pct": 95.3,
-"name": "非流动性溢价"
-},
-{
-"factor": "size",
-"contrib": 0.0619,
-"pct": 92.4,
-"name": "小市值"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0598,
-"pct": 79.3,
-"name": "日内未追高"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0449,
-"pct": 81.9,
-"name": "低于20日均线"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0389,
-"pct": 82.7,
-"name": "量价背离"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0294,
-"pct": 75.6,
-"name": "20日回调"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0419,
-"pct": 92.4
-},
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0258,
-"pct": 66.6
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0182,
-"pct": 95.3
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0171,
-"pct": 51.2
-},
-{
-"factor": "intra_20",
-"name": "日内未追高",
-"contrib": 0.0104,
-"pct": 79.3
-}
-],
-"pe_ttm": 40.48,
-"pb": 2.12,
-"total_mv_yi": 24.5,
-"feat_ranks": {
-"rev_1": 0.6915,
-"rev_5": 0.8841,
-"rev_20": 0.7559,
-"mom_250_20": 0.7177,
-"vol_20": 0.4488,
-"vol_60": 0.265,
-"ivol_20": 0.6657,
-"maxret_20": 0.6382,
-"amihud_20": 0.9534,
-"turn_20": 0.5995,
-"turn_5": 0.5117,
-"abn_turn": 0.6146,
-"vol_ratio_5": 0.6898,
-"pv_corr_20": 0.8269,
-"ovn_20": 0.5929,
-"intra_20": 0.7932,
-"gap_1": 0.1313,
-"close_pos_1": 0.7337,
-"dist_ma20": 0.8188,
-"high52": 0.5102,
-"limit_up_5": 0.5313,
-"ep": 0.6077,
-"bp": 0.5782,
-"roe": 0.5618,
-"e_growth": null,
-"e_revision": null,
-"size": 0.9235,
-"ind_mom_20": 0.1466,
-"rel_ind_20": 0.3618,
-"ind_mom_60": 0.0145,
-"rel_ind_60": 0.7739
-}
-},
 "sz002830": {
 "code": "sz002830",
 "name": "名雕股份",
 "industry": "建筑装饰",
 "value": 96.2,
 "short_model": 96.2,
-"total_base": 98.5,
+"total_base": 98.7,
 "price": 12.23,
 "pct_today": -0.0185,
 "suspended": false,
@@ -1431,132 +1193,13 @@
 "rel_ind_60": 0.6845
 }
 },
-"sh688291": {
-"code": "sh688291",
-"name": "金橙子",
-"industry": "计算机",
-"value": 100.0,
-"short_model": 86.6,
-"total_base": 98.5,
-"price": 28.4,
-"pct_today": -0.0366,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0949,
-"pct": 99.6,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0887,
-"pct": 93.5,
-"name": "日内未追高"
-},
-{
-"factor": "size",
-"contrib": 0.0536,
-"pct": 86.6,
-"name": "小市值"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0509,
-"pct": 86.2,
-"name": "低于20日均线"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0461,
-"pct": 90.0,
-"name": "20日回调"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0407,
-"pct": 84.1,
-"name": "量价背离"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0325,
-"pct": 86.6
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.017,
-"pct": 66.0
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": 0.0155,
-"pct": 25.8
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0146,
-"pct": 99.6
-},
-{
-"factor": "limit_up_5",
-"name": "近5日无涨停",
-"contrib": -0.0135,
-"pct": 53.1
-}
-],
-"pe_ttm": 41.72,
-"pb": 2.82,
-"total_mv_yi": 29.2,
-"feat_ranks": {
-"rev_1": 0.792,
-"rev_5": 0.8582,
-"rev_20": 0.9003,
-"mom_250_20": 0.1916,
-"vol_20": 0.2577,
-"vol_60": 0.3015,
-"ivol_20": 0.4612,
-"maxret_20": 0.3981,
-"amihud_20": 0.9962,
-"turn_20": 0.7253,
-"turn_5": 0.6605,
-"abn_turn": 0.8975,
-"vol_ratio_5": 0.7317,
-"pv_corr_20": 0.8412,
-"ovn_20": 0.7677,
-"intra_20": 0.9347,
-"gap_1": 0.8538,
-"close_pos_1": 0.6802,
-"dist_ma20": 0.8617,
-"high52": 0.8056,
-"limit_up_5": 0.5313,
-"ep": 0.5992,
-"bp": 0.418,
-"roe": 0.6472,
-"e_growth": null,
-"e_revision": null,
-"size": 0.8664,
-"ind_mom_20": 0.5748,
-"rel_ind_20": 0.0554,
-"ind_mom_60": 0.3077,
-"rel_ind_60": 0.0983
-}
-},
 "sz301266": {
 "code": "sz301266",
 "name": "宇邦新材",
 "industry": "电力设备",
 "value": 94.9,
 "short_model": 98.0,
-"total_base": 98.4,
+"total_base": 98.7,
 "price": 19.7,
 "pct_today": -0.013,
 "suspended": false,
@@ -1669,132 +1312,13 @@
 "rel_ind_60": 0.7446
 }
 },
-"sh603681": {
-"code": "sh603681",
-"name": "永冠新材",
-"industry": "基础化工",
-"value": 96.6,
-"short_model": 93.7,
-"total_base": 98.3,
-"price": 14.41,
-"pct_today": -0.0157,
-"suspended": false,
-"ret_since_pick": -0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "intra_20",
-"contrib": 0.0759,
-"pct": 87.2,
-"name": "日内未追高"
-},
-{
-"factor": "amihud_20",
-"contrib": 0.0591,
-"pct": 80.9,
-"name": "非流动性溢价"
-},
-{
-"factor": "size",
-"contrib": 0.0436,
-"pct": 79.8,
-"name": "小市值"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0423,
-"pct": 80.0,
-"name": "低于20日均线"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0386,
-"pct": 82.4,
-"name": "量价背离"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0346,
-"pct": 80.1,
-"name": "20日回调"
-}
-],
-"reasons_short": [
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.045,
-"pct": 81.2
-},
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0208,
-"pct": 79.8
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0201,
-"pct": 47.2
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.0179,
-"pct": 59.0
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0161,
-"pct": 80.9
-}
-],
-"pe_ttm": 25.2,
-"pb": 0.98,
-"total_mv_yi": 34.3,
-"feat_ranks": {
-"rev_1": 0.6081,
-"rev_5": 0.7625,
-"rev_20": 0.8009,
-"mom_250_20": 0.2714,
-"vol_20": 0.5901,
-"vol_60": 0.6886,
-"ivol_20": 0.8122,
-"maxret_20": 0.6761,
-"amihud_20": 0.809,
-"turn_20": 0.5458,
-"turn_5": 0.4723,
-"abn_turn": 0.7819,
-"vol_ratio_5": 0.3434,
-"pv_corr_20": 0.8243,
-"ovn_20": 0.7932,
-"intra_20": 0.8718,
-"gap_1": 0.9026,
-"close_pos_1": 0.5401,
-"dist_ma20": 0.8002,
-"high52": 0.6263,
-"limit_up_5": 0.5313,
-"ep": 0.7455,
-"bp": 0.9158,
-"roe": 0.4924,
-"e_growth": null,
-"e_revision": null,
-"size": 0.7983,
-"ind_mom_20": 0.214,
-"rel_ind_20": 0.2208,
-"ind_mom_60": 0.4317,
-"rel_ind_60": 0.3513
-}
-},
 "sz002397": {
 "code": "sz002397",
 "name": "梦洁股份",
 "industry": "纺织服饰",
 "value": 94.0,
 "short_model": 99.0,
-"total_base": 98.2,
+"total_base": 98.5,
 "price": 3.08,
 "pct_today": 0.0,
 "suspended": false,
@@ -1907,123 +1431,123 @@
 "rel_ind_60": 0.1985
 }
 },
-"sz301056": {
-"code": "sz301056",
-"name": "森赫股份",
-"industry": "机械设备",
-"value": 98.5,
-"short_model": 88.4,
-"total_base": 98.1,
-"price": 10.1,
-"pct_today": -0.0288,
+"sh688077": {
+"code": "sh688077",
+"name": "大地熊",
+"industry": "有色金属",
+"value": 97.5,
+"short_model": 93.4,
+"total_base": 98.4,
+"price": 21.4,
+"pct_today": -0.0246,
 "suspended": false,
 "ret_since_pick": 0.0,
 "is_st": false,
 "reasons_value": [
 {
 "factor": "amihud_20",
-"contrib": 0.0922,
-"pct": 98.2,
+"contrib": 0.0867,
+"pct": 95.3,
 "name": "非流动性溢价"
 },
 {
-"factor": "intra_20",
-"contrib": 0.0874,
-"pct": 92.8,
-"name": "日内未追高"
-},
-{
 "factor": "size",
-"contrib": 0.0577,
-"pct": 89.5,
+"contrib": 0.0619,
+"pct": 92.4,
 "name": "小市值"
 },
 {
+"factor": "intra_20",
+"contrib": 0.0598,
+"pct": 79.3,
+"name": "日内未追高"
+},
+{
 "factor": "dist_ma20",
-"contrib": 0.0471,
-"pct": 83.5,
+"contrib": 0.0449,
+"pct": 81.9,
 "name": "低于20日均线"
 },
 {
-"factor": "rev_20",
-"contrib": 0.0335,
-"pct": 79.1,
-"name": "20日回调"
+"factor": "pv_corr_20",
+"contrib": 0.0389,
+"pct": 82.7,
+"name": "量价背离"
 },
 {
-"factor": "pv_corr_20",
-"contrib": 0.0318,
-"pct": 76.7,
-"name": "量价背离"
+"factor": "rev_20",
+"contrib": 0.0294,
+"pct": 75.6,
+"name": "20日回调"
 }
 ],
 "reasons_short": [
 {
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0474,
-"pct": 87.7
-},
-{
 "factor": "size",
 "name": "小市值",
-"contrib": 0.0337,
-"pct": 89.5
+"contrib": 0.0419,
+"pct": 92.4
 },
 {
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.0236,
-"pct": 67.9
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0158,
-"pct": 56.6
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0258,
+"pct": 66.6
 },
 {
 "factor": "amihud_20",
 "name": "非流动性溢价",
-"contrib": 0.0143,
-"pct": 98.2
+"contrib": 0.0182,
+"pct": 95.3
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0171,
+"pct": 51.2
+},
+{
+"factor": "intra_20",
+"name": "日内未追高",
+"contrib": 0.0104,
+"pct": 79.3
 }
 ],
-"pe_ttm": 45.33,
-"pb": 3.48,
-"total_mv_yi": 26.9,
+"pe_ttm": 40.48,
+"pb": 2.12,
+"total_mv_yi": 24.5,
 "feat_ranks": {
-"rev_1": 0.7329,
-"rev_5": 0.7522,
-"rev_20": 0.7912,
-"mom_250_20": 0.3351,
-"vol_20": 0.6794,
-"vol_60": 0.4314,
-"ivol_20": 0.877,
-"maxret_20": 0.9025,
-"amihud_20": 0.9819,
-"turn_20": 0.5682,
-"turn_5": 0.5663,
-"abn_turn": 0.489,
-"vol_ratio_5": 0.5817,
-"pv_corr_20": 0.7673,
-"ovn_20": 0.9802,
-"intra_20": 0.9282,
-"gap_1": 0.2168,
-"close_pos_1": 0.3929,
-"dist_ma20": 0.8346,
-"high52": 0.4966,
+"rev_1": 0.6915,
+"rev_5": 0.8841,
+"rev_20": 0.7559,
+"mom_250_20": 0.7177,
+"vol_20": 0.4488,
+"vol_60": 0.265,
+"ivol_20": 0.6657,
+"maxret_20": 0.6382,
+"amihud_20": 0.9534,
+"turn_20": 0.5995,
+"turn_5": 0.5117,
+"abn_turn": 0.6146,
+"vol_ratio_5": 0.6898,
+"pv_corr_20": 0.8269,
+"ovn_20": 0.5929,
+"intra_20": 0.7932,
+"gap_1": 0.1313,
+"close_pos_1": 0.7337,
+"dist_ma20": 0.8188,
+"high52": 0.5102,
 "limit_up_5": 0.5313,
-"ep": 0.5766,
-"bp": 0.305,
-"roe": 0.698,
+"ep": 0.6077,
+"bp": 0.5782,
+"roe": 0.5618,
 "e_growth": null,
 "e_revision": null,
-"size": 0.8948,
-"ind_mom_20": 0.3015,
-"rel_ind_20": 0.2186,
-"ind_mom_60": 0.5527,
-"rel_ind_60": 0.8265
+"size": 0.9235,
+"ind_mom_20": 0.1466,
+"rel_ind_20": 0.3618,
+"ind_mom_60": 0.0145,
+"rel_ind_60": 0.7739
 }
 },
 "sz300644": {
@@ -2032,7 +1556,7 @@
 "industry": "基础化工",
 "value": 93.7,
 "short_model": 98.6,
-"total_base": 97.9,
+"total_base": 98.3,
 "price": 17.38,
 "pct_today": -0.0258,
 "suspended": false,
@@ -2145,361 +1669,361 @@
 "rel_ind_60": 0.2429
 }
 },
-"sz300970": {
-"code": "sz300970",
-"name": "华绿生物",
-"industry": "农林牧渔",
-"value": 98.3,
-"short_model": 85.9,
-"total_base": 97.8,
-"price": 11.78,
-"pct_today": -0.024,
+"sz300509": {
+"code": "sz300509",
+"name": "新美星",
+"industry": "机械设备",
+"value": 94.1,
+"short_model": 97.5,
+"total_base": 98.3,
+"price": 7.56,
+"pct_today": -0.0026,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.083,
+"pct": 93.4,
+"name": "非流动性溢价"
+},
+{
+"factor": "size",
+"contrib": 0.0656,
+"pct": 94.9,
+"name": "小市值"
+},
+{
+"factor": "intra_20",
+"contrib": 0.058,
+"pct": 78.4,
+"name": "日内未追高"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0235,
+"pct": 66.7,
+"name": "低于20日均线"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0197,
+"pct": 66.5,
+"name": "量价背离"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0181,
+"pct": 65.7,
+"name": "20日回调"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0555,
+"pct": 94.9
+},
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0377,
+"pct": 83.9
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0246,
+"pct": 71.8
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0183,
+"pct": 53.2
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.017,
+"pct": 93.4
+}
+],
+"pe_ttm": 17.16,
+"pb": 3.21,
+"total_mv_yi": 22.4,
+"feat_ranks": {
+"rev_1": 0.4253,
+"rev_5": 0.7291,
+"rev_20": 0.6572,
+"mom_250_20": 0.5494,
+"vol_20": 0.718,
+"vol_60": 0.8025,
+"ivol_20": 0.8389,
+"maxret_20": 0.8919,
+"amihud_20": 0.9338,
+"turn_20": 0.5039,
+"turn_5": 0.5319,
+"abn_turn": 0.689,
+"vol_ratio_5": 0.3615,
+"pv_corr_20": 0.6655,
+"ovn_20": 0.8669,
+"intra_20": 0.7842,
+"gap_1": 0.7965,
+"close_pos_1": 0.3863,
+"dist_ma20": 0.6669,
+"high52": 0.7491,
+"limit_up_5": 0.5313,
+"ep": 0.8586,
+"bp": 0.3446,
+"roe": 0.9508,
+"e_growth": null,
+"e_revision": null,
+"size": 0.9487,
+"ind_mom_20": 0.3015,
+"rel_ind_20": 0.3953,
+"ind_mom_60": 0.5527,
+"rel_ind_60": 0.4801
+}
+},
+"sh603681": {
+"code": "sh603681",
+"name": "永冠新材",
+"industry": "基础化工",
+"value": 96.6,
+"short_model": 93.7,
+"total_base": 98.2,
+"price": 14.41,
+"pct_today": -0.0157,
 "suspended": false,
 "ret_since_pick": -0.0,
 "is_st": false,
 "reasons_value": [
 {
 "factor": "intra_20",
-"contrib": 0.0784,
-"pct": 88.4,
+"contrib": 0.0759,
+"pct": 87.2,
 "name": "日内未追高"
 },
 {
+"factor": "amihud_20",
+"contrib": 0.0591,
+"pct": 80.9,
+"name": "非流动性溢价"
+},
+{
 "factor": "size",
-"contrib": 0.0703,
-"pct": 98.1,
+"contrib": 0.0436,
+"pct": 79.8,
 "name": "小市值"
 },
 {
 "factor": "dist_ma20",
-"contrib": 0.0619,
-"pct": 94.0,
+"contrib": 0.0423,
+"pct": 80.0,
 "name": "低于20日均线"
 },
 {
-"factor": "amihud_20",
-"contrib": 0.0483,
-"pct": 75.2,
-"name": "非流动性溢价"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0466,
-"pct": 90.5,
-"name": "20日回调"
-},
-{
 "factor": "pv_corr_20",
-"contrib": 0.036,
-"pct": 80.2,
-"name": "量价背离"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0803,
-"pct": 98.1
-},
-{
-"factor": "vol_60",
-"name": "60日低波动",
-"contrib": -0.0264,
-"pct": 5.5
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0206,
-"pct": 75.2
-},
-{
-"factor": "bp",
-"name": "账面市值比 B/P",
-"contrib": 0.0124,
-"pct": 86.0
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": -0.0112,
-"pct": 16.9
-}
-],
-"pe_ttm": 25.12,
-"pb": 1.19,
-"total_mv_yi": 18.8,
-"feat_ranks": {
-"rev_1": 0.6875,
-"rev_5": 0.6478,
-"rev_20": 0.905,
-"mom_250_20": 0.1308,
-"vol_20": 0.3793,
-"vol_60": 0.0551,
-"ivol_20": 0.3319,
-"maxret_20": 0.7776,
-"amihud_20": 0.7524,
-"turn_20": 0.1263,
-"turn_5": 0.1691,
-"abn_turn": 0.5411,
-"vol_ratio_5": 0.5685,
-"pv_corr_20": 0.8021,
-"ovn_20": 0.2309,
-"intra_20": 0.8843,
-"gap_1": 0.8094,
-"close_pos_1": 0.7309,
-"dist_ma20": 0.9397,
-"high52": 0.9303,
-"limit_up_5": 0.5313,
-"ep": 0.7468,
-"bp": 0.8598,
-"roe": 0.5371,
-"e_growth": null,
-"e_revision": null,
-"size": 0.9807,
-"ind_mom_20": 0.8363,
-"rel_ind_20": 0.0314,
-"ind_mom_60": 0.9352,
-"rel_ind_60": 0.0116
-}
-},
-"sh688501": {
-"code": "sh688501",
-"name": "青达环保",
-"industry": "环保",
-"value": 93.3,
-"short_model": 97.4,
-"total_base": 97.7,
-"price": 12.49,
-"pct_today": -0.0227,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0927,
-"pct": 98.5,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0674,
-"pct": 83.0,
-"name": "日内未追高"
-},
-{
-"factor": "size",
-"contrib": 0.0667,
-"pct": 95.6,
-"name": "小市值"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0353,
-"pct": 79.6,
+"contrib": 0.0386,
+"pct": 82.4,
 "name": "量价背离"
 },
 {
 "factor": "rev_20",
-"contrib": 0.0246,
-"pct": 71.4,
+"contrib": 0.0346,
+"pct": 80.1,
 "name": "20日回调"
-},
-{
-"factor": "abn_turn",
-"contrib": -0.0228,
-"pct": 22.6,
-"name": "换手未异常放大"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0594,
-"pct": 95.6
-},
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0224,
-"pct": 62.0
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0177,
-"pct": 98.5
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0174,
-"pct": 52.6
-},
-{
-"factor": "intra_20",
-"name": "日内未追高",
-"contrib": 0.0089,
-"pct": 83.0
-}
-],
-"pe_ttm": 15.55,
-"pb": 1.84,
-"total_mv_yi": 21.7,
-"feat_ranks": {
-"rev_1": 0.6783,
-"rev_5": 0.3008,
-"rev_20": 0.7137,
-"mom_250_20": 0.6811,
-"vol_20": 0.4261,
-"vol_60": 0.4985,
-"ivol_20": 0.6205,
-"maxret_20": 0.4975,
-"amihud_20": 0.9847,
-"turn_20": 0.5461,
-"turn_5": 0.5258,
-"abn_turn": 0.2261,
-"vol_ratio_5": 0.8872,
-"pv_corr_20": 0.796,
-"ovn_20": 0.8919,
-"intra_20": 0.8304,
-"gap_1": 0.5053,
-"close_pos_1": 0.4955,
-"dist_ma20": 0.5856,
-"high52": 0.4507,
-"limit_up_5": 0.5313,
-"ep": 0.8809,
-"bp": 0.6619,
-"roe": 0.8458,
-"e_growth": null,
-"e_revision": null,
-"size": 0.9565,
-"ind_mom_20": 0.462,
-"rel_ind_20": 0.3059,
-"ind_mom_60": 0.3515,
-"rel_ind_60": 0.7354
-}
-},
-"sz000045": {
-"code": "sz000045",
-"name": "深纺织Ａ",
-"industry": "电子",
-"value": 94.7,
-"short_model": 94.1,
-"total_base": 97.7,
-"price": 8.9,
-"pct_today": 0.0056,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0664,
-"pct": 84.7,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0577,
-"pct": 78.3,
-"name": "日内未追高"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0552,
-"pct": 96.3,
-"name": "量价背离"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0333,
-"pct": 73.7,
-"name": "低于20日均线"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0297,
-"pct": 75.8,
-"name": "20日回调"
-},
-{
-"factor": "size",
-"contrib": 0.0255,
-"pct": 67.4,
-"name": "小市值"
 }
 ],
 "reasons_short": [
 {
 "factor": "ivol_20",
 "name": "低特质波动",
-"contrib": 0.0577,
-"pct": 94.8
+"contrib": 0.045,
+"pct": 81.2
+},
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0208,
+"pct": 79.8
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0201,
+"pct": 47.2
 },
 {
 "factor": "vol_20",
 "name": "20日低波动",
-"contrib": -0.0262,
-"pct": 76.0
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0174,
-"pct": 73.4
-},
-{
-"factor": "bp",
-"name": "账面市值比 B/P",
-"contrib": 0.0159,
-"pct": 76.8
+"contrib": -0.0179,
+"pct": 59.0
 },
 {
 "factor": "amihud_20",
 "name": "非流动性溢价",
-"contrib": 0.0149,
-"pct": 84.7
+"contrib": 0.0161,
+"pct": 80.9
 }
 ],
-"pe_ttm": 53.54,
-"pb": 1.49,
-"total_mv_yi": 45.1,
+"pe_ttm": 25.2,
+"pb": 0.98,
+"total_mv_yi": 34.3,
 "feat_ranks": {
-"rev_1": 0.2918,
-"rev_5": 0.4624,
-"rev_20": 0.7585,
-"mom_250_20": 0.6743,
-"vol_20": 0.7602,
-"vol_60": 0.8673,
-"ivol_20": 0.9477,
-"maxret_20": 0.8949,
-"amihud_20": 0.8473,
-"turn_20": 0.8028,
-"turn_5": 0.7337,
-"abn_turn": 0.7729,
-"vol_ratio_5": 0.7899,
-"pv_corr_20": 0.9633,
-"ovn_20": 0.4872,
-"intra_20": 0.7828,
-"gap_1": 0.377,
-"close_pos_1": 0.2936,
-"dist_ma20": 0.7369,
-"high52": 0.4754,
+"rev_1": 0.6081,
+"rev_5": 0.7625,
+"rev_20": 0.8009,
+"mom_250_20": 0.2714,
+"vol_20": 0.5901,
+"vol_60": 0.6886,
+"ivol_20": 0.8122,
+"maxret_20": 0.6761,
+"amihud_20": 0.809,
+"turn_20": 0.5458,
+"turn_5": 0.4723,
+"abn_turn": 0.7819,
+"vol_ratio_5": 0.3434,
+"pv_corr_20": 0.8243,
+"ovn_20": 0.7932,
+"intra_20": 0.8718,
+"gap_1": 0.9026,
+"close_pos_1": 0.5401,
+"dist_ma20": 0.8002,
+"high52": 0.6263,
 "limit_up_5": 0.5313,
-"ep": 0.539,
-"bp": 0.7684,
-"roe": 0.4328,
+"ep": 0.7455,
+"bp": 0.9158,
+"roe": 0.4924,
 "e_growth": null,
 "e_revision": null,
-"size": 0.6743,
-"ind_mom_20": 0.0529,
-"rel_ind_20": 0.6708,
-"ind_mom_60": 0.1919,
-"rel_ind_60": 0.6329
+"size": 0.7983,
+"ind_mom_20": 0.214,
+"rel_ind_20": 0.2208,
+"ind_mom_60": 0.4317,
+"rel_ind_60": 0.3513
+}
+},
+"sh603335": {
+"code": "sh603335",
+"name": "迪生力",
+"industry": "汽车",
+"value": 99.4,
+"short_model": 89.3,
+"total_base": 98.1,
+"price": 4.76,
+"pct_today": -0.0266,
+"suspended": false,
+"ret_since_pick": -0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0811,
+"pct": 92.4,
+"name": "非流动性溢价"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0744,
+"pct": 86.5,
+"name": "日内未追高"
+},
+{
+"factor": "size",
+"contrib": 0.0685,
+"pct": 96.8,
+"name": "小市值"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0467,
+"pct": 83.2,
+"name": "低于20日均线"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0385,
+"pct": 82.3,
+"name": "量价背离"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0345,
+"pct": 80.0,
+"name": "20日回调"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0746,
+"pct": 96.8
+},
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.044,
+"pct": 95.0
+},
+{
+"factor": "bp",
+"name": "账面市值比 B/P",
+"contrib": -0.034,
+"pct": 7.0
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0286,
+"pct": 84.9
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0183,
+"pct": 56.1
+}
+],
+"pe_ttm": 41.31,
+"pb": 7.81,
+"total_mv_yi": 20.4,
+"feat_ranks": {
+"rev_1": 0.7022,
+"rev_5": 0.8615,
+"rev_20": 0.8,
+"mom_250_20": 0.3321,
+"vol_20": 0.8492,
+"vol_60": 0.6554,
+"ivol_20": 0.9501,
+"maxret_20": 0.8761,
+"amihud_20": 0.9241,
+"turn_20": 0.5451,
+"turn_5": 0.5613,
+"abn_turn": 0.8848,
+"vol_ratio_5": 0.2633,
+"pv_corr_20": 0.8231,
+"ovn_20": 0.7029,
+"intra_20": 0.8645,
+"gap_1": 0.8621,
+"close_pos_1": 0.6973,
+"dist_ma20": 0.832,
+"high52": 0.6623,
+"limit_up_5": 0.5313,
+"ep": 0.6023,
+"bp": 0.0702,
+"roe": 0.9522,
+"e_growth": null,
+"e_revision": null,
+"size": 0.9681,
+"ind_mom_20": 0.6359,
+"rel_ind_20": 0.1222,
+"ind_mom_60": 0.643,
+"rel_ind_60": 0.1172
 }
 },
 "sz300335": {
@@ -2508,7 +2032,7 @@
 "industry": "公用事业",
 "value": 92.2,
 "short_model": 99.7,
-"total_base": 97.6,
+"total_base": 98.1,
 "price": 4.8,
 "pct_today": -0.0062,
 "suspended": false,
@@ -2621,123 +2145,361 @@
 "rel_ind_60": 0.569
 }
 },
-"sz002772": {
-"code": "sz002772",
-"name": "众兴菌业",
-"industry": "农林牧渔",
-"value": 96.6,
-"short_model": 89.4,
-"total_base": 97.6,
-"price": 7.69,
-"pct_today": -0.0077,
+"sh688501": {
+"code": "sh688501",
+"name": "青达环保",
+"industry": "环保",
+"value": 93.3,
+"short_model": 97.4,
+"total_base": 98.0,
+"price": 12.49,
+"pct_today": -0.0227,
 "suspended": false,
-"ret_since_pick": -0.0,
+"ret_since_pick": 0.0,
 "is_st": false,
 "reasons_value": [
 {
-"factor": "dist_ma20",
-"contrib": 0.058,
-"pct": 91.2,
-"name": "低于20日均线"
-},
-{
-"factor": "size",
-"contrib": 0.0543,
-"pct": 87.1,
-"name": "小市值"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0531,
-"pct": 94.6,
-"name": "量价背离"
-},
-{
 "factor": "amihud_20",
-"contrib": 0.0485,
-"pct": 75.4,
+"contrib": 0.0927,
+"pct": 98.5,
 "name": "非流动性溢价"
 },
 {
 "factor": "intra_20",
-"contrib": 0.0468,
-"pct": 72.9,
+"contrib": 0.0674,
+"pct": 83.0,
 "name": "日内未追高"
 },
 {
+"factor": "size",
+"contrib": 0.0667,
+"pct": 95.6,
+"name": "小市值"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0353,
+"pct": 79.6,
+"name": "量价背离"
+},
+{
 "factor": "rev_20",
-"contrib": 0.039,
-"pct": 83.9,
+"contrib": 0.0246,
+"pct": 71.4,
 "name": "20日回调"
+},
+{
+"factor": "abn_turn",
+"contrib": -0.0228,
+"pct": 22.6,
+"name": "换手未异常放大"
 }
 ],
 "reasons_short": [
 {
 "factor": "size",
 "name": "小市值",
-"contrib": 0.031,
-"pct": 87.1
+"contrib": 0.0594,
+"pct": 95.6
 },
 {
-"factor": "bp",
-"name": "账面市值比 B/P",
-"contrib": 0.0163,
-"pct": 95.3
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0224,
+"pct": 62.0
 },
 {
 "factor": "amihud_20",
 "name": "非流动性溢价",
-"contrib": 0.0159,
-"pct": 75.4
+"contrib": 0.0177,
+"pct": 98.5
 },
 {
 "factor": "turn_5",
 "name": "5日低换手",
-"contrib": 0.0134,
-"pct": 42.2
+"contrib": 0.0174,
+"pct": 52.6
 },
 {
 "factor": "intra_20",
 "name": "日内未追高",
-"contrib": 0.0105,
-"pct": 72.9
+"contrib": 0.0089,
+"pct": 83.0
 }
 ],
-"pe_ttm": 13.42,
-"pb": 0.83,
-"total_mv_yi": 28.8,
+"pe_ttm": 15.55,
+"pb": 1.84,
+"total_mv_yi": 21.7,
 "feat_ranks": {
-"rev_1": 0.4945,
-"rev_5": 0.5131,
-"rev_20": 0.8391,
-"mom_250_20": 0.4159,
-"vol_20": 0.4469,
-"vol_60": 0.4201,
-"ivol_20": 0.425,
-"maxret_20": 0.8848,
-"amihud_20": 0.7536,
-"turn_20": 0.4629,
-"turn_5": 0.4224,
-"abn_turn": 0.7131,
-"vol_ratio_5": 0.5021,
-"pv_corr_20": 0.9456,
-"ovn_20": 0.1239,
-"intra_20": 0.7291,
-"gap_1": 0.2615,
-"close_pos_1": 0.4858,
-"dist_ma20": 0.9124,
-"high52": 0.8755,
+"rev_1": 0.6783,
+"rev_5": 0.3008,
+"rev_20": 0.7137,
+"mom_250_20": 0.6811,
+"vol_20": 0.4261,
+"vol_60": 0.4985,
+"ivol_20": 0.6205,
+"maxret_20": 0.4975,
+"amihud_20": 0.9847,
+"turn_20": 0.5461,
+"turn_5": 0.5258,
+"abn_turn": 0.2261,
+"vol_ratio_5": 0.8872,
+"pv_corr_20": 0.796,
+"ovn_20": 0.8919,
+"intra_20": 0.8304,
+"gap_1": 0.5053,
+"close_pos_1": 0.4955,
+"dist_ma20": 0.5856,
+"high52": 0.4507,
 "limit_up_5": 0.5313,
-"ep": 0.9196,
-"bp": 0.9529,
-"roe": 0.6147,
+"ep": 0.8809,
+"bp": 0.6619,
+"roe": 0.8458,
 "e_growth": null,
 "e_revision": null,
-"size": 0.8715,
-"ind_mom_20": 0.8363,
-"rel_ind_20": 0.0696,
-"ind_mom_60": 0.9352,
-"rel_ind_60": 0.0205
+"size": 0.9565,
+"ind_mom_20": 0.462,
+"rel_ind_20": 0.3059,
+"ind_mom_60": 0.3515,
+"rel_ind_60": 0.7354
+}
+},
+"sh688291": {
+"code": "sh688291",
+"name": "金橙子",
+"industry": "计算机",
+"value": 100.0,
+"short_model": 86.6,
+"total_base": 97.9,
+"price": 28.4,
+"pct_today": -0.0366,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0949,
+"pct": 99.6,
+"name": "非流动性溢价"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0887,
+"pct": 93.5,
+"name": "日内未追高"
+},
+{
+"factor": "size",
+"contrib": 0.0536,
+"pct": 86.6,
+"name": "小市值"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0509,
+"pct": 86.2,
+"name": "低于20日均线"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0461,
+"pct": 90.0,
+"name": "20日回调"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0407,
+"pct": 84.1,
+"name": "量价背离"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0325,
+"pct": 86.6
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.017,
+"pct": 66.0
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": 0.0155,
+"pct": 25.8
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0146,
+"pct": 99.6
+},
+{
+"factor": "limit_up_5",
+"name": "近5日无涨停",
+"contrib": -0.0135,
+"pct": 53.1
+}
+],
+"pe_ttm": 41.72,
+"pb": 2.82,
+"total_mv_yi": 29.2,
+"feat_ranks": {
+"rev_1": 0.792,
+"rev_5": 0.8582,
+"rev_20": 0.9003,
+"mom_250_20": 0.1916,
+"vol_20": 0.2577,
+"vol_60": 0.3015,
+"ivol_20": 0.4612,
+"maxret_20": 0.3981,
+"amihud_20": 0.9962,
+"turn_20": 0.7253,
+"turn_5": 0.6605,
+"abn_turn": 0.8975,
+"vol_ratio_5": 0.7317,
+"pv_corr_20": 0.8412,
+"ovn_20": 0.7677,
+"intra_20": 0.9347,
+"gap_1": 0.8538,
+"close_pos_1": 0.6802,
+"dist_ma20": 0.8617,
+"high52": 0.8056,
+"limit_up_5": 0.5313,
+"ep": 0.5992,
+"bp": 0.418,
+"roe": 0.6472,
+"e_growth": null,
+"e_revision": null,
+"size": 0.8664,
+"ind_mom_20": 0.5748,
+"rel_ind_20": 0.0554,
+"ind_mom_60": 0.3077,
+"rel_ind_60": 0.0983
+}
+},
+"sz000045": {
+"code": "sz000045",
+"name": "深纺织Ａ",
+"industry": "电子",
+"value": 94.7,
+"short_model": 94.1,
+"total_base": 97.6,
+"price": 8.9,
+"pct_today": 0.0056,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0664,
+"pct": 84.7,
+"name": "非流动性溢价"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0577,
+"pct": 78.3,
+"name": "日内未追高"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0552,
+"pct": 96.3,
+"name": "量价背离"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0333,
+"pct": 73.7,
+"name": "低于20日均线"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0297,
+"pct": 75.8,
+"name": "20日回调"
+},
+{
+"factor": "size",
+"contrib": 0.0255,
+"pct": 67.4,
+"name": "小市值"
+}
+],
+"reasons_short": [
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0577,
+"pct": 94.8
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0262,
+"pct": 76.0
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0174,
+"pct": 73.4
+},
+{
+"factor": "bp",
+"name": "账面市值比 B/P",
+"contrib": 0.0159,
+"pct": 76.8
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0149,
+"pct": 84.7
+}
+],
+"pe_ttm": 53.54,
+"pb": 1.49,
+"total_mv_yi": 45.1,
+"feat_ranks": {
+"rev_1": 0.2918,
+"rev_5": 0.4624,
+"rev_20": 0.7585,
+"mom_250_20": 0.6743,
+"vol_20": 0.7602,
+"vol_60": 0.8673,
+"ivol_20": 0.9477,
+"maxret_20": 0.8949,
+"amihud_20": 0.8473,
+"turn_20": 0.8028,
+"turn_5": 0.7337,
+"abn_turn": 0.7729,
+"vol_ratio_5": 0.7899,
+"pv_corr_20": 0.9633,
+"ovn_20": 0.4872,
+"intra_20": 0.7828,
+"gap_1": 0.377,
+"close_pos_1": 0.2936,
+"dist_ma20": 0.7369,
+"high52": 0.4754,
+"limit_up_5": 0.5313,
+"ep": 0.539,
+"bp": 0.7684,
+"roe": 0.4328,
+"e_growth": null,
+"e_revision": null,
+"size": 0.6743,
+"ind_mom_20": 0.0529,
+"rel_ind_20": 0.6708,
+"ind_mom_60": 0.1919,
+"rel_ind_60": 0.6329
 }
 },
 "sz002986": {
@@ -2859,53 +2621,53 @@
 "rel_ind_60": 0.1214
 }
 },
-"sz002394": {
-"code": "sz002394",
-"name": "联发股份",
-"industry": "纺织服饰",
-"value": 97.6,
-"short_model": 85.4,
-"total_base": 97.3,
-"price": 8.7,
-"pct_today": -0.0365,
+"sz002772": {
+"code": "sz002772",
+"name": "众兴菌业",
+"industry": "农林牧渔",
+"value": 96.6,
+"short_model": 89.4,
+"total_base": 97.2,
+"price": 7.69,
+"pct_today": -0.0077,
 "suspended": false,
-"ret_since_pick": 0.0,
+"ret_since_pick": -0.0,
 "is_st": false,
 "reasons_value": [
 {
-"factor": "amihud_20",
-"contrib": 0.0762,
-"pct": 89.8,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0651,
-"pct": 81.9,
-"name": "日内未追高"
+"factor": "dist_ma20",
+"contrib": 0.058,
+"pct": 91.2,
+"name": "低于20日均线"
 },
 {
 "factor": "size",
-"contrib": 0.0557,
-"pct": 88.1,
+"contrib": 0.0543,
+"pct": 87.1,
 "name": "小市值"
 },
 {
 "factor": "pv_corr_20",
-"contrib": 0.0501,
-"pct": 92.0,
+"contrib": 0.0531,
+"pct": 94.6,
 "name": "量价背离"
 },
 {
-"factor": "dist_ma20",
-"contrib": 0.0474,
-"pct": 83.7,
-"name": "低于20日均线"
+"factor": "amihud_20",
+"contrib": 0.0485,
+"pct": 75.4,
+"name": "非流动性溢价"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0468,
+"pct": 72.9,
+"name": "日内未追高"
 },
 {
 "factor": "rev_20",
-"contrib": 0.0229,
-"pct": 69.9,
+"contrib": 0.039,
+"pct": 83.9,
 "name": "20日回调"
 }
 ],
@@ -2913,545 +2675,307 @@
 {
 "factor": "size",
 "name": "小市值",
-"contrib": 0.0332,
-"pct": 88.1
+"contrib": 0.031,
+"pct": 87.1
+},
+{
+"factor": "bp",
+"name": "账面市值比 B/P",
+"contrib": 0.0163,
+"pct": 95.3
 },
 {
 "factor": "amihud_20",
 "name": "非流动性溢价",
-"contrib": 0.0193,
-"pct": 89.8
+"contrib": 0.0159,
+"pct": 75.4
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0134,
+"pct": 42.2
 },
 {
 "factor": "intra_20",
 "name": "日内未追高",
-"contrib": 0.0091,
-"pct": 81.9
+"contrib": 0.0105,
+"pct": 72.9
+}
+],
+"pe_ttm": 13.42,
+"pb": 0.83,
+"total_mv_yi": 28.8,
+"feat_ranks": {
+"rev_1": 0.4945,
+"rev_5": 0.5131,
+"rev_20": 0.8391,
+"mom_250_20": 0.4159,
+"vol_20": 0.4469,
+"vol_60": 0.4201,
+"ivol_20": 0.425,
+"maxret_20": 0.8848,
+"amihud_20": 0.7536,
+"turn_20": 0.4629,
+"turn_5": 0.4224,
+"abn_turn": 0.7131,
+"vol_ratio_5": 0.5021,
+"pv_corr_20": 0.9456,
+"ovn_20": 0.1239,
+"intra_20": 0.7291,
+"gap_1": 0.2615,
+"close_pos_1": 0.4858,
+"dist_ma20": 0.9124,
+"high52": 0.8755,
+"limit_up_5": 0.5313,
+"ep": 0.9196,
+"bp": 0.9529,
+"roe": 0.6147,
+"e_growth": null,
+"e_revision": null,
+"size": 0.8715,
+"ind_mom_20": 0.8363,
+"rel_ind_20": 0.0696,
+"ind_mom_60": 0.9352,
+"rel_ind_60": 0.0205
+}
+},
+"sz301555": {
+"code": "sz301555",
+"name": "惠柏新材",
+"industry": "基础化工",
+"value": 93.3,
+"short_model": 94.1,
+"total_base": 97.1,
+"price": 26.57,
+"pct_today": -0.0152,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0757,
+"pct": 89.6,
+"name": "非流动性溢价"
+},
+{
+"factor": "size",
+"contrib": 0.0618,
+"pct": 92.3,
+"name": "小市值"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0413,
+"pct": 79.3,
+"name": "低于20日均线"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0386,
+"pct": 83.6,
+"name": "20日回调"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0305,
+"pct": 64.9,
+"name": "日内未追高"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0279,
+"pct": 73.4,
+"name": "量价背离"
+}
+],
+"reasons_short": [
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": -0.0538,
+"pct": 20.4
+},
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0525,
+"pct": 92.3
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": 0.0368,
+"pct": 19.7
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0186,
+"pct": 89.6
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0169,
+"pct": 47.0
+}
+],
+"pe_ttm": 26.86,
+"pb": 2.1,
+"total_mv_yi": 24.5,
+"feat_ranks": {
+"rev_1": 0.6004,
+"rev_5": 0.4165,
+"rev_20": 0.8355,
+"mom_250_20": 0.2445,
+"vol_20": 0.1969,
+"vol_60": 0.4036,
+"ivol_20": 0.2042,
+"maxret_20": 0.0742,
+"amihud_20": 0.8956,
+"turn_20": 0.3783,
+"turn_5": 0.47,
+"abn_turn": 0.5008,
+"vol_ratio_5": 0.6992,
+"pv_corr_20": 0.734,
+"ovn_20": 0.0681,
+"intra_20": 0.6495,
+"gap_1": 0.2382,
+"close_pos_1": 0.8259,
+"dist_ma20": 0.7934,
+"high52": 0.51,
+"limit_up_5": 0.5313,
+"ep": 0.7288,
+"bp": 0.5839,
+"roe": 0.7039,
+"e_growth": null,
+"e_revision": null,
+"size": 0.9229,
+"ind_mom_20": 0.214,
+"rel_ind_20": 0.1835,
+"ind_mom_60": 0.4317,
+"rel_ind_60": 0.5843
+}
+},
+"sz300970": {
+"code": "sz300970",
+"name": "华绿生物",
+"industry": "农林牧渔",
+"value": 98.3,
+"short_model": 85.9,
+"total_base": 97.0,
+"price": 11.78,
+"pct_today": -0.024,
+"suspended": false,
+"ret_since_pick": -0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "intra_20",
+"contrib": 0.0784,
+"pct": 88.4,
+"name": "日内未追高"
+},
+{
+"factor": "size",
+"contrib": 0.0703,
+"pct": 98.1,
+"name": "小市值"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0619,
+"pct": 94.0,
+"name": "低于20日均线"
+},
+{
+"factor": "amihud_20",
+"contrib": 0.0483,
+"pct": 75.2,
+"name": "非流动性溢价"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0466,
+"pct": 90.5,
+"name": "20日回调"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.036,
+"pct": 80.2,
+"name": "量价背离"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0803,
+"pct": 98.1
 },
 {
 "factor": "vol_60",
 "name": "60日低波动",
-"contrib": 0.009,
-"pct": 58.2
-},
-{
-"factor": "rev_1",
-"name": "昨日回调",
-"contrib": 0.009,
-"pct": 79.0
-}
-],
-"pe_ttm": 33.81,
-"pb": 0.68,
-"total_mv_yi": 28.2,
-"feat_ranks": {
-"rev_1": 0.7896,
-"rev_5": 0.9263,
-"rev_20": 0.6986,
-"mom_250_20": 0.4118,
-"vol_20": 0.404,
-"vol_60": 0.5815,
-"ivol_20": 0.4723,
-"maxret_20": 0.4718,
-"amihud_20": 0.8985,
-"turn_20": 0.5581,
-"turn_5": 0.2486,
-"abn_turn": 0.6836,
-"vol_ratio_5": 0.9195,
-"pv_corr_20": 0.9204,
-"ovn_20": 0.8975,
-"intra_20": 0.8188,
-"gap_1": 0.6303,
-"close_pos_1": 0.9033,
-"dist_ma20": 0.8367,
-"high52": 0.7896,
-"limit_up_5": 0.5313,
-"ep": 0.6569,
-"bp": 0.974,
-"roe": 0.3871,
-"e_growth": null,
-"e_revision": null,
-"size": 0.8809,
-"ind_mom_20": 0.8535,
-"rel_ind_20": 0.1658,
-"ind_mom_60": 0.7529,
-"rel_ind_60": 0.4433
-}
-},
-"sh605208": {
-"code": "sh605208",
-"name": "永茂泰",
-"industry": "有色金属",
-"value": 96.6,
-"short_model": 87.4,
-"total_base": 97.2,
-"price": 10.2,
-"pct_today": -0.0239,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "intra_20",
-"contrib": 0.0814,
-"pct": 89.9,
-"name": "日内未追高"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0612,
-"pct": 93.5,
-"name": "低于20日均线"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0503,
-"pct": 92.2,
-"name": "量价背离"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0462,
-"pct": 90.1,
-"name": "20日回调"
-},
-{
-"factor": "size",
-"contrib": 0.0449,
-"pct": 80.7,
-"name": "小市值"
-},
-{
-"factor": "amihud_20",
-"contrib": 0.0376,
-"pct": 69.7,
-"name": "非流动性溢价"
-}
-],
-"reasons_short": [
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.035,
-"pct": 69.4
-},
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0215,
-"pct": 80.7
-},
-{
-"factor": "gap_1",
-"name": "今日跳空",
-"contrib": -0.0153,
-"pct": 97.9
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0141,
-"pct": 38.9
-},
-{
-"factor": "bp",
-"name": "账面市值比 B/P",
-"contrib": 0.014,
-"pct": 76.0
-}
-],
-"pe_ttm": 45.27,
-"pb": 1.52,
-"total_mv_yi": 33.6,
-"feat_ranks": {
-"rev_1": 0.6853,
-"rev_5": 0.8377,
-"rev_20": 0.9013,
-"mom_250_20": 0.3257,
-"vol_20": 0.4693,
-"vol_60": 0.5444,
-"ivol_20": 0.6938,
-"maxret_20": 0.681,
-"amihud_20": 0.6968,
-"turn_20": 0.4252,
-"turn_5": 0.389,
-"abn_turn": 0.4554,
-"vol_ratio_5": 0.8109,
-"pv_corr_20": 0.9225,
-"ovn_20": 0.3531,
-"intra_20": 0.8987,
-"gap_1": 0.9791,
-"close_pos_1": 0.9955,
-"dist_ma20": 0.9347,
-"high52": 0.6284,
-"limit_up_5": 0.5313,
-"ep": 0.5774,
-"bp": 0.7604,
-"roe": 0.4639,
-"e_growth": null,
-"e_revision": null,
-"size": 0.8072,
-"ind_mom_20": 0.1466,
-"rel_ind_20": 0.1297,
-"ind_mom_60": 0.0145,
-"rel_ind_60": 0.5315
-}
-},
-"sh688330": {
-"code": "sh688330",
-"name": "宏力达",
-"industry": "电力设备",
-"value": 99.2,
-"short_model": 81.3,
-"total_base": 97.2,
-"price": 26.8,
-"pct_today": -0.0318,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0865,
-"pct": 95.2,
-"name": "非流动性溢价"
-},
-{
-"factor": "intra_20",
-"contrib": 0.0635,
-"pct": 81.1,
-"name": "日内未追高"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.059,
-"pct": 91.9,
-"name": "低于20日均线"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0588,
-"pct": 99.4,
-"name": "量价背离"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0423,
-"pct": 86.8,
-"name": "20日回调"
-},
-{
-"factor": "size",
-"contrib": 0.0372,
-"pct": 75.5,
-"name": "小市值"
-}
-],
-"reasons_short": [
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": -0.0494,
-"pct": 24.7
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": 0.0365,
-"pct": 19.5
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0174,
-"pct": 68.4
-},
-{
-"factor": "bp",
-"name": "账面市值比 B/P",
-"contrib": 0.0166,
-"pct": 94.6
+"contrib": -0.0264,
+"pct": 5.5
 },
 {
 "factor": "amihud_20",
 "name": "非流动性溢价",
-"contrib": 0.0152,
-"pct": 95.2
-}
-],
-"pe_ttm": 7.03,
-"pb": 0.86,
-"total_mv_yi": 37.5,
-"feat_ranks": {
-"rev_1": 0.7501,
-"rev_5": 0.9774,
-"rev_20": 0.8678,
-"mom_250_20": 0.3196,
-"vol_20": 0.1953,
-"vol_60": 0.3824,
-"ivol_20": 0.2473,
-"maxret_20": 0.788,
-"amihud_20": 0.9522,
-"turn_20": 0.8327,
-"turn_5": 0.6835,
-"abn_turn": 0.7823,
-"vol_ratio_5": 0.7009,
-"pv_corr_20": 0.9939,
-"ovn_20": 0.1769,
-"intra_20": 0.8111,
-"gap_1": 0.4836,
-"close_pos_1": 0.8632,
-"dist_ma20": 0.9194,
-"high52": 0.7395,
-"limit_up_5": 0.5313,
-"ep": 0.9861,
-"bp": 0.9464,
-"roe": 0.856,
-"e_growth": null,
-"e_revision": null,
-"size": 0.7545,
-"ind_mom_20": 0.4143,
-"rel_ind_20": 0.1142,
-"ind_mom_60": 0.0673,
-"rel_ind_60": 0.3478
-}
-},
-"sh603579": {
-"code": "sh603579",
-"name": "荣泰健康",
-"industry": "家用电器",
-"value": 96.8,
-"short_model": 86.7,
-"total_base": 97.1,
-"price": 14.08,
-"pct_today": -0.0071,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "amihud_20",
-"contrib": 0.0816,
-"pct": 92.7,
-"name": "非流动性溢价"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0562,
-"pct": 97.1,
-"name": "量价背离"
-},
-{
-"factor": "size",
-"contrib": 0.0554,
-"pct": 87.9,
-"name": "小市值"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0512,
-"pct": 86.4,
-"name": "低于20日均线"
-},
-{
-"factor": "intra_20",
-"contrib": 0.035,
-"pct": 67.1,
-"name": "日内未追高"
-},
-{
-"factor": "rev_20",
-"contrib": 0.031,
-"pct": 76.9,
-"name": "20日回调"
-}
-],
-"reasons_short": [
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0363,
-"pct": 87.9
-},
-{
-"factor": "mom_250_20",
-"name": "长期超跌",
-"contrib": -0.0315,
-"pct": 95.9
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0214,
-"pct": 92.7
+"contrib": 0.0206,
+"pct": 75.2
 },
 {
 "factor": "bp",
 "name": "账面市值比 B/P",
-"contrib": 0.0148,
-"pct": 90.3
+"contrib": 0.0124,
+"pct": 86.0
 },
 {
 "factor": "turn_5",
 "name": "5日低换手",
-"contrib": 0.0117,
-"pct": 40.0
+"contrib": -0.0112,
+"pct": 16.9
 }
 ],
-"pe_ttm": 25.55,
-"pb": 1.04,
-"total_mv_yi": 28.3,
+"pe_ttm": 25.12,
+"pb": 1.19,
+"total_mv_yi": 18.8,
 "feat_ranks": {
-"rev_1": 0.4879,
-"rev_5": 0.9282,
-"rev_20": 0.7691,
-"mom_250_20": 0.9587,
-"vol_20": 0.3842,
-"vol_60": 0.6531,
-"ivol_20": 0.4643,
-"maxret_20": 0.3569,
-"amihud_20": 0.9267,
-"turn_20": 0.6756,
-"turn_5": 0.4,
-"abn_turn": 0.6233,
-"vol_ratio_5": 0.776,
-"pv_corr_20": 0.9715,
-"ovn_20": 0.1934,
-"intra_20": 0.6714,
-"gap_1": 0.3787,
-"close_pos_1": 0.7433,
-"dist_ma20": 0.8636,
-"high52": 0.8209,
+"rev_1": 0.6875,
+"rev_5": 0.6478,
+"rev_20": 0.905,
+"mom_250_20": 0.1308,
+"vol_20": 0.3793,
+"vol_60": 0.0551,
+"ivol_20": 0.3319,
+"maxret_20": 0.7776,
+"amihud_20": 0.7524,
+"turn_20": 0.1263,
+"turn_5": 0.1691,
+"abn_turn": 0.5411,
+"vol_ratio_5": 0.5685,
+"pv_corr_20": 0.8021,
+"ovn_20": 0.2309,
+"intra_20": 0.8843,
+"gap_1": 0.8094,
+"close_pos_1": 0.7309,
+"dist_ma20": 0.9397,
+"high52": 0.9303,
 "limit_up_5": 0.5313,
-"ep": 0.7417,
-"bp": 0.9034,
-"roe": 0.5032,
+"ep": 0.7468,
+"bp": 0.8598,
+"roe": 0.5371,
 "e_growth": null,
 "e_revision": null,
-"size": 0.879,
-"ind_mom_20": 0.8183,
-"rel_ind_20": 0.1172,
-"ind_mom_60": 0.9532,
-"rel_ind_60": 0.0302
-}
-},
-"sh603380": {
-"code": "sh603380",
-"name": "易德龙",
-"industry": "电子",
-"value": 96.0,
-"short_model": 88.1,
-"total_base": 97.0,
-"price": 24.15,
-"pct_today": -0.0309,
-"suspended": false,
-"ret_since_pick": 0.0,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "intra_20",
-"contrib": 0.0646,
-"pct": 81.6,
-"name": "日内未追高"
-},
-{
-"factor": "amihud_20",
-"contrib": 0.0645,
-"pct": 83.7,
-"name": "非流动性溢价"
-},
-{
-"factor": "pv_corr_20",
-"contrib": 0.0545,
-"pct": 95.8,
-"name": "量价背离"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0502,
-"pct": 85.6,
-"name": "低于20日均线"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0413,
-"pct": 85.9,
-"name": "20日回调"
-},
-{
-"factor": "size",
-"contrib": 0.0349,
-"pct": 73.9,
-"name": "小市值"
-}
-],
-"reasons_short": [
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": 0.0357,
-"pct": 75.9
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0175,
-"pct": 57.6
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.0167,
-"pct": 83.7
-},
-{
-"factor": "size",
-"name": "小市值",
-"contrib": 0.0166,
-"pct": 73.9
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": -0.0149,
-"pct": 55.4
-}
-],
-"pe_ttm": 20.13,
-"pb": 2.4,
-"total_mv_yi": 38.8,
-"feat_ranks": {
-"rev_1": 0.7432,
-"rev_5": 0.8869,
-"rev_20": 0.8589,
-"mom_250_20": 0.6944,
-"vol_20": 0.5538,
-"vol_60": 0.3923,
-"ivol_20": 0.7595,
-"maxret_20": 0.6219,
-"amihud_20": 0.837,
-"turn_20": 0.6655,
-"turn_5": 0.5762,
-"abn_turn": 0.4766,
-"vol_ratio_5": 0.6811,
-"pv_corr_20": 0.9576,
-"ovn_20": 0.2061,
-"intra_20": 0.8165,
-"gap_1": 0.2189,
-"close_pos_1": 0.4229,
-"dist_ma20": 0.8563,
-"high52": 0.6722,
-"limit_up_5": 0.5313,
-"ep": 0.8128,
-"bp": 0.5107,
-"roe": 0.8484,
-"e_growth": null,
-"e_revision": null,
-"size": 0.7385,
-"ind_mom_20": 0.0529,
-"rel_ind_20": 0.4663,
-"ind_mom_60": 0.1919,
-"rel_ind_60": 0.2834
+"size": 0.9807,
+"ind_mom_20": 0.8363,
+"rel_ind_20": 0.0314,
+"ind_mom_60": 0.9352,
+"rel_ind_60": 0.0116
 }
 },
 "sz002826": {
@@ -3571,6 +3095,482 @@
 "rel_ind_20": 0.1983,
 "ind_mom_60": 0.8289,
 "rel_ind_60": 0.2396
+}
+},
+"sh605208": {
+"code": "sh605208",
+"name": "永茂泰",
+"industry": "有色金属",
+"value": 96.6,
+"short_model": 87.4,
+"total_base": 96.6,
+"price": 10.2,
+"pct_today": -0.0239,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "intra_20",
+"contrib": 0.0814,
+"pct": 89.9,
+"name": "日内未追高"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0612,
+"pct": 93.5,
+"name": "低于20日均线"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0503,
+"pct": 92.2,
+"name": "量价背离"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0462,
+"pct": 90.1,
+"name": "20日回调"
+},
+{
+"factor": "size",
+"contrib": 0.0449,
+"pct": 80.7,
+"name": "小市值"
+},
+{
+"factor": "amihud_20",
+"contrib": 0.0376,
+"pct": 69.7,
+"name": "非流动性溢价"
+}
+],
+"reasons_short": [
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.035,
+"pct": 69.4
+},
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0215,
+"pct": 80.7
+},
+{
+"factor": "gap_1",
+"name": "今日跳空",
+"contrib": -0.0153,
+"pct": 97.9
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0141,
+"pct": 38.9
+},
+{
+"factor": "bp",
+"name": "账面市值比 B/P",
+"contrib": 0.014,
+"pct": 76.0
+}
+],
+"pe_ttm": 45.27,
+"pb": 1.52,
+"total_mv_yi": 33.6,
+"feat_ranks": {
+"rev_1": 0.6853,
+"rev_5": 0.8377,
+"rev_20": 0.9013,
+"mom_250_20": 0.3257,
+"vol_20": 0.4693,
+"vol_60": 0.5444,
+"ivol_20": 0.6938,
+"maxret_20": 0.681,
+"amihud_20": 0.6968,
+"turn_20": 0.4252,
+"turn_5": 0.389,
+"abn_turn": 0.4554,
+"vol_ratio_5": 0.8109,
+"pv_corr_20": 0.9225,
+"ovn_20": 0.3531,
+"intra_20": 0.8987,
+"gap_1": 0.9791,
+"close_pos_1": 0.9955,
+"dist_ma20": 0.9347,
+"high52": 0.6284,
+"limit_up_5": 0.5313,
+"ep": 0.5774,
+"bp": 0.7604,
+"roe": 0.4639,
+"e_growth": null,
+"e_revision": null,
+"size": 0.8072,
+"ind_mom_20": 0.1466,
+"rel_ind_20": 0.1297,
+"ind_mom_60": 0.0145,
+"rel_ind_60": 0.5315
+}
+},
+"sh600692": {
+"code": "sh600692",
+"name": "亚通股份",
+"industry": "房地产",
+"value": 88.4,
+"short_model": 99.6,
+"total_base": 96.6,
+"price": 5.54,
+"pct_today": 0.0,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0773,
+"pct": 90.4,
+"name": "非流动性溢价"
+},
+{
+"factor": "size",
+"contrib": 0.0696,
+"pct": 97.6,
+"name": "小市值"
+},
+{
+"factor": "intra_20",
+"contrib": 0.0534,
+"pct": 76.2,
+"name": "日内未追高"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.025,
+"pct": 67.8,
+"name": "低于20日均线"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0224,
+"pct": 69.5,
+"name": "20日回调"
+},
+{
+"factor": "pv_corr_20",
+"contrib": -0.0104,
+"pct": 41.2,
+"name": "量价背离"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0717,
+"pct": 97.6
+},
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0447,
+"pct": 92.9
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0265,
+"pct": 80.0
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0184,
+"pct": 90.4
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0181,
+"pct": 46.6
+}
+],
+"pe_ttm": 36.97,
+"pb": 1.97,
+"total_mv_yi": 19.5,
+"feat_ranks": {
+"rev_1": 0.3848,
+"rev_5": 0.6759,
+"rev_20": 0.6946,
+"mom_250_20": 0.6764,
+"vol_20": 0.7995,
+"vol_60": 0.7451,
+"ivol_20": 0.9293,
+"maxret_20": 0.7143,
+"amihud_20": 0.9041,
+"turn_20": 0.4026,
+"turn_5": 0.4662,
+"abn_turn": 0.3913,
+"vol_ratio_5": 0.4659,
+"pv_corr_20": 0.4125,
+"ovn_20": 0.658,
+"intra_20": 0.7616,
+"gap_1": 0.4159,
+"close_pos_1": 0.3531,
+"dist_ma20": 0.6775,
+"high52": 0.3603,
+"limit_up_5": 0.5313,
+"ep": 0.63,
+"bp": 0.6207,
+"roe": 0.5672,
+"e_growth": null,
+"e_revision": null,
+"size": 0.9758,
+"ind_mom_20": 0.1687,
+"rel_ind_20": 0.437,
+"ind_mom_60": 0.4952,
+"rel_ind_60": 0.5461
+}
+},
+"sh603380": {
+"code": "sh603380",
+"name": "易德龙",
+"industry": "电子",
+"value": 96.0,
+"short_model": 88.1,
+"total_base": 96.5,
+"price": 24.15,
+"pct_today": -0.0309,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "intra_20",
+"contrib": 0.0646,
+"pct": 81.6,
+"name": "日内未追高"
+},
+{
+"factor": "amihud_20",
+"contrib": 0.0645,
+"pct": 83.7,
+"name": "非流动性溢价"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0545,
+"pct": 95.8,
+"name": "量价背离"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0502,
+"pct": 85.6,
+"name": "低于20日均线"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0413,
+"pct": 85.9,
+"name": "20日回调"
+},
+{
+"factor": "size",
+"contrib": 0.0349,
+"pct": 73.9,
+"name": "小市值"
+}
+],
+"reasons_short": [
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": 0.0357,
+"pct": 75.9
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0175,
+"pct": 57.6
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0167,
+"pct": 83.7
+},
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0166,
+"pct": 73.9
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": -0.0149,
+"pct": 55.4
+}
+],
+"pe_ttm": 20.13,
+"pb": 2.4,
+"total_mv_yi": 38.8,
+"feat_ranks": {
+"rev_1": 0.7432,
+"rev_5": 0.8869,
+"rev_20": 0.8589,
+"mom_250_20": 0.6944,
+"vol_20": 0.5538,
+"vol_60": 0.3923,
+"ivol_20": 0.7595,
+"maxret_20": 0.6219,
+"amihud_20": 0.837,
+"turn_20": 0.6655,
+"turn_5": 0.5762,
+"abn_turn": 0.4766,
+"vol_ratio_5": 0.6811,
+"pv_corr_20": 0.9576,
+"ovn_20": 0.2061,
+"intra_20": 0.8165,
+"gap_1": 0.2189,
+"close_pos_1": 0.4229,
+"dist_ma20": 0.8563,
+"high52": 0.6722,
+"limit_up_5": 0.5313,
+"ep": 0.8128,
+"bp": 0.5107,
+"roe": 0.8484,
+"e_growth": null,
+"e_revision": null,
+"size": 0.7385,
+"ind_mom_20": 0.0529,
+"rel_ind_20": 0.4663,
+"ind_mom_60": 0.1919,
+"rel_ind_60": 0.2834
+}
+},
+"sh603579": {
+"code": "sh603579",
+"name": "荣泰健康",
+"industry": "家用电器",
+"value": 96.8,
+"short_model": 86.7,
+"total_base": 96.5,
+"price": 14.08,
+"pct_today": -0.0071,
+"suspended": false,
+"ret_since_pick": 0.0,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "amihud_20",
+"contrib": 0.0816,
+"pct": 92.7,
+"name": "非流动性溢价"
+},
+{
+"factor": "pv_corr_20",
+"contrib": 0.0562,
+"pct": 97.1,
+"name": "量价背离"
+},
+{
+"factor": "size",
+"contrib": 0.0554,
+"pct": 87.9,
+"name": "小市值"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0512,
+"pct": 86.4,
+"name": "低于20日均线"
+},
+{
+"factor": "intra_20",
+"contrib": 0.035,
+"pct": 67.1,
+"name": "日内未追高"
+},
+{
+"factor": "rev_20",
+"contrib": 0.031,
+"pct": 76.9,
+"name": "20日回调"
+}
+],
+"reasons_short": [
+{
+"factor": "size",
+"name": "小市值",
+"contrib": 0.0363,
+"pct": 87.9
+},
+{
+"factor": "mom_250_20",
+"name": "长期超跌",
+"contrib": -0.0315,
+"pct": 95.9
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.0214,
+"pct": 92.7
+},
+{
+"factor": "bp",
+"name": "账面市值比 B/P",
+"contrib": 0.0148,
+"pct": 90.3
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0117,
+"pct": 40.0
+}
+],
+"pe_ttm": 25.55,
+"pb": 1.04,
+"total_mv_yi": 28.3,
+"feat_ranks": {
+"rev_1": 0.4879,
+"rev_5": 0.9282,
+"rev_20": 0.7691,
+"mom_250_20": 0.9587,
+"vol_20": 0.3842,
+"vol_60": 0.6531,
+"ivol_20": 0.4643,
+"maxret_20": 0.3569,
+"amihud_20": 0.9267,
+"turn_20": 0.6756,
+"turn_5": 0.4,
+"abn_turn": 0.6233,
+"vol_ratio_5": 0.776,
+"pv_corr_20": 0.9715,
+"ovn_20": 0.1934,
+"intra_20": 0.6714,
+"gap_1": 0.3787,
+"close_pos_1": 0.7433,
+"dist_ma20": 0.8636,
+"high52": 0.8209,
+"limit_up_5": 0.5313,
+"ep": 0.7417,
+"bp": 0.9034,
+"roe": 0.5032,
+"e_growth": null,
+"e_revision": null,
+"size": 0.879,
+"ind_mom_20": 0.8183,
+"rel_ind_20": 0.1172,
+"ind_mom_60": 0.9532,
+"rel_ind_60": 0.0302
 }
 }
 },

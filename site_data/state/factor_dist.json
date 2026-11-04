@@ -3198,8 +3198,8 @@
 ]
 },
 "weights": {
-"value": 0.7,
-"short": 0.3
+"value": 0.6,
+"short": 0.4
 },
 "tail_weights": {
 "abn_turn": 0.5267835843187583,
