@@ -1,5 +1,5 @@
 {
-"generated_at": "2026-11-04 18:56",
+"generated_at": "2026-11-04 20:06",
 "mode": "close",
 "data_date": "2026-11-04",
 "month": "2026-11",
@@ -114,22 +114,22 @@
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"price": 4052.0,
-"pct": 0.028426395939086246,
+"price": 4051.3,
+"pct": 0.028248730964467006,
 "date": "2026-11-04"
 },
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"price": 645.9,
-"pct": 0.007251461988303953,
+"price": 645.0,
+"pct": 0.005847953216374213,
 "date": "2026-11-04"
 },
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"price": 95.13,
-"pct": -0.016744186046511622,
+"price": 95.21,
+"pct": -0.01591731266149876,
 "date": "2026-11-04"
 },
 {
@@ -157,7 +157,7 @@
 "score": -1,
 "text": "全A等权近20日 -8.7%；融资余额5日 -4.6%；涨停118/跌停10。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
 },
-"time": "2026-11-04 18:56"
+"time": "2026-11-04 20:06"
 },
 "picks": [
 {
@@ -611,7 +611,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 },
@@ -626,12 +626,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.002
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
 "overseas": -0.0,
-"overseas_pred_pct": -0.002,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.0
@@ -771,14 +771,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": 0.028426395939086246,
+"pct": 0.028248730964467006,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -786,12 +786,12 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": 0.142
+"pred_excess_pct": 0.138
 }
 ],
 "signals": {
 "overseas": 0.28,
-"overseas_pred_pct": 0.142,
+"overseas_pred_pct": 0.138,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 1.1
@@ -1098,7 +1098,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.016744186046511622,
+"pct": -0.01591731266149876,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -1251,14 +1251,14 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.016744186046511622,
+"pct": -0.01591731266149876,
 "date": "2026-11-04",
 "suspect": false
 },
 {
 "symbol": "BZ=F",
 "name": "BZ=F",
-"pct": -0.019476158495634666,
+"pct": -0.019572100163100847,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -1266,12 +1266,12 @@
 "beta": 0.108,
 "corr": 0.262,
 "sample": "2412 个交易日（行业等权）",
-"pred_excess_pct": -0.086
+"pred_excess_pct": -0.085
 }
 ],
 "signals": {
 "overseas": -0.17,
-"overseas_pred_pct": -0.086,
+"overseas_pred_pct": -0.085,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.7
@@ -1724,7 +1724,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -1877,7 +1877,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.016744186046511622,
+"pct": -0.01591731266149876,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -2343,7 +2343,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 },
@@ -2358,12 +2358,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.002
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
 "overseas": -0.0,
-"overseas_pred_pct": -0.002,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.0
@@ -2663,7 +2663,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 },
@@ -2678,12 +2678,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.002
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
 "overseas": -0.0,
-"overseas_pred_pct": -0.002,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.0
@@ -2823,14 +2823,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": 0.028426395939086246,
+"pct": 0.028248730964467006,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -2838,12 +2838,12 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": 0.142
+"pred_excess_pct": 0.138
 }
 ],
 "signals": {
 "overseas": 0.28,
-"overseas_pred_pct": 0.142,
+"overseas_pred_pct": 0.138,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 1.1
@@ -2983,7 +2983,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.016744186046511622,
+"pct": -0.01591731266149876,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -3136,7 +3136,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.016744186046511622,
+"pct": -0.01591731266149876,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -3289,7 +3289,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -3602,7 +3602,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.016744186046511622,
+"pct": -0.01591731266149876,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -3908,7 +3908,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.007251461988303953,
+"pct": 0.005847953216374213,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -4847,7 +4847,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.016744186046511622,
+"pct": -0.01591731266149876,
 "date": "2026-11-04",
 "suspect": false
 }
@@ -6412,7 +6412,7 @@
 "roe": 0.5519,
 "e_growth": null,
 "e_revision": null,
-"size": 0.4638,
+"size": 0.4641,
 "ind_mom_20": 0.1191,
 "rel_ind_20": 0.1716,
 "ind_mom_60": 0.0424,
@@ -8513,413 +8513,439 @@
 },
 "news": [
 {
-"title": "潘多拉首席执行官：美国、英国等市场的增长由价值驱动，由高收入消费者驱动。",
-"time": "2026-11-04 18:56:42",
+"title": "纽约时报第三季度调整后每股收益68 美分，市场预期64 美分。第三季度营收7.685 亿美元，市场预期7.68 亿美元。",
+"time": "2026-11-04 20:05:09",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8009939.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9390781.d.html",
+"sentiment": 0.0,
+"events": [
+"业绩",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【*ST航图：股票已有10个交易日低于转股价格85%，宏图转债或触发下修条件】*ST航图公告，公司股票自2026年10月",
+"time": "2026-11-04 20:05:05",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6166754.d.html",
+"sentiment": -1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【*ST航图：法院裁定暂不予受理债权人重整申请，公司可启动预重整】*ST航图公告，公司此前披露债权人国泽基金以公司不能清",
+"time": "2026-11-04 20:04:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9390408.d.html",
+"sentiment": -1.0,
+"events": [
+"监管处罚",
+"政策"
+],
+"picks": []
+},
+{
+"title": "英国与欧盟达成的SPS协议可为英国经济增加数十亿英镑。",
+"time": "2026-11-04 20:04:01",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0124661.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "麦当劳股价上涨1.6%，此前该公司公布的第三季度同店销售额超出预期。",
+"time": "2026-11-04 20:03:39",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsy6772611.d.html",
 "sentiment": 0.707,
 "events": [],
 "picks": []
 },
 {
-"title": "信维通信：目前MLCC业务处于供不应求阶段，正在加快提升产能，尽快实现盈利。",
-"time": "2026-11-04 18:56:14",
+"title": "【刚需持续托底 10月上海二手房成交量创近六年新高】刚过去的10月，上海楼市交出一份韧性十足的“银十”成绩单。二手房的市",
+"time": "2026-11-04 20:03:34",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6129309.d.html",
-"sentiment": 1.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【伊朗最高领袖称美中期选举结果不会改变美方敌意】伊朗最高领袖穆杰塔巴4日说，那些认为美国中期选举结果能够改变美方对伊朗敌",
-"time": "2026-11-04 18:56:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9353157.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【海天味业：11月4日回购A股45万股及H股60万股】海天味业公告称，2026年11月4日，公司在上交所回购A股45万股",
-"time": "2026-11-04 18:53:20",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8008695.d.html",
-"sentiment": 1.0,
-"events": [
-"回购增持"
-],
-"picks": []
-},
-{
-"title": "伊朗最高领袖穆杰塔巴·哈梅内伊：如今的波斯湾局势，尤其是霍尔木兹海峡的局势，不仅揭示了美国所谓‘不可战胜’神话的破灭，也",
-"time": "2026-11-04 18:52:11",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6127360.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【首批18只主动ETF，全部结束募集】11月4日晚间，建信基金发布公告称，建信均衡优选主动管理ETF于10月23日开始募",
-"time": "2026-11-04 18:52:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6127252.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "弘景光电：董事长赵治平等7人拟合计增持不低于1500万元公司股份",
-"time": "2026-11-04 18:52:00",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922082287.html",
-"sentiment": 1.0,
-"events": [
-"回购增持"
-],
-"picks": []
-},
-{
-"title": "【久盛电气：定增申请获深交所审核通过】久盛电气公告称，公司于2026年11月4日收到深交所上市审核中心出具的向特定对象发",
-"time": "2026-11-04 18:49:01",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9349254.d.html",
-"sentiment": -0.5,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "【大悦城：商业不动产REITs获证监会注册批复】大悦城公告称，公司以控股子公司中粮置业投资有限公司为原始权益人，以其全资",
-"time": "2026-11-04 18:48:50",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0089080.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "【北路智控：首次回购股份3.27万股 成交金额83.93万元】北路智控公告称，公司此前拟使用自有资金以集中竞价方式回购股",
-"time": "2026-11-04 18:48:47",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9349109.d.html",
-"sentiment": 1.0,
-"events": [
-"回购增持"
-],
-"picks": []
-},
-{
-"title": "【联合光电：拟发行股份购买长益光电92.62%股份并募资】联合光电公告称，公司拟通过发行股份方式购买东莞市长益光电股份有",
-"time": "2026-11-04 18:48:37",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0088930.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "【中共中央对外联络部副部长陆慷会见英国驻华大使魏磊】11月4日上午，中共中央对外联络部副部长陆慷在北京会见英国驻华大使魏",
-"time": "2026-11-04 18:48:18",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9348809.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6165477.d.html",
 "sentiment": 0.707,
-"events": [
-"订单合作"
-],
+"events": [],
 "picks": []
 },
 {
-"title": "时隔8年 我国罕见病目录制订工作程序迎来修订",
-"time": "2026-11-04 18:47:56",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922078217.html",
+"title": "墨西哥10月份国内汽车销量为137,438辆。",
+"time": "2026-11-04 20:02:52",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9389023.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【大晟文化：股票交易异常波动 提示相关风险】大晟文化公告称，公司股票于2026年11月2日、11月3日连续两个交易日收盘",
-"time": "2026-11-04 18:47:27",
+"title": "DATADOG盘前股价在第三季度业绩公布后下跌18%。",
+"time": "2026-11-04 20:01:41",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8005387.d.html",
-"sentiment": -0.945,
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9388302.d.html",
+"sentiment": -0.707,
 "events": [
 "业绩"
 ],
 "picks": []
 },
 {
-"title": "【东山精密：2026年10月股份无变动 符合公众持股要求】东山精密公告称，公司披露2026年10月证券变动月报。截至20",
-"time": "2026-11-04 18:47:21",
+"title": "惠普公司任命艾玛·沃姆斯利为首席执行官。",
+"time": "2026-11-04 20:01:14",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9348271.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9387987.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【桂林三金：第一期员工持股计划已终止】桂林三金公告称，公司第一期员工持股计划所持1229.60万股公司股份（占目前公司总",
-"time": "2026-11-04 18:47:13",
+"title": "Snowflake美股盘前跌超5%，现报280.0美元。",
+"time": "2026-11-04 20:01:05",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0088205.d.html",
-"sentiment": -0.866,
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6163900.d.html",
+"sentiment": 0.0,
 "events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "麦当劳第三季度每股收益3.51美元，上年同期3.18美元。",
+"time": "2026-11-04 20:00:45",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0122620.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "麦当劳 第三季度营收71.6亿美元，预估72.9亿美元。",
+"time": "2026-11-04 20:00:37",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0122560.d.html",
+"sentiment": 0.0,
+"events": [
+"业绩",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "麦当劳第三季度同店销售额增长1.5%，高于预期增长1.35%。",
+"time": "2026-11-04 20:00:21",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8039451.d.html",
+"sentiment": 1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国至10月30日当周MBA抵押贷款申请活动指数 192.6，前值195。美国至10月30日当周MBA抵押贷款购买指数 ",
+"time": "2026-11-04 20:00:15",
+"source": "新浪7x24",
+"url": "",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【深深房Ａ：董事会通过1.6亿元共同投资暨关联交易议案】深深房Ａ公告，公司第九届董事会第四次会议审议通过与专业投资机构共",
+"time": "2026-11-04 19:59:02",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8039069.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "Uber(UBER.N)盘前下跌2.1%。",
+"time": "2026-11-04 19:58:17",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8038787.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "FLUTTER股价盘前下跌6.9%，此前该公司公布第三季度营收未达预期。",
+"time": "2026-11-04 19:58:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9386479.d.html",
+"sentiment": -0.707,
+"events": [
+"业绩"
+],
+"picks": []
+},
+{
+"title": "【南方基金：自2026年11月4日起对中国稀土采用指数收益法估值】南方基金管理股份有限公司公告，与基金托管人协商一致，自",
+"time": "2026-11-04 19:58:01",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6162408.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【李家超抵达上海 将出席第九届中国国际进口博览会】今日（4日），香港特区行政长官李家超和团队结束北京访问行程后随即转抵上",
+"time": "2026-11-04 19:57:54",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6162357.d.html",
+"sentiment": 0.707,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "德国10月特斯拉注册量同比增长291%，至2932辆。",
+"time": "2026-11-04 19:57:49",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6162304.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "优步：吉尔·黑泽尔巴克将于2026年11月30日卸任总裁兼首席企业事务官一职。",
+"time": "2026-11-04 19:56:51",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6161863.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "优步预计第四季度总预订额为632.5亿至652.5亿美元",
+"time": "2026-11-04 19:56:39",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611043922121416.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【500ETF联接LOF：南方基金自2026年11月4日起对中国稀土采用指数收益法估值】500ETF联接LOF公告，南方",
+"time": "2026-11-04 19:55:23",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6160949.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "优步第三季度总预订额598.2亿美元，市场预期597.9亿美元。 优步预计第四季度总订单额为632.5亿美元至652.5",
+"time": "2026-11-04 19:55:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9384827.d.html",
+"sentiment": 0.0,
+"events": [
+"订单合作",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "也门政府军一军事训练中心遭导弹袭击",
+"time": "2026-11-04 19:54:49",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611043922116478.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【美股盘前要闻速递】\n①美股三大股指期货齐涨，道指期货涨1.55%，标普500指数期货涨1.13%，纳指期货涨0.97%",
+"time": "2026-11-04 19:54:48",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8037151.d.html",
+"sentiment": 0.707,
+"events": [
+"业绩",
+"监管处罚",
+"政策",
+"海外宏观",
 "大宗商品"
 ],
 "picks": []
 },
 {
-"title": "腾亚精工：实控人一致行动人拟协议转让10%公司股份",
-"time": "2026-11-04 18:47:06",
+"title": "中国政府中东问题特使翟隽同卡塔尔外交部国务大臣胡莱菲通话",
+"time": "2026-11-04 19:54:29",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922078069.html",
+"url": "https://finance.eastmoney.com/a/202611043922116224.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "波兰总理图斯克：我们必须尽快结束乌克兰战争，不得有任何领土吞并。",
-"time": "2026-11-04 18:47:03",
+"title": "马丁·玛丽埃塔第三季度营收23.69亿美元，高于IBES预期的22.46亿美元。",
+"time": "2026-11-04 19:54:29",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0088117.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【麦捷科技：首次回购股份106.52万股 耗资1488.87万元】麦捷科技公告称，公司拟使用不低于5000万元且不超过1",
-"time": "2026-11-04 18:46:57",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9348065.d.html",
-"sentiment": 1.0,
-"events": [
-"回购增持"
-],
-"picks": []
-},
-{
-"title": "【牧原股份：11月4日回购6.57万股H股股份】牧原股份公告称，2026年11月4日公司通过香港联交所回购65700股H",
-"time": "2026-11-04 18:46:54",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6124033.d.html",
-"sentiment": 1.0,
-"events": [
-"回购增持"
-],
-"picks": []
-},
-{
-"title": "【腾亚精工：实控人一致行动人拟协议转让10%股份】腾亚精工公告称，公司实际控制人之一致行动人南京倚峰、南京运航拟合计转让",
-"time": "2026-11-04 18:46:36",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9347822.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9384446.d.html",
 "sentiment": 0.0,
 "events": [
-"减持解禁"
-],
-"picks": []
-},
-{
-"title": "英国富时100指数日内涨幅达1.00%。",
-"time": "2026-11-04 18:46:31",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6123776.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【弘景光电：董事长兼总经理等7人拟增持不低于1500万元】弘景光电公告，公司董事长兼总经理赵治平、部分董事及高级管理人员",
-"time": "2026-11-04 18:46:17",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6123632.d.html",
-"sentiment": 1.0,
-"events": [
-"回购增持"
-],
-"picks": []
-},
-{
-"title": "五部门：将资源节约技术纳入国家重点研发计划相关重点专项支持范围",
-"time": "2026-11-04 18:44:47",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922078113.html",
-"sentiment": 1.0,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "伊朗最高领袖哈梅内伊发表讲话称，美国认为其霸权终结尚远，而我们认为它已近在咫尺。",
-"time": "2026-11-04 18:44:45",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0086862.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【时隔8年我国罕见病目录制订工作程序迎来修订】记者4日从国家卫生健康委获悉，为进一步加强我国罕见病管理，提升罕见病目录制",
-"time": "2026-11-04 18:44:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6122677.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "谷歌将斥资150亿美元扩建马来西亚数据中心 马来西亚总理安瓦尔出席发布活动",
-"time": "2026-11-04 18:43:37",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922077751.html",
-"sentiment": 0.0,
-"events": [
+"业绩",
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "滨化股份：阳信高端电子化学品项目预计2027年投产",
-"time": "2026-11-04 18:43:25",
+"title": "乌干达9月份M3货币供应量同比增长19.46%。",
+"time": "2026-11-04 19:54:04",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6160283.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "Freetrailer与Power Sweden签署为期五年的独家协议，门店数量有望从25家扩展至约60家。",
+"time": "2026-11-04 19:52:44",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8036427.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "倍轻松：实控人因操纵证券市场被罚款1184.19万元",
+"time": "2026-11-04 19:51:26",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922077648.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "市场消息：以色列总统呼吁各方接受“选举中没有赢家”这一现实。",
-"time": "2026-11-04 18:43:10",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8003154.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "潘多拉首席财务官：预计4-5年内恢复至23%以上的息税前利润率。",
-"time": "2026-11-04 18:42:51",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0085914.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【已有20城落地“8·28”新政实施细则】根据中指研究院监测数据显示，截至11月4日，8·28新政后已有北京、上海、广州",
-"time": "2026-11-04 18:42:33",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9345530.d.html",
-"sentiment": 1.0,
-"events": [
-"监管处罚"
-],
-"picks": []
-},
-{
-"title": "伊朗最高领袖回应美国中期选举",
-"time": "2026-11-04 18:41:59",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922077050.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "伊朗最高领袖哈梅内伊发表讲话称，如果美国再次采取侵略行动，德黑兰的回应将扩大到更大的规模。",
-"time": "2026-11-04 18:41:21",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8002053.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "伊朗领导人称进一步袭击将招致“更广泛”的回应",
-"time": "2026-11-04 18:40:16",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922077225.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "诺和诺德首席执行官：约10%的Wegovy口服药患者来自诺和诺德自己的注射剂。",
-"time": "2026-11-04 18:39:38",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8001040.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【ST八菱：2021及2022年度高新技术企业资格被取消】ST八菱公告称，公司2021年度、2022年度两个纳税年度的高",
-"time": "2026-11-04 18:39:32",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9343269.d.html",
+"url": "https://finance.eastmoney.com/a/202611043922114830.html",
 "sentiment": -1.0,
-"events": [],
+"events": [
+"监管处罚",
+"政策"
+],
 "picks": []
 },
 {
-"title": "伊朗最高领袖哈梅内伊在讲话中表示，哪怕是对“霸权敌人”表现出丝毫的顺从，都会助长其气焰，白白浪费战士的鲜血。",
-"time": "2026-11-04 18:39:03",
+"title": "【一汽解放与阿联酋Al-Futtaim集团签署2027年战略合作协议】当地时间11月2日，一汽解放与阿联酋Al-Futt",
+"time": "2026-11-04 19:50:21",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0083656.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "五部门：推进算力、通信基站和机房等基础设施节能降碳改造 优化用能结构",
-"time": "2026-11-04 18:38:35",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922075967.html",
-"sentiment": 0.0,
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0118181.d.html",
+"sentiment": 1.0,
 "events": [
 "订单合作"
 ],
 "picks": []
 },
 {
-"title": "伊朗最高领袖穆杰塔巴·哈梅内伊：美国寻求伊朗“无条件投降”。",
-"time": "2026-11-04 18:38:12",
+"title": "CVS股价盘前下跌3.9%",
+"time": "2026-11-04 19:50:08",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6118426.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9382009.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【虎鲸文娱“鲸锐AI”平台上线 AI视频单分钟成本节省30%以上】11月4日，虎鲸文娱集团打造的AI影视制作与管理平台“",
+"time": "2026-11-04 19:49:59",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9381917.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "伊朗最高领袖哈梅内伊发表讲话称，那些认为美国党派更迭能够改变华盛顿对伊朗敌意的人，大错特错。",
-"time": "2026-11-04 18:37:58",
+"title": "【倍轻松：董事长、总经理马学军离任 刘志华代行相关职责】倍轻松公告称，公司董事会近日收到董事长、总经理马学军的书面辞任报",
+"time": "2026-11-04 19:49:34",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6118254.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6157760.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【网宿科技：为控股子公司提供23万英镑担保】网宿科技公告称，公司为控股子公司CDNW Europe向CitiBank N",
-"time": "2026-11-04 18:37:49",
+"title": "【倍轻松：实控人马学军因操纵证券市场遭证监会处罚】倍轻松公告称，公司控股股东、实控人马学军因涉嫌操纵证券市场，此前已被证",
+"time": "2026-11-04 19:49:26",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6118150.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6157699.d.html",
+"sentiment": -1.0,
+"events": [
+"监管处罚",
+"政策"
+],
+"picks": []
+},
+{
+"title": "【11月4日《新闻联播》主要内容】今天《新闻联播》主要内容有： 1.【学习贯彻党的二十届五中全会精神】全面从严治党 全面",
+"time": "2026-11-04 19:49:14",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6157600.d.html",
+"sentiment": 0.894,
+"events": [
+"回购增持",
+"监管处罚",
+"订单合作",
+"政策",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【明阳集团与中国联通广东省分公司签署战略合作协议】11月3日，明阳集团与中国联通广东省分公司战略合作签约仪式在广州举行。",
+"time": "2026-11-04 19:48:20",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6157190.d.html",
+"sentiment": 1.0,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "【也门政府军一军事训练中心遭导弹袭击】萨那消息：一名也门政府军官员4日对新华社记者说，也门南部达利阿省一处政府军军事训练",
+"time": "2026-11-04 19:48:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9381103.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "美光科技美股盘前涨超2%，现报872.72美元。",
-"time": "2026-11-04 18:37:17",
+"title": "越南设计出首款安全芯片 采用RISC-V和28纳米制程",
+"time": "2026-11-04 19:47:11",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611043922115548.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "AU Small Finance Bank提示可能存在数据泄露。",
+"time": "2026-11-04 19:45:57",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6117736.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9379793.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "Nomad Foods预计全年有机净营收下降2%至3%。",
+"time": "2026-11-04 19:45:43",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6155638.d.html",
+"sentiment": -0.707,
+"events": [
+"业绩"
+],
+"picks": []
+},
+{
+"title": "黑石担保贷款基金：截至2026年9月30日，投资公允价值约129.0亿美元。",
+"time": "2026-11-04 19:45:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0116115.d.html",
 "sentiment": 0.0,
 "events": [
 "海外宏观"
@@ -8927,41 +8953,144 @@
 "picks": []
 },
 {
-"title": "【步长制药：泸州步长增资完成工商变更，公司持股92.3641%】步长制药公告，公司此前披露控股子公司四川泸州步长生物制药",
-"time": "2026-11-04 18:36:53",
+"title": "以色列央行货币政策委员会会议纪要显示，10月21日，该委员会全体成员投票决定将基准利率维持在3.25%不变。",
+"time": "2026-11-04 19:44:23",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0082270.d.html",
-"sentiment": 1.0,
-"events": [
-"回购增持"
-],
-"picks": []
-},
-{
-"title": "5部门：鼓励金融机构通过绿色信贷、绿色债券等金融工具加强对资源节约相关项目的支持",
-"time": "2026-11-04 18:36:52",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922075498.html",
-"sentiment": 1.0,
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0115488.d.html",
+"sentiment": 0.0,
 "events": [
 "政策"
 ],
 "picks": []
 },
 {
-"title": "【江苏有线：全资子公司拟不高于1亿元参与设立产业并购基金】江苏有线公告，公司全资子公司江苏睿辉股权投资管理有限责任公司拟",
-"time": "2026-11-04 18:36:50",
+"title": "瑞银在议员提出方案后迎来资本妥协的新可能。",
+"time": "2026-11-04 19:43:32",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv7999282.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0115119.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【王毅谈澜湄合作第十一次外长会成果】11月4日，澜沧江－湄公河合作第十一次外长会在北京举行。会后，中共中央政治局委员、外",
-"time": "2026-11-04 18:36:31",
+"title": "【炜冈科技：截至10月31日已回购65.18万股】炜冈科技公告，公司此前审议通过以集中竞价交易方式回购股份方案，回购资金",
+"time": "2026-11-04 19:43:11",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9341055.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6154154.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "克里姆林宫表示，希望美国中期选举结果不会影响特朗普推动乌克兰和平的努力。",
+"time": "2026-11-04 19:43:01",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0114790.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "法国经济与财政部长莱斯屈尔：没有理由修改法国2026年5.4%的赤字目标。法国必须实现2027年5%的赤字目标才能取信于",
+"time": "2026-11-04 19:42:30",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsx0114491.d.html",
+"sentiment": 0.0,
+"events": [
+"政策"
+],
+"picks": []
+},
+{
+"title": "Stifel将AMD目标价从700美元上调至725美元。",
+"time": "2026-11-04 19:42:17",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9377420.d.html",
+"sentiment": 0.707,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【今日特朗普行程】\n11月4日 21:00（北京时间，下同）：在白宫进行行政事务时间，不对媒体开放。 \n11月4日 22",
+"time": "2026-11-04 19:41:11",
+"source": "新浪7x24",
+"url": "",
+"sentiment": 0.0,
+"events": [
+"政策"
+],
+"picks": []
+},
+{
+"title": "太辰光：拟6000万元—1亿元回购股份",
+"time": "2026-11-04 19:41:00",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611043922110434.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【元脸FacesMarket完成千万级天使轮融资】11月4日，元脸FacesMarket宣布已完成千万级天使轮融资，投资",
+"time": "2026-11-04 19:40:59",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6152644.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "欧洲银行指数有望创下7个月来最大单日涨幅，目前上涨4.4%。",
+"time": "2026-11-04 19:40:47",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9376554.d.html",
+"sentiment": 1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【沃尔核材：10月回购20万股H股拟注销】沃尔核材公告称，截至2026年10月31日，公司法定/注册股本总额为13.99",
+"time": "2026-11-04 19:40:29",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9376360.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "据迪拜政府媒体办公室消息，迪拜国际金融中心将为最多6000家日本初创企业提供接入其创新生态系统及中东、非洲和南亚市场的机",
+"time": "2026-11-04 19:40:09",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6152172.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "富国银行首次覆盖瑞士运动品牌昂跑，给予“增持”评级，目标价48美元。",
+"time": "2026-11-04 19:39:48",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6151940.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "据富国银行消息，其将可口可乐欧洲太平洋合作伙伴公司的目标价从115美元上调至120美元。",
+"time": "2026-11-04 19:39:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9375882.d.html",
 "sentiment": 1.0,
 "events": [
 "订单合作",
@@ -8970,140 +9099,35 @@
 "picks": []
 },
 {
-"title": "王兴兴最新发声！机器人概念集体走强",
-"time": "2026-11-04 18:36:08",
+"title": "PERRIGO 预计全年调整后持续经营每股收益2.25美元至2.45美元。",
+"time": "2026-11-04 19:39:09",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv8029927.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "杰瑞股份：全资子公司获阿联酋阿布扎比国家石油公司陆上公司约181亿元项目授标函",
+"time": "2026-11-04 19:38:51",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922075069.html",
-"sentiment": 1.0,
-"events": [],
+"url": "https://finance.eastmoney.com/a/202611043922108219.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
 "picks": []
 },
 {
-"title": "五部门：探索实施建设用地总量按规划期管控模式 实行统筹存量和增量综合供地",
-"time": "2026-11-04 18:36:00",
+"title": "瑞穗下调AMD目标价",
+"time": "2026-11-04 19:37:25",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922074990.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "【五部门：到 2030 年，大宗固体废弃物年利用量达到45 亿吨左右】五部门印发《实施全面节约战略行动方案》的通知。加快",
-"time": "2026-11-04 18:35:41",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9340299.d.html",
-"sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "【五部门：到2030 年，持证在产大型矿山 90%以上、中型矿山80%以上达到绿色矿山标准，小型矿山参照绿色矿山标准加强",
-"time": "2026-11-04 18:35:19",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9339968.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "5部门：加快布局一批稀贵金属资源循环利用项目 推进有价组分回收和高值化利用",
-"time": "2026-11-04 18:35:14",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922074851.html",
-"sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "【五部门：稳步开展全域土地综合整治，节约集约利用农村集体经营性建设用地，依法盘活用好农村闲置土地】五部门印发《实施全面节",
-"time": "2026-11-04 18:35:04",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv7997799.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【五部门：引导和规范社会资本参与相关项目投资、建设、运营】五部门印发《实施全面节约战略行动方案》的通知。其中提出，加大政",
-"time": "2026-11-04 18:34:53",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9339634.d.html",
-"sentiment": 0.866,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "【五部门：“十五五”期间，新增建设用地规模控制在2600 万亩以内】五部门印发《实施全面节约战略行动方案》的通知。严格国",
-"time": "2026-11-04 18:34:48",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6115609.d.html",
-"sentiment": -0.707,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "【五部门：坚决遏制餐饮消费浪费】五部门印发《实施全面节约战略行动方案》的通知。坚决遏制餐饮消费浪费。强化餐饮服务经营者主",
-"time": "2026-11-04 18:34:32",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6115412.d.html",
-"sentiment": -0.5,
-"events": [],
-"picks": []
-},
-{
-"title": "伊朗最高领导人称，进一步发动袭击将招致“更广泛的”回应。",
-"time": "2026-11-04 18:34:25",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsq9339269.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "5部门：到2030年 主要有色金属共伴生矿产综合利用率比2025年提高2—3个百分点",
-"time": "2026-11-04 18:34:05",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922074644.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【五部门：到2030 年，农田灌溉水有效利用系数提高到0.60，万元工业增加值用水量比 2025 年下降 10%】五部门",
-"time": "2026-11-04 18:33:52",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnss6114870.d.html",
+"url": "https://finance.eastmoney.com/a/202611043922108143.html",
 "sentiment": -0.866,
-"events": [],
-"picks": []
-},
-{
-"title": "【江苏有线：子公司拟不超1亿元参与设立并购基金】江苏有线公告称，公司全资子公司江苏睿辉股权投资管理有限责任公司拟作为有限",
-"time": "2026-11-04 18:33:41",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-04/detail-inixqnsv7996904.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "国家发改委等5部门印发《实施全面节约战略行动方案》",
-"time": "2026-11-04 18:33:26",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611043922074040.html",
-"sentiment": 0.0,
 "events": [
-"政策"
+"海外宏观"
 ],
 "picks": []
 }
@@ -9122,7 +9146,7 @@
 "两融余额": "ok",
 "涨跌停池": "ok"
 },
-"method": "\n<p><b>股票池</b>：沪深主板、创业板、科创板；剔除 ST/*ST/退市整理、上市不满约 1 年、近 60 日交易不足 80%、日均成交额低于 2000 万元或处于全市场最低 15%、股价低于 2 元的股票。</p>\n<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月标签已实现的数据，选出 t 值 ≥ 0.5 的因子并按 t 值加权（不保证每个时段都为正）。目前入选的是日内未追高、非流动性溢价、低于 20 日均线、量价背离、20 日回调、换手未异常放大。<b>不使用「小市值」因子</b>，不会因为市值小直接加分；并且价值分在 5 个市值组内各自取分位（大盘股和大盘股比、小盘股和小盘股比），避免「非流动性」等因子间接偏向小盘股。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>\n<p><b>短线分（约 1 周）</b>：LightGBM 模型，用 24 个量价与估值因子（不含市值）预测未来 5 个交易日的相对收益。在此基础上叠加两项实时调整：①海外联动——所在产业链（或所属行业）的海外标的隔夜涨跌 × 历史回归系数，只使用 2016–2022 年样本内 t 值绝对值 ≥ 2 的配对（这类配对在 2023 年以后的检验中整体有效），最多 ±10 分；②新闻情绪——快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>\n<p><b>综合分</b> = 0.6 × 价值投资分 + 0.4 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在股票池前 430 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>\n<p><b>回测</b>（截至 2026-11，扣交易成本，一字涨跌停无法成交）：2016 年起（不含市值中性化）年化超额 +11.0%，信息比 1.19。加上市值中性化后（2020 年起，市值数据从 2020 年才有）年化超额 +14.8%，信息比 1.35，2025 年以来 +11.2%；比不中性化每年少约 4 个百分点，换来几乎每个月都有百亿以上的大盘股。这些数字是乐观的上限：部分参数和「去掉小市值加分」「市值中性化」等决定是在看过全部历史数据后做出的，不是严格的样本外检验，请以上线后的「实盘跟踪」为准。最大回撤：2016 年起 −47%、2020 年起 −28%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>\n<p><b>科技股周榜</b>：独立于 30 强，只在申万一级 电子/计算机/通信/传媒 的股票池里选，每周最后一个交易日收盘后选出下周 15 只（同行业最多 6 只，上周名单仍在前 115 名则保留）。综合分 = 0.5 × 价值分 + 0.5 × 短线分（科技股池内分位）。回测 2016–2024 年年化超额 +12.9%，2025 年以来 +7.9%（信息比 0.44，不显著）。需要注意：第一轮参数网格按同样规则选出的组合 2025 年以来年化跑输科技股池 3.0%，全部 90 组只有 57% 跑赢；现用参数来自看过第一轮后设计的第二轮，且缓冲 100 处在网格边界。这类因子在科技股内部的优势不稳定，请谨慎参考。</p>\n<p><b>局限</b>：入选股仍偏中小盘（短线分偏小盘；2020 年以来平均约 41% 低于 50 亿）、成交不算活跃；不做择时；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>\n",
+"method": "\n<p><b>股票池</b>：沪深主板、创业板、科创板；剔除 ST/*ST/退市整理、上市不满约 1 年、近 60 日交易不足 80%、日均成交额低于 2000 万元或处于全市场最低 15%、股价低于 2 元的股票。</p>\n<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月标签已实现的数据，选出 t 值 ≥ 0.5 的因子并按 t 值加权（不保证每个时段都为正）。目前入选的是日内未追高、非流动性溢价、低于 20 日均线、量价背离、20 日回调、换手未异常放大。<b>不使用「小市值」因子</b>，不会因为市值小直接加分；并且价值分在 5 个市值组内各自取分位（大盘股和大盘股比、小盘股和小盘股比），避免「非流动性」等因子间接偏向小盘股。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>\n<p><b>短线分（约 1 周）</b>：LightGBM 模型，用 24 个量价与估值因子（不含市值）预测未来 5 个交易日的相对收益。在此基础上叠加两项实时调整：①海外联动——所在产业链（或所属行业）的海外标的隔夜涨跌 × 历史回归系数，只使用 2016–2022 年样本内 t 值绝对值 ≥ 2 的配对（这类配对在 2023 年以后的检验中整体有效），最多 ±10 分；②新闻情绪——快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>\n<p><b>综合分</b> = 0.6 × 价值投资分 + 0.4 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在股票池前 430 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>\n<p><b>回测</b>（截至 2026-11，扣交易成本，一字涨跌停无法成交）：现行规则（价值分市值中性化，市值数据从 2020 年才有，所以从 2020 年起算），换用 6 个短线模型版本分别回测：2020 年以来年化超额中位数 <b>+9.6%</b>（各版本 +7.6% ~ +12.3%），信息比中位数 0.93；2025 年以来中位数 +6.2%（+4.1% ~ +11.1%）。Top30 对短线模型的细微差别很敏感，单个版本的数字可能偏高或偏低（此前公布的 +14.8% 就是偏高的一个版本），请以范围为准。我们也测试过每周重选：长期略差于每月（中位数 +7.5%）、换手约翻倍，所以保持每月重选。这些数字是乐观的上限：部分参数和「去掉小市值加分」「市值中性化」等决定是在看过全部历史数据后做出的，不是严格的样本外检验，请以上线后的「实盘跟踪」为准。最大回撤：2016 年起 −47%、2020 年起 −28%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>\n<p><b>科技股周榜</b>：独立于 30 强，只在申万一级 电子/计算机/通信/传媒 的股票池里选，每周最后一个交易日收盘后选出下周 15 只（同行业最多 6 只，上周名单仍在前 115 名则保留）。综合分 = 0.5 × 价值分 + 0.5 × 短线分（科技股池内分位）。回测 2016–2024 年年化超额 +12.9%，2025 年以来 +7.9%（信息比 0.44，不显著）。需要注意：第一轮参数网格按同样规则选出的组合 2025 年以来年化跑输科技股池 3.0%，全部 90 组只有 57% 跑赢；现用参数来自看过第一轮后设计的第二轮，且缓冲 100 处在网格边界。这类因子在科技股内部的优势不稳定，请谨慎参考。</p>\n<p><b>局限</b>：入选股仍偏中小盘（短线分偏小盘；2020 年以来平均约 41% 低于 50 亿）、成交不算活跃；不做择时；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>\n",
 "factor_labels": {
 "ep": "盈利收益率 E/P",
 "bp": "账面市值比 B/P",
