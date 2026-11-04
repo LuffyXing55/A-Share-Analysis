@@ -509,6 +509,12 @@
       ], { h: 260, labels: bt.nav.dates, pct: true });
       $("#bt-note").textContent = bt.note || "";
       $("#bt-metrics").innerHTML = metricsHTML(bt.metrics || []);
+      const rb = bt.robust || [];
+      $("#bt-robust-title").classList.toggle("hidden", !rb.length);
+      $("#bt-robust").innerHTML = rb.length ? `<tr><th class="l">区间</th><th>年化超额 中位数</th><th>范围</th><th>信息比 中位数</th><th>范围</th></tr>` +
+        rb.map((r) => `<tr><td class="l">${esc(r["区间"])}</td><td>${fmtPct(r["超额中位数"], 1)}</td><td>${fmtPct(r["超额最低"], 1)} ~ ${fmtPct(r["超额最高"], 1)}</td>` +
+          `<td>${fmtNum(r["信息比中位数"], 2)}</td><td>${fmtNum(r["信息比最低"], 2)} ~ ${fmtNum(r["信息比最高"], 2)}</td></tr>`).join("") : "";
+      $("#bt-robust-note").textContent = bt.robust_note || "";
     }
     const tr = state.dash.track || [];
     $("#track").innerHTML = tr.length ? `<tr><th class="l">月份</th><th>选股日</th><th>组合收益</th><th>全A等权</th><th>超额</th><th>状态</th></tr>` +

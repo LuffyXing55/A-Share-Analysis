@@ -36,7 +36,23 @@ def train_one(feat_dir: Path, label: str, horizon: int, features: list[str], yea
     return model, info
 
 
-def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
+def robust_rows(research: Path, robust_navs: list[Path], s0: str) -> list[dict]:
+    """多个短线模型版本（不同重训月份 × 随机种子）下，各区间年化超额 / 信息比的中位数与范围。"""
+    b = pd.read_csv(research / "bench_全A等权(股票池).csv", index_col=0, parse_dates=True).iloc[:, 0]
+    navs = [pd.read_csv(p, index_col=0, parse_dates=True).iloc[:, 0] for p in robust_navs]
+    out = []
+    for s, e, lab in [(s0, "2026-12-31", f"{s0[:7]}至今"), (s0, "2024-12-31", f"{s0[:7]}~2024"),
+                      ("2025-01-01", "2026-12-31", "2025至今"), (s0, "2022-12-31", f"{s0[:7]}~2022"),
+                      ("2023-01-01", "2024-12-31", "2023~2024")]:
+        ms = [period_metrics(n, b, s, e) for n in navs]
+        ex = pd.Series([m["超额年化"] for m in ms])
+        ir = pd.Series([m["信息比"] for m in ms])
+        out.append({"区间": lab, "超额中位数": float(ex.median()), "超额最低": float(ex.min()), "超额最高": float(ex.max()),
+                    "信息比中位数": float(ir.median()), "信息比最低": float(ir.min()), "信息比最高": float(ir.max())})
+    return out
+
+
+def build_backtest_json(research: Path, nav_path: Path, site: Path, robust_navs: list[Path] | None = None) -> None:
     nav = pd.read_csv(nav_path, index_col=0, parse_dates=True).iloc[:, 0]
     nav_full = nav.copy()
     b1 = pd.read_csv(research / "bench_全A等权(股票池).csv", index_col=0, parse_dates=True).iloc[:, 0]
@@ -71,6 +87,10 @@ def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
                    "bench2": [round(float(x), 4) for x in b2w.values],
                    "strategy_name": "30强策略（扣费后）", "bench_name": "全A等权（股票池）", "bench2_name": "中证500成分等权"},
            "metrics": rows,
+           "robust": robust_rows(research, robust_navs, s0) if robust_navs else [],
+           "robust_note": (f"同一套规则，换用 {len(robust_navs)} 个短线模型版本（重训月份与随机种子不同，整体预测力相近）"
+                           "分别回测的结果。Top30 对模型的细微差别很敏感，单个版本的数字可能偏高或偏低，"
+                           "请以中位数和范围为准。上面的曲线与表格用的是最接近中位数的版本。") if robust_navs else "",
            "note": "走步回测：价值分的因子权重每月只用当时已实现的历史数据确定，短线模型每半年只用此前数据重训。"
                    "回看期、估值约束、分数权重、持仓缓冲在 2016~2024 年数据上选出（72 组中选 1 组）；"
                    "此后根据风险偏好决定不再给小市值加分、并让价值分在 5 个市值组内各自比较（市值中性化），"
@@ -91,7 +111,9 @@ def main() -> None:
     ap.add_argument("--research", default="data/research")
     ap.add_argument("--models", default="models")
     ap.add_argument("--site", default="site_data")
-    ap.add_argument("--nav", default="data/neutral/nav_V-Q5.csv")
+    ap.add_argument("--nav", default="data/robust/nav_gbm_a3_s7_monthly_buf400.csv",
+                    help="网站展示的净值：默认用 6 个短线模型版本中最接近中位数的一个（见 ashare/research/robust_eval.py）")
+    ap.add_argument("--robust-glob", default="data/robust/nav_gbm_*_monthly_buf400.csv")
     args = ap.parse_args()
     feat_dir, mdir = Path(args.feat), Path(args.models)
     mdir.mkdir(parents=True, exist_ok=True)
@@ -107,7 +129,9 @@ def main() -> None:
                 "importance_gain": imp, "trained_at": datetime.now().strftime("%Y-%m-%d %H:%M")}
         (mdir / f"{name}_model.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1))
         print(name, info)
-    build_backtest_json(Path(args.research), Path(args.nav), Path(args.site))
+    robust = sorted(Path().glob(args.robust_glob)) if not Path(args.robust_glob).is_absolute() else \
+        sorted(Path("/").glob(args.robust_glob.lstrip("/")))
+    build_backtest_json(Path(args.research), Path(args.nav), Path(args.site), robust or None)
 
 
 if __name__ == "__main__":
