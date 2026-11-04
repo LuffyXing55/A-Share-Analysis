@@ -81,6 +81,15 @@ def sina_index_min(code: str, scale: int = 5) -> pd.DataFrame:
     return _clean(df)
 
 
+def tencent_index_min(code: str, scale: int = 1, n: int = 800) -> pd.DataFrame:
+    """腾讯分钟 K 线（东财在部分网络下会直接断开连接，用它补 1 分钟指数）。"""
+    txt = get("https://ifzq.gtimg.cn/appstock/app/kline/mkline", {"param": f"{code},m{scale},,{n}"})
+    rows = json.loads(txt).get("data", {}).get(code, {}).get(f"m{scale}") or []
+    df = pd.DataFrame([x[:6] for x in rows], columns=["dt", "open", "close", "high", "low", "volume"])
+    df["dt"] = pd.to_datetime(df["dt"], format="%Y%m%d%H%M")
+    return _clean(df)
+
+
 def tencent_index_day(code: str) -> pd.DataFrame:
     parts = []
     for y in range(2015, datetime.now().year + 1, 2):
@@ -148,7 +157,8 @@ def fetch_all(raw: Path) -> dict:
                                                 ("腾讯", lambda sina=sina: tencent_index_day(sina))])
         data["m5"][nm] = first_ok(f"{nm} 5分钟", [("东财", lambda em=em: em_kline(em, 5)),
                                                  ("新浪", lambda sina=sina: sina_index_min(sina, 5))])
-        data["m1"][nm] = first_ok(f"{nm} 1分钟", [("东财", lambda em=em: em_kline(em, 1))])
+        data["m1"][nm] = first_ok(f"{nm} 1分钟", [("东财", lambda em=em: em_kline(em, 1)),
+                                                 ("腾讯", lambda sina=sina: tencent_index_min(sina, 1))])
     for nm, (sina, em) in METALS.items():
         data["day"][nm] = first_ok(f"{nm} 日线", [("新浪", lambda s=sina: sina_inner_day(s)),
                                                 ("东财", lambda em=em: em_kline(em, 101))])
