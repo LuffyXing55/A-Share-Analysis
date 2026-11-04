@@ -119,3 +119,72 @@ def test_session_fraction_and_dist():
     assert session_fraction(datetime(2026, 11, 4, 15, 30, tzinfo=tz)) == 1.0
     dist = list(np.linspace(0, 10, 101))
     assert abs(pct_from_dist(5.0, dist) - 0.5) < 1e-9
+
+
+# ---------------------------------------------------------------- 尾部表 / 补记 / 重试
+def test_label_realized_dates():
+    from ashare.model.tail import label_realized_dates
+
+    cal = pd.bdate_range("2026-01-01", periods=60)
+    k = cal[5]
+    r = label_realized_dates(pd.DatetimeIndex([k, cal[-3]]), cal)
+    assert r[k] == cal[5 + 21]                  # t+1 买入、t+21 卖出
+    assert r[cal[-3]] == pd.Timestamp.max        # 未来日历不足 → 未实现
+
+
+def test_update_table_and_snapshot_guard(tmp_path):
+    import json as _json
+
+    from ashare.model import tail as T
+
+    cal = pd.bdate_range("2026-01-01", periods=30)
+    cols = ["sh600000", "sz000001", "sz300001"]
+    vwap = pd.DataFrame(10.0, index=cal, columns=cols)
+    vwap.loc[cal[1]:, "sh600000"] = 10.0
+    vwap.loc[cal[21]:, "sh600000"] = 11.0        # 名单股票在持有期内上涨 10%（第 21 个交易日卖出）
+    d = cal[0]
+    (tmp_path / f"tail_members_{d.date()}.json").write_text(_json.dumps(
+        {"date": str(d.date()), "universe": cols, "members": {"size": ["sh600000"]}}))
+    tp = tmp_path / "tail_table.csv"
+    # 最后一行是快照拼出的 → 卖出日恰好是最后一行时要推迟
+    t1 = T.update_table(tmp_path, tp, vwap.iloc[:22], last_is_snapshot=True)
+    assert len(t1) == 0
+    t2 = T.update_table(tmp_path, tp, vwap.iloc[:22], last_is_snapshot=False)
+    assert abs(t2.loc[d, "size"] - (0.10 - 0.10 / 3)) < 1e-9   # 相对股票池等权的超额
+    assert T.weights(t2, cal[-1], min_obs=1) == {}             # 一个样本算不出 t 值
+
+
+def test_backfill_partial_marker(tmp_path):
+    import json as _json
+
+    from ashare.model.tail import backfill_members
+
+    d = pd.Timestamp("2026-09-30")
+    r = {"size": pd.Series([0.99, 0.2], index=["a", "b"])}
+    m = pd.Series([True, True], index=["a", "b"])
+    backfill_members(tmp_path, d, r, m, partial=["ep", "bp"])
+    obj = _json.loads((tmp_path / "tail_members_2026-09-30.json").read_text())
+    assert obj["members"]["size"] == ["a"] and obj["partial"] == ["ep", "bp"]
+    backfill_members(tmp_path, d, {"size": pd.Series([0.1, 0.99], index=["a", "b"])}, m)
+    assert _json.loads((tmp_path / "tail_members_2026-09-30.json").read_text())["members"]["size"] == ["a"]  # 不覆盖
+
+
+def test_tencent_batch_retry():
+    calls = {"n": 0}
+
+    class Flaky(_FakeFetcher):
+        def get(self, *a, **k):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise S.SourceUnavailable("timeout")
+            return _Resp(self.text)
+
+        def is_blocked(self, *_a):
+            return False
+
+    S.set_fetcher(Flaky(TENCENT_SAMPLE))
+    try:
+        out = S.tencent_quotes(["sh600000", "sz000001"], batch=1)
+    finally:
+        S.set_fetcher(None)
+    assert len(out) == 2 and calls["n"] == 3     # 第一批失败后重试成功
