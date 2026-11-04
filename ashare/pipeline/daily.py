@@ -836,7 +836,9 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
         st = score_text(n.get("title", "") + n.get("content", ""))
         txt = n.get("title", "") + n.get("content", "")
         picks_hit = [c for c, nm in names.items() if len(nm) >= 2 and nm.replace("*", "").replace("ST", "") in txt]
-        news_out.append({**n, "content": n.get("content", "")[:300], "sentiment": st.score, "events": st.events,
+        # 公开网站只发布标题、来源、时间、链接和情绪分，不转载快讯正文（正文版权归原媒体）
+        pub = {k: v for k, v in n.items() if k != "content"}
+        news_out.append({**pub, "sentiment": st.score, "events": st.events,
                          "picks": picks_hit})
     # ---- 组装两个榜单
     ranked, history = assemble(ctx, base, quotes, stats, matched, ov_cfg, w, latest["data_date"], mode,
