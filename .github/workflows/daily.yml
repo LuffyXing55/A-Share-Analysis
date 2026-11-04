@@ -89,6 +89,9 @@ jobs:
   deploy:
     needs: update
     runs-on: ubuntu-latest
+    # 仓库还没开启 Pages（Settings → Pages → Source 选 GitHub Actions）时这一步会失败；
+    # 不让它把整次运行标成失败，数据照常每天计算并提交到 site_data/
+    continue-on-error: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
