@@ -341,7 +341,9 @@ def tech_section(ctx, settings, sc, ranks, tail_w, short_model, raw, snap, name_
     fp = ctx.state / f"tech_picks_{wk}.json"
     state = read_json(fp)
     older = sorted(f for f in ctx.state.glob("tech_picks_*.json") if f.name < fp.name)
-    prev_week = week_key(d - pd.Timedelta(days=7))
+    # 上一个「有交易日的」周（春节、国庆整周休市时，上一份名单来自两个自然周之前）
+    prev_days = [x for x in cal[cal < d][::-1][:20] if week_key(x) != wk]
+    prev_week = week_key(prev_days[0]) if prev_days else week_key(d - pd.Timedelta(days=7))
     last_old = read_json(older[-1], {}) if older else {}
     prev_codes = last_old.get("codes") if last_old.get("week") == prev_week else None
     week_end = is_last_trading_day_of_week(d, cal)

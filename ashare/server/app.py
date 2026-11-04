@@ -32,6 +32,7 @@ class LiveEngine:
         self.overseas_ts = 0.0
         self.news_ts = 0.0
         self.models = None
+        self.models_stamp = None
         self.status = "starting"
 
     # ------------------------------------------------------------ 数据加载
@@ -42,10 +43,14 @@ class LiveEngine:
         return dash, latest, fdist
 
     def ensure_models(self):
-        if self.models is None:
+        # git pull 可能带来重新训练的模型：模型文件变化时重新加载
+        meta = ROOT / "models" / "short_model.json"
+        stamp = meta.stat().st_mtime if meta.exists() else None
+        if self.models is None or stamp != self.models_stamp:
             from ..model.predict import Model
 
             self.models = {"short": Model(ROOT / "models" / "short_model.txt")}
+            self.models_stamp = stamp
         return self.models
 
     def is_trading_time(self, now: datetime) -> bool:
@@ -95,8 +100,13 @@ class LiveEngine:
         # 收盘数据若是用另一个版本的短线模型算出的（模型刚更新、还没跑过收盘流水线），
         # 盘中就不重算分数，沿用收盘值，避免新旧模型的分布混用
         model_ok = fdist.get("short_model_trained_at") == self.ensure_models()["short"].meta.get("trained_at")
+        try:   # 收盘数据仍含已剔除的因子（例如刚改了 exclude_factors）：同样视为过期
+            excluded = set(json.loads((ROOT / "config" / "settings.json").read_text()).get("exclude_factors", []))
+        except Exception:  # noqa: BLE001
+            excluded = set()
+        model_ok = model_ok and not (excluded & set(fdist.get("tail_weights") or {}))
         if not model_ok:
-            self.status = "模型已更新，等待下一次收盘流水线；盘中暂时显示收盘分数"
+            self.status = "模型或因子设置已更新，等待下一次收盘流水线；盘中暂时显示收盘分数"
         try:
             if not model_ok:
                 raise RuntimeError("model version mismatch")
