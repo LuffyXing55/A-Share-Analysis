@@ -68,6 +68,9 @@ def main():
     assert d["mode"] == "live" and len(d["picks"]) == 30
     changed = sum(1 for x in d["picks"] if x.get("pct_today") == 0.02)
     print("live ok; picks with live quote:", changed)
+    t = d.get("tech") or {}
+    assert t and len(t["picks"]) == 15, "科技榜缺失"
+    print("tech live ok:", [(x["rank"], x["code"], x["total"]) for x in t["picks"][:5]])
     for x in d["picks"][:5]:
         print(x["rank"], x["prev_rank"], x["code"], x["total"], x["value"], x["short"], x["signals"])
     from fastapi.testclient import TestClient

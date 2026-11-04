@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   const $ = (s) => document.querySelector(s);
-  const state = { dash: null, bt: null, sort: "total", sortTech: "total", live: false, timer: null };
+  const state = { dash: null, bt: null, btTech: null, sort: "total", sortTech: "total", live: false, timer: null };
 
   const fmtPct = (x, d = 2) => (x === null || x === undefined || isNaN(x)) ? "—" : (x > 0 ? "+" : "") + (x * 100).toFixed(d) + "%";
   const fmtNum = (x, d = 2) => (x === null || x === undefined || isNaN(x)) ? "—" : Number(x).toFixed(d);
@@ -25,6 +25,9 @@
     }
     if (!state.bt) {
       try { state.bt = await getJSON(state.live ? "/data/backtest.json" : "data/backtest.json"); } catch (e) { state.bt = null; }
+    }
+    if (!state.btTech) {
+      try { state.btTech = await getJSON(state.live ? "/data/backtest_tech.json" : "data/backtest_tech.json"); } catch (e) { state.btTech = null; }
     }
     render();
     if (state.live && !state.timer) state.timer = setInterval(async () => {
@@ -108,6 +111,15 @@
       `分数是在科技股池内的分位。` + (t.note && t.note.includes("不完整") ? ` ⚠ ${t.note}` : "");
     $("#tech-body").innerHTML = rowsHTML(t.picks, state.sortTech);
     document.querySelectorAll("#tech-body tr").forEach((tr) => tr.addEventListener("click", () => showDetail(tr.dataset.code, "tech")));
+    const bt = state.btTech;
+    if (bt && bt.nav) {
+      $("#tech-bt-chart").innerHTML = line([
+        { name: bt.nav.strategy_name, values: bt.nav.strategy, color: "var(--up)" },
+        { name: bt.nav.bench_name, values: bt.nav.bench, color: "var(--muted)", w: 1.4 },
+      ], { labels: bt.nav.dates, pct: true });
+      $("#tech-bt-metrics").innerHTML = metricsHTML(bt.metrics || []);
+      $("#tech-bt-note").textContent = bt.note || "";
+    }
     const tr = t.track || [];
     $("#tech-track").innerHTML = tr.length ? `<tr><th class="l">周</th><th>选出日</th><th>名单收益</th><th>科技股池等权</th><th>超额</th><th>状态</th></tr>` +
       tr.slice(-12).reverse().map((r) => `<tr><td class="l">${esc(r.week)}</td><td>${esc(r.pick_date)}</td><td class="${cls(r.ret)}">${fmtPct(r.ret)}</td><td class="${cls(r.bench)}">${fmtPct(r.bench)}</td><td class="${cls(r.excess)}">${fmtPct(r.excess)}</td><td>${esc(r.status || "")}</td></tr>`).join("")
@@ -216,6 +228,13 @@
     $("#news").innerHTML = list.slice(0, 40).map(newsLi).join("") || '<li class="hint">暂无快讯</li>';
   }
 
+  function metricsHTML(m) {
+    if (!m.length) return "";
+    const keys = Object.keys(m[0]).filter((k) => k !== "区间");
+    return `<tr><th class="l">区间</th>${keys.map((k) => `<th>${esc(k)}</th>`).join("")}</tr>` +
+      m.map((r) => `<tr><td class="l">${esc(r["区间"])}</td>${keys.map((k) => `<td>${typeof r[k] === "number" ? (Math.abs(r[k]) < 5 && !/比|夏普|卡玛/.test(k) ? fmtPct(r[k], 1) : fmtNum(r[k], 2)) : esc(r[k] ?? "—")}</td>`).join("")}</tr>`).join("");
+  }
+
   function renderModel() {
     const bt = state.bt;
     if (bt && bt.nav) {
@@ -225,12 +244,7 @@
         ...(bt.nav.bench2 ? [{ name: bt.nav.bench2_name || "基准2", values: bt.nav.bench2, color: "var(--accent)", w: 1.2 }] : []),
       ], { h: 260, labels: bt.nav.dates, pct: true });
       $("#bt-note").textContent = bt.note || "";
-      const m = bt.metrics || [];
-      if (m.length) {
-        const keys = Object.keys(m[0]).filter((k) => k !== "区间");
-        $("#bt-metrics").innerHTML = `<tr><th class="l">区间</th>${keys.map((k) => `<th>${esc(k)}</th>`).join("")}</tr>` +
-          m.map((r) => `<tr><td class="l">${esc(r["区间"])}</td>${keys.map((k) => `<td>${typeof r[k] === "number" ? (Math.abs(r[k]) < 5 && !/比|夏普|卡玛/.test(k) ? fmtPct(r[k], 1) : fmtNum(r[k], 2)) : esc(r[k] ?? "—")}</td>`).join("")}</tr>`).join("");
-      }
+      $("#bt-metrics").innerHTML = metricsHTML(bt.metrics || []);
     }
     const tr = state.dash.track || [];
     $("#track").innerHTML = tr.length ? `<tr><th class="l">月份</th><th>选股日</th><th>组合收益</th><th>全A等权</th><th>超额</th><th>状态</th></tr>` +
