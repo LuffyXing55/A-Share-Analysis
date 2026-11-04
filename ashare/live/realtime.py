@@ -115,6 +115,15 @@ def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: dateti
     out = {c: {} for c in codes}
     pdist = fdist.get(pred_dist_key) or {}
     tail_w = fdist.get("tail_weights") or {}
+    try:   # 与收盘流水线一致：剔除 config/settings.json 里 exclude_factors 列出的因子（例如方案 A 的 size）
+        import json as _json
+        from pathlib import Path as _P
+
+        _ex = set(_json.loads((_P(__file__).resolve().parents[2] / "config" / "settings.json").read_text())
+                  .get("exclude_factors", []))
+        tail_w = {k: v for k, v in tail_w.items() if k not in _ex}
+    except Exception:  # noqa: BLE001
+        pass
     if tail_w:
         from ..model.tail import score as tail_score
 

@@ -27,7 +27,7 @@ from ..model.tail import label_realized_dates, weights as tail_weights
 from .common import month_ends
 from .tail_composite import EXTRA
 
-PERIODS = [("2016-01-01", "2026-12-31", "2016至今"), ("2016-01-01", "2024-12-31", "2016~2024"),
+PERIODS = [("2016-01-05", "2026-12-31", "2016至今"), ("2016-01-05", "2024-12-31", "2016~2024"),
            ("2025-01-01", "2026-12-31", "2025至今"), ("2020-01-01", "2022-12-31", "2020~2022"),
            ("2023-01-01", "2024-12-31", "2023~2024")]
 
@@ -127,11 +127,20 @@ def main() -> None:
                 mvs.append({"date": dte, "median": float(x.median()), "lt50": float((x < 50).mean()),
                             "gt100": float((x >= 100).mean())})
         mvdf = pd.DataFrame(mvs).set_index("date")
-        uni_med = float((mv.iloc[-1].where(u.iloc[-1]) / 1e4).median())
-        row = {"方案": name, "入选股市值中位数(亿,2020起平均)": round(mvdf["median"].mean(), 1),
-               "最新一期市值中位数(亿)": round(mvdf["median"].iloc[-1], 1),
-               "低于50亿占比": round(mvdf["lt50"].mean(), 3), "100亿以上占比": round(mvdf["gt100"].mean(), 3),
-               "股票池市值中位数(亿,最新)": round(uni_med, 1), "最新权重": wlog[max(wlog)]}
+        # 最新一个有市值数据的交易日（daily_basic 可能比价格少一天）
+        last_mv = mv.index[mv.notna().sum(axis=1) > 3000][-1]
+        uni = mv.loc[last_mv].where(u.loc[last_mv]) / 1e4
+        uni_all = [(mv.loc[x].where(u.loc[x]) / 1e4) for x in mvdf.index.map(lambda t: mv.index[mv.index < t][-1])]
+        row = {"方案": name,
+               "最新一期_市值中位数(亿)": round(mvdf["median"].iloc[-1], 1),
+               "最新一期_低于50亿占比": round(mvdf["lt50"].iloc[-1], 3),
+               "2020起平均_市值中位数(亿)": round(mvdf["median"].mean(), 1),
+               "2020起平均_低于50亿占比": round(mvdf["lt50"].mean(), 3),
+               "2020起平均_100亿以上占比": round(mvdf["gt100"].mean(), 3),
+               "股票池_最新_市值中位数(亿)": round(float(uni.median()), 1),
+               "股票池_最新_低于50亿占比": round(float((uni.dropna() < 50).mean()), 3),
+               "股票池_2020起平均_低于50亿占比": round(float(np.mean([(x.dropna() < 50).mean() for x in uni_all])), 3),
+               "最新权重": wlog[max(wlog)]}
         for s, e, lab in PERIODS:
             m = period_metrics(res.nav, bench, s, e, res.turnover)
             row.update({f"{lab}_年化": m["年化收益"], f"{lab}_超额": m["超额年化"], f"{lab}_信息比": m["信息比"],

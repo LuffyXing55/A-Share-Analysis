@@ -28,7 +28,7 @@ def train_one(feat_dir: Path, label: str, horizon: int, features: list[str], yea
     T = len(u)
     end = T - horizon - 2
     start = max(0, end - int(years * 244))
-    rows = np.arange(start, end, 3)
+    rows = np.arange(start, end, 5)          # 与走步回测（sample_every=5）一致
     X, yy = make_xy(X3, y.values, u.values, rows)
     model = train_gbm(X, yy, GBMConfig())
     info = {"train_start": str(u.index[start].date()), "train_end": str(u.index[end].date()),
@@ -43,14 +43,17 @@ def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
     b1_full = b1.copy()
     b2 = pd.read_csv(research / "bench_csi500等权.csv", index_col=0, parse_dates=True).iloc[:, 0]
     # 从策略第一次真正建仓的日期开始比较（尾部加权需要约 18 个月历史才能给出第一组权重，2016-02 才首次建仓）
+    # 以首次成交日为基点（策略与基准都从这一天的收盘开始比较），首次成交日由净值第一次变动确定
     moved = nav[(nav - nav.iloc[0]).abs() > 1e-9]
-    start = moved.index[0] - pd.Timedelta(days=1) if len(moved) else nav.index[0]
+    start = moved.index[0] if len(moved) else nav.index[0]
     nav = nav[nav.index >= start]
     b1, b2 = b1.reindex(nav.index).ffill(), b2.reindex(nav.index).ffill()
     nav, b1, b2 = nav / nav.iloc[0], b1 / b1.iloc[0], b2 / b2.iloc[0]
     wk = nav.resample("W-FRI").last().dropna()
+    b1w = b1.reindex(nav.index).ffill().resample("W-FRI").last().reindex(wk.index)
+    b2w = b2.reindex(nav.index).ffill().resample("W-FRI").last().reindex(wk.index)
     rows = []
-    s0 = str(nav.index[0].date())
+    s0 = str(nav.index[1].date())          # period_metrics 以前一交易日（首次成交日）为基点
     for s, e, lab in [(s0, "2026-12-31", f"{s0[:7]}至今"), (s0, "2024-12-31", f"{s0[:7]}~2024"),
                       ("2025-01-01", "2026-12-31", "2025至今"), (s0, "2019-12-31", f"{s0[:7]}~2019"),
                       ("2020-01-01", "2022-12-31", "2020~2022"), ("2023-01-01", "2024-12-31", "2023~2024")]:
@@ -60,8 +63,8 @@ def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
                      "月胜率": mt["月胜率(跑赢基准)"]})
     out = {"nav": {"dates": [d.strftime("%Y-%m") for d in wk.index],
                    "strategy": [round(float(x), 4) for x in wk.values],
-                   "bench": [round(float(x), 4) for x in b1.reindex(wk.index).values],
-                   "bench2": [round(float(x), 4) for x in b2.reindex(wk.index).values],
+                   "bench": [round(float(x), 4) for x in b1w.values],
+                   "bench2": [round(float(x), 4) for x in b2w.values],
                    "strategy_name": "30强策略（扣费后）", "bench_name": "全A等权（股票池）", "bench2_name": "中证500成分等权"},
            "metrics": rows,
            "note": "走步回测：价值分的因子权重每月只用当时已实现的历史数据确定，短线模型每半年只用此前数据重训。"

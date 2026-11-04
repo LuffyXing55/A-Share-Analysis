@@ -94,6 +94,9 @@ def clean(x, nd=4):
 
 
 # ------------------------------------------------------------------ 交易日历
+CAL_KNOWN_END = {"date": None}
+
+
 def trading_calendar(qlib_root: Path | None) -> pd.DatetimeIndex:
     days = []
     if qlib_root is not None:
@@ -104,6 +107,7 @@ def trading_calendar(qlib_root: Path | None) -> pd.DatetimeIndex:
     cal = pd.DatetimeIndex(sorted(set(pd.to_datetime(days)))) if days else pd.DatetimeIndex([])
     # 日历之外的未来日期用工作日近似（节假日未知，见资料汇编 0.3(i)）
     last = cal[-1] if len(cal) else pd.Timestamp(now_bj().date()) - pd.Timedelta(days=400)
+    CAL_KNOWN_END["date"] = cal[-1] if len(cal) else None
     extra = pd.bdate_range(last + pd.Timedelta(days=1), last + pd.Timedelta(days=120))
     return cal.append(extra)
 
@@ -129,32 +133,45 @@ class Context:
 
 
 def load_industry(ctx: Context) -> pd.DataFrame:
-    """申万行业（东财业绩报表 PUBLISHNAME），缓存一周。"""
+    """申万行业（东财业绩报表 PUBLISHNAME），缓存一周。
+
+    财报季里最近一期报表只有部分公司披露，单取一期会让行业表缺很多股票（科技股池会缩到 20%~65%）。
+    行业是静态属性，所以合并最近 3 期报表（新报表覆盖旧的），再与上一份缓存合并；
+    合并后覆盖率低于上一份缓存的 95% 时不替换缓存。"""
     cache = ctx.state / "industry.json"
     cached = read_json(cache, {})
+    old = pd.DataFrame(cached.get("rows", [])) if cached else pd.DataFrame(columns=["code", "l1"])
     if cached and cached.get("date", "") >= (now_bj() - timedelta(days=7)).strftime("%Y-%m-%d"):
-        return pd.DataFrame(cached["rows"])
-    rows = []
+        return old
+    frames = []
     try:
         qe = pd.date_range(end=pd.Timestamp(now_bj().date()), periods=6, freq="QE")[::-1]
         for rd in [str(x.date()) for x in qe]:
             df = S.em_performance(rd, max_pages=15)
-            if len(df) > 1000:
-                df["code"] = df["SECUCODE"].str.split(".").map(lambda x: x[1].lower() + x[0])
-                rows = df[["code", "SECURITY_NAME_ABBR", "PUBLISHNAME", "WEIGHTAVG_ROE", "YSTZ", "SJLTZ",
-                           "NOTICE_DATE", "DATATYPE"]].rename(columns={
-                    "SECURITY_NAME_ABBR": "name", "PUBLISHNAME": "l2", "WEIGHTAVG_ROE": "roe_report",
-                    "YSTZ": "rev_yoy", "SJLTZ": "np_yoy", "NOTICE_DATE": "notice_date", "DATATYPE": "report"})
-                rows["l1"] = rows["l2"].map(l1_of)
+            if len(df) < 200:
+                continue
+            df["code"] = df["SECUCODE"].str.split(".").map(lambda x: x[1].lower() + x[0])
+            df = df[["code", "SECURITY_NAME_ABBR", "PUBLISHNAME", "WEIGHTAVG_ROE", "YSTZ", "SJLTZ",
+                     "NOTICE_DATE", "DATATYPE"]].rename(columns={
+                "SECURITY_NAME_ABBR": "name", "PUBLISHNAME": "l2", "WEIGHTAVG_ROE": "roe_report",
+                "YSTZ": "rev_yoy", "SJLTZ": "np_yoy", "NOTICE_DATE": "notice_date", "DATATYPE": "report"})
+            frames.append(df)
+            if sum(len(f) for f in frames) > 4000 and len(frames) >= 2:
                 break
-        ctx.note("东财业绩报表/行业", len(rows) > 0)
     except Exception as e:  # noqa: BLE001
         ctx.note("东财业绩报表/行业", False, str(e))
-    if len(rows):
-        write_json(cache, {"date": now_bj().strftime("%Y-%m-%d"),
-                           "rows": rows.astype(object).where(rows.notna(), None).to_dict(orient="records")})
-        return rows
-    return pd.DataFrame(cached.get("rows", [])) if cached else pd.DataFrame(columns=["code", "l1"])
+    if not frames:
+        return old
+    new = pd.concat(frames).drop_duplicates("code", keep="first")      # 越新的报表越靠前
+    merged = pd.concat([new, old]).drop_duplicates("code", keep="first") if len(old) else new
+    merged["l1"] = merged["l2"].map(l1_of)
+    if len(old) and len(merged) < 0.95 * len(old):
+        ctx.note("东财业绩报表/行业", False, f"新表只有 {len(merged)} 行，少于旧缓存，沿用旧缓存")
+        return old
+    ctx.note("东财业绩报表/行业", True, f"{len(merged)} 只（{len(frames)} 期报表合并）")
+    write_json(cache, {"date": now_bj().strftime("%Y-%m-%d"),
+                       "rows": merged.astype(object).where(merged.notna(), None).to_dict(orient="records")})
+    return merged
 
 
 def compute_scores(ctx: Context, qlib_root: Path):
@@ -237,7 +254,7 @@ def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict,
         pe_pct = pe.where(prof).rank(pct=True)
         s = s[prof & (pe_pct <= vf.get("max_pe_pct_among_profitable", 0.7))]
     s = s.sort_values(ascending=False)
-    cap, n = settings.get("industry_cap", 5), settings.get("top_n", 30)
+    cap, n = settings.get("industry_cap") or None, settings.get("top_n", 30)
     buf = settings.get("hold_buffer", 400)
     rank = pd.Series(np.arange(len(s)), index=s.index)
     keep = [c for c in (previous or []) if c in rank.index and rank[c] < n + buf]
@@ -245,7 +262,7 @@ def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict,
     cnt, chosen = {}, []
     for code in keep + [c for c in s.index if c not in keep]:
         g = industry.get(code)
-        if isinstance(g, str) and cnt.get(g, 0) >= cap:
+        if cap and isinstance(g, str) and cnt.get(g, 0) >= cap:
             continue
         cnt[g] = cnt.get(g, 0) + 1
         chosen.append(code)
@@ -297,7 +314,7 @@ def is_last_trading_day_of_week(d: pd.Timestamp, cal: pd.DatetimeIndex) -> bool:
 
 
 def tech_section(ctx, settings, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d, cal,
-                 can_pick) -> dict | None:
+                 can_pick, raw_last=None) -> dict | None:
     """科技股周榜：在申万一级 电子/计算机/通信/传媒 的股票池成分里，每周最后一个交易日收盘后选出下周 15 只。
     分数是在科技股池内重新取的分位（与 ashare/research/tech_eval.py 的回测口径一致）。"""
     tcfg = settings.get("tech")
@@ -324,32 +341,47 @@ def tech_section(ctx, settings, sc, ranks, tail_w, short_model, raw, snap, name_
     fp = ctx.state / f"tech_picks_{wk}.json"
     state = read_json(fp)
     older = sorted(f for f in ctx.state.glob("tech_picks_*.json") if f.name < fp.name)
-    prev_codes = (read_json(older[-1], {}) or {}).get("codes") if older else None
-    if state is None:
+    prev_week = week_key(d - pd.Timedelta(days=7))
+    last_old = read_json(older[-1], {}) if older else {}
+    prev_codes = last_old.get("codes") if last_old.get("week") == prev_week else None
+    week_end = is_last_trading_day_of_week(d, cal)
+    if state is None and not (week_end and can_pick):
+        # 周末那天能选股时直接写下周名单（见下），不再多写一份本周「补选」
         if can_pick:
             chosen = select_picks(st, industry, sel_cfg, prev_codes)
             state = {"week": wk, "pick_date": str(d.date()), "codes": chosen,
-                     "entry_close": {c: clean(raw.loc[d, c]) for c in chosen}, "note": "周中补选"}
+                     "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
+                     "pool": tcodes, "note": "周中补选（持有不足一周，与回测的周末调仓不同）"}
             write_json(fp, state)
-        elif older:
-            state = {**read_json(older[-1]), "note": "数据不完整，暂时沿用上周科技股名单"}
+        elif last_old.get("week") == prev_week:
+            state = {**last_old, "note": "数据不完整，暂时沿用上周科技股名单"}
         else:
+            ctx.note("科技股周榜", False, "数据不完整且没有上周名单，本次不显示")
             return None
-    if is_last_trading_day_of_week(d, cal):
+    if week_end:
         nxt = cal[cal > d][0]
         nfp = ctx.state / f"tech_picks_{week_key(nxt)}.json"
         if not nfp.exists() and can_pick:
-            chosen = select_picks(st, industry, sel_cfg, state["codes"])
+            chosen = select_picks(st, industry, sel_cfg, (state or {}).get("codes") or prev_codes)
             write_json(nfp, {"week": week_key(nxt), "pick_date": str(d.date()), "codes": chosen,
                              "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
-                             "note": "本周最后一个交易日收盘后选出"})
+                             "pool": tcodes, "note": "本周最后一个交易日收盘后选出"})
         if nfp.exists():
             state = read_json(nfp)
-    codes = state["codes"]
-    # 名单里的股票若当天不在科技股池（停牌等），用全市场口径的分数近似
-    for c in codes:
-        if c not in st.index and c in sc.index:
-            st.loc[c, ["value", "short", "total"]] = sc.loc[c, ["value", "short", "total"]].values
+    if state is None:
+        return None
+    codes = [c for c in state["codes"] if c in raw.columns]
+    # 名单里当天不在科技股池的股票（停牌、变成 ST、流动性跌出等）：用其原始因子值算出原始分，
+    # 再对照科技股池的分布换算成池内分位（与主榜对池外股票的处理一致）
+    outside = [c for c in codes if c not in st.index]
+    if outside and raw_last is not None:
+        rank_outside(ranks, raw_last, getattr(ctx, "fac_last", {}), outside)
+        vr = TAIL.score(ranks, tail_w, outside)
+        sr = pd.Series(short_model.predict(matrix(ranks, short_model.features, outside)), index=outside)
+        for c in outside:
+            v = (st["value_raw"] < vr[c]).mean() * 100 if np.isfinite(vr[c]) else np.nan
+            sh = (st["short_raw"] < sr[c]).mean() * 100
+            st.loc[c, ["value", "short", "total"]] = [v, sh, np.nan]
     base = make_base(codes, state, st, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d)
     qs = np.linspace(0, 1, 101)
     pred_dist = {k: [clean(x, 6) for x in np.quantile(st[k + "_raw"].dropna().values, qs)] for k in ("value", "short")}
@@ -364,8 +396,11 @@ def tech_section(ctx, settings, sc, ranks, tail_w, short_model, raw, snap, name_
         if not wk_days:
             continue
         end = max(wk_days)
+        if end <= pdate:
+            continue
         r = raw.loc[end] / raw.loc[pdate] - 1
-        port, bench = r.reindex(ps["codes"]).mean(), r.reindex(tcodes).mean()
+        # 基准用选股当时的科技股池（存在名单文件里），已完成的周不会因为股票池变化而改变
+        port, bench = r.reindex(ps["codes"]).mean(), r.reindex(ps.get("pool") or tcodes).mean()
         rows.append({"week": ps["week"], "pick_date": ps["pick_date"], "ret": clean(port), "bench": clean(bench),
                      "excess": clean(port - bench), "status": "已完成" if end < d else "进行中"})
     write_json(ctx.state / "tech_track.json", rows)
@@ -411,6 +446,10 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         qlib_root = ensure_qlib_data(default_cache_dir())
         cal = trading_calendar(qlib_root)
         p, snap, mask, ranks, raw_last, d = compute_scores(ctx, qlib_root)
+        known = CAL_KNOWN_END["date"]
+        if known is not None and known < d + pd.Timedelta(days=14):
+            ctx.note("交易日历", False, f"官方日历只到 {known.date()}，之后按工作日近似；节假日前后的月末/周末判断可能差一天，"
+                                    "缺失的名单会在下一次运行自动补选")
         if len(snap):
             name_map.update(snap["name"].to_dict())
         raw = p["close"] / p["factor"]
@@ -507,7 +546,7 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                 sc.loc[c, "total"] = np.nan
         base = make_base(codes, picks_state, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d)
         tech = tech_section(ctx, settings, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d, cal,
-                            can_pick)
+                            can_pick, raw_last)
         ew = raw.pct_change(fill_method=None).loc[:, mask[mask].index].mean(axis=1)
         latest = {"data_date": str(d.date()), "month": month, "pick_date": picks_state["pick_date"],
                   "tech": {k: v for k, v in (tech or {}).items() if k not in ("pred_dist", "track")} or None,
@@ -522,6 +561,7 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         write_json(ctx.state / "factor_dist.json", {"date": str(d.date()), "dist": factor_distribution(raw_last),
                                                     "pred_dist": pred_dist, "weights": w, "tail_weights": tail_w,
                                                     "pred_dist_tech": (tech or {}).get("pred_dist"),
+                                                    "short_model_trained_at": short_model.meta.get("trained_at"),
                                                     "weights_tech": (tech or {}).get("weights"),
                                                     "mkt_ret": {str(k.date()): clean(v, 6) for k, v in mret.items()}})
         track = update_track(ctx, raw, mask, d)
@@ -722,7 +762,7 @@ METHOD_HTML = """
 <p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月标签已实现的数据，选出 t 值 ≥ 0.5 的因子并按 t 值加权（不保证每个时段都为正）。目前入选的是日内未追高、非流动性溢价、低于 20 日均线、量价背离、20 日回调、换手未异常放大。<b>不使用「小市值」因子</b>，不会因为市值小直接加分。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>
 <p><b>短线分（约 1 周）</b>：LightGBM 模型，用 24 个量价与估值因子（不含市值）预测未来 5 个交易日的相对收益。在此基础上叠加两项实时调整：①海外联动——所在产业链（或所属行业）的海外标的隔夜涨跌 × 历史回归系数，只使用 2016–2022 年样本内 t 值绝对值 ≥ 2 的配对（这类配对在 2023 年以后的检验中整体有效），最多 ±10 分；②新闻情绪——快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>
 <p><b>综合分</b> = 0.6 × 价值投资分 + 0.4 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在股票池前 430 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>
-<p><b>回测</b>（2016-01 至 2026-11，扣交易成本，一字涨跌停无法成交）：年化 12.3%，股票池等权基准 0.8%，年化超额 +11.5%，信息比 1.22；2025 年以来年化超额 +11.8%。这些数字是乐观的上限：部分参数和「去掉小市值加分」等决定是在看过全部历史数据后做出的，不是严格的样本外检验，请以上线后的「实盘跟踪」为准。最大回撤 −47%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>
+<p><b>回测</b>（2016-01 至 2026-11，扣交易成本，一字涨跌停无法成交）：年化 12.3%，股票池等权基准 1.3%，年化超额 +11.0%，信息比 1.19；2025 年以来年化超额 +11.8%。这些数字是乐观的上限：部分参数和「去掉小市值加分」等决定是在看过全部历史数据后做出的，不是严格的样本外检验，请以上线后的「实盘跟踪」为准。最大回撤 −47%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>
 <p><b>科技股周榜</b>：独立于 30 强，只在申万一级 电子/计算机/通信/传媒 的股票池里选，每周最后一个交易日收盘后选出下周 15 只（同行业最多 6 只，上周名单仍在前 115 名则保留）。综合分 = 0.5 × 价值分 + 0.5 × 短线分（科技股池内分位）。回测 2016–2024 年年化超额 +13.6%，2025 年以来 +7.9%（信息比 0.44，不显著）；第一轮参数网格在 2025 年以来只有 57% 跑赢科技股池，说明这类因子在科技股内部的优势不稳定，请谨慎参考。</p>
 <p><b>局限</b>：入选股仍偏中小盘（市值中位数约 40 亿）、成交不算活跃；不做择时；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>
 """

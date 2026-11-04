@@ -92,7 +92,14 @@ class LiveEngine:
                 break
         fb = {c: (all_base.get(c) or {}).get("feat_ranks") or {} for c in codes}
         scores, scores_tech = {}, {}
+        # 收盘数据若是用另一个版本的短线模型算出的（模型刚更新、还没跑过收盘流水线），
+        # 盘中就不重算分数，沿用收盘值，避免新旧模型的分布混用
+        model_ok = fdist.get("short_model_trained_at") == self.ensure_models()["short"].meta.get("trained_at")
+        if not model_ok:
+            self.status = "模型已更新，等待下一次收盘流水线；盘中暂时显示收盘分数"
         try:
+            if not model_ok:
+                raise RuntimeError("model version mismatch")
             scores = RT.live_scores(self.ensure_models(), fdist, {c: self.hist[c] for c in main_codes if c in self.hist},
                                     quotes, now, fallback_ranks=fb, today_mkt=today_mkt)
             if tech_codes and fdist.get("pred_dist_tech"):
@@ -101,8 +108,11 @@ class LiveEngine:
                                              {c: self.hist[c] for c in tech_codes if c in self.hist},
                                              quotes, now, fallback_ranks=fb, today_mkt=today_mkt,
                                              pred_dist_key="pred_dist_tech")
-        except Exception:  # noqa: BLE001
-            traceback.print_exc()
+        except Exception as e:  # noqa: BLE001
+            if model_ok:
+                traceback.print_exc()
+            else:
+                _ = e
         # 海外行情每 10 分钟、新闻每 3 分钟刷新
         if time.time() - self.overseas_ts > 600 or not hasattr(self, "ov_quotes"):
             try:
@@ -184,7 +194,7 @@ class LiveEngine:
         live["news"] = news_out
         with self.lock:
             self.dash = live
-            self.status = "ok"
+            self.status = "ok" if model_ok else "模型已更新，等待下一次收盘流水线；盘中暂时显示收盘分数"
 
     def maybe_git_pull(self) -> None:
         """每 30 分钟 git pull 一次，拿到 GitHub Actions 每天算好的新结果（含月初换仓）。"""
