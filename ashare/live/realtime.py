@@ -97,7 +97,8 @@ def pct_from_dist(x: float, dist: list[float]) -> float:
 
 def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: datetime | None = None,
                 fallback_ranks: dict | None = None, today_mkt: float | None = None,
-                pred_dist_key: str = "pred_dist") -> dict:
+                pred_dist_key: str = "pred_dist", buckets: dict | None = None) -> dict:
+    """buckets：每只股票收盘时所在的市值组（价值分市值中性化时用该组的分布换算分位）。"""
     now = now or datetime.now(BJ)
     p = build_mini_panels(hist, quotes, now)
     p = attach_market(p, fdist.get("mkt_ret"), today_mkt)
@@ -121,8 +122,11 @@ def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: dateti
         from ..model.tail import score as tail_score
 
         v = tail_score(ranks, tail_w, codes)
+        vb = pdist.get("value_buckets") or []
         for c in codes:
-            out[c]["value"] = round(pct_from_dist(v[c], pdist.get("value")) * 100, 1) if pdist.get("value") else None
+            b = (buckets or {}).get(c)
+            dv = vb[b] if b is not None and 0 <= b < len(vb) else pdist.get("value")
+            out[c]["value"] = round(pct_from_dist(v[c], dv) * 100, 1) if dv else None
     for key, m in models.items():
         X = np.column_stack([ranks[f].reindex(codes).values if f in ranks else np.full(len(codes), np.nan)
                              for f in m.features])

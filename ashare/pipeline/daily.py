@@ -229,12 +229,39 @@ def rank_outside(ranks: dict, raw_last: dict, fac_last: dict, codes: list[str]) 
             r.loc[c] = (lo + hi) / 2 / len(vals)
 
 
-def score_universe(ranks: dict, mask: pd.Series, short_model: Model, tail_w: dict) -> pd.DataFrame:
-    """中期分（价值投资分）= 尾部加权合成；短线分 = LightGBM 5 日模型。均换算为股票池内分位（0–100）。"""
+def size_buckets(mv_yi: pd.Series, k: int) -> tuple[pd.Series, list[float]]:
+    """按总市值把股票分成 k 组（与 ashare/research/neutral_eval.py 一致：按排名等分）。
+    返回每只股票的组号（0 = 最小）和组间分界（第 0..k-2 组的最大市值，亿元），供盘中和池外股票归组。"""
+    m = mv_yi[mv_yi > 0].dropna()
+    if k < 2 or len(m) < k * 20:
+        return pd.Series(dtype="float64"), []
+    g = pd.Series(pd.qcut(m.rank(method="first"), k, labels=False).values, index=m.index)
+    edges = [float(m[g == b].max()) for b in range(k - 1)]
+    return g, edges
+
+
+def bucket_of(x, edges: list[float]):
+    if x is None or not np.isfinite(x) or x <= 0 or not edges:
+        return None
+    return int(np.searchsorted(edges, x, "left"))
+
+
+def score_universe(ranks: dict, mask: pd.Series, short_model: Model, tail_w: dict,
+                   mv_yi: pd.Series | None = None, k: int = 0) -> pd.DataFrame:
+    """中期分（价值投资分）= 尾部加权合成；短线分 = LightGBM 5 日模型。均换算为股票池内分位（0–100）。
+    k ≥ 2 时价值分在 k 个市值分组内各自取分位（市值中性化）；没有市值数据的股票用全池分位。"""
     codes = list(mask[mask].index)
     out = pd.DataFrame(index=codes)
     out["value_raw"] = TAIL.score(ranks, tail_w, codes).values
     out["value"] = out["value_raw"].rank(pct=True) * 100
+    out.attrs["mv_edges"] = []
+    if k >= 2 and mv_yi is not None:
+        g, edges = size_buckets(mv_yi.reindex(codes), k)
+        if edges:
+            out["mv_bucket"] = g.reindex(codes)
+            inb = out["mv_bucket"].notna()
+            out.loc[inb, "value"] = out.loc[inb].groupby("mv_bucket")["value_raw"].rank(pct=True) * 100
+            out.attrs["mv_edges"] = edges
     X = matrix(ranks, short_model.features, codes)
     out["short_raw"] = short_model.predict(X)
     out["short"] = out["short_raw"].rank(pct=True) * 100
@@ -297,6 +324,8 @@ def make_base(codes, picks_state, sc, ranks, tail_w, short_model, raw, snap, nam
             "pe_ttm": clean(snap["pe_ttm"].get(c)) if len(snap) else None,
             "pb": clean(snap["pb"].get(c)) if len(snap) else None,
             "total_mv_yi": clean(snap["total_mv"].get(c) / 1e8, 1) if len(snap) and c in snap.index else None,
+            "mv_bucket": (int(sc.loc[c, "mv_bucket"]) if "mv_bucket" in sc and c in sc.index
+                          and pd.notna(sc.loc[c, "mv_bucket"]) else None),
             # 收盘时各因子的全市场分位：本地盘中模式下算不出来的因子（如行业动量）沿用这里的值
             "feat_ranks": {k: clean(v.get(c), 4) for k, v in ranks.items()},
         }
@@ -483,7 +512,12 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         tail_w = TAIL.weights(table, d, available=set(ranks) - excluded)
         ctx.note("尾部加权因子", len(tail_w) > 0, ", ".join(f"{k}:{v:.2f}" for k, v in
                                                      sorted(tail_w.items(), key=lambda x: -x[1])))
-        sc = score_universe(ranks, mask, short_model, tail_w)
+        k_neutral = int(settings.get("value_size_neutral_buckets") or 0)
+        mv_yi = p["total_mv"].iloc[-1] / 1e4 if "total_mv" in p else None          # 万元 → 亿元
+        sc = score_universe(ranks, mask, short_model, tail_w, mv_yi, k_neutral)
+        mv_edges = sc.attrs.get("mv_edges", [])
+        if k_neutral >= 2 and not mv_edges:
+            ctx.note("价值分市值中性化", False, "没有市值数据，本次价值分按全池分位")
         sc["total"] = (w["value"] * sc["value"] + w["short"] * sc["short"]).rank(pct=True) * 100
         if "pe_ttm" in p:
             sc["pe"] = p["pe_ttm"].iloc[-1].reindex(sc.index)
@@ -543,7 +577,12 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
             vr = TAIL.score(ranks, tail_w, missing)
             sr = pd.Series(short_model.predict(matrix(ranks, short_model.features, missing)), index=missing)
             for c in missing:
-                sc.loc[c, "value"] = (sc["value_raw"] < vr[c]).mean() * 100 if np.isfinite(vr[c]) else np.nan
+                ref = sc["value_raw"]
+                b = bucket_of(mv_yi.get(c) if mv_yi is not None else None, mv_edges)
+                if b is not None:
+                    ref = sc.loc[sc["mv_bucket"] == b, "value_raw"]
+                    sc.loc[c, "mv_bucket"] = b
+                sc.loc[c, "value"] = (ref < vr[c]).mean() * 100 if np.isfinite(vr[c]) else np.nan
                 sc.loc[c, "short"] = (sc["short_raw"] < sr[c]).mean() * 100
                 sc.loc[c, "total"] = np.nan
         base = make_base(codes, picks_state, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d)
@@ -555,10 +594,23 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                   "picks_note": picks_state.get("note", ""),
                   "base": base, "ew_ret20": clean((1 + ew.tail(20)).prod() - 1),
                   "universe_n": int(mask.sum()), "tail_weights": tail_w}
+        try:
+            all_codes = list(dict.fromkeys(codes + list(((tech or {}).get("base") or {}).keys())))
+            latest["month_trend"] = month_trend(p["close"], ctx.u_full, all_codes, month, d)
+            if can_pick:
+                backfill_month_scores(ctx, p, codes, month, d, tail_w, short_model, w, k_neutral)
+        except Exception as e:  # noqa: BLE001
+            ctx.note("本月走势", False, str(e))
         write_json(ctx.state / "latest.json", latest)
         qs = np.linspace(0, 1, 101)
         pred_dist = {k: [clean(x, 6) for x in np.quantile(sc[k + "_raw"].dropna().values, qs)]
                      for k in ("value", "short")}
+        if mv_edges:
+            # 市值中性化：盘中按收盘时所在的市值组，用该组的价值分分布换算分位
+            pred_dist["mv_edges"] = [clean(x, 2) for x in mv_edges]
+            pred_dist["value_buckets"] = [
+                [clean(x, 6) for x in np.quantile(sc.loc[sc["mv_bucket"] == b, "value_raw"].dropna().values, qs)]
+                for b in range(len(mv_edges) + 1)]
         mret = p["close"].pct_change(fill_method=None).mean(axis=1).tail(300)
         write_json(ctx.state / "factor_dist.json", {"date": str(d.date()), "dist": factor_distribution(raw_last),
                                                     "pred_dist": pred_dist, "weights": w, "tail_weights": tail_w,
@@ -571,6 +623,69 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         track = read_json(ctx.state / "track.json", [])
 
     return build_dashboard(ctx, latest, track, mode)
+
+
+def month_trend(close: pd.DataFrame, u_full: pd.DataFrame, codes: list[str], month: str, d: pd.Timestamp) -> dict:
+    """本月走势：入选股与股票池等权自上月最后一个交易日收盘以来的累计涨跌（复权价，净值形式，1 = 不涨不跌）。"""
+    m0 = pd.Timestamp(month + "-01")
+    before = close.index[close.index < m0]
+    if not len(before) or before[-1] >= d:
+        return {}
+    seg = close.loc[before[-1]:d]
+    ret = seg.pct_change(fill_method=None).iloc[1:]
+    um = u_full.reindex(index=ret.index, columns=ret.columns).fillna(False).shift(1).fillna(False)
+    bench = (1 + ret.where(um).mean(axis=1).fillna(0)).cumprod()
+    out = {"dates": [str(x.date()) for x in seg.index], "bench": [1.0] + [clean(x, 4) for x in bench.values],
+           "codes": {}}
+    for c in codes:
+        if c not in seg:
+            continue
+        s = seg[c].ffill()
+        if pd.isna(s.iloc[0]) or s.iloc[0] <= 0:
+            continue
+        out["codes"][c] = [clean(x, 4) for x in (s / s.iloc[0]).values]
+    return out
+
+
+def backfill_month_scores(ctx: Context, p: dict, codes: list[str], month: str, d: pd.Timestamp, tail_w: dict,
+                          short_model: Model, w: dict, k_neutral: int) -> None:
+    """本月组合是月中才选出（或首次运行）时，把本月此前交易日的看好分补算出来，走势图可以看到整个月。
+    口径与收盘计算一致（同一套因子权重、短线模型、市值中性化），但不含海外 / 新闻的盘后调整。"""
+    hist_file = ctx.state / f"daily_{month}.json"
+    hist = read_json(hist_file, {})
+    fac, u = getattr(ctx, "fac_full", None), getattr(ctx, "u_full", None)
+    if fac is None or u is None:
+        return
+    m0 = pd.Timestamp(month + "-01")
+    days = [x for x in u.index if m0 <= x < d]
+    changed = False
+    for x in days:
+        key = str(x.date())
+        have = hist.get(key) or {}
+        need = [c for c in codes if c not in have]
+        if not need:
+            continue
+        mask_x = u.loc[x]
+        if mask_x.sum() < 500:
+            continue
+        r_x = {k: v.loc[x].where(mask_x).rank(pct=True) for k, v in fac.items()}
+        mv_x = p["total_mv"].loc[x] / 1e4 if "total_mv" in p and x in p["total_mv"].index else None
+        sc_x = score_universe(r_x, mask_x, short_model, tail_w, mv_x, k_neutral)
+        for c in need:
+            if c not in sc_x.index:
+                continue
+            v, s = clean(sc_x.loc[c, "value"], 1), clean(sc_x.loc[c, "short"], 1)
+            tot = None if v is None or s is None else clean(w["value"] * v + w["short"] * s, 1)
+            have[c] = [tot, v, s, None]
+        order = sorted((c for c in codes if c in have and have[c][0] is not None), key=lambda c: -have[c][0])
+        for i, c in enumerate(order, 1):
+            if have[c][3] is None:
+                have[c][3] = i
+        hist[key] = have
+        changed = True
+    if changed:
+        write_json(hist_file, hist)
+        ctx.log.append(f"补算了本月 {len(days)} 个交易日的看好分走势")
 
 
 def update_track(ctx: Context, raw: pd.DataFrame, mask: pd.Series, d: pd.Timestamp) -> list:
@@ -750,7 +865,8 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
         "generated_at": now_bj().strftime("%Y-%m-%d %H:%M"), "mode": mode, "data_date": latest["data_date"],
         "month": latest["month"], "pick_date": latest["pick_date"], "universe_n": latest.get("universe_n"),
         "picks_note": latest.get("picks_note", ""), "weights": w,
-        "market": market, "picks": ranked, "history": history, "tech": tech_out, "watch": watch, "news": news_out,
+        "market": market, "picks": ranked, "history": history, "trend": latest.get("month_trend") or {},
+        "tech": tech_out, "watch": watch, "news": news_out,
         "track": track, "sources": ctx.sources, "method": METHOD_HTML,
         "factor_labels": FACTOR_LABELS,
     }
@@ -761,12 +877,12 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
 
 METHOD_HTML = """
 <p><b>股票池</b>：沪深主板、创业板、科创板；剔除 ST/*ST/退市整理、上市不满约 1 年、近 60 日交易不足 80%、日均成交额低于 2000 万元或处于全市场最低 15%、股价低于 2 元的股票。</p>
-<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月标签已实现的数据，选出 t 值 ≥ 0.5 的因子并按 t 值加权（不保证每个时段都为正）。目前入选的是日内未追高、非流动性溢价、低于 20 日均线、量价背离、20 日回调、换手未异常放大。<b>不使用「小市值」因子</b>，不会因为市值小直接加分。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>
+<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月标签已实现的数据，选出 t 值 ≥ 0.5 的因子并按 t 值加权（不保证每个时段都为正）。目前入选的是日内未追高、非流动性溢价、低于 20 日均线、量价背离、20 日回调、换手未异常放大。<b>不使用「小市值」因子</b>，不会因为市值小直接加分；并且价值分在 5 个市值组内各自取分位（大盘股和大盘股比、小盘股和小盘股比），避免「非流动性」等因子间接偏向小盘股。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>
 <p><b>短线分（约 1 周）</b>：LightGBM 模型，用 24 个量价与估值因子（不含市值）预测未来 5 个交易日的相对收益。在此基础上叠加两项实时调整：①海外联动——所在产业链（或所属行业）的海外标的隔夜涨跌 × 历史回归系数，只使用 2016–2022 年样本内 t 值绝对值 ≥ 2 的配对（这类配对在 2023 年以后的检验中整体有效），最多 ±10 分；②新闻情绪——快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>
 <p><b>综合分</b> = 0.6 × 价值投资分 + 0.4 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在股票池前 430 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>
-<p><b>回测</b>（2016-01 至 2026-11，扣交易成本，一字涨跌停无法成交）：年化 12.3%，股票池等权基准 1.3%，年化超额 +11.0%，信息比 1.19；2025 年以来年化超额 +11.8%。这些数字是乐观的上限：部分参数和「去掉小市值加分」等决定是在看过全部历史数据后做出的，不是严格的样本外检验，请以上线后的「实盘跟踪」为准。最大回撤 −47%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>
+<p><b>回测</b>（截至 2026-11，扣交易成本，一字涨跌停无法成交）：2016 年起（不含市值中性化）年化超额 +11.0%，信息比 1.19。加上市值中性化后（2020 年起，市值数据从 2020 年才有）年化超额 +14.8%，信息比 1.35，2025 年以来 +11.2%；比不中性化每年少约 4 个百分点，换来几乎每个月都有百亿以上的大盘股。这些数字是乐观的上限：部分参数和「去掉小市值加分」「市值中性化」等决定是在看过全部历史数据后做出的，不是严格的样本外检验，请以上线后的「实盘跟踪」为准。最大回撤：2016 年起 −47%、2020 年起 −28%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>
 <p><b>科技股周榜</b>：独立于 30 强，只在申万一级 电子/计算机/通信/传媒 的股票池里选，每周最后一个交易日收盘后选出下周 15 只（同行业最多 6 只，上周名单仍在前 115 名则保留）。综合分 = 0.5 × 价值分 + 0.5 × 短线分（科技股池内分位）。回测 2016–2024 年年化超额 +12.9%，2025 年以来 +7.9%（信息比 0.44，不显著）。需要注意：第一轮参数网格按同样规则选出的组合 2025 年以来年化跑输科技股池 3.0%，全部 90 组只有 57% 跑赢；现用参数来自看过第一轮后设计的第二轮，且缓冲 100 处在网格边界。这类因子在科技股内部的优势不稳定，请谨慎参考。</p>
-<p><b>局限</b>：入选股仍偏中小盘（市值中位数约 40 亿）、成交不算活跃；不做择时；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>
+<p><b>局限</b>：入选股仍偏中小盘（短线分偏小盘；2020 年以来平均约 41% 低于 50 亿）、成交不算活跃；不做择时；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>
 """
 
 

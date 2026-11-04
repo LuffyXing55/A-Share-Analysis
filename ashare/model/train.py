@@ -57,6 +57,10 @@ def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
     for s, e, lab in [(s0, "2026-12-31", f"{s0[:7]}至今"), (s0, "2024-12-31", f"{s0[:7]}~2024"),
                       ("2025-01-01", "2026-12-31", "2025至今"), (s0, "2019-12-31", f"{s0[:7]}~2019"),
                       ("2020-01-01", "2022-12-31", "2020~2022"), ("2023-01-01", "2024-12-31", "2023~2024")]:
+        if s < s0:          # 区间不早于首次成交后一天（否则会把策略还没持仓时基准的涨跌算进超额）
+            s, lab = s0, f"{s0[:7]}~{lab.split('~')[-1]}" if "~" in lab else lab
+        if s >= e:          # 回测晚于这一区间开始（例如从 2020 年开始的方案没有 2016~2019）
+            continue
         mt = period_metrics(nav_full, b1_full, s, e)
         rows.append({"区间": lab, "年化收益": mt["年化收益"], "基准年化": mt["基准年化"], "超额年化": mt["超额年化"],
                      "最大回撤": mt["最大回撤"], "夏普": mt["夏普"], "信息比": mt["信息比"],
@@ -69,11 +73,12 @@ def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
            "metrics": rows,
            "note": "走步回测：价值分的因子权重每月只用当时已实现的历史数据确定，短线模型每半年只用此前数据重训。"
                    "回看期、估值约束、分数权重、持仓缓冲在 2016~2024 年数据上选出（72 组中选 1 组）；"
-                   "此后根据风险偏好决定不再给小市值加分（方案 A），这一决定是在看过 2025 年以后的结果后做出的，"
-                   "所以「2025至今」不是严格的样本外检验。每月最后一个交易日收盘后选 30 只（同行业≤5 只，"
-                   "老持仓仍在前 430 名则保留），次日按均价成交，含交易成本（买 0.15% / 卖 0.25%）、"
-                   "一字涨跌停无法成交、停牌顺延。2020 年前无估值数据，只用量价因子。回测不代表未来收益。",
-           "model": "尾部加权合成×0.6 + LightGBM短线×0.4（均不使用小市值因子），盈利且PE低于盈利公司70分位，行业≤5只，持仓缓冲400名", "generated": datetime.now().strftime("%Y-%m-%d")}
+                   "此后根据风险偏好决定不再给小市值加分、并让价值分在 5 个市值组内各自比较（市值中性化），"
+                   "这些决定是在看过 2025 年以后的结果后做出的，所以「2025至今」不是严格的样本外检验。"
+                   "市值数据从 2020 年才有，所以这条曲线从 2020 年 2 月开始。每月最后一个交易日收盘后选 30 只"
+                   "（同行业≤5 只，老持仓仍在前 430 名则保留），次日按均价成交，含交易成本（买 0.15% / 卖 0.25%）、"
+                   "一字涨跌停无法成交、停牌顺延。回测不代表未来收益。",
+           "model": "尾部加权合成×0.6（5 组市值中性化）+ LightGBM短线×0.4（均不使用小市值因子），盈利且PE低于盈利公司70分位，行业≤5只，持仓缓冲400名", "generated": datetime.now().strftime("%Y-%m-%d")}
     site.mkdir(parents=True, exist_ok=True)
     from ..pipeline.daily import sanitize
 
@@ -86,7 +91,7 @@ def main() -> None:
     ap.add_argument("--research", default="data/research")
     ap.add_argument("--models", default="models")
     ap.add_argument("--site", default="site_data")
-    ap.add_argument("--nav", default="data/size/nav_A.csv")
+    ap.add_argument("--nav", default="data/neutral/nav_V-Q5.csv")
     args = ap.parse_args()
     feat_dir, mdir = Path(args.feat), Path(args.models)
     mdir.mkdir(parents=True, exist_ok=True)

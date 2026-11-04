@@ -110,8 +110,9 @@ class LiveEngine:
         try:
             if not model_ok:
                 raise RuntimeError("model version mismatch")
+            buckets = {c: (all_base.get(c) or {}).get("mv_bucket") for c in main_codes}
             scores = RT.live_scores(self.ensure_models(), fdist, {c: self.hist[c] for c in main_codes if c in self.hist},
-                                    quotes, now, fallback_ranks=fb, today_mkt=today_mkt)
+                                    quotes, now, fallback_ranks=fb, today_mkt=today_mkt, buckets=buckets)
             if tech_codes and fdist.get("pred_dist_tech"):
                 # 科技榜的分数是科技股池内的分位：用科技股池的模型输出分布来换算
                 scores_tech = RT.live_scores(self.ensure_models(), fdist,

@@ -208,3 +208,22 @@ def test_append_today_bar():
     assert out["factor"].iloc[-1, 1] == 2.0                      # 复权因子沿用
     assert len(out["turn"]) == 2                                 # 不在快照里的面板不追加
     assert append_today_bar(out, snap, pd.Timestamp("2026-11-04")) is out
+
+
+def test_size_buckets_and_neutral_value():
+    from ashare.live.realtime import pct_from_dist
+    from ashare.pipeline.daily import bucket_of, size_buckets
+
+    rng = np.random.default_rng(0)
+    codes = [f"c{i}" for i in range(500)]
+    mv = pd.Series(np.exp(rng.normal(4, 1, 500)), index=codes)
+    g, edges = size_buckets(mv, 5)
+    assert len(edges) == 4 and g.value_counts().tolist() == [100] * 5
+    assert all(bucket_of(mv[c], edges) == g[c] for c in codes)        # 分界可以把股票还原到原来的组
+    assert bucket_of(None, edges) is None and bucket_of(1e9, edges) == 4
+    # 价值分完全由市值决定时，中性化后每组的分位分布相同（不再偏向小盘）
+    raw = -np.log(mv)
+    v = raw.groupby(g).rank(pct=True)
+    assert abs(v[g == 0].mean() - v[g == 4].mean()) < 1e-9
+    q = list(np.quantile(raw[g == 4], np.linspace(0, 1, 101)))
+    assert abs(pct_from_dist(float(raw[g == 4].median()), q) - 0.5) < 0.02

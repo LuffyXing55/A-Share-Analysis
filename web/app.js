@@ -140,7 +140,10 @@
     for (let k = 0; k <= 3; k++) {
       const v = lo + (hi - lo) * k / 3, y = Y(v);
       out += `<line x1="${P}" x2="${W - P}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
-      out += `<text x="2" y="${y + 4}" font-size="10" fill="var(--muted)">${opts.pct ? ((v - 1) * 100).toFixed(0) + "%" : v.toFixed(0)}</text>`;
+      const dg = opts.pct ? (hi - lo < 0.2 ? 1 : 0) : (hi - lo < 5 ? 1 : 0);
+      const lv = opts.pct ? (v - 1) * 100 : v;
+      const txt = (Math.abs(lv) < 0.5 * Math.pow(10, -dg) ? 0 : lv).toFixed(dg) + (opts.pct ? "%" : "");
+      out += `<text x="2" y="${y + 4}" font-size="10" fill="var(--muted)">${txt}</text>`;
     }
     series.forEach((s) => {
       const pts = s.values.map((v, i) => (v === null || isNaN(v)) ? null : `${X(i).toFixed(1)},${Y(v).toFixed(1)}`).filter(Boolean);
@@ -181,6 +184,19 @@
       { name: "价值分", values: h.map((x) => x[2]), color: "var(--warn)", w: 1.2 },
       { name: "短线分", values: h.map((x) => x[3]), color: "var(--up)", w: 1.2 },
     ], { labels: h.map((x) => x[0].slice(5)) });
+    const tr = d.trend || {};
+    const px = (tr.codes || {})[code];
+    if (px && px.length > 1) {
+      const last = px[px.length - 1], bl = tr.bench[tr.bench.length - 1];
+      $("#d-px-title").textContent = `本月股价走势：${fmtPct(last - 1)}（股票池等权 ${fmtPct(bl - 1)}，相对上月末收盘，复权）`;
+      $("#d-px").innerHTML = line([
+        { name: p.name, values: px, color: "var(--accent)" },
+        { name: "股票池等权", values: tr.bench, color: "var(--muted)", w: 1.2 },
+      ], { labels: tr.dates.map((x) => x.slice(5)), pct: true, h: 140 });
+    } else {
+      $("#d-px-title").textContent = "本月股价走势";
+      $("#d-px").innerHTML = '<p class="hint">本月还没有交易日数据（新组合下一个交易日开始）。</p>';
+    }
     $("#d-reasons").innerHTML = reasonsHTML(p.reasons_value, "价值投资分（中期，约 1 个月）的主要加分 / 减分项") +
       reasonsHTML(p.reasons_short, "短线分（约 1 周）的主要加分 / 减分项") +
       `<p class="hint">「前x%」表示该指标在全市场股票池中的位置。条形长度为该项对模型打分的贡献（LightGBM 特征贡献）。</p>`;
