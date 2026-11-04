@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
@@ -20,7 +21,10 @@ from ashare.macro import overseas as OV  # noqa: E402
 from ashare.pipeline import daily as D  # noqa: E402
 
 
-def install_mocks(qlib: Path, panels: Path, xfer: Path):
+SNAP_DAY = pd.Timestamp("2020-01-01")
+
+
+def install_mocks(qlib: Path, panels: Path, xfer: Path, snapshot_today: bool = False):
     ind = pd.read_csv(xfer.parent.parent / "industry.csv") if (xfer.parent.parent / "industry.csv").exists() else None
     names = dict(zip(ind["code"], ind["name"])) if ind is not None else {}
 
@@ -42,6 +46,13 @@ def install_mocks(qlib: Path, panels: Path, xfer: Path):
         df["float_mv"] = last["circ_mv"].reindex(codes) * 1e4
         df["turnover"] = last["turnover_rate"].reindex(codes)
         df["time"] = "20200101150000"
+        if snapshot_today:
+            # 模拟「收盘后、上游日线还没更新」：快照是下一个交易日的，流水线要用它补出当天日线
+            vol = pd.read_parquet(panels / "volume.parquet").iloc[-1] * factor
+            df["open"], df["high"], df["low"] = price * 0.99, price * 1.02, price * 0.98
+            df["volume_lots"] = vol.reindex(codes) / 100
+            df["amount"] = df["volume_lots"] * 100 * price.reindex(codes)
+            df["time"] = SNAP_DAY.strftime("%Y%m%d") + "150000"
         # 模拟真实行情：数值列为 Python 对象、夹杂 None（GitHub Actions 首次运行就是在这里出错的）
         df = df.astype(object)
         df.iloc[::50, df.columns.get_loc("pe_ttm")] = None
@@ -109,8 +120,17 @@ def main():
     ap.add_argument("--models", default="models")
     ap.add_argument("--out", default="/tmp/site_test")
     ap.add_argument("--mode", default="close")
+    ap.add_argument("--snapshot-today", action="store_true",
+                    help="把「今天」设为数据最后一天的下一个交易日 15:30，走快照补今日日线的分支")
     a = ap.parse_args()
-    install_mocks(Path(a.qlib), Path(a.basic_panels), Path(a.xfer))
+    if a.snapshot_today:
+        global SNAP_DAY
+        cal = (Path(a.qlib) / "calendars" / "day.txt").read_text().split()
+        last = max(pd.Timestamp(cal[-1]), pd.read_parquet(Path(a.basic_panels) / "close.parquet").index[-1])
+        SNAP_DAY = (last + pd.offsets.BDay(1)).normalize()
+        fake_now = datetime(SNAP_DAY.year, SNAP_DAY.month, SNAP_DAY.day, 15, 30, tzinfo=D.BJ)
+        D.now_bj = lambda: fake_now
+    install_mocks(Path(a.qlib), Path(a.basic_panels), Path(a.xfer), a.snapshot_today)
     dash = D.run(a.mode, a.out, a.models)
     print("picks:", len(dash["picks"]), "events:", len(dash["watch"]["events"]),
           "signals:", len(dash["watch"]["signals"]), "news:", len(dash["news"]))

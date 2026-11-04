@@ -188,3 +188,23 @@ def test_tencent_batch_retry():
     finally:
         S.set_fetcher(None)
     assert len(out) == 2 and calls["n"] == 3     # 第一批失败后重试成功
+
+
+def test_append_today_bar():
+    from ashare.pipeline.snapshot import append_today_bar
+
+    idx = pd.to_datetime(["2026-11-02", "2026-11-03"])
+    cols = ["sh600000", "sz000001"]
+    p = {k: pd.DataFrame(1.0, index=idx, columns=cols, dtype="float32")
+         for k in ["open", "high", "low", "close", "vwap", "volume", "amount", "factor", "turn"]}
+    p["factor"].iloc[:, 1] = 2.0
+    snap = pd.DataFrame({"price": [10.0, 5.0], "open": [9.8, 5.1], "high": [10.2, 5.2], "low": [9.7, 0.0],
+                         "volume_lots": [1000.0, 0.0], "amount": [1.0e6, 0.0]}, index=cols)
+    out = append_today_bar(p, snap, pd.Timestamp("2026-11-04"))
+    assert out["close"].index[-1] == pd.Timestamp("2026-11-04")
+    assert abs(out["close"].iloc[-1, 0] - 10.0) < 1e-5
+    assert abs(out["vwap"].iloc[-1, 0] - 10.0) < 1e-5            # 1e6 元 / (1000 手 × 100 股)
+    assert np.isnan(out["close"].iloc[-1, 1])                    # 停牌：价格为空
+    assert out["factor"].iloc[-1, 1] == 2.0                      # 复权因子沿用
+    assert len(out["turn"]) == 2                                 # 不在快照里的面板不追加
+    assert append_today_bar(out, snap, pd.Timestamp("2026-11-04")) is out

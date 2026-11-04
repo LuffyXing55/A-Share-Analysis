@@ -67,7 +67,8 @@ def append_today_bar(p: dict, snap: pd.DataFrame, today: pd.Timestamp) -> dict:
     out = {}
     for k, v in p.items():
         if k in row:
-            new = pd.DataFrame([row[k].where(traded if k != "factor" else True).values],
+            vals = row[k] if k == "factor" else row[k].where(traded)   # 复权因子即使停牌也沿用
+            new = pd.DataFrame([vals.values],
                                index=[today], columns=cols, dtype="float32")
             out[k] = pd.concat([v, new])
         else:
