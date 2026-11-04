@@ -233,8 +233,10 @@ def test_overseas_anomaly_wording_and_sanity():
     from ashare.macro.overseas import suspicious_move
     from ashare.macro.watch import live_signals
 
-    assert suspicious_move(3.87, 7.7) and suspicious_move(-0.45, None) and suspicious_move(0.18, 12)
-    assert not suspicious_move(0.0249, 1.6) and not suspicious_move(0.20, 3)
+    assert suspicious_move(3.87) and suspicious_move(-0.65) and suspicious_move(1.0)
+    assert suspicious_move(-0.5) and suspicious_move(-0.667) and suspicious_move(2.0)    # 1:2 合股 / 2:3 / 3 倍拆股未复权
+    assert not suspicious_move(0.0249) and not suspicious_move(0.25) and not suspicious_move(-0.40)   # 真实大波动保留
+    assert not suspicious_move(0.18, 12)
     q = {"GC": {"ok": True, "pct": 0.0249, "z": 1.6, "date": "2026-11-04"},      # 黄金 +2.5%：不够异动
          "NVDA": {"ok": True, "pct": 0.045, "z": 2.2, "date": "2026-11-03"},     # 明显上涨
          "AAPL": {"ok": True, "pct": -0.07, "z": -3.5, "date": "2026-11-03"},    # 大跌

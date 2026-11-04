@@ -147,6 +147,12 @@ class LiveEngine:
 
         today = now.strftime("%Y-%m-%d")
 
+        def new_session(q: dict) -> bool:
+            """报价确实属于今天、且已经开盘（集合竞价 9:25 之后），并且收盘数据还没有今天：才画今天的 K 线。
+            周末、节假日、开盘前的报价都是上一个交易日的，不能当成今天。"""
+            t = str(q.get("time") or "")
+            return len(t) >= 12 and t[:8] == now.strftime("%Y%m%d") and t[8:12] >= "0925" and latest["data_date"] < today
+
         def update(plist, base, sc_map, w, which):
             for p in plist:
                 c = p["code"]
@@ -154,9 +160,10 @@ class LiveEngine:
                 b = base.get(c) or {}
                 close_total = p.get("total")          # 上一次收盘计算的综合分 = 今天看好分 K 线的开盘
                 if q.get("price"):
-                    if latest["data_date"] < today:
+                    if new_session(q):
+                        # pc = 昨收：除权除息日前端用它把历史前复权到今天的口径
                         p["today_bar"] = {"date": today, "o": q.get("open"), "h": q.get("high"), "l": q.get("low"),
-                                          "c": q["price"], "v": q.get("volume_lots")}
+                                          "c": q["price"], "v": q.get("volume_lots"), "pc": q.get("prev_close")}
                     p["price"] = q["price"]
                     p["pct_today"] = (q["pct"] or 0) / 100
                     entry = b.get("price")
@@ -176,7 +183,7 @@ class LiveEngine:
                 short = None if short_model is None else round(float(np.clip(short_model + ov_pts + news_pts, 0, 100)), 1)
                 p["value"], p["short"] = value, short
                 p["total"] = None if value is None or short is None else round(w["value"] * value + w["short"] * short, 1)
-                if p["total"] is not None and latest["data_date"] < today:
+                if p["total"] is not None and new_session(q):
                     k = (which, c)
                     o = self.score_ohlc.get(k)
                     if not o or o["date"] != today:

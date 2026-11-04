@@ -105,7 +105,8 @@ def live_signals(quotes: dict, picks: list[dict], rates: pd.DataFrame | None = N
     for sym, q in quotes.items():
         if not q.get("ok") or q.get("pct") is None:
             continue
-        z = q.get("z") or 0
+        zr = q.get("z")
+        z = zr or 0
         if abs(z) < 2 and abs(q["pct"]) < 0.04:
             continue
         name = MACRO_SYMBOLS.get(sym, DISPLAY.get(sym, sym))
@@ -118,7 +119,8 @@ def live_signals(quotes: dict, picks: list[dict], rates: pd.DataFrame | None = N
             continue
         big = abs(z) >= 3 or abs(q["pct"]) >= 0.06
         direction = ("大涨" if big else "明显上涨") if q["pct"] > 0 else ("大跌" if big else "明显下跌")
-        text = f"{q['date']} 收盘 {q['pct']*100:+.2f}%（约为日常单日波动的 {abs(z):.1f} 倍）。"
+        ratio = f"（约为日常单日波动的 {abs(zr):.1f} 倍）" if zr is not None else ""
+        text = f"{q['date']} 收盘 {q['pct']*100:+.2f}%{ratio}。"
         if chain_names:
             text += "关联 A 股产业链：" + "、".join(dict.fromkeys(chain_names)) + "。"
             gap, cc = _oos_corr()

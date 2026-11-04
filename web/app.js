@@ -37,7 +37,13 @@
     state.chart = chart; state.bt = bt; state.btTech = btTech;
     render();
     if (state.live && !state.timer) state.timer = setInterval(async () => {
-      try { state.dash = await getJSON("/api/live"); render(); } catch (e) { /* 保留上一轮 */ }
+      try {
+        state.dash = await getJSON("/api/live");
+        if (!state.chart || (state.chart.data_date || "") < (state.dash.data_date || "")) {
+          state.chart = await getJSON("/data/chart.json").catch(() => state.chart);
+        }
+        render();
+      } catch (e) { /* 保留上一轮 */ }
     }, 30000);
   }
 
@@ -122,7 +128,10 @@
         <td>${fmtNum(p.value, 1)}</td><td>${fmtNum(p.short, 1)}</td>
         <td class="${cls(p.pct_today)}">${fmtPct(p.pct_today)}</td></tr>`;
     }).join("");
-    $$("#list-body tr").forEach((tr) => tr.addEventListener("click", () => select(tr.dataset.code, true)));
+    $$("#list-body tr").forEach((tr) => tr.addEventListener("click", () => {
+      select(tr.dataset.code, true);
+      if (!narrow()) $(".list-scroll").focus({ preventScroll: true });   // 之后可以用 ↑ ↓ 切换
+    }));
   }
 
   function select(code, open) {
@@ -162,7 +171,7 @@
       `<p class="hint">「前x%」表示该指标在全市场股票池中的位置（分数本身是${scope}内的分位）。条形长度为该项对打分的贡献。</p>`;
     const chains = (p.chains || []).map((c) => `<div class="card"><div class="t">${esc(c.name)} <span class="chip">${esc(c.strength || "")}</span></div>
       <div class="s">${esc(c.logic || "")}</div>
-      <div class="s">海外标的：${(c.overseas || []).map((o) => `${esc(o.name || o.symbol)} <span class="${cls(o.pct)}">${fmtPct(o.pct)}</span>`).join("，") || "—"}</div>
+      <div class="s">海外标的：${(c.overseas || []).map((o) => `${esc(o.name || o.symbol)} ${o.suspect ? '<span class="flat">数据异常，已忽略</span>' : `<span class="${cls(o.pct)}">${fmtPct(o.pct)}</span>`}`).join("，") || "—"}</div>
       ${c.beta !== undefined && c.beta !== null ? `<div class="s">历史联动：海外涨 1% → 该股次日平均 ${fmtPct(c.beta / 100, 2)}（相关系数 ${fmtNum(c.corr, 2)}，${esc(c.sample || "")}）</div>` : ""}</div>`).join("");
     $("#d-chains").innerHTML = chains || '<p class="hint">该股没有明确的海外产业链映射。</p>';
     $("#d-news").innerHTML = (p.news || []).map(newsLi).join("") || '<li class="hint">近期没有匹配到相关新闻。</li>';
@@ -192,8 +201,20 @@
     const dates = [...(kl.dates || [])];
     const px = [...(((kl.codes || {})[code]) || dates.map(() => null))];
     const p = findPick(code, which) || {};
+    const src = which === "tech" ? (state.dash.tech || {}) : state.dash;
+    // chart.json 比看好分记录旧（例如页面跨日一直开着）：补上这些日期，只有看好分、没有 K 线
+    const lastK = dates.length ? dates[dates.length - 1] : "";
+    const extra = [...new Set(((src.history || {})[code] || []).map((x) => String(x[0]).slice(0, 10)))]
+      .filter((dt) => dt > lastK && !(p.today_bar && p.today_bar.date === dt)).sort();
+    extra.forEach((dt) => { dates.push(dt); px.push(null); });
     const tb = p.today_bar;
     if (tb && isNum(tb.c) && (!dates.length || tb.date > dates[dates.length - 1])) {   // 本地盘中：今天的 K 线
+      let lc = null;
+      for (let j = px.length - 1; j >= 0; j--) if (px[j]) { lc = px[j][3]; break; }
+      if (isNum(tb.pc) && tb.pc > 0 && lc && Math.abs(tb.pc / lc - 1) > 1e-3) {
+        const r = tb.pc / lc;                // 今天除权除息：历史前复权到今天的口径
+        for (let j = 0; j < px.length; j++) if (px[j]) px[j] = [px[j][0] * r, px[j][1] * r, px[j][2] * r, px[j][3] * r, px[j][4]];
+      }
       dates.push(tb.date);
       px.push([isNum(tb.o) && tb.o > 0 ? tb.o : tb.c, isNum(tb.h) && tb.h > 0 ? tb.h : tb.c, isNum(tb.l) && tb.l > 0 ? tb.l : tb.c, tb.c,
         isNum(tb.v) ? Math.round(tb.v) : null]);
@@ -202,7 +223,6 @@
     const closeScore = {};
     const sh = ((ch.score_hist || {})[which]) || {};
     Object.keys(sh).forEach((dt) => { const v = sh[dt] && sh[dt][code]; if (v && isNum(v[0])) closeScore[dt] = { t: v[0], v: v[1], s: v[2], src: "回算" }; });
-    const src = which === "tech" ? (state.dash.tech || {}) : state.dash;
     ((src.history || {})[code] || []).forEach((x) => {
       if (!String(x[0]).includes("盘中") && isNum(x[1])) closeScore[String(x[0]).slice(0, 10)] = { t: x[1], v: x[2], s: x[3], src: "当日记录" };
     });
@@ -224,11 +244,14 @@
   }
 
   function ma(px, k) {
-    return px.map((_, i) => {
-      if (i < k - 1) return null;
-      let s = 0;
-      for (let j = i - k + 1; j <= i; j++) { if (!px[j]) return null; s += px[j][3]; }
-      return s / k;
+    // 最近 k 个有成交日的收盘均价；停牌日本身不画
+    const buf = [];
+    let s = 0;
+    return px.map((b) => {
+      if (!b) return null;
+      buf.push(b[3]); s += b[3];
+      if (buf.length > k) s -= buf.shift();
+      return buf.length === k ? s / k : null;
     });
   }
 
@@ -346,12 +369,13 @@
 
     const legend = (i) => {
       const k = px[i], s = sc[i];
-      const prevC = i > 0 && px[i - 1] ? px[i - 1][3] : (off + i > 0 && S.px[off + i - 1] ? S.px[off + i - 1][3] : null);
+      let prevC = null;
+      for (let j = off + i - 1; j >= 0; j--) if (S.px[j]) { prevC = S.px[j][3]; break; }   // 上一个有成交日的收盘
       const chg = k && prevC ? k[3] / prevC - 1 : null;
       return `<span><b>${esc(dates[i])}</b></span>` +
         (k ? `<span>收 <b class="${cls(chg)}">${fmtNum(k[3], 2)}</b> <span class="${cls(chg)}">${fmtPct(chg)}</span></span>` : "<span>停牌</span>") +
         `<span><i class="ln" style="background:${C("--ma5")}"></i>MA5 ${fmtNum(m5[i], 2)}</span><span><i class="ln" style="background:${C("--ma20")}"></i>MA20 ${fmtNum(m20[i], 2)}</span>` +
-        (s ? `<span><i style="background:${s.c >= s.o ? sUp : sDn}"></i>看好分 ${fmtNum(s.c, 1)}${s.src === "回算" ? "（回算）" : s.src === "盘中" ? "（盘中）" : ""}</span>` : "") +
+        (s ? `<span><i style="background:${s.c >= s.o ? sUp : sDn}"></i>看好分 ${fmtNum(s.c, 1)}${s.src === "回算" ? "（回算·样本内）" : s.src === "盘中" ? "（盘中）" : ""}</span>` : "") +
         (state.showParts ? `<span><i class="ln" style="background:${C("--p-value")}"></i>价值 ${fmtNum(s && s.v, 1)}</span><span><i class="ln" style="background:${C("--p-short")}"></i>短线 ${fmtNum(s && s.s, 1)}</span>` : "");
     };
     const lg = $("#kline-legend");
@@ -370,18 +394,31 @@
           `<div><span class="k">成交</span>${isNum(k[4]) ? (k[4] / 1e4).toFixed(2) + " 万手" : "—"}</div>` : "<div>停牌 / 无数据</div>") +
         (s ? `<div style="margin-top:3px"><span class="k">看好分</span><b style="color:${s.c >= s.o ? sUp : sDn}">${fmtNum(s.c, 1)}</b>（前 ${fmtNum(s.o, 1)}${s.h !== s.l && s.src === "盘中" ? `，盘中 ${fmtNum(s.l, 1)}~${fmtNum(s.h, 1)}` : ""}）</div>` +
           `<div><span class="k">价值</span>${fmtNum(s.v, 1)}　<span class="k">短线</span>${fmtNum(s.s, 1)}</div>` +
-          (s.src === "回算" ? '<div class="hint" style="margin:0">回算：不含海外/新闻调整</div>' : "") : "");
+          (s.src === "回算" ? '<div class="hint" style="margin:0;white-space:normal;max-width:220px">回算·样本内：网站上线前的分数，用现在的模型补算（模型训练时见过之后的走势，不是当时的真实预测），不含估值因子和海外/新闻调整，仅供参考</div>' : "") : "");
       tip.classList.remove("hidden");
       const px_ = x * rect.width / W;
       const tw = tip.offsetWidth;
-      tip.style.left = (px_ + 14 + tw > rect.width ? px_ - tw - 14 : px_ + 14) + "px";
+      const cand = px_ + 14 + tw > rect.width ? px_ - tw - 14 : px_ + 14;
+      tip.style.left = Math.max(0, Math.min(rect.width - tw, cand)) + "px";
       tip.style.top = "18px";
     };
     const leave = () => { kx.setAttribute("visibility", "hidden"); tip.classList.add("hidden"); lg.innerHTML = legend(n - 1); };
     ov.addEventListener("mousemove", move);
-    ov.addEventListener("touchmove", (e) => { move(e); e.preventDefault(); }, { passive: false });
-    ov.addEventListener("touchstart", move, { passive: true });
-    ov.addEventListener("mouseleave", leave);
+    let t0 = null;
+    ov.addEventListener("touchstart", (e) => { t0 = { x: e.touches[0].clientX, y: e.touches[0].clientY, h: null }; move(e); }, { passive: true });
+    ov.addEventListener("touchmove", (e) => {
+      const t = e.touches[0];
+      if (t0 && t0.h === null) {
+        const dx = Math.abs(t.clientX - t0.x), dy = Math.abs(t.clientY - t0.y);
+        if (dx + dy > 6) t0.h = dx > dy;
+      }
+      if (t0 && t0.h === false) return;      // 竖向滑动：交给页面滚动
+      move(e); e.preventDefault();
+    }, { passive: false });
+    let lastTouch = 0;
+    ov.addEventListener("touchstart", () => { lastTouch = Date.now(); }, { passive: true });
+    // 触屏点按后浏览器会补发一次 mouseleave，忽略它，由 touchend 的计时来收起提示
+    ov.addEventListener("mouseleave", () => { if (Date.now() - lastTouch > 2000) leave(); });
     ov.addEventListener("touchend", () => setTimeout(leave, 1500));
   }
 
@@ -518,8 +555,9 @@
     $$(".more-tab").forEach((x) => x.classList.toggle("hidden", x.id !== state.more));
   }));
   $("#d-back").addEventListener("click", () => document.body.classList.remove("detail-open"));
-  document.addEventListener("keydown", (e) => {
-    if (!state.dash || !/^Arrow(Up|Down)$/.test(e.key) || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+  const listEl = $(".list-scroll");
+  listEl.addEventListener("keydown", (e) => {
+    if (!state.dash || !/^Arrow(Up|Down)$/.test(e.key)) return;
     const rows = $$("#list-body tr");
     const i = rows.findIndex((r) => r.dataset.code === state.sel[state.list]);
     const j = Math.max(0, Math.min(rows.length - 1, i + (e.key === "ArrowDown" ? 1 : -1)));

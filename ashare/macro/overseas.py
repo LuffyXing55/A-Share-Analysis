@@ -30,11 +30,14 @@ def fetch_overseas(symbols: list[str], days: int = 90) -> dict[str, dict]:
         if len(df) < 3:
             continue
         r = df["close"].pct_change()
-        # 日常波动用「今天以前」的 60 天，避免今天的大波动把自己的基准抬高
-        sd = r.iloc[:-1].tail(60).std()
+        # 日常波动用「今天以前」的 60 天，避免今天的大波动把自己的基准抬高；
+        # 此前出现过的数据错误也不计入基准（否则之后 60 天的「几倍日常波动」都会被压低）
+        hist = r.iloc[:-1].dropna()
+        hist = hist[[not suspicious_move(float(x)) for x in hist.values]]
+        sd = hist.tail(60).std() if len(hist) >= 5 else None
         last = df.iloc[-1]
         pct = float(r.iloc[-1])
-        z = float(pct / sd) if sd and sd > 0 else None
+        z = float(pct / sd) if sd is not None and np.isfinite(sd) and sd > 0 else None
         suspect = suspicious_move(pct, z)
         out[sym] = {"ok": not suspect, "date": str(pd.Timestamp(last["date"]).date()), "price": float(last["close"]),
                     "pct": pct, "z": z,
@@ -45,11 +48,26 @@ def fetch_overseas(symbols: list[str], days: int = 90) -> dict[str, dict]:
     return out
 
 
-def suspicious_move(pct: float, z: float | None) -> bool:
-    """单日涨跌幅明显不合理：超过 ±40%，或超过 ±15% 且大于 10 倍日常波动（指数、大宗、美股大盘股几乎不可能）。"""
+SPLIT_RATIOS = (2, 3, 4, 5, 8, 10, 15, 20, 1.5)
+
+
+def suspicious_move(pct: float, z: float | None = None) -> bool:
+    """判断单日涨跌是不是「数据错误」而不是真实行情（z 参数保留兼容，不再使用）：
+    - 涨幅 ≥ 100% 或跌幅 ≥ 60%：这里跟踪的都是指数、大宗、ETF 和美股大中盘股，几乎不可能；
+    - 涨跌 ≥ 30% 且前后价格之比接近拆股 / 合股比例（2、3、4、5、8、10、15、20、1.5 倍或其倒数，误差 2.5% 以内）：
+      多半是数据源没有复权。
+    真实的大幅波动（例如财报后单日 +25%）不会被当成错误。"""
     if pct is None or not np.isfinite(pct):
         return True
-    return abs(pct) >= 0.40 or (abs(pct) >= 0.15 and z is not None and abs(z) >= 10)
+    r = 1.0 + pct
+    if r <= 0 or pct >= 1.0 or pct <= -0.60:
+        return True
+    if abs(pct) >= 0.30:
+        for k in SPLIT_RATIOS:
+            for target in (k, 1.0 / k):
+                if abs(r / target - 1) <= 0.025:
+                    return True
+    return False
 
 
 def needed_symbols(pick_codes: list[str], industries: list[str] | None = None) -> list[str]:
@@ -92,8 +110,9 @@ def chain_signals(code: str, quotes: dict, stats: dict, min_t: float = 2.0,
         beta_show, corr_show, sample = None, None, ""
         for sym in ch["overseas"]:
             q = quotes.get(sym) or {}
+            bad = q.get("pct") is not None and not q.get("ok")
             item = {"symbol": sym, "name": MACRO_SYMBOLS.get(sym, DISPLAY.get(sym, sym)),
-                    "pct": q.get("pct"), "date": q.get("date")}
+                    "pct": None if bad else q.get("pct"), "date": q.get("date"), "suspect": bad}
             ov.append(item)
             s = (st.get(sym) or {}).get("cc") or {}
             tr, full = s.get("train") or {}, s.get("full") or {}
@@ -113,8 +132,9 @@ def chain_signals(code: str, quotes: dict, stats: dict, min_t: float = 2.0,
         ov, preds, best = [], [], None
         for sym in INDUSTRY_OVERSEAS[industry]:
             q = quotes.get(sym) or {}
-            ov.append({"symbol": sym, "name": MACRO_SYMBOLS.get(sym, DISPLAY.get(sym, sym)), "pct": q.get("pct"),
-                       "date": q.get("date")})
+            bad = q.get("pct") is not None and not q.get("ok")
+            ov.append({"symbol": sym, "name": MACRO_SYMBOLS.get(sym, DISPLAY.get(sym, sym)),
+                       "pct": None if bad else q.get("pct"), "date": q.get("date"), "suspect": bad})
             s_ = (ist.get(sym) or {}).get("cc") or {}
             tr, full = s_.get("train") or {}, s_.get("full") or {}
             if full and (best is None or abs(full.get("t", 0)) > abs(best.get("t", 0))):

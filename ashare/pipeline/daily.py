@@ -600,6 +600,7 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
             tech_codes = list(((tech or {}).get("base") or {}).keys())
             hist_sc = score_history(ctx, p, table, short_model, codes, tech_codes, d, settings, ind_map)
             chart = {"data_date": str(d.date()),
+                     "short_model": {k: short_model.meta.get(k) for k in ("train_start", "train_end", "trained_at")},
                      "kline": kline_data(p, list(dict.fromkeys(codes + tech_codes)), d),
                      "score_hist": {"main": {k: {c: v[c] for c in codes if c in v} for k, v in
                                              sorted(hist_sc.get("main", {}).items())},
@@ -639,9 +640,13 @@ def score_history(ctx: Context, p: dict, table: pd.DataFrame, short_model: Model
                   tech_codes: list[str], d: pd.Timestamp, settings: dict, ind_map: dict, days: int = 120) -> dict:
     """K 线图用的「每日看好分」历史（收盘口径，不含海外 / 新闻的盘后调整）。
 
-    每个交易日：因子权重只用当天之前已实现的尾部表（与回测一致），短线模型用当前模型（对过去日期属于样本内，
-    网页上标为「回算」）；30 强口径 = 全股票池分位 + 价值分市值中性化；科技榜口径 = 科技股池内分位。
-    结果缓存在 state/score_hist.json，模型或口径变了就整体重算，否则每天只补新的（日期, 股票）。"""
+    每个交易日：因子权重只用当天之前已实现的尾部表（与回测一致），短线模型用当前模型（对过去日期属于样本内：
+    模型训练时用过这些日期之后的走势，网页上标为「回算·样本内」）；30 强口径 = 全股票池分位 + 价值分市值中性化；
+    科技榜口径 = 科技股池内分位。
+    估值类因子（E/P、B/P、ROE 等）在实盘里只有最新一天有数据（来自当天快照），为了让每一天口径一致，
+    回算时所有日期（包括最新一天）都不使用这些「只有快照才有」的因子。
+    结果缓存在 state/score_hist.json；模型、口径、股票池设置或尾部表变了就整体重算；
+    最新一天每次收盘运行都重算（19:23 可能用的是快照补出的日线，21:07 的重跑要能更正）。"""
     fac, u = getattr(ctx, "fac_full", None), getattr(ctx, "u_full", None)
     if fac is None or u is None:
         return {}
@@ -651,8 +656,11 @@ def score_history(ctx: Context, p: dict, table: pd.DataFrame, short_model: Model
     w = settings.get("score_weights", {"value": 0.6, "short": 0.4})
     tw = tcfg.get("score_weights", {"value": 0.5, "short": 0.5})
     excluded = set(settings.get("exclude_factors", []))
-    version = json.dumps([short_model.meta.get("trained_at"), k_neutral, sorted(excluded), w, tw, sorted(inds)],
-                         ensure_ascii=False)
+    # 只有最后一行有值的因子（估值类，来自当天快照）：所有日期都不用，保证口径一致
+    snap_only = sorted(k for k, v in fac.items() if len(v) > 1 and int(v.iloc[:-1].notna().values.sum()) == 0)
+    version = json.dumps([2, short_model.meta.get("trained_at"), k_neutral, sorted(excluded), w, tw, sorted(inds),
+                          settings.get("universe"), snap_only, [str(i.date()) for i in table.index]],
+                         ensure_ascii=False, default=str)
     path = ctx.state / "score_hist.json"
     cache = read_json(path, {}) or {}
     if cache.get("version") != version:
@@ -661,6 +669,8 @@ def score_history(ctx: Context, p: dict, table: pd.DataFrame, short_model: Model
     keep = {str(x.date()) for x in dates}
     for key in ("main", "tech"):
         cache[key] = {k: v for k, v in cache[key].items() if k in keep}
+        cache[key].pop(str(d.date()), None)        # 最新一天每次都重算
+    fac = {k: v for k, v in fac.items() if k not in set(snap_only)}
     realized = TAIL.label_realized_dates(table.index, u.index)
     n_new = 0
     for x in dates:
