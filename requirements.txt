@@ -1,10 +1,11 @@
-numpy>=1.26
-pandas>=2.2
-pyarrow>=15
-requests>=2.31
-scipy>=1.11
-scikit-learn>=1.4
-lightgbm>=4.3
-xlrd>=2.0
-fastapi>=0.110
-uvicorn>=0.29
+# 锁定为实测通过的版本（2026-11 在 GitHub Actions 与本地均验证过），避免新版本的行为变化导致每日任务失败。
+numpy==2.5.4
+pandas==3.1.0
+pyarrow==26.0.1
+requests==2.34.2
+scipy==1.18.1
+scikit-learn==1.9.1
+lightgbm==4.7.0
+xlrd==2.0.2
+fastapi==0.162.0
+uvicorn==0.54.0

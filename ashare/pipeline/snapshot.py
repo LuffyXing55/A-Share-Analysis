@@ -18,6 +18,11 @@ def market_snapshot(codes: list[str]) -> pd.DataFrame:
     if df.empty:
         return df
     df = df.drop_duplicates("code").set_index("code")
+    # 真实行情里可能有 None / 空串，统一转成数值（float64）
+    for col in ["price", "prev_close", "open", "high", "low", "volume_lots", "pct", "amount", "turnover",
+                "pe_ttm", "float_mv", "total_mv", "pb", "limit_up", "limit_down", "vol_ratio"]:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce").astype("float64")
     df["is_st"] = df["name"].str.contains("ST", na=False)
     df["is_delist"] = df["name"].str.contains("退", na=False)
     return df
@@ -29,16 +34,18 @@ def basics_from_snapshot(p: dict, snap: pd.DataFrame) -> dict:
     idx, cols = close.index, close.columns
     snap = snap.reindex(cols)
     raw_last = (close / factor).iloc[-1]
-    price = snap["price"].where(snap["price"] > 0, raw_last)
+    price = pd.to_numeric(snap["price"], errors="coerce").where(lambda x: x > 0, raw_last)
     float_shares = snap["float_mv"] / price            # 股
     total_shares = snap["total_mv"] / price
     raw = close / factor
     circ_mv = raw.mul(float_shares, axis=1) / 1e4      # 万元
     total_mv = raw.mul(total_shares, axis=1) / 1e4
-    pe = pd.DataFrame(np.nan, index=idx, columns=cols, dtype="float32")
+    pe = pd.DataFrame(np.nan, index=idx, columns=cols, dtype="float64")
     pb = pe.copy()
-    pe.iloc[-1] = snap["pe_ttm"].where(snap["pe_ttm"] != 0).values
-    pb.iloc[-1] = snap["pb"].where(snap["pb"] != 0).values
+    pe_v = pd.to_numeric(snap["pe_ttm"], errors="coerce").astype("float64")
+    pb_v = pd.to_numeric(snap["pb"], errors="coerce").astype("float64")
+    pe.iloc[-1] = pe_v.where(pe_v != 0).values
+    pb.iloc[-1] = pb_v.where(pb_v != 0).values
     return {"pe_ttm": pe, "pb": pb, "total_mv": total_mv.astype("float32"),
             "circ_mv": circ_mv.astype("float32")}
 

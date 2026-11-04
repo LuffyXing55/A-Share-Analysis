@@ -42,10 +42,19 @@ def install_mocks(qlib: Path, panels: Path, xfer: Path):
         df["float_mv"] = last["circ_mv"].reindex(codes) * 1e4
         df["turnover"] = last["turnover_rate"].reindex(codes)
         df["time"] = "20200101150000"
-        df["is_st"] = df["name"].str.contains("ST")
-        df["is_delist"] = False
-        return df
+        # 模拟真实行情：数值列为 Python 对象、夹杂 None（GitHub Actions 首次运行就是在这里出错的）
+        df = df.astype(object)
+        df.iloc[::50, df.columns.get_loc("pe_ttm")] = None
+        df.iloc[::70, df.columns.get_loc("price")] = None
+        rows = df.reset_index().rename(columns={"index": "code"}).to_dict(orient="records")
+        orig = S.tencent_quotes
+        S.tencent_quotes = lambda _codes: rows
+        try:
+            return _real_snapshot(codes)
+        finally:
+            S.tencent_quotes = orig
 
+    from ashare.pipeline.snapshot import market_snapshot as _real_snapshot
     D.market_snapshot = snapshot
 
     def perf(rd, max_pages=20):
