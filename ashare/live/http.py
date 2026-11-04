@@ -103,7 +103,9 @@ class Fetcher:
                     self._block(domain)
                     break
                 time.sleep(1.5 * (attempt + 1))
-        self._block(domain)
+        # 只有明确的限流信号（HTTP 403/429/456）才熔断整个域名；普通超时只让这一次请求失败
+        if domain in PUSH2_FAMILY or any(code in str(err) for code in ("403", "429", "456")):
+            self._block(domain)
         raise SourceUnavailable(f"{domain}: {err}")
 
     # ---------- 简单的 JSON 缓存（失败回退） ----------

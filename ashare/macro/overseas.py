@@ -58,10 +58,15 @@ def load_linkage_stats(path: str | Path = "config/linkage_stats.json") -> dict:
 
 
 def chain_signals(code: str, quotes: dict, stats: dict, min_t: float = 2.0,
-                  industry: str | None = None) -> tuple[float, list[dict]]:
+                  industry: str | None = None, min_date: str | None = None) -> tuple[float, list[dict]]:
     """返回（预测次日超额收益 %，链条明细）。只使用样本内 |t|>min_t 的海外标的。
     个股不在任何产业链时，用其申万一级行业的海外参照（行业层面 β，权重减半）。"""
     chain_stats = stats.get("chain", stats) if "chain" in stats else stats
+
+    def fresh(q: dict) -> bool:
+        # 海外收盘日期早于 A 股数据日期 → 已经反映在 A 股价格里，不再计入
+        return q.get("pct") is not None and (min_date is None or str(q.get("date", "")) >= min_date)
+
     pred_total, details = 0.0, []
     for ch in CHAINS:
         if code not in ch["a_shares"]:
@@ -79,7 +84,7 @@ def chain_signals(code: str, quotes: dict, stats: dict, min_t: float = 2.0,
             if full and (beta_show is None or abs(full.get("t", 0)) > abs(corr_show or 0)):
                 beta_show, corr_show = full.get("beta"), full.get("corr")
                 sample = f"{full.get('n', 0)} 个交易日"
-            if tr and abs(tr.get("t", 0)) >= min_t and q.get("pct") is not None:
+            if tr and abs(tr.get("t", 0)) >= min_t and fresh(q):
                 preds.append(full.get("beta", tr["beta"]) * q["pct"] * 100)
         p = float(np.mean(preds)) if preds else 0.0
         pred_total += p
@@ -98,7 +103,7 @@ def chain_signals(code: str, quotes: dict, stats: dict, min_t: float = 2.0,
             tr, full = s_.get("train") or {}, s_.get("full") or {}
             if full and (best is None or abs(full.get("t", 0)) > abs(best.get("t", 0))):
                 best = full
-            if tr and abs(tr.get("t", 0)) >= min_t and q.get("pct") is not None:
+            if tr and abs(tr.get("t", 0)) >= min_t and fresh(q):
                 preds.append(0.5 * full.get("beta", tr["beta"]) * q["pct"] * 100)
         p = float(np.mean(preds)) if preds else 0.0
         pred_total += p

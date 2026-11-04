@@ -31,7 +31,8 @@ def build_mini_panels(hist: dict[str, pd.DataFrame], quotes: dict[str, dict], no
     frames = {}
     today = pd.Timestamp(now.date())
     frac = session_fraction(now)
-    in_session = now.weekday() < 5 and (9 * 60 + 25) <= now.hour * 60 + now.minute <= 15 * 60 + 5
+    # 9:25–9:30 只有集合竞价成交，不做全天折算（否则成交量会被放大 50 倍）
+    in_session = now.weekday() < 5 and (9 * 60 + 30) <= now.hour * 60 + now.minute <= 15 * 60 + 5
     for code, df in hist.items():
         df = df.copy().set_index("date").sort_index()
         q = quotes.get(code)

@@ -75,6 +75,7 @@
       if (p.signals && Math.abs(p.signals.overseas || 0) >= 0.5) sig.push(`<span class="chip ${p.signals.overseas > 0 ? "pos" : "neg"}">海外${p.signals.overseas > 0 ? "利好" : "利空"}</span>`);
       if (p.signals && Math.abs(p.signals.news || 0) >= 0.2) sig.push(`<span class="chip ${p.signals.news > 0 ? "pos" : "neg"}">新闻${p.signals.news > 0 ? "偏正" : "偏负"}</span>`);
       if (p.is_st) sig.push('<span class="chip neg">ST</span>');
+      if (p.suspended) sig.push('<span class="chip">停牌</span>');
       return `<tr data-code="${esc(p.code)}">
         <td>${key === "total" ? p.rank : i + 1}</td><td>${chTxt}</td>
         <td class="l"><b>${esc(p.name)}</b><span class="code">${esc(p.code.slice(2))}</span></td>
@@ -125,7 +126,7 @@
     return `<div class="hint">${esc(title)}</div>` + list.map((r) => {
       const w = Math.abs(r.contrib) / mx * 50;
       const left = r.contrib >= 0 ? 50 : 50 - w;
-      return `<div class="reason"><span>${esc(r.name)}</span><div class="track"><div class="fill" style="left:${left}%;width:${w}%;background:${r.contrib >= 0 ? "var(--up)" : "var(--down)"}"></div></div><span class="${cls(r.contrib)}">${r.pct !== undefined ? "前" + Math.max(1, Math.round(100 - r.pct)) + "%" : ""}</span></div>`;
+      return `<div class="reason"><span>${esc(r.name)}</span><div class="track"><div class="fill" style="left:${left}%;width:${w}%;background:${r.contrib >= 0 ? "var(--up)" : "var(--down)"}"></div></div><span class="${cls(r.contrib)}">${(r.pct !== undefined && r.pct !== null) ? "前" + Math.max(1, Math.round(100 - r.pct)) + "%" : ""}</span></div>`;
     }).join("");
   }
 

@@ -68,7 +68,12 @@ jobs:
             echo "no changes"
           else
             git commit -m "data: $(date +%F) ${{ steps.mode.outputs.mode }} 更新"
-            for i in 1 2 3; do git pull --rebase --autostash && git push && break; sleep 5; done
+            ok=0
+            for i in 1 2 3; do
+              if git pull --rebase --autostash && git push; then ok=1; break; fi
+              sleep 5
+            done
+            [ "$ok" = 1 ] || { echo "push failed"; exit 1; }
           fi
       - name: Build site
         run: |

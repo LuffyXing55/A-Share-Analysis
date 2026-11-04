@@ -68,7 +68,7 @@ class LiveEngine:
         codes = [p["code"] for p in dash["picks"]]
         live = copy.deepcopy(dash)
         live["mode"] = "live"
-        if self.hist_day != now.date() or not self.hist:
+        if self.hist_day != now.date() or not self.hist or any(c not in self.hist for c in codes):
             self.hist = RT.fetch_histories(codes)
             self.hist_day = now.date()
         quotes = {q["code"]: q for q in S.tencent_quotes(codes)}
@@ -83,9 +83,10 @@ class LiveEngine:
         try:
             fb = {c: (latest["base"].get(c) or {}).get("feat_ranks") or {} for c in codes}
             today_mkt = None
-            for x in live["market"].get("indices", []):
-                if x.get("code") in ("sh000985", "sh000852") and x.get("pct") is not None:
-                    today_mkt = x["pct"]
+            idx_pct = {x.get("code"): x.get("pct") for x in live["market"].get("indices", [])}
+            for code in ("sh000985", "sh000852"):          # 优先中证全指，其次中证 1000
+                if idx_pct.get(code) is not None:
+                    today_mkt = idx_pct[code]
                     break
             scores = RT.live_scores(self.ensure_models(), fdist, self.hist, quotes, now, fallback_ranks=fb,
                                     today_mkt=today_mkt)
@@ -121,7 +122,8 @@ class LiveEngine:
                     p["ret_since_pick"] = (1 + base_ret) * q["price"] / entry - 1
                 p["is_st"] = "ST" in (q.get("name") or "")
             sc = scores.get(c) or {}
-            pred_ex, chains = OV.chain_signals(c, self.ov_quotes, stats, ov_cfg["overseas_min_t"], p.get("industry"))
+            pred_ex, chains = OV.chain_signals(c, self.ov_quotes, stats, ov_cfg["overseas_min_t"], p.get("industry"),
+                                               min_date=latest["data_date"])
             ov_pts = float(np.clip(pred_ex * ov_cfg["overseas_points_per_pct"], -ov_cfg["overseas_cap"],
                                    ov_cfg["overseas_cap"]))
             items = matched.get(c, [])
@@ -164,9 +166,23 @@ class LiveEngine:
             self.dash = live
             self.status = "ok"
 
+    def maybe_git_pull(self) -> None:
+        """每 30 分钟 git pull 一次，拿到 GitHub Actions 每天算好的新结果（含月初换仓）。"""
+        if time.time() - getattr(self, "pull_ts", 0) < 1800 or not (ROOT / ".git").exists():
+            return
+        self.pull_ts = time.time()
+        import subprocess
+
+        try:
+            subprocess.run(["git", "-C", str(ROOT), "pull", "--ff-only", "-q"], timeout=120,
+                           capture_output=True)
+        except Exception:  # noqa: BLE001
+            pass
+
     def loop(self) -> None:
         while True:
             try:
+                self.maybe_git_pull()
                 self.refresh_once()
             except Exception as e:  # noqa: BLE001
                 self.status = f"刷新失败：{e}"

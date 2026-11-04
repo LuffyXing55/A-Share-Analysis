@@ -136,8 +136,8 @@ def load_industry(ctx: Context) -> pd.DataFrame:
         return pd.DataFrame(cached["rows"])
     rows = []
     try:
-        y = now_bj().year
-        for rd in [f"{y}-09-30", f"{y}-06-30", f"{y-1}-12-31", f"{y}-03-31"]:
+        qe = pd.date_range(end=pd.Timestamp(now_bj().date()), periods=6, freq="QE")[::-1]
+        for rd in [str(x.date()) for x in qe]:
             df = S.em_performance(rd, max_pages=15)
             if len(df) > 1000:
                 df["code"] = df["SECUCODE"].str.split(".").map(lambda x: x[1].lower() + x[0])
@@ -192,7 +192,22 @@ def compute_scores(ctx: Context, qlib_root: Path):
     mask = u.loc[d]
     ranks = {k: v.loc[d].where(mask).rank(pct=True) for k, v in fac.items()}
     raw_last = {k: v.loc[d].where(mask) for k, v in fac.items()}
+    ctx.fac_last = {k: v.loc[d] for k, v in fac.items()}
     return p, snap, mask, ranks, raw_last, d
+
+
+def rank_outside(ranks: dict, raw_last: dict, fac_last: dict, codes: list[str]) -> None:
+    """不在股票池里的入选股（停牌、变成 ST 等）：用其原始因子值对照股票池分布换算分位，就地写入 ranks。"""
+    for k, r in ranks.items():
+        vals = np.sort(raw_last[k].dropna().values)
+        if len(vals) == 0:
+            continue
+        for c in codes:
+            x = fac_last.get(k, pd.Series(dtype=float)).get(c)
+            if x is None or not np.isfinite(x):
+                continue
+            lo, hi = np.searchsorted(vals, x, "left"), np.searchsorted(vals, x, "right")
+            r.loc[c] = (lo + hi) / 2 / len(vals)
 
 
 def score_universe(ranks: dict, mask: pd.Series, short_model: Model, tail_w: dict) -> pd.DataFrame:
@@ -249,7 +264,10 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
     ctx = Context(out, settings)
     mdir = Path(models_dir or ROOT / "models")
     short_model = Model(mdir / "short_model.txt")
-    tail_path = ROOT / "config" / "tail_table.csv"
+    tail_path = out / "state" / "tail_table.csv"   # 会被 Actions 提交；首次运行时用 config 里的研究期数据初始化
+    if not tail_path.exists():
+        tail_path.parent.mkdir(parents=True, exist_ok=True)
+        tail_path.write_text((ROOT / "config" / "tail_table.csv").read_text())
     w = settings.get("score_weights", {"value": 0.6, "short": 0.4})
     latest = read_json(ctx.state / "latest.json", {})
     industry_df = load_industry(ctx)
@@ -281,7 +299,7 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         picks_file = ctx.state / f"picks_{month}.json"
         picks_state = read_json(picks_file)
         industry = pd.Series(ind_map)
-        prev_month = (d - pd.offsets.MonthBegin(1)).strftime("%Y-%m")
+        prev_month = (d.replace(day=1) - pd.Timedelta(days=1)).strftime("%Y-%m")
         prev_codes = (read_json(ctx.state / f"picks_{prev_month}.json", {}) or {}).get("codes")
         if picks_state is None:
             # 本月还没有组合（首次运行或上月最后一天未运行）：立即选出
@@ -300,10 +318,14 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                 write_json(nfile, {"month": nmonth, "pick_date": str(d.date()), "codes": chosen,
                                    "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
                                    "note": "上月最后一个交易日收盘后选出"})
+            # 从今晚起（含明早开盘前、明天盘中）网站显示的就是下月新组合，入选价 = 今日收盘价
+            picks_state = read_json(nfile)
+            month = nmonth
         codes = picks_state["codes"]
         # 入选股若已不在股票池（停牌/ST 等），按同样方法单独打分（相对全市场分布）
         missing = [c for c in codes if c not in sc.index]
         if missing:
+            rank_outside(ranks, raw_last, getattr(ctx, "fac_last", {}), missing)
             vr = TAIL.score(ranks, tail_w, missing)
             sr = pd.Series(short_model.predict(matrix(ranks, short_model.features, missing)), index=missing)
             for c in missing:
@@ -322,7 +344,8 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                 "value": clean(sc.loc[c, "value"], 1), "short_model": clean(sc.loc[c, "short"], 1),
                 "total_base": clean(sc.loc[c, "total"], 1),
                 "price": clean(pc.iloc[-1], 3) if len(pc) else None,
-                "pct_today": clean(pc.iloc[-1] / pc.iloc[-2] - 1) if len(pc) > 1 else None,
+                "pct_today": clean(pc.iloc[-1] / pc.iloc[-2] - 1) if len(pc) > 1 and pc.index[-1] == d else None,
+                "suspended": bool(len(pc) and pc.index[-1] != d),
                 "ret_since_pick": clean(pc.iloc[-1] / picks_state["entry_close"].get(c) - 1)
                 if picks_state["entry_close"].get(c) else None,
                 "is_st": bool(snap["is_st"].get(c, False)) if len(snap) else False,
@@ -334,7 +357,7 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                 # 收盘时各因子的全市场分位：本地盘中模式下算不出来的因子（如行业动量）沿用这里的值
                 "feat_ranks": {k: clean(v.get(c), 4) for k, v in ranks.items()},
             }
-        ew = raw.pct_change(fill_method=None).where(mask).mean(axis=1)
+        ew = raw.pct_change(fill_method=None).loc[:, mask[mask].index].mean(axis=1)
         latest = {"data_date": str(d.date()), "month": month, "pick_date": picks_state["pick_date"],
                   "base": base, "ew_ret20": clean((1 + ew.tail(20)).prod() - 1),
                   "universe_n": int(mask.sum()), "tail_weights": tail_w}
@@ -421,7 +444,9 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     picks = []
     for c in codes:
         b = base[c]
-        pred_ex, chains = OV.chain_signals(c, quotes, stats, ov_cfg.get("overseas_min_t", 2.0), b.get("industry"))
+        # 只使用「数据日期当天或之后」的海外收盘：收盘后（19:23）最新的美股是前一晚的，已经反映在今天 A 股收盘价里
+        pred_ex, chains = OV.chain_signals(c, quotes, stats, ov_cfg.get("overseas_min_t", 2.0), b.get("industry"),
+                                           min_date=latest["data_date"])
         ov_pts = float(np.clip(pred_ex * ov_cfg.get("overseas_points_per_pct", 8.0),
                                -ov_cfg.get("overseas_cap", 10.0), ov_cfg.get("overseas_cap", 10.0)))
         items = matched.get(c, [])
@@ -438,7 +463,7 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     ranked = sorted(picks, key=lambda x: -(x["total"] or -1))
     hist_file = ctx.state / f"daily_{latest['month']}.json"
     hist = read_json(hist_file, {})
-    prev_dates = sorted(k for k in hist if k < latest["data_date"])
+    prev_dates = sorted(k for k in hist if (k < latest["data_date"] if mode == "close" else k <= latest["data_date"]))
     prev = hist[prev_dates[-1]] if prev_dates else {}
     for i, p in enumerate(ranked, 1):
         p["rank"] = i
@@ -481,8 +506,9 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     breadth = None
     if mode == "close":
         try:
-            breadth = {"zt": len(S.em_limit_pool("zt")), "dt": len(S.em_limit_pool("dt")),
-                       "zb": len(S.em_limit_pool("zb"))}
+            dd = latest["data_date"].replace("-", "")
+            breadth = {"zt": len(S.em_limit_pool("zt", dd)), "dt": len(S.em_limit_pool("dt", dd)),
+                       "zb": len(S.em_limit_pool("zb", dd))}
             ctx.note("涨跌停池", True)
         except Exception as e:  # noqa: BLE001
             ctx.note("涨跌停池", False, str(e))

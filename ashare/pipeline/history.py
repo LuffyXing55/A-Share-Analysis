@@ -21,11 +21,12 @@ RELEASE_BASE = "https://github.com/chenditc/investment_data/releases/latest/down
 PRICE_FIELDS = ["open", "high", "low", "close", "vwap", "volume", "amount", "factor"]
 
 
-def _download(url: str, dest: Path, tries: int = 6) -> None:
+def _download(url: str, dest: Path, tries: int = 6, resume: bool = True) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     for i in range(tries):
-        # curl 支持断点续传，比 requests 更适合 500MB 级文件
-        rc = subprocess.call(["curl", "-sSL", "--fail", "-C", "-", "-o", str(dest), url])
+        # 大文件用 curl 断点续传；小文件（manifest）每次重新下载
+        cmd = ["curl", "-sSL", "--fail"] + (["-C", "-"] if resume else []) + ["-o", str(dest), url]
+        rc = subprocess.call(cmd)
         if rc == 0:
             return
         time.sleep(2 ** (i + 1))
@@ -37,7 +38,8 @@ def ensure_qlib_data(cache_dir: str | Path = "data/qlib_cache") -> Path:
     cache = Path(cache_dir)
     cache.mkdir(parents=True, exist_ok=True)
     man_path = cache / "manifest.json"
-    _download(f"{RELEASE_BASE}/qlib_bin.manifest.json", man_path.with_suffix(".new"))
+    man_path.with_suffix(".new").unlink(missing_ok=True)
+    _download(f"{RELEASE_BASE}/qlib_bin.manifest.json", man_path.with_suffix(".new"), resume=False)
     new_man = json.loads(man_path.with_suffix(".new").read_text())
     root = cache / "qlib"
     if man_path.exists() and (root / "calendars" / "day.txt").exists():
