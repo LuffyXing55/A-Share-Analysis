@@ -244,3 +244,20 @@ def test_overseas_anomaly_wording_and_sanity():
     titles = [s["title"] for s in live_signals(q, [])]
     assert not any("黄金" in t for t in titles) and not any("COHR" in t for t in titles), titles
     assert any("明显上涨" in t for t in titles) and any("大跌" in t for t in titles), titles
+
+
+def test_sentiment_ignores_price_words():
+    # 描述股价本身的词不计分（涨停之后的快讯不应给这只股票加分）
+    assert score_text("某某股份今日涨停，股价创新高").score == 0
+    assert score_text("某某股份盘中跌停").score == 0
+    assert score_text("公司净利润大幅增长").score > 0
+
+
+def test_market_recap_excluded_from_aggregate():
+    from ashare.news.sentiment import match_news_to_stocks
+    news = [{"title": "【11月4日沪深两市涨停分析】甲乙科技等涨停，订单饱满", "content": ""},
+            {"title": "甲乙科技：签订重大合同", "content": "公司中标大单"}]
+    m = match_news_to_stocks(news, {"sz000001": "甲乙科技"})
+    items = m["sz000001"]
+    assert items[0]["recap"] and not items[1]["recap"]
+    assert aggregate(items) == aggregate([items[1]])

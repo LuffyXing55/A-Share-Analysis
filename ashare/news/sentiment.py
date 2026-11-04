@@ -9,20 +9,28 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-POS2 = ["大幅增长", "大幅预增", "扭亏为盈", "超预期", "创历史新高", "涨停", "重大突破", "获批上市",
+POS2 = ["大幅增长", "大幅预增", "扭亏为盈", "超预期", "重大突破", "获批上市",
         "中标", "大单", "战略合作", "回购", "增持", "提高分红", "特别分红", "订单饱满", "量价齐升",
         "业绩预增", "首次覆盖买入", "上调评级", "降准", "降息", "超额完成", "国产替代突破"]
-POS1 = ["增长", "上涨", "走强", "回暖", "改善", "利好", "受益", "提振", "扩产", "放量", "新高",
+POS1 = ["增长", "回暖", "改善", "利好", "受益", "提振", "扩产",
         "签约", "合作", "获批", "上调", "看好", "买入", "推荐", "盈利", "复苏", "加速", "落地",
-        "支持", "补贴", "刺激", "宽松", "净流入", "反弹", "提价", "涨价", "突破", "领先", "景气",
+        "支持", "补贴", "刺激", "宽松", "提价", "涨价", "突破", "领先", "景气",
         "增持评级", "护盘", "托底", "稳增长", "出口增长", "需求旺盛", "供不应求", "新订单"]
-NEG1 = ["下跌", "走弱", "下滑", "下降", "放缓", "承压", "利空", "风险", "亏损", "减少", "收缩",
-        "回落", "跌破", "净流出", "下调", "低于预期", "不及预期", "拖累", "疲软", "压力", "调查",
+NEG1 = ["下滑", "下降", "放缓", "承压", "利空", "风险", "亏损", "减少", "收缩",
+        "下调", "低于预期", "不及预期", "拖累", "疲软", "压力", "调查",
         "问询", "关注函", "诉讼", "延期", "终止", "取消", "降价", "过剩", "库存高企", "加息",
         "收紧", "制裁", "管制", "关税", "摩擦", "冲突", "停产", "召回", "违约", "警示", "减值"]
-NEG2 = ["大幅下滑", "业绩预亏", "首亏", "巨亏", "暴跌", "跌停", "立案调查", "行政处罚", "退市",
+NEG2 = ["大幅下滑", "业绩预亏", "首亏", "巨亏", "立案调查", "行政处罚", "退市",
         "ST", "财务造假", "重大违法", "减持计划", "清仓减持", "爆雷", "暴雷", "破产", "债务违约",
         "实体清单", "出口禁令", "停牌核查", "无法表示意见", "商誉减值", "大额计提"]
+# 描述「股价本身怎么走」的词（2026-11-04 起不计分）：涨停之后快讯会点名这只股票，如果把「涨停」当利好，
+# 情绪分就成了「刚涨过」的回声。实测涨停股随后 5 个交易日平均跑输股票池约 1.1%、20 日跑输约 2.6%
+# （2007–2026 年 20 年里 19 年为负，见 ashare/research/news_bias.py），方向正好相反。
+# 这些词仍然保留在文本里，只是不参与打分；「涨停分析」「异动」之类的行情播报整条不计入个股情绪。
+PRICE_WORDS = ["涨停", "跌停", "上涨", "下跌", "走强", "走弱", "新高", "反弹", "暴跌", "大涨", "大跌", "拉升",
+               "跳水", "回落", "跌破", "放量", "净流入", "净流出", "天地板", "地天板", "连板"]
+MARKET_RECAP = ["涨停分析", "涨停板", "异动", "盘中", "午评", "收评", "早盘", "尾盘", "龙虎榜", "股价短期波动",
+                "交易风险", "涨幅偏离", "跌幅偏离", "连板", "炸板", "领涨", "领跌", "涨超", "跌超", "涨近", "跌近"]
 NEGATORS = ["未", "不", "无", "非", "否认", "并未", "没有", "暂无", "不会", "停止", "解除", "撤销"]
 
 EVENT_RULES = [
@@ -70,6 +78,12 @@ def score_text(text: str) -> Sentiment:
     return Sentiment(round(sc, 3), hits[:8], events)
 
 
+def is_market_recap(text: str) -> bool:
+    """行情播报 / 异动公告：主要内容是「股价怎么走」，不当作基本面消息。"""
+    head = text[:60]
+    return any(k in head for k in MARKET_RECAP)
+
+
 def match_news_to_stocks(news: list[dict], names: dict[str, str],
                          chain_keywords: dict[str, list[str]] | None = None) -> dict[str, list[dict]]:
     """把新闻按股票简称 / 产业链关键词归属到股票。names: code → 简称。"""
@@ -78,7 +92,9 @@ def match_news_to_stocks(news: list[dict], names: dict[str, str],
     for item in news:
         text = (item.get("title", "") + " " + item.get("content", ""))
         sent = score_text(text)
-        enriched = {**item, "sentiment": sent.score, "hits": sent.hits, "events": sent.events}
+        recap = is_market_recap(text)
+        enriched = {**item, "sentiment": 0.0 if recap else sent.score, "hits": sent.hits, "events": sent.events,
+                    "recap": recap}
         for code, nm in clean.items():
             if len(nm) >= 2 and nm in text:
                 out.setdefault(code, []).append({**enriched, "match": "公司"})
@@ -91,6 +107,7 @@ def match_news_to_stocks(news: list[dict], names: dict[str, str],
 
 def aggregate(items: list[dict], half_life_items: int = 10) -> float:
     """新闻情绪汇总（越新权重越高，公司新闻权重高于产业链新闻）。"""
+    items = [it for it in items if not it.get("recap")]
     if not items:
         return 0.0
     tot, wsum = 0.0, 0.0

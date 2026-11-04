@@ -177,7 +177,7 @@ class LiveEngine:
                                        ov_cfg["overseas_cap"]))
                 items = matched.get(c, [])
                 ns = aggregate(items)
-                news_pts = float(np.clip(ns * ov_cfg["news_points"], -6, 6)) if items else 0.0
+                news_pts = float(np.clip(ns * ov_cfg["news_points"], -ov_cfg["news_points"], ov_cfg["news_points"])) if items else 0.0
                 value = sc.get("value") if sc.get("value") is not None else b.get("value")
                 short_model = sc.get("short") if sc.get("short") is not None else b.get("short_model")
                 short = None if short_model is None else round(float(np.clip(short_model + ov_pts + news_pts, 0, 100)), 1)
