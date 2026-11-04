@@ -20,6 +20,9 @@
   },
   "watch_days_ahead": 21,
   "intraday_refresh_seconds": 120,
-  "value_filter": true,
+  "value_filter": {
+    "_说明": "只在盈利、且PE低于盈利公司PE的该分位的股票中选；设为 {} 可关闭",
+    "max_pe_pct_among_profitable": 0.7
+  },
   "hold_buffer": 250
 }

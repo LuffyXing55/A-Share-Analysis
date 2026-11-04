@@ -84,6 +84,8 @@
         <td>${fmtNum(p.value, 1)}</td><td>${fmtNum(p.short, 1)}</td>
         <td class="${cls(p.pct_today)}">${fmtPct(p.pct_today)}</td>
         <td class="hide-s ${cls(p.ret_since_pick)}">${fmtPct(p.ret_since_pick)}</td>
+        <td class="hide-s">${p.pe_ttm !== null && p.pe_ttm !== undefined ? (p.pe_ttm > 0 ? fmtNum(p.pe_ttm, 1) : "亏损") : "—"}</td>
+        <td class="hide-s">${fmtNum(p.total_mv_yi, 0)}</td>
         <td class="hide-s l">${sig.join("")}</td></tr>`;
     }).join("");
     document.querySelectorAll("#picks-body tr").forEach((tr) => tr.addEventListener("click", () => showDetail(tr.dataset.code)));

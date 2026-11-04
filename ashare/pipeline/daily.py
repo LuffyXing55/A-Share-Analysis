@@ -226,9 +226,14 @@ def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict,
                  previous: list[str] | None = None) -> list[str]:
     """按综合分选 top_n，同一行业最多 industry_cap 只；上月持仓只要仍在前 top_n+hold_buffer 名就优先保留（降换手）。"""
     s = scores["total"].dropna()
-    if settings.get("value_filter", True) and "ep_rank" in scores:
-        # 价值过滤：只在盈利、且 E/P 不处于全市场最贵 20% 的股票中选（回测显示提高了稳健性）
-        s = s[scores["ep_rank"].reindex(s.index) > 0.2]
+    vf = settings.get("value_filter", {})
+    if vf and "pe" in scores:
+        # 价值过滤：只在盈利、且 PE 低于「盈利公司中 PE 的 70 分位」的股票中选（排除盈利公司里最贵的 30%）。
+        # 回测（2016-02 起）：年化超额 +11.5%、信息比 1.07，各区间均优于不加约束（见 docs/方法与回测报告.md 第 6 节）
+        pe = scores["pe"].reindex(s.index)
+        prof = pe > 0
+        pe_pct = pe.where(prof).rank(pct=True)
+        s = s[prof & (pe_pct <= vf.get("max_pe_pct_among_profitable", 0.7))]
     s = s.sort_values(ascending=False)
     cap, n = settings.get("industry_cap", 5), settings.get("top_n", 30)
     buf = settings.get("hold_buffer", 250)
@@ -293,8 +298,8 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                                                      sorted(tail_w.items(), key=lambda x: -x[1])))
         sc = score_universe(ranks, mask, short_model, tail_w)
         sc["total"] = (w["value"] * sc["value"] + w["short"] * sc["short"]).rank(pct=True) * 100
-        if "ep" in ranks:
-            sc["ep_rank"] = ranks["ep"].reindex(sc.index)
+        if "pe_ttm" in p:
+            sc["pe"] = p["pe_ttm"].iloc[-1].reindex(sc.index)
         month = f"{d.year}-{d.month:02d}"
         picks_file = ctx.state / f"picks_{month}.json"
         picks_state = read_json(picks_file)
@@ -544,10 +549,10 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
 
 METHOD_HTML = """
 <p><b>股票池</b>：沪深主板、创业板、科创板；剔除 ST/*ST/退市整理、上市不满约 1 年、近 60 日交易不足 80%、日均成交额低于 2000 万元或处于全市场最低 15%、股价低于 2 元的股票。</p>
-<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月已实现的数据，挑出稳定为正的因子（t 值 ≥ 0.5）并按 t 值加权。目前入选的是日内未追高、非流动性溢价、小市值、低于 20 日均线、量价背离、20 日回调、换手未异常放大。选股时还要求公司盈利、且 E/P 不处于全市场最贵的 20%。</p>
+<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月已实现的数据，挑出稳定为正的因子（t 值 ≥ 0.5）并按 t 值加权。目前入选的是日内未追高、非流动性溢价、小市值、低于 20 日均线、量价背离、20 日回调、换手未异常放大。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>
 <p><b>短线分（约 1 周）</b>：LightGBM 模型，用 25 个量价与估值因子预测未来 5 个交易日的相对收益。在此基础上叠加两项实时调整：①海外联动——所在产业链（或所属行业）的海外标的隔夜涨跌 × 历史回归系数，只使用 2016–2022 年样本内显著、且 2023 年后样本外检验有效的配对，最多 ±10 分；②新闻情绪——快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>
 <p><b>综合分</b> = 0.7 × 价值投资分 + 0.3 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在前 280 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>
-<p><b>回测</b>（2016-02 至 2026-11，走步样本外，扣交易成本，一字涨跌停无法成交）：年化 14.8%，股票池等权基准 4.4%，年化超额 10.4%，信息比 0.93，月胜率 62%；但最大回撤 −47%，且 2025 年以来与基准基本持平。完整报告见仓库 docs/方法与回测报告.md。</p>
+<p><b>回测</b>（2016-02 至 2026-11，走步样本外，扣交易成本，一字涨跌停无法成交）：年化 15.9%，股票池等权基准 4.4%，年化超额 11.5%，信息比 1.07，月胜率 64%；2025 年以来年化超额 9.6%。但最大回撤 −47%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>
 <p><b>局限</b>：入选股偏小市值、成交不活跃；不做择时，大盘下跌时会一起下跌；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>
 """
 
