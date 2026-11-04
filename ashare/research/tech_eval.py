@@ -39,6 +39,9 @@ def week_ends(index: pd.DatetimeIndex) -> pd.DatetimeIndex:
     return pd.DatetimeIndex(s.groupby([iso.year.values, iso.week.values]).max().sort_values().values)
 
 
+EXCLUDE = {"size"}   # 与主榜一致：不再给小市值直接加分（方案 A）
+
+
 def build_scores(F: Path, final: Path, out: Path, industry: Path) -> None:
     u = pd.read_parquet(F / "universe.parquet")
     dates, cols = u.index, u.columns
@@ -50,9 +53,9 @@ def build_scores(F: Path, final: Path, out: Path, industry: Path) -> None:
     tail_feats = {**feats, **{n: pd.read_parquet(F / f"f_{n}.parquet") for n in EXTRA
                               if (F / f"f_{n}.parquet").exists()}}
     # 1) 短线模型：每周预测（全市场训练、每半年重训、训练样本与预测日之间留出持有期）
-    fp = out / "score_GBM5_weekly.parquet"
+    fp = out / "score_GBM5_weekly_exsize.parquet"
     if not fp.exists():
-        X3 = np.stack([feats[n].values.astype("float32") for n in PROD_FACTORS], axis=-1)
+        X3 = np.stack([feats[n].values.astype("float32") for n in PROD_FACTORS if n not in EXCLUDE], axis=-1)
         y5 = pd.read_parquet(F / "y_5.parquet")
         pos = {d: i for i, d in enumerate(dates)}
         rows = np.array([pos[d] for d in we])
@@ -65,7 +68,7 @@ def build_scores(F: Path, final: Path, out: Path, industry: Path) -> None:
     realized = label_realized_dates(tt.index, dates)
     rows = []
     for d in we:
-        w = tail_weights(tt, d, 36, 0.5, realized=realized, available=set(tail_feats))
+        w = tail_weights(tt, d, 36, 0.5, realized=realized, available=set(tail_feats) - EXCLUDE)
         if not w:
             continue
         tot, ws = 0.0, 0.0
@@ -91,7 +94,7 @@ def _init(args):
     G["bb"] = pd.read_parquet(F / "buy_block.parquet")
     G["sb"] = pd.read_parquet(F / "sell_block.parquet")
     G["pe"] = pd.read_parquet(panels / "pe_ttm.parquet").reindex(columns=G["tu"].columns)
-    G["gbm"] = pd.read_parquet(out / "score_GBM5_weekly.parquet")
+    G["gbm"] = pd.read_parquet(out / "score_GBM5_weekly_exsize.parquet")
     G["tail"] = pd.read_parquet(out / "score_TAIL_weekly.parquet")
     G["bench"] = pd.read_csv(out / "bench_tech_ew.csv", index_col=0, parse_dates=True).iloc[:, 0]
     G["ind"] = pd.read_csv(industry).set_index("code")["l1"].reindex(G["tu"].columns)
