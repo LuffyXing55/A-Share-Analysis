@@ -30,17 +30,11 @@ def tail_table(feats: dict, ym: pd.DataFrame, q: float = 0.95) -> pd.DataFrame:
 
 
 def tail_weights(tt: pd.DataFrame, asof: pd.Timestamp, lookback: int = 36, min_obs: int = 18,
-                 min_t: float = 1.0) -> dict:
-    hist = tt[tt.index < asof - pd.DateOffset(days=31)].tail(lookback)
-    w = {}
-    for c in hist.columns:
-        x = hist[c].dropna()
-        if len(x) < min_obs:
-            continue
-        t = x.mean() / (x.std() / np.sqrt(len(x)) + 1e-12)
-        if t >= min_t:
-            w[c] = float(min(t, 4.0))
-    return w
+                 min_t: float = 1.0, realized: pd.Series | None = None) -> dict:
+    """与实盘共用 ashare.model.tail.weights：只用「标签实现日 ≤ asof」的月份（按交易日判断，不用自然日近似）。"""
+    from ..model import tail as TAIL
+
+    return TAIL.weights(tt, asof, lookback=lookback, min_t=min_t, realized=realized)
 
 
 def composite(feats: dict, w: dict, d) -> pd.Series:
@@ -71,16 +65,20 @@ def main() -> None:
     feats = {n: pd.read_parquet(F / f"f_{n}.parquet").loc[me].where(uu) for n in names}
     tt = tail_table(feats, ym)
     tt.to_csv(out / "tail_table.csv")
+    from ..model.tail import label_realized_dates
+
+    realized = label_realized_dates(me, u.index)
     rows, wlog = [], {}
     for d in me:
-        w = tail_weights(tt, d, args.lookback, min_t=args.min_t)
+        w = tail_weights(tt, d, args.lookback, min_t=args.min_t, realized=realized)
         if not w:
             continue
-        s = composite(feats, w, d)
+        # 只在股票池内给分（与实盘一致：池外股票没有分数，不参与分位排名）
+        s = composite(feats, w, d).where(uu.loc[d])
         rows.append(s.rename(d))
         wlog[str(d.date())] = {k: round(v, 2) for k, v in sorted(w.items(), key=lambda x: -x[1])}
     sc = pd.DataFrame(rows)
-    sc.to_parquet(out / f"score_TAIL{args.lookback}.parquet")
+    sc.to_parquet(out / f"score_TAIL{args.lookback}_t{args.min_t}.parquet")
     (out / f"tail_weights_{args.lookback}.json").write_text(json.dumps(wlog, ensure_ascii=False, indent=0))
     top = sc.rank(axis=1, ascending=False) <= 30
     ex = ym.reindex(sc.index).where(top).mean(axis=1)

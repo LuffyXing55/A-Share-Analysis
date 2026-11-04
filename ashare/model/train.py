@@ -49,9 +49,9 @@ def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
     wk = nav.resample("W-FRI").last().dropna()
     rows = []
     s0 = str(nav.index[0].date())
-    for s, e, lab in [(s0, "2026-12-31", f"{s0[:7]}至今"), (s0, "2019-12-31", f"{s0[:7]}~2019"),
-                      ("2020-01-01", "2026-12-31", "2020至今"), ("2023-01-01", "2026-12-31", "2023至今"),
-                      ("2025-01-01", "2026-12-31", "2025至今")]:
+    for s, e, lab in [(s0, "2026-12-31", f"{s0[:7]}至今（全部）"), (s0, "2024-12-31", f"选参期 {s0[:7]}~2024"),
+                      ("2025-01-01", "2026-12-31", "保留期 2025至今 ★"), (s0, "2019-12-31", f"{s0[:7]}~2019"),
+                      ("2020-01-01", "2022-12-31", "2020~2022"), ("2023-01-01", "2024-12-31", "2023~2024")]:
         m = (nav.index >= s) & (nav.index <= e)
         n_, bb = nav[m] / nav[m].iloc[0], b1[m] / b1[m].iloc[0]
         mt = metrics(n_, bb)
@@ -64,11 +64,13 @@ def build_backtest_json(research: Path, nav_path: Path, site: Path) -> None:
                    "bench2": [round(float(x), 4) for x in b2.reindex(wk.index).values],
                    "strategy_name": "30强策略（扣费后）", "bench_name": "全A等权（股票池）", "bench2_name": "中证500成分等权"},
            "metrics": rows,
-           "note": "走步回测（样本外）：中期分的因子权重每月只用过去 36 个月已实现数据确定，短线模型每半年用此前 6 年数据重训；"
-                   "每月最后一个交易日收盘后选 30 只（同行业≤5 只，老持仓仍在前 280 名则保留），次日按均价成交，"
+           "note": "走步回测：中期分的因子权重每月只用当时已实现的历史数据确定，短线模型每半年只用此前数据重训。"
+                   "回看期、估值约束、分数权重、持仓缓冲这几个参数只用 2016-02~2024-12 选出，2025-01 起的「保留期」完全没有参与选择，"
+                   "是最接近真实样本外的检验（72 组参数中 97% 在保留期跑赢基准）。每月最后一个交易日收盘后选 30 只（同行业≤5 只，"
+                   "老持仓仍在前 430 名则保留），次日按均价成交，"
                    "含交易成本（买 0.15% / 卖 0.25%）、一字涨跌停无法成交、停牌顺延。2020 年前无估值数据，只用量价因子。"
                    "回测不代表未来收益。",
-           "model": "尾部加权合成×0.7 + LightGBM短线×0.3，价值过滤，行业≤5只，持仓缓冲250名", "generated": datetime.now().strftime("%Y-%m-%d")}
+           "model": "尾部加权合成×0.6 + LightGBM短线×0.4，盈利且PE低于盈利公司70分位，行业≤5只，持仓缓冲400名", "generated": datetime.now().strftime("%Y-%m-%d")}
     site.mkdir(parents=True, exist_ok=True)
     from ..pipeline.daily import sanitize
 
@@ -81,7 +83,7 @@ def main() -> None:
     ap.add_argument("--research", default="data/research")
     ap.add_argument("--models", default="models")
     ap.add_argument("--site", default="site_data")
-    ap.add_argument("--nav", default="data/research_v2/sweep_w0.7_buf250_cap5.csv")
+    ap.add_argument("--nav", default="data/final/nav_lb36_pct70_w0.6_buf400.csv")
     args = ap.parse_args()
     feat_dir, mdir = Path(args.feat), Path(args.models)
     mdir.mkdir(parents=True, exist_ok=True)

@@ -193,6 +193,7 @@ def compute_scores(ctx: Context, qlib_root: Path):
     ranks = {k: v.loc[d].where(mask).rank(pct=True) for k, v in fac.items()}
     raw_last = {k: v.loc[d].where(mask) for k, v in fac.items()}
     ctx.fac_last = {k: v.loc[d] for k, v in fac.items()}
+    ctx.fac_full, ctx.u_full = fac, u
     return p, snap, mask, ranks, raw_last, d
 
 
@@ -229,7 +230,7 @@ def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict,
     vf = settings.get("value_filter", {})
     if vf and "pe" in scores:
         # 价值过滤：只在盈利、且 PE 低于「盈利公司中 PE 的 70 分位」的股票中选（排除盈利公司里最贵的 30%）。
-        # 回测（2016-02 起）：年化超额 +11.5%、信息比 1.07，各区间均优于不加约束（见 docs/方法与回测报告.md 第 6 节）
+        # 72 组参数的选参期 / 保留期检验都支持这一约束（见 docs/方法与回测报告.md 第 6 节）
         pe = scores["pe"].reindex(s.index)
         prof = pe > 0
         pe_pct = pe.where(prof).rank(pct=True)
@@ -292,7 +293,15 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         if len(snap):
             name_map.update(snap["name"].to_dict())
         raw = p["close"] / p["factor"]
-        table = TAIL.update_table(ctx.state, tail_path, raw)
+        # 补记上一个月末的前 5% 名单（若那天流水线没跑成）：用价格面板重算当时的因子分位
+        prev_me = raw.index[raw.index < d.replace(day=1)]
+        if len(prev_me) and hasattr(ctx, "fac_full") and prev_me[-1] in ctx.u_full.index:
+            pd_me = prev_me[-1]
+            m_me = ctx.u_full.loc[pd_me]
+            r_me = {k: v.loc[pd_me].where(m_me).rank(pct=True) for k, v in ctx.fac_full.items()
+                    if v.loc[pd_me].where(m_me).notna().sum() > 500}
+            TAIL.backfill_members(ctx.state, pd_me, r_me, m_me)
+        table = TAIL.update_table(ctx.state, tail_path, p["vwap"])
         tail_w = TAIL.weights(table, d, available=set(ranks))
         ctx.note("尾部加权因子", len(tail_w) > 0, ", ".join(f"{k}:{v:.2f}" for k, v in
                                                      sorted(tail_w.items(), key=lambda x: -x[1])))
@@ -305,7 +314,20 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         picks_state = read_json(picks_file)
         industry = pd.Series(ind_map)
         prev_month = (d.replace(day=1) - pd.Timedelta(days=1)).strftime("%Y-%m")
+        # 快照覆盖率检查：股票池内估值 / 流通市值缺失超过 5% 时，选股口径与回测不一致，本次不锁定新组合
+        cov = 0.0
+        if len(snap) and "pe" in sc:
+            cov = float(snap.reindex(sc.index)[["pe_ttm", "float_mv"]].notna().all(axis=1).mean())
+        can_pick = cov >= 0.95
+        if not can_pick:
+            ctx.note("选股数据完整性", False, f"快照覆盖率 {cov:.0%} < 95%，本次不锁定新组合，等待下一次运行")
         prev_codes = (read_json(ctx.state / f"picks_{prev_month}.json", {}) or {}).get("codes")
+        if picks_state is None and not can_pick:
+            # 数据不完整又没有本月组合：暂时沿用上月组合展示（不写文件），下一次运行再正式选
+            picks_state = read_json(ctx.state / f"picks_{prev_month}.json")
+            if picks_state is None:
+                raise SystemExit("首次运行时腾讯快照不完整，无法选股；请稍后重试")
+            picks_state = {**picks_state, "note": "数据不完整，暂时沿用上月组合"}
         if picks_state is None:
             # 本月还没有组合（首次运行或上月最后一天未运行）：立即选出
             chosen = select_picks(sc, industry, settings, prev_codes)
@@ -318,14 +340,15 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
             nxt = cal[cal > d][0]
             nmonth = f"{nxt.year}-{nxt.month:02d}"
             nfile = ctx.state / f"picks_{nmonth}.json"
-            if not nfile.exists():
+            if not nfile.exists() and can_pick:
                 chosen = select_picks(sc, industry, settings, picks_state["codes"])
                 write_json(nfile, {"month": nmonth, "pick_date": str(d.date()), "codes": chosen,
                                    "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
                                    "note": "上月最后一个交易日收盘后选出"})
             # 从今晚起（含明早开盘前、明天盘中）网站显示的就是下月新组合，入选价 = 今日收盘价
-            picks_state = read_json(nfile)
-            month = nmonth
+            if nfile.exists():
+                picks_state = read_json(nfile)
+                month = nmonth
         codes = picks_state["codes"]
         # 入选股若已不在股票池（停牌/ST 等），按同样方法单独打分（相对全市场分布）
         missing = [c for c in codes if c not in sc.index]
@@ -549,10 +572,10 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
 
 METHOD_HTML = """
 <p><b>股票池</b>：沪深主板、创业板、科创板；剔除 ST/*ST/退市整理、上市不满约 1 年、近 60 日交易不足 80%、日均成交额低于 2000 万元或处于全市场最低 15%、股价低于 2 元的股票。</p>
-<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月已实现的数据，挑出稳定为正的因子（t 值 ≥ 0.5）并按 t 值加权。目前入选的是日内未追高、非流动性溢价、小市值、低于 20 日均线、量价背离、20 日回调、换手未异常放大。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>
+<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月标签已实现的数据，挑出稳定为正的因子（t 值 ≥ 0.5）并按 t 值加权。目前入选的是日内未追高、非流动性溢价、小市值、低于 20 日均线、量价背离、20 日回调、换手未异常放大。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>
 <p><b>短线分（约 1 周）</b>：LightGBM 模型，用 25 个量价与估值因子预测未来 5 个交易日的相对收益。在此基础上叠加两项实时调整：①海外联动——所在产业链（或所属行业）的海外标的隔夜涨跌 × 历史回归系数，只使用 2016–2022 年样本内显著、且 2023 年后样本外检验有效的配对，最多 ±10 分；②新闻情绪——快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>
-<p><b>综合分</b> = 0.7 × 价值投资分 + 0.3 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在前 280 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>
-<p><b>回测</b>（2016-02 至 2026-11，走步样本外，扣交易成本，一字涨跌停无法成交）：年化 15.9%，股票池等权基准 4.4%，年化超额 11.5%，信息比 1.07，月胜率 64%；2025 年以来年化超额 9.6%。但最大回撤 −47%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>
+<p><b>综合分</b> = 0.6 × 价值投资分 + 0.4 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在前 430 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>
+<p><b>回测</b>（扣交易成本，一字涨跌停无法成交）：回看期、估值约束、权重、缓冲这几个参数只用 2016–2024 年数据挑选；2025-01 至今是完全没有参与选择的「保留期」：年化 19.1%，股票池等权基准 11.4%，年化超额 +7.7%，信息比 0.70，72 组参数中 97% 在保留期跑赢基准。2016 年至今年化超额 +11.8%（含选参期，偏乐观）。最大回撤 −47%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>
 <p><b>局限</b>：入选股偏小市值、成交不活跃；不做择时，大盘下跌时会一起下跌；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>
 """
 

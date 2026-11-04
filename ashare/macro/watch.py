@@ -11,6 +11,16 @@ from .linkage import CHAINS, MACRO_SYMBOLS
 from .overseas import DISPLAY
 
 
+def _oos_corr() -> tuple[float, float]:
+    """从 config/linkage_stats.json 读取样本外检验结果（显著配对的预测相关）。"""
+    try:
+        p = Path(__file__).resolve().parents[2] / "config" / "linkage_stats.json"
+        sm = json.loads(p.read_text())["summary"]
+        return float(sm["gap"]["oos_corr_sig"]), float(sm["cc"]["oos_corr_sig"])
+    except Exception:  # noqa: BLE001
+        return float("nan"), float("nan")
+
+
 def load_events(path: str | Path = "config/events.json") -> dict:
     p = Path(path)
     return json.loads(p.read_text()) if p.exists() else {"events": [], "themes": []}
@@ -100,7 +110,9 @@ def live_signals(quotes: dict, picks: list[dict], rates: pd.DataFrame | None = N
         text = f"{q['date']} 收盘 {q['pct']*100:+.2f}%（约 {abs(z):.1f} 倍日常波动）。"
         if chain_names:
             text += "关联 A 股产业链：" + "、".join(dict.fromkeys(chain_names)) + "。"
-            text += "历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.24），对全天超额影响较弱。"
+            gap, cc = _oos_corr()
+            text += (f"历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 {gap:.2f}），"
+                     f"对全天超额影响较弱（{cc:.2f}）。")
         sig.append({"title": f"海外异动：{name}{direction}", "text": text, "picks": sorted(set(affected)),
                     "level": 3 if abs(z) >= 2.5 else 2, "when": f"美股 {q['date']}"})
     # 2) 美债收益率

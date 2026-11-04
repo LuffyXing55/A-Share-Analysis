@@ -64,7 +64,7 @@
     const d = state.dash;
     const key = state.sort;
     const rows = [...(d.picks || [])].sort((a, b) => (b[key] ?? -1) - (a[key] ?? -1));
-    $("#picks-hint").textContent = "综合分 = 0.7×价值投资分 + 0.3×短线分。分数是在全市场约 4000 只股票中的分位（0–100），入选股都在前列，所以差距体现在小数位；条形长度按 30 只之间的相对高低显示。点击任意一行查看原因、海外联动与新闻。" +
+    $("#picks-hint").textContent = "综合分 = 0.6×价值投资分 + 0.4×短线分。分数是在全市场约 4000 只股票中的分位（0–100），入选股都在前列，所以差距体现在小数位；条形长度按 30 只之间的相对高低显示。点击任意一行查看原因、海外联动与新闻。" +
       (state.live ? " 本地模式下每分钟刷新，盘中价格变化会实时影响短线分。" : "");
     const tv = rows.map((p) => p.total).filter((v) => v !== null && v !== undefined);
     const tmin = Math.min(...tv), tmax = Math.max(...tv);

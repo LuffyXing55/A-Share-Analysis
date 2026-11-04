@@ -56,15 +56,22 @@ def tencent_quotes(codes: Iterable[str], batch: int = 60) -> list[dict]:
     """腾讯 qt.gtimg.cn 实时行情（≤60 只 / 次，GBK）。"""
     codes = [normalize_code(c) for c in codes]
     out: list[dict] = []
-    failed = 0
-    for i in range(0, len(codes), batch):
-        chunk = codes[i : i + batch]
+    chunks = [codes[i : i + batch] for i in range(0, len(codes), batch)]
+    texts, failed = [], []
+    for chunk in chunks:
         try:
-            r = fetcher().get("https://qt.gtimg.cn/q=" + ",".join(chunk), encoding="gbk")
+            texts.append(fetcher().get("https://qt.gtimg.cn/q=" + ",".join(chunk), encoding="gbk").text)
         except SourceUnavailable:
-            failed += 1          # 单批失败不影响其他批次
-            continue
-        for line in r.text.strip().split(";"):
+            failed.append(chunk)  # 单批失败不影响其他批次，稍后重试
+    for chunk in failed[:]:
+        time.sleep(3)
+        try:
+            texts.append(fetcher().get("https://qt.gtimg.cn/q=" + ",".join(chunk), encoding="gbk").text)
+            failed.remove(chunk)
+        except SourceUnavailable:
+            pass
+    for text in texts:
+        for line in text.strip().split(";"):
             if "=" not in line:
                 continue
             key, val = line.split("=", 1)

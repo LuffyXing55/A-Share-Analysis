@@ -24,8 +24,15 @@ def load_table(path: Path) -> pd.DataFrame:
 
 
 def weights(table: pd.DataFrame, asof: pd.Timestamp, lookback: int = LOOKBACK, min_t: float = MIN_T,
-            available: set[str] | None = None) -> dict[str, float]:
-    hist = table[table.index < asof - pd.DateOffset(days=31)].tail(lookback)
+            available: set[str] | None = None, realized: pd.Series | None = None) -> dict[str, float]:
+    """realized：每个月末标签的「实现日」（该月末之后第 21 个交易日）。只使用实现日不晚于 asof 的月份。
+    实盘不传 realized：表里的行只有在标签实现后才会被追加，所以直接用 asof 之前的全部行。"""
+    if realized is not None:
+        ok = realized.reindex(table.index)
+        hist = table[(ok <= asof).fillna(False).values]
+    else:
+        hist = table[table.index < asof]
+    hist = hist.tail(lookback)
     w = {}
     for c in hist.columns:
         if available is not None and c not in available:
@@ -65,10 +72,12 @@ def record_members(state: Path, d: pd.Timestamp, ranks: dict[str, pd.Series], ma
         {"date": str(d.date()), "universe": list(mask[mask].index), "members": members}, ensure_ascii=False))
 
 
-def update_table(state: Path, table_path: Path, raw_close: pd.DataFrame, horizon: int = 20) -> pd.DataFrame:
-    """把已满 horizon 个交易日的月末名单的已实现超额收益追加进表。"""
+def update_table(state: Path, table_path: Path, adj_vwap: pd.DataFrame, horizon: int = 20) -> pd.DataFrame:
+    """把已满 horizon 个交易日的月末名单的已实现超额收益追加进表。
+    口径与研究完全一致：t+1 日复权均价买入、t+1+horizon 日复权均价卖出（停牌前向填充），相对股票池等权。"""
     table = load_table(table_path)
-    idx = raw_close.index
+    px = adj_vwap.ffill(limit=60)
+    idx = px.index
     changed = False
     for fp in sorted(state.glob("tail_members_*.json")):
         obj = json.loads(fp.read_text())
@@ -76,10 +85,10 @@ def update_table(state: Path, table_path: Path, raw_close: pd.DataFrame, horizon
         if d in table.index or d not in idx:
             continue
         pos = idx.get_loc(d)
-        if pos + 1 + horizon >= len(idx):
+        if pos + 1 + horizon > len(idx) - 1:
             continue
         a, b = idx[pos + 1], idx[pos + 1 + horizon]
-        ret = raw_close.loc[b] / raw_close.loc[a] - 1
+        ret = px.loc[b] / px.loc[a] - 1
         uni = ret.reindex(obj["universe"]).dropna()
         base = uni.mean()
         row = {f: float(ret.reindex(m).dropna().mean() - base) for f, m in obj["members"].items() if m}
@@ -89,3 +98,20 @@ def update_table(state: Path, table_path: Path, raw_close: pd.DataFrame, horizon
         table = table.sort_index()
         table.to_csv(table_path, float_format="%.6f")
     return table
+
+
+def label_realized_dates(month_ends: pd.DatetimeIndex, calendar: pd.DatetimeIndex, horizon: int = 20) -> pd.Series:
+    """月末 k 的标签（t+1 → t+1+horizon 均价收益）在第 pos(k)+1+horizon 个交易日收盘后才可知。"""
+    out = {}
+    for k in month_ends:
+        pos = calendar.searchsorted(k)
+        j = pos + 1 + horizon
+        out[k] = calendar[j] if j < len(calendar) else pd.Timestamp.max
+    return pd.Series(out)
+
+
+def backfill_members(state: Path, d: pd.Timestamp, ranks: dict[str, pd.Series], mask: pd.Series) -> None:
+    """补记某个过去月末的前 5% 名单（例如那天流水线没跑成）。只在文件不存在时写入。"""
+    fp = state / f"tail_members_{d.date()}.json"
+    if not fp.exists():
+        record_members(state, d, ranks, mask)

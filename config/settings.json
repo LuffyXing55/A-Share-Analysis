@@ -3,8 +3,8 @@
   "top_n": 30,
   "industry_cap": 5,
   "score_weights": {
-    "value": 0.7,
-    "short": 0.3
+    "value": 0.6,
+    "short": 0.4
   },
   "selection_score": "monthly",
   "universe": {
@@ -24,5 +24,6 @@
     "_说明": "只在盈利、且PE低于盈利公司PE的该分位的股票中选；设为 {} 可关闭",
     "max_pe_pct_among_profitable": 0.7
   },
-  "hold_buffer": 250
+  "hold_buffer": 400,
+  "_选参说明": "回看期36、估值约束70分位、权重0.6/0.4、缓冲400 均只用 2016-02~2024-12 数据选出；2025-01 之后为保留期检验（见 docs/方法与回测报告.md）"
 }
