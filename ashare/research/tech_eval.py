@@ -137,11 +137,18 @@ def main() -> None:
     ap.add_argument("--panels", default="data/panels")
     ap.add_argument("--out", default="data/tech")
     ap.add_argument("--workers", type=int, default=3)
+    ap.add_argument("--round", type=int, default=1, help="1=初始网格；2=加大持仓缓冲（降换手）的第二轮")
+    ap.add_argument("--skip-build", action="store_true")
     a = ap.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    build_scores(Path(a.feat), Path(a.final), out, Path(a.industry))
-    grid = list(itertools.product([0.0, 0.3, 0.5, 0.7, 1.0], ["none", "profit", "pct70"], [0, 15, 30], [None, 6]))
+    if not a.skip_build:
+        build_scores(Path(a.feat), Path(a.final), out, Path(a.industry))
+    if a.round == 1:
+        grid = list(itertools.product([0.0, 0.3, 0.5, 0.7, 1.0], ["none", "profit", "pct70"], [0, 15, 30], [None, 6]))
+    else:
+        # 第一轮发现：缓冲越大越好（换手从每年 31 倍降到 20 倍）。第二轮只加大缓冲，其余维度取第一轮的代表值
+        grid = list(itertools.product([0.0, 0.5, 1.0], ["profit", "pct70"], [30, 60, 100], [6]))
     rows = []
     with ProcessPoolExecutor(a.workers, initializer=_init, initargs=((a.feat, a.out, a.panels, a.industry),)) as ex:
         for r in ex.map(run_one, grid):
@@ -149,14 +156,14 @@ def main() -> None:
             print(r["tag"], f"sel {r['sel_excess']:+.3f}/{r['sel_ir']:.2f} hold {r['hold_excess']:+.3f}/{r['hold_ir']:.2f} "
                   f"turn {r['full_turn']:.0f}", flush=True)
     tab = pd.DataFrame(rows).sort_values("sel_ir", ascending=False)
-    tab.to_csv(out / "grid.csv", index=False)
+    tab.to_csv(out / f"grid_round{a.round}.csv", index=False)
     best = tab.iloc[0].to_dict()
     hold = tab["hold_excess"]
     summary = {"n_configs": len(tab), "chosen_by_selection_ir": best,
                "holdout_excess_all": {"median": float(hold.median()), "min": float(hold.min()),
                                       "max": float(hold.max()), "share_positive": float((hold > 0).mean())},
                "chosen_holdout_rank": int((hold > best["hold_excess"]).sum()) + 1}
-    (out / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1, default=float))
+    (out / f"summary_round{a.round}.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1, default=float))
     print(json.dumps(summary, ensure_ascii=False, indent=1, default=float))
 
 

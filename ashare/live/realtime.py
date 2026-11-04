@@ -96,7 +96,8 @@ def pct_from_dist(x: float, dist: list[float]) -> float:
 
 
 def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: datetime | None = None,
-                fallback_ranks: dict | None = None, today_mkt: float | None = None) -> dict:
+                fallback_ranks: dict | None = None, today_mkt: float | None = None,
+                pred_dist_key: str = "pred_dist") -> dict:
     now = now or datetime.now(BJ)
     p = build_mini_panels(hist, quotes, now)
     p = attach_market(p, fdist.get("mkt_ret"), today_mkt)
@@ -112,7 +113,7 @@ def live_scores(models: dict, fdist: dict, hist: dict, quotes: dict, now: dateti
                 ranks[f] = pd.Series({c: ((fallback_ranks or {}).get(c) or {}).get(f, np.nan) for c in codes},
                                      dtype="float64")
     out = {c: {} for c in codes}
-    pdist = fdist.get("pred_dist") or {}
+    pdist = fdist.get(pred_dist_key) or {}
     tail_w = fdist.get("tail_weights") or {}
     if tail_w:
         from ..model.tail import score as tail_score

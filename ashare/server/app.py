@@ -60,14 +60,19 @@ class LiveEngine:
         from ..live import sources as S
         from ..macro import overseas as OV
         from ..macro import watch as W
-        from ..news.sentiment import aggregate, match_news_to_stocks
+        from ..news.sentiment import aggregate, match_news_to_stocks, score_text
         from ..pipeline.daily import INDEX_CODES
 
         now = datetime.now(BJ)
         dash, latest, fdist = self.load_base()
-        codes = [p["code"] for p in dash["picks"]]
         live = copy.deepcopy(dash)
         live["mode"] = "live"
+        tech = live.get("tech") or None
+        tech_base = ((latest.get("tech") or {}).get("base")) or {}
+        main_codes = [p["code"] for p in dash["picks"]]
+        tech_codes = [p["code"] for p in (tech or {}).get("picks", [])]
+        codes = list(dict.fromkeys(main_codes + tech_codes))
+        all_base = {**tech_base, **latest["base"]}
         if self.hist_day != now.date() or not self.hist or any(c not in self.hist for c in codes):
             self.hist = RT.fetch_histories(codes)
             self.hist_day = now.date()
@@ -79,23 +84,30 @@ class LiveEngine:
                                           "price": x["price"], "pct": (x["pct"] or 0) / 100} for x in idx]
         except Exception:  # noqa: BLE001
             pass
-        scores = {}
+        today_mkt = None
+        idx_pct = {x.get("code"): x.get("pct") for x in live["market"].get("indices", [])}
+        for code in ("sh000985", "sh000852"):          # 优先中证全指，其次中证 1000
+            if idx_pct.get(code) is not None:
+                today_mkt = idx_pct[code]
+                break
+        fb = {c: (all_base.get(c) or {}).get("feat_ranks") or {} for c in codes}
+        scores, scores_tech = {}, {}
         try:
-            fb = {c: (latest["base"].get(c) or {}).get("feat_ranks") or {} for c in codes}
-            today_mkt = None
-            idx_pct = {x.get("code"): x.get("pct") for x in live["market"].get("indices", [])}
-            for code in ("sh000985", "sh000852"):          # 优先中证全指，其次中证 1000
-                if idx_pct.get(code) is not None:
-                    today_mkt = idx_pct[code]
-                    break
-            scores = RT.live_scores(self.ensure_models(), fdist, self.hist, quotes, now, fallback_ranks=fb,
-                                    today_mkt=today_mkt)
+            scores = RT.live_scores(self.ensure_models(), fdist, {c: self.hist[c] for c in main_codes if c in self.hist},
+                                    quotes, now, fallback_ranks=fb, today_mkt=today_mkt)
+            if tech_codes and fdist.get("pred_dist_tech"):
+                # 科技榜的分数是科技股池内的分位：用科技股池的模型输出分布来换算
+                scores_tech = RT.live_scores(self.ensure_models(), fdist,
+                                             {c: self.hist[c] for c in tech_codes if c in self.hist},
+                                             quotes, now, fallback_ranks=fb, today_mkt=today_mkt,
+                                             pred_dist_key="pred_dist_tech")
         except Exception:  # noqa: BLE001
             traceback.print_exc()
         # 海外行情每 10 分钟、新闻每 3 分钟刷新
         if time.time() - self.overseas_ts > 600 or not hasattr(self, "ov_quotes"):
             try:
-                self.ov_quotes = OV.fetch_overseas(OV.needed_symbols(codes, [p.get('industry') for p in dash['picks']]))
+                self.ov_quotes = OV.fetch_overseas(OV.needed_symbols(codes, [all_base.get(c, {}).get("industry")
+                                                                             for c in codes]))
             except Exception:  # noqa: BLE001
                 self.ov_quotes = getattr(self, "ov_quotes", {})
             self.overseas_ts = time.time()
@@ -106,61 +118,69 @@ class LiveEngine:
                 self.news = getattr(self, "news", [])
             self.news_ts = time.time()
         settings = json.loads((ROOT / "config" / "settings.json").read_text())
-        ov_cfg, w = settings["overlay"], settings["score_weights"]
+        ov_cfg = settings["overlay"]
         stats = OV.load_linkage_stats(ROOT / "config" / "linkage_stats.json")
-        names = {p["code"]: p["name"] for p in dash["picks"]}
+        names = {c: (all_base.get(c) or {}).get("name", c) for c in codes}
         matched = match_news_to_stocks(self.news, names)
+
+        def update(plist, base, sc_map, w):
+            for p in plist:
+                c = p["code"]
+                q = quotes.get(c) or {}
+                b = base.get(c) or {}
+                if q.get("price"):
+                    p["price"] = q["price"]
+                    p["pct_today"] = (q["pct"] or 0) / 100
+                    entry = b.get("price")
+                    if b.get("ret_since_pick") is not None and entry:
+                        p["ret_since_pick"] = (1 + b["ret_since_pick"]) * q["price"] / entry - 1
+                    p["is_st"] = "ST" in (q.get("name") or "")
+                sc = sc_map.get(c) or {}
+                pred_ex, chains = OV.chain_signals(c, self.ov_quotes, stats, ov_cfg["overseas_min_t"],
+                                                   p.get("industry"), min_date=latest["data_date"])
+                ov_pts = float(np.clip(pred_ex * ov_cfg["overseas_points_per_pct"], -ov_cfg["overseas_cap"],
+                                       ov_cfg["overseas_cap"]))
+                items = matched.get(c, [])
+                ns = aggregate(items)
+                news_pts = float(np.clip(ns * ov_cfg["news_points"], -6, 6)) if items else 0.0
+                value = sc.get("value") if sc.get("value") is not None else b.get("value")
+                short_model = sc.get("short") if sc.get("short") is not None else b.get("short_model")
+                short = None if short_model is None else float(np.clip(short_model + ov_pts + news_pts, 0, 100))
+                p["value"], p["short"] = value, short
+                p["total"] = None if value is None or short is None else round(w["value"] * value + w["short"] * short, 1)
+                p["chains"] = chains
+                p["signals"] = {"overseas": round(ov_pts / 4, 2), "news": ns, "overseas_points": round(ov_pts, 1),
+                                "news_points": round(news_pts, 1)}
+                if items:
+                    p["news"] = [{k: x.get(k) for k in ("time", "source", "title", "url", "sentiment", "events", "match")}
+                                 for x in items[:6]]
+            prev_close = {p["code"]: p["rank"] for p in plist}
+            ranked = sorted(plist, key=lambda x: (-(x["total"] if x["total"] is not None else -1), x["code"]))
+            for i, p in enumerate(ranked, 1):
+                p["prev_rank"] = prev_close.get(p["code"])   # 盘中「变化」= 相对上一次收盘后的排名
+                p["rank"] = i
+            return ranked
+
+        tag = now.strftime("%Y-%m-%d") + "（盘中）"
+        live["picks"] = update(live["picks"], latest["base"], scores, settings["score_weights"])
         for p in live["picks"]:
-            c = p["code"]
-            q = quotes.get(c) or {}
-            if q.get("price"):
-                p["price"] = q["price"]
-                p["pct_today"] = (q["pct"] or 0) / 100
-                entry = latest["base"].get(c, {}).get("price")
-                if p.get("ret_since_pick") is not None and entry:
-                    base_ret = latest["base"][c]["ret_since_pick"]
-                    p["ret_since_pick"] = (1 + base_ret) * q["price"] / entry - 1
-                p["is_st"] = "ST" in (q.get("name") or "")
-            sc = scores.get(c) or {}
-            pred_ex, chains = OV.chain_signals(c, self.ov_quotes, stats, ov_cfg["overseas_min_t"], p.get("industry"),
-                                               min_date=latest["data_date"])
-            ov_pts = float(np.clip(pred_ex * ov_cfg["overseas_points_per_pct"], -ov_cfg["overseas_cap"],
-                                   ov_cfg["overseas_cap"]))
-            items = matched.get(c, [])
-            ns = aggregate(items)
-            news_pts = float(np.clip(ns * ov_cfg["news_points"], -6, 6)) if items else 0.0
-            value = sc.get("value") if sc.get("value") is not None else p["value"]
-            short_model = sc.get("short") if sc.get("short") is not None else latest["base"][c]["short_model"]
-            short = None if short_model is None else float(np.clip(short_model + ov_pts + news_pts, 0, 100))
-            p["value"], p["short"] = value, short
-            p["total"] = None if value is None or short is None else round(w["value"] * value + w["short"] * short, 1)
-            p["chains"] = chains
-            p["signals"] = {"overseas": round(ov_pts / 4, 2), "news": ns, "overseas_points": round(ov_pts, 1),
-                            "news_points": round(news_pts, 1)}
-            if items:
-                p["news"] = [{k: x.get(k) for k in ("time", "source", "title", "url", "sentiment", "events", "match")}
-                             for x in items[:6]]
-        ranked = sorted(live["picks"], key=lambda x: -(x["total"] or -1))
-        prev_close_rank = {p["code"]: p["rank"] for p in dash["picks"]}
-        for i, p in enumerate(ranked, 1):
-            p["prev_rank"] = prev_close_rank.get(p["code"])   # 盘中「变化」= 相对昨日收盘后的排名
-            p["rank"] = i
-        live["picks"] = ranked
-        today = now.strftime("%Y-%m-%d") + "（盘中）"
-        for p in ranked:
-            live["history"].setdefault(p["code"], []).append([today, p["total"], p["value"], p["short"]])
+            live["history"].setdefault(p["code"], []).append([tag, p["total"], p["value"], p["short"]])
+        if tech:
+            tw = (settings.get("tech") or {}).get("score_weights", settings["score_weights"])
+            tech["picks"] = update(tech["picks"], tech_base, scores_tech, tw)
+            for p in tech["picks"]:
+                tech["history"].setdefault(p["code"], []).append([tag, p["total"], p["value"], p["short"]])
         live["market"]["time"] = now.strftime("%Y-%m-%d %H:%M:%S")
         live["generated_at"] = now.strftime("%Y-%m-%d %H:%M:%S")
-        live["watch"]["signals"] = W.live_signals(self.ov_quotes, ranked) + [
+        both = live["picks"] + [p for p in (tech or {}).get("picks", []) if p["code"] not in latest["base"]]
+        live["watch"]["signals"] = W.live_signals(self.ov_quotes, both) + [
             s for s in dash["watch"].get("signals", []) if not s["title"].startswith("海外异动")]
-        from ..news.sentiment import score_text
-
         news_out = []
         for n in self.news[:60]:
             st = score_text(n.get("title", "") + n.get("content", ""))
             txt = n.get("title", "") + n.get("content", "")
             news_out.append({**n, "content": n.get("content", "")[:300], "sentiment": st.score,
-                             "events": st.events, "picks": [c for c, nm in names.items() if nm in txt]})
+                             "events": st.events, "picks": [c for c, nm in names.items() if nm and nm in txt]})
         live["news"] = news_out
         with self.lock:
             self.dash = live

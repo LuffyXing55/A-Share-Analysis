@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   const $ = (s) => document.querySelector(s);
-  const state = { dash: null, bt: null, sort: "total", live: false, timer: null };
+  const state = { dash: null, bt: null, sort: "total", sortTech: "total", live: false, timer: null };
 
   const fmtPct = (x, d = 2) => (x === null || x === undefined || isNaN(x)) ? "—" : (x > 0 ? "+" : "") + (x * 100).toFixed(d) + "%";
   const fmtNum = (x, d = 2) => (x === null || x === undefined || isNaN(x)) ? "—" : Number(x).toFixed(d);
@@ -41,6 +41,7 @@
     mb.className = "mode" + (state.live ? " live" : "");
     renderMarket(d.market || {});
     renderPicks();
+    renderTech();
     renderWatch(d.watch || {});
     renderNews(d.news || []);
     renderModel();
@@ -61,15 +62,11 @@
     $("#regime").innerHTML = r ? `<b>市场状态：${esc(r.level)}</b> · ${esc(r.text)}` : "";
   }
 
-  function renderPicks() {
-    const d = state.dash;
-    const key = state.sort;
-    const rows = [...(d.picks || [])].sort((a, b) => (b[key] ?? -1) - (a[key] ?? -1));
-    $("#picks-hint").textContent = "综合分 = 0.6×价值投资分 + 0.4×短线分。分数是在全市场约 4000 只股票中的分位（0–100），入选股都在前列，所以差距体现在小数位；条形长度按 30 只之间的相对高低显示。点击任意一行查看原因、海外联动与新闻。" +
-      (state.live ? " 本地模式下盘中每 1 分钟重算一次（页面每 30 秒拉取），价格变化会实时影响分数和排名。" : "");
+  function rowsHTML(list, key) {
+    const rows = [...(list || [])].sort((a, b) => (b[key] ?? -1) - (a[key] ?? -1));
     const tv = rows.map((p) => p.total).filter((v) => v !== null && v !== undefined);
     const tmin = Math.min(...tv), tmax = Math.max(...tv);
-    $("#picks-body").innerHTML = rows.map((p, i) => {
+    return rows.map((p, i) => {
       const ch = (p.prev_rank && p.rank) ? p.prev_rank - p.rank : null;
       const chTxt = ch === null ? '<span class="flat">新</span>' : ch > 0 ? `<span class="up">↑${ch}</span>` : ch < 0 ? `<span class="down">↓${-ch}</span>` : '<span class="flat">–</span>';
       const sig = [];
@@ -81,7 +78,7 @@
         <td>${key === "total" ? p.rank : i + 1}</td><td>${chTxt}</td>
         <td class="l"><b>${esc(p.name)}</b><span class="code">${esc(p.code.slice(2))}</span></td>
         <td class="l hide-s">${esc(p.industry || "")}</td>
-        <td><span class="score">${fmtNum(p.total, 1)}</span><span class="bar" style="width:${tmax > tmin ? 4 + 46 * ((p.total || tmin) - tmin) / (tmax - tmin) : 25}px"></span></td>
+        <td><span class="score">${fmtNum(p.total, 1)}</span><span class="bar" style="width:${tmax > tmin ? 4 + 46 * ((p.total ?? tmin) - tmin) / (tmax - tmin) : 25}px"></span></td>
         <td>${fmtNum(p.value, 1)}</td><td>${fmtNum(p.short, 1)}</td>
         <td class="${cls(p.pct_today)}">${fmtPct(p.pct_today)}</td>
         <td class="hide-s ${cls(p.ret_since_pick)}">${fmtPct(p.ret_since_pick)}</td>
@@ -89,7 +86,32 @@
         <td class="hide-s">${fmtNum(p.total_mv_yi, 0)}</td>
         <td class="hide-s l">${sig.join("")}</td></tr>`;
     }).join("");
-    document.querySelectorAll("#picks-body tr").forEach((tr) => tr.addEventListener("click", () => showDetail(tr.dataset.code)));
+  }
+
+  function renderPicks() {
+    const d = state.dash;
+    const w = d.weights || { value: 0.6, short: 0.4 };
+    $("#picks-hint").textContent = `综合分 = ${w.value}×价值投资分 + ${w.short}×短线分。分数是在全市场约 4000 只股票中的分位（0–100），入选股都在前列，所以差距体现在小数位；条形长度按 30 只之间的相对高低显示。点击任意一行查看原因、海外联动与新闻。` +
+      (state.live ? " 本地模式下盘中每 1 分钟重算一次（页面每 30 秒拉取），价格变化会实时影响分数和排名。" : "");
+    $("#picks-body").innerHTML = rowsHTML(d.picks, state.sort);
+    document.querySelectorAll("#picks-body tr").forEach((tr) => tr.addEventListener("click", () => showDetail(tr.dataset.code, "main")));
+  }
+
+  function renderTech() {
+    const t = state.dash.tech;
+    if (!t || !t.picks || !t.picks.length) { $("#tech").classList.add("hidden"); return; }
+    $("#tech").classList.remove("hidden");
+    const w = t.weights || { value: 0.5, short: 0.5 };
+    $("#tech-title").textContent = `科技股周榜 · ${t.picks.length} 只（${t.week}）`;
+    $("#tech-hint").textContent = `独立于 30 强：只在申万一级「${(t.industries || ["电子", "计算机", "通信", "传媒"]).join(" / ")}」的科技股池（${t.universe_n ?? "—"} 只）里选，` +
+      `每周最后一个交易日收盘后选出下周名单（${t.pick_date} 收盘后选出），每天重新打分排名。综合分 = ${w.value}×价值分 + ${w.short}×短线分，` +
+      `分数是在科技股池内的分位。` + (t.note && t.note.includes("不完整") ? ` ⚠ ${t.note}` : "");
+    $("#tech-body").innerHTML = rowsHTML(t.picks, state.sortTech);
+    document.querySelectorAll("#tech-body tr").forEach((tr) => tr.addEventListener("click", () => showDetail(tr.dataset.code, "tech")));
+    const tr = t.track || [];
+    $("#tech-track").innerHTML = tr.length ? `<tr><th class="l">周</th><th>选出日</th><th>名单收益</th><th>科技股池等权</th><th>超额</th><th>状态</th></tr>` +
+      tr.slice(-12).reverse().map((r) => `<tr><td class="l">${esc(r.week)}</td><td>${esc(r.pick_date)}</td><td class="${cls(r.ret)}">${fmtPct(r.ret)}</td><td class="${cls(r.bench)}">${fmtPct(r.bench)}</td><td class="${cls(r.excess)}">${fmtPct(r.excess)}</td><td>${esc(r.status || "")}</td></tr>`).join("")
+      : '<tr><td class="hint">每周跟踪从第一周名单开始记录。</td></tr>';
   }
 
   function line(series, opts = {}) {
@@ -133,13 +155,15 @@
     }).join("");
   }
 
-  function showDetail(code) {
+  function showDetail(code, which) {
     const d = state.dash;
-    const p = (d.picks || []).find((x) => x.code === code);
+    const src = which === "tech" && d.tech ? d.tech : d;
+    const p = (src.picks || []).find((x) => x.code === code);
     if (!p) return;
+    $("#d-hist-title").textContent = which === "tech" ? "看好分走势（本周，科技股池内分位）" : "看好分走势（本月）";
     $("#detail").classList.remove("hidden");
     $("#d-title").textContent = `${p.name}（${p.code.slice(2)}） · ${p.industry || ""} · 综合 ${fmtNum(p.total, 0)} / 价值 ${fmtNum(p.value, 0)} / 短线 ${fmtNum(p.short, 0)}`;
-    const h = (d.history || {})[code] || [];
+    const h = (src.history || {})[code] || [];
     $("#d-chart").innerHTML = line([
       { name: "综合分", values: h.map((x) => x[1]), color: "var(--accent)" },
       { name: "价值分", values: h.map((x) => x[2]), color: "var(--warn)", w: 1.2 },
@@ -160,8 +184,9 @@
   function newsLi(n) {
     const s = n.sentiment || 0;
     const tag = s > 0.15 ? "pos" : s < -0.15 ? "neg" : "";
+    const allp = [...(state.dash.picks || []), ...((state.dash.tech || {}).picks || [])];
     const picks = (n.picks || []).map((c) => {
-      const p = (state.dash.picks || []).find((x) => x.code === c);
+      const p = allp.find((x) => x.code === c);
       return p ? `<span class="chip">${esc(p.name)}</span>` : "";
     }).join("");
     const ev = (n.events || []).map((e) => `<span class="chip">${esc(e)}</span>`).join("");
@@ -170,8 +195,9 @@
   }
 
   function pickChips(codes) {
+    const all = [...(state.dash.picks || []), ...((state.dash.tech || {}).picks || [])];
     return (codes || []).map((c) => {
-      const p = (state.dash.picks || []).find((x) => x.code === c);
+      const p = all.find((x) => x.code === c);
       return p ? `<span class="chip">${esc(p.name)}</span>` : "";
     }).join("");
   }
@@ -213,6 +239,12 @@
     $("#method").innerHTML = state.dash.method || (bt && bt.method) || "";
   }
 
+  document.querySelectorAll("#sort-tabs-tech button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll("#sort-tabs-tech button").forEach((x) => x.classList.remove("on"));
+    b.classList.add("on");
+    state.sortTech = b.dataset.sort;
+    renderTech();
+  }));
   document.querySelectorAll("#sort-tabs button").forEach((b) => b.addEventListener("click", () => {
     document.querySelectorAll("#sort-tabs button").forEach((x) => x.classList.remove("on"));
     b.classList.add("on");

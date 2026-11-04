@@ -254,6 +254,126 @@ def select_picks(scores: pd.DataFrame, industry: pd.Series, settings: dict,
     return chosen
 
 
+def make_base(codes, picks_state, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d) -> dict:
+    """一个榜单的「收盘基础数据」：分数、价格、原因分解、估值。两个榜单（30 强 / 科技周榜）共用。
+    sc 需含 value / short / total 三列（各自榜单口径的分位）。"""
+    expl_short = explain(short_model, matrix(ranks, short_model.features, codes), codes, ranks)
+    base = {}
+    for c in codes:
+        pc = raw[c].dropna()
+        rv = TAIL.contributions(ranks, tail_w, c)[:6]
+        for r_ in rv:
+            r_["name"] = FACTOR_LABELS.get(r_["factor"], r_["factor"])
+        base[c] = {
+            "code": c, "name": name_map.get(c, c), "industry": ind_map.get(c),
+            "value": clean(sc.loc[c, "value"], 1) if c in sc.index else None,
+            "short_model": clean(sc.loc[c, "short"], 1) if c in sc.index else None,
+            "total_base": clean(sc.loc[c, "total"], 1) if c in sc.index else None,
+            "price": clean(pc.iloc[-1], 3) if len(pc) else None,
+            "pct_today": clean(pc.iloc[-1] / pc.iloc[-2] - 1) if len(pc) > 1 and pc.index[-1] == d else None,
+            "suspended": bool(len(pc) and pc.index[-1] != d),
+            "ret_since_pick": clean(pc.iloc[-1] / picks_state["entry_close"].get(c) - 1)
+            if picks_state["entry_close"].get(c) else None,
+            "is_st": bool(snap["is_st"].get(c, False)) if len(snap) else False,
+            "reasons_value": rv,
+            "reasons_short": expl_short.get(c, []),
+            "pe_ttm": clean(snap["pe_ttm"].get(c)) if len(snap) else None,
+            "pb": clean(snap["pb"].get(c)) if len(snap) else None,
+            "total_mv_yi": clean(snap["total_mv"].get(c) / 1e8, 1) if len(snap) and c in snap.index else None,
+            # 收盘时各因子的全市场分位：本地盘中模式下算不出来的因子（如行业动量）沿用这里的值
+            "feat_ranks": {k: clean(v.get(c), 4) for k, v in ranks.items()},
+        }
+    return base
+
+
+def week_key(d: pd.Timestamp) -> str:
+    iso = d.isocalendar()
+    return f"{iso.year}-W{iso.week:02d}"
+
+
+def is_last_trading_day_of_week(d: pd.Timestamp, cal: pd.DatetimeIndex) -> bool:
+    nxt = cal[cal > d]
+    return len(nxt) > 0 and week_key(nxt[0]) != week_key(d)
+
+
+def tech_section(ctx, settings, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d, cal,
+                 can_pick) -> dict | None:
+    """科技股周榜：在申万一级 电子/计算机/通信/传媒 的股票池成分里，每周最后一个交易日收盘后选出下周 15 只。
+    分数是在科技股池内重新取的分位（与 ashare/research/tech_eval.py 的回测口径一致）。"""
+    tcfg = settings.get("tech")
+    if not tcfg:
+        return None
+    inds = set(tcfg.get("industries", ["电子", "计算机", "通信", "传媒"]))
+    tcodes = [c for c in sc.index if ind_map.get(c) in inds and pd.notna(sc.loc[c, "value_raw"])]
+    if len(tcodes) < 100:
+        ctx.note("科技股周榜", False, f"科技股池只有 {len(tcodes)} 只")
+        return None
+    tw = tcfg.get("score_weights", {"value": 0.5, "short": 0.5})
+    st = pd.DataFrame(index=tcodes)
+    st["value_raw"] = sc.loc[tcodes, "value_raw"]
+    st["short_raw"] = sc.loc[tcodes, "short_raw"]
+    st["value"] = st["value_raw"].rank(pct=True) * 100
+    st["short"] = st["short_raw"].rank(pct=True) * 100
+    st["total"] = (tw["value"] * st["value"] + tw["short"] * st["short"]).rank(pct=True) * 100
+    if "pe" in sc:
+        st["pe"] = sc.loc[tcodes, "pe"]
+    sel_cfg = {"top_n": tcfg.get("top_n", 15), "industry_cap": tcfg.get("industry_cap"),
+               "hold_buffer": tcfg.get("hold_buffer", 15), "value_filter": tcfg.get("value_filter", {})}
+    industry = pd.Series(ind_map)
+    wk = week_key(d)
+    fp = ctx.state / f"tech_picks_{wk}.json"
+    state = read_json(fp)
+    older = sorted(f for f in ctx.state.glob("tech_picks_*.json") if f.name < fp.name)
+    prev_codes = (read_json(older[-1], {}) or {}).get("codes") if older else None
+    if state is None:
+        if can_pick:
+            chosen = select_picks(st, industry, sel_cfg, prev_codes)
+            state = {"week": wk, "pick_date": str(d.date()), "codes": chosen,
+                     "entry_close": {c: clean(raw.loc[d, c]) for c in chosen}, "note": "周中补选"}
+            write_json(fp, state)
+        elif older:
+            state = {**read_json(older[-1]), "note": "数据不完整，暂时沿用上周科技股名单"}
+        else:
+            return None
+    if is_last_trading_day_of_week(d, cal):
+        nxt = cal[cal > d][0]
+        nfp = ctx.state / f"tech_picks_{week_key(nxt)}.json"
+        if not nfp.exists() and can_pick:
+            chosen = select_picks(st, industry, sel_cfg, state["codes"])
+            write_json(nfp, {"week": week_key(nxt), "pick_date": str(d.date()), "codes": chosen,
+                             "entry_close": {c: clean(raw.loc[d, c]) for c in chosen},
+                             "note": "本周最后一个交易日收盘后选出"})
+        if nfp.exists():
+            state = read_json(nfp)
+    codes = state["codes"]
+    # 名单里的股票若当天不在科技股池（停牌等），用全市场口径的分数近似
+    for c in codes:
+        if c not in st.index and c in sc.index:
+            st.loc[c, ["value", "short", "total"]] = sc.loc[c, ["value", "short", "total"]].values
+    base = make_base(codes, state, st, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d)
+    qs = np.linspace(0, 1, 101)
+    pred_dist = {k: [clean(x, 6) for x in np.quantile(st[k + "_raw"].dropna().values, qs)] for k in ("value", "short")}
+    # 周度跟踪：每周名单从选出日收盘到当周最后一个交易日（或今天）的等权收益，对比科技股池等权
+    rows = []
+    for f in sorted(ctx.state.glob("tech_picks_*.json")):
+        ps = read_json(f)
+        pdate = pd.Timestamp(ps["pick_date"])
+        if pdate not in raw.index or pdate >= d:
+            continue
+        wk_days = [x for x in raw.index if week_key(x) == ps["week"] and x <= d]
+        if not wk_days:
+            continue
+        end = max(wk_days)
+        r = raw.loc[end] / raw.loc[pdate] - 1
+        port, bench = r.reindex(ps["codes"]).mean(), r.reindex(tcodes).mean()
+        rows.append({"week": ps["week"], "pick_date": ps["pick_date"], "ret": clean(port), "bench": clean(bench),
+                     "excess": clean(port - bench), "status": "已完成" if end < d else "进行中"})
+    write_json(ctx.state / "tech_track.json", rows)
+    ctx.note("科技股周榜", True, f"科技股池 {len(tcodes)} 只，本周 {len(codes)} 只")
+    return {"week": state["week"], "pick_date": state["pick_date"], "note": state.get("note", ""),
+            "base": base, "universe_n": len(tcodes), "pred_dist": pred_dist, "weights": tw, "track": rows}
+
+
 def factor_distribution(raw_last: dict) -> dict:
     qs = np.linspace(0, 1, 101)
     out = {}
@@ -299,7 +419,7 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         table0 = TAIL.load_table(tail_path)
         last_row = table0.index.max() if len(table0) else pd.Timestamp("1900-01-01")
         st_now = (snap["is_st"] | snap["is_delist"]).reindex(raw.columns).fillna(False) if len(snap) else None
-        for pd_me in month_ends(raw.index[raw.index < d]):
+        for pd_me in month_ends(raw.index[raw.index < d.replace(day=1)]):   # 只补本月之前已结束的月份
             if pd_me <= last_row or (ctx.state / f"tail_members_{pd_me.date()}.json").exists():
                 continue
             if raw.index.get_loc(pd_me) < 260:          # 因子需要约 250 天历史
@@ -385,33 +505,12 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
                 sc.loc[c, "value"] = (sc["value_raw"] < vr[c]).mean() * 100 if np.isfinite(vr[c]) else np.nan
                 sc.loc[c, "short"] = (sc["short_raw"] < sr[c]).mean() * 100
                 sc.loc[c, "total"] = np.nan
-        expl_short = explain(short_model, matrix(ranks, short_model.features, codes), codes, ranks)
-        base = {}
-        for c in codes:
-            pc = raw[c].dropna()
-            rv = TAIL.contributions(ranks, tail_w, c)[:6]
-            for r_ in rv:
-                r_["name"] = FACTOR_LABELS.get(r_["factor"], r_["factor"])
-            base[c] = {
-                "code": c, "name": name_map.get(c, c), "industry": ind_map.get(c),
-                "value": clean(sc.loc[c, "value"], 1), "short_model": clean(sc.loc[c, "short"], 1),
-                "total_base": clean(sc.loc[c, "total"], 1),
-                "price": clean(pc.iloc[-1], 3) if len(pc) else None,
-                "pct_today": clean(pc.iloc[-1] / pc.iloc[-2] - 1) if len(pc) > 1 and pc.index[-1] == d else None,
-                "suspended": bool(len(pc) and pc.index[-1] != d),
-                "ret_since_pick": clean(pc.iloc[-1] / picks_state["entry_close"].get(c) - 1)
-                if picks_state["entry_close"].get(c) else None,
-                "is_st": bool(snap["is_st"].get(c, False)) if len(snap) else False,
-                "reasons_value": rv,
-                "reasons_short": expl_short.get(c, []),
-                "pe_ttm": clean(snap["pe_ttm"].get(c)) if len(snap) else None,
-                "pb": clean(snap["pb"].get(c)) if len(snap) else None,
-                "total_mv_yi": clean(snap["total_mv"].get(c) / 1e8, 1) if len(snap) and c in snap.index else None,
-                # 收盘时各因子的全市场分位：本地盘中模式下算不出来的因子（如行业动量）沿用这里的值
-                "feat_ranks": {k: clean(v.get(c), 4) for k, v in ranks.items()},
-            }
+        base = make_base(codes, picks_state, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d)
+        tech = tech_section(ctx, settings, sc, ranks, tail_w, short_model, raw, snap, name_map, ind_map, d, cal,
+                            can_pick)
         ew = raw.pct_change(fill_method=None).loc[:, mask[mask].index].mean(axis=1)
         latest = {"data_date": str(d.date()), "month": month, "pick_date": picks_state["pick_date"],
+                  "tech": {k: v for k, v in (tech or {}).items() if k not in ("pred_dist", "track")} or None,
                   "picks_note": picks_state.get("note", ""),
                   "base": base, "ew_ret20": clean((1 + ew.tail(20)).prod() - 1),
                   "universe_n": int(mask.sum()), "tail_weights": tail_w}
@@ -422,6 +521,8 @@ def run(mode: str = "close", out_dir: str | Path = "site_data", models_dir: str 
         mret = p["close"].pct_change(fill_method=None).mean(axis=1).tail(300)
         write_json(ctx.state / "factor_dist.json", {"date": str(d.date()), "dist": factor_distribution(raw_last),
                                                     "pred_dist": pred_dist, "weights": w, "tail_weights": tail_w,
+                                                    "pred_dist_tech": (tech or {}).get("pred_dist"),
+                                                    "weights_tech": (tech or {}).get("weights"),
                                                     "mkt_ret": {str(k.date()): clean(v, 6) for k, v in mret.items()}})
         track = update_track(ctx, raw, mask, d)
     else:
@@ -453,17 +554,54 @@ def update_track(ctx: Context, raw: pd.DataFrame, mask: pd.Series, d: pd.Timesta
     return rows
 
 
+def assemble(ctx, base: dict, quotes, stats, matched, ov_cfg, w, data_date: str, mode: str, hist_file: Path):
+    """叠加海外联动与新闻情绪、按综合分排名、记录每日历史。返回（排名列表, 历史）。"""
+    picks = []
+    for c, b in base.items():
+        # 只使用「数据日期当天或之后」的海外收盘：收盘后（19:23）最新的美股是前一晚的，已经反映在今天 A 股收盘价里
+        pred_ex, chains = OV.chain_signals(c, quotes, stats, ov_cfg.get("overseas_min_t", 2.0), b.get("industry"),
+                                           min_date=data_date)
+        ov_pts = float(np.clip(pred_ex * ov_cfg.get("overseas_points_per_pct", 8.0),
+                               -ov_cfg.get("overseas_cap", 10.0), ov_cfg.get("overseas_cap", 10.0)))
+        items = matched.get(c, [])
+        ns = aggregate(items)
+        news_pts = float(np.clip(ns * ov_cfg.get("news_points", 6.0), -6, 6)) if items else 0.0
+        short = None if b["short_model"] is None else float(np.clip(b["short_model"] + ov_pts + news_pts, 0, 100))
+        val = b["value"]
+        total = None if val is None or short is None else w["value"] * val + w["short"] * short
+        picks.append({**b, "short": clean(short, 1), "total": clean(total, 1), "chains": chains,
+                      "signals": {"overseas": round(ov_pts / 4, 2), "overseas_pred_pct": round(pred_ex, 3),
+                                  "news": ns, "news_points": round(news_pts, 1), "overseas_points": round(ov_pts, 1)},
+                      "news": [{k: x.get(k) for k in ("time", "source", "title", "url", "sentiment", "events", "match")}
+                               for x in items[:6]]})
+    ranked = sorted(picks, key=lambda x: (-(x["total"] if x["total"] is not None else -1), x["code"]))
+    hist = read_json(hist_file, {})
+    prev_dates = sorted(k for k in hist if (k < data_date if mode == "close" else k <= data_date))
+    prev = hist[prev_dates[-1]] if prev_dates else {}
+    for i, p in enumerate(ranked, 1):
+        p["rank"] = i
+        p["prev_rank"] = (prev.get(p["code"]) or [None] * 4)[3]
+    if mode == "close":
+        hist[data_date] = {p["code"]: [p["total"], p["value"], p["short"], p["rank"]] for p in ranked}
+        write_json(hist_file, hist)
+    history = {c: [[dte, *(hist[dte].get(c) or [None] * 4)[:3]] for dte in sorted(hist)] for c in base}
+    return ranked, history
+
+
 def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     s = ctx.settings
     ov_cfg = s.get("overlay", {})
     w = s.get("score_weights", {"value": 0.6, "short": 0.4})
     base = latest["base"]
-    codes = list(base)
+    tech = latest.get("tech") or None
+    tech_base = (tech or {}).get("base", {})
+    all_base = {**tech_base, **base}
+    all_codes = list(all_base)
     # ---- 海外
     stats = OV.load_linkage_stats(ROOT / "config" / "linkage_stats.json")
     quotes = {}
     try:
-        quotes = OV.fetch_overseas(OV.needed_symbols(codes, [base[c].get('industry') for c in codes]))
+        quotes = OV.fetch_overseas(OV.needed_symbols(all_codes, [all_base[c].get('industry') for c in all_codes]))
         ok = sum(1 for q in quotes.values() if q.get("ok"))
         ctx.note("海外行情(腾讯美股/新浪期货)", ok > 0, f"{ok}/{len(quotes)}")
     except Exception as e:  # noqa: BLE001
@@ -475,9 +613,9 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
         ctx.note("新闻快讯", len(news) > 0, f"{len(news)} 条")
     except Exception as e:  # noqa: BLE001
         ctx.note("新闻快讯", False, str(e))
-    names = {c: base[c]["name"] for c in codes}
+    names = {c: all_base[c]["name"] for c in all_codes}
     chain_kw = {}
-    for c in codes:
+    for c in all_codes:
         kws = []
         for ch in CHAINS:
             if c in ch["a_shares"]:
@@ -494,38 +632,19 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
         picks_hit = [c for c, nm in names.items() if len(nm) >= 2 and nm.replace("*", "").replace("ST", "") in txt]
         news_out.append({**n, "content": n.get("content", "")[:300], "sentiment": st.score, "events": st.events,
                          "picks": picks_hit})
-    # ---- 组装 30 只
-    picks = []
-    for c in codes:
-        b = base[c]
-        # 只使用「数据日期当天或之后」的海外收盘：收盘后（19:23）最新的美股是前一晚的，已经反映在今天 A 股收盘价里
-        pred_ex, chains = OV.chain_signals(c, quotes, stats, ov_cfg.get("overseas_min_t", 2.0), b.get("industry"),
-                                           min_date=latest["data_date"])
-        ov_pts = float(np.clip(pred_ex * ov_cfg.get("overseas_points_per_pct", 8.0),
-                               -ov_cfg.get("overseas_cap", 10.0), ov_cfg.get("overseas_cap", 10.0)))
-        items = matched.get(c, [])
-        ns = aggregate(items)
-        news_pts = float(np.clip(ns * ov_cfg.get("news_points", 6.0), -6, 6)) if items else 0.0
-        short = None if b["short_model"] is None else float(np.clip(b["short_model"] + ov_pts + news_pts, 0, 100))
-        val = b["value"]
-        total = None if val is None or short is None else w["value"] * val + w["short"] * short
-        picks.append({**b, "short": clean(short, 1), "total": clean(total, 1), "chains": chains,
-                      "signals": {"overseas": round(ov_pts / 4, 2), "overseas_pred_pct": round(pred_ex, 3),
-                                  "news": ns, "news_points": round(news_pts, 1), "overseas_points": round(ov_pts, 1)},
-                      "news": [{k: x.get(k) for k in ("time", "source", "title", "url", "sentiment", "events", "match")}
-                               for x in items[:6]]})
-    ranked = sorted(picks, key=lambda x: -(x["total"] or -1))
-    hist_file = ctx.state / f"daily_{latest['month']}.json"
-    hist = read_json(hist_file, {})
-    prev_dates = sorted(k for k in hist if (k < latest["data_date"] if mode == "close" else k <= latest["data_date"]))
-    prev = hist[prev_dates[-1]] if prev_dates else {}
-    for i, p in enumerate(ranked, 1):
-        p["rank"] = i
-        p["prev_rank"] = (prev.get(p["code"]) or [None] * 4)[3]
-    if mode == "close":
-        hist[latest["data_date"]] = {p["code"]: [p["total"], p["value"], p["short"], p["rank"]] for p in ranked}
-        write_json(hist_file, hist)
-    history = {c: [[dte, *(hist[dte].get(c) or [None] * 4)[:3]] for dte in sorted(hist)] for c in codes}
+    # ---- 组装两个榜单
+    ranked, history = assemble(ctx, base, quotes, stats, matched, ov_cfg, w, latest["data_date"], mode,
+                               ctx.state / f"daily_{latest['month']}.json")
+    tech_out = None
+    if tech:
+        tw = (ctx.settings.get("tech") or {}).get("score_weights", w)
+        t_ranked, t_hist = assemble(ctx, tech_base, quotes, stats, matched, ov_cfg, tw, latest["data_date"], mode,
+                                    ctx.state / f"tech_daily_{tech['week']}.json")
+        tech_out = {"week": tech["week"], "pick_date": tech["pick_date"], "note": tech.get("note", ""),
+                    "universe_n": tech.get("universe_n"), "picks": t_ranked, "history": t_hist,
+                    "track": read_json(ctx.state / "tech_track.json", []),
+                    "weights": tw,
+                    "industries": (ctx.settings.get("tech") or {}).get("industries")}
     # ---- 市场
     market = {"indices": [], "global": []}
     try:
@@ -581,14 +700,15 @@ def build_dashboard(ctx: Context, latest: dict, track: list, mode: str) -> dict:
     # ---- 观察清单
     ev_cfg = W.load_events(ROOT / "config" / "events.json")
     today = now_bj().date()
-    watch = {"signals": W.live_signals(quotes, ranked, rates, margin, breadth),
-             "events": W.upcoming_events(ev_cfg, ranked, today, s.get("watch_days_ahead", 21)),
-             "themes": W.themes(ev_cfg, ranked)}
+    both = ranked + [p for p in ((tech_out or {}).get("picks") or []) if p["code"] not in base]
+    watch = {"signals": W.live_signals(quotes, both, rates, margin, breadth),
+             "events": W.upcoming_events(ev_cfg, both, today, s.get("watch_days_ahead", 21)),
+             "themes": W.themes(ev_cfg, both)}
     dash = {
         "generated_at": now_bj().strftime("%Y-%m-%d %H:%M"), "mode": mode, "data_date": latest["data_date"],
         "month": latest["month"], "pick_date": latest["pick_date"], "universe_n": latest.get("universe_n"),
-        "picks_note": latest.get("picks_note", ""),
-        "market": market, "picks": ranked, "history": history, "watch": watch, "news": news_out,
+        "picks_note": latest.get("picks_note", ""), "weights": w,
+        "market": market, "picks": ranked, "history": history, "tech": tech_out, "watch": watch, "news": news_out,
         "track": track, "sources": ctx.sources, "method": METHOD_HTML,
         "factor_labels": FACTOR_LABELS,
     }
