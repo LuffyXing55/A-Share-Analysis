@@ -38,7 +38,7 @@
   function render() {
     const d = state.dash;
     $("#subline").textContent = `数据日期 ${d.data_date} · 更新于 ${d.generated_at} · 本月组合 ${d.month}（${d.pick_date} 收盘后选出）` +
-      (d.picks_note && d.picks_note.includes("不完整") ? ` · ⚠ ${d.picks_note}` : "");
+      (d.picks_note && /不完整|补选/.test(d.picks_note) ? ` · ⚠ ${d.picks_note}` : "");
     const mb = $("#mode-badge");
     mb.textContent = state.live ? "● 盘中实时（本地）" : "日更（GitHub）";
     mb.className = "mode" + (state.live ? " live" : "");
@@ -108,7 +108,7 @@
     $("#tech-title").textContent = `科技股周榜 · ${t.picks.length} 只（${t.week}）`;
     $("#tech-hint").textContent = `独立于 30 强：只在申万一级「${(t.industries || ["电子", "计算机", "通信", "传媒"]).join(" / ")}」的科技股池（${t.universe_n ?? "—"} 只）里选，` +
       `每周最后一个交易日收盘后选出下周名单（${t.pick_date} 收盘后选出），每天重新打分排名。综合分 = ${w.value}×价值分 + ${w.short}×短线分，` +
-      `分数是在科技股池内的分位。` + (t.note && t.note.includes("不完整") ? ` ⚠ ${t.note}` : "");
+      `分数是在科技股池内的分位。` + (t.note && /不完整|补选/.test(t.note) ? ` ⚠ ${t.note}` : "");
     $("#tech-body").innerHTML = rowsHTML(t.picks, state.sortTech);
     document.querySelectorAll("#tech-body tr").forEach((tr) => tr.addEventListener("click", () => showDetail(tr.dataset.code, "tech")));
     const bt = state.btTech;
