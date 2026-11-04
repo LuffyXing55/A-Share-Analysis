@@ -45,6 +45,10 @@ def build_scores(F: Path, final: Path, out: Path, industry: Path) -> None:
     we = week_ends(dates)
     we = we[(we >= pd.Timestamp("2015-06-01")) & (we < dates[-6])]
     feats = {n: pd.read_parquet(F / f"f_{n}.parquet") for n in PROD_FACTORS}
+    from .tail_composite import EXTRA
+
+    tail_feats = {**feats, **{n: pd.read_parquet(F / f"f_{n}.parquet") for n in EXTRA
+                              if (F / f"f_{n}.parquet").exists()}}
     # 1) 短线模型：每周预测（全市场训练、每半年重训、训练样本与预测日之间留出持有期）
     fp = out / "score_GBM5_weekly.parquet"
     if not fp.exists():
@@ -61,12 +65,12 @@ def build_scores(F: Path, final: Path, out: Path, industry: Path) -> None:
     realized = label_realized_dates(tt.index, dates)
     rows = []
     for d in we:
-        w = tail_weights(tt, d, 36, 0.5, realized=realized)
+        w = tail_weights(tt, d, 36, 0.5, realized=realized, available=set(tail_feats))
         if not w:
             continue
         tot, ws = 0.0, 0.0
         for n, x in w.items():
-            tot = tot + feats[n].loc[d].where(u.loc[d]).fillna(0.5) * x
+            tot = tot + tail_feats[n].loc[d].where(u.loc[d]).fillna(0.5) * x
             ws += x
         rows.append((tot / ws).where(u.loc[d]).rename(d))
     pd.DataFrame(rows).to_parquet(out / "score_TAIL_weekly.parquet")
