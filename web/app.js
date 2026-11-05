@@ -23,6 +23,119 @@
     return r.json();
   }
 
+  // ------------------------------------------------------------------ 云端实时涨跌（只改价格 / 涨跌幅，不改看好分）
+  // GitHub Pages 没有后端，浏览器直接向公开行情接口要最新价：
+  //   首选腾讯 qt.gtimg.cn（用 <script> 标签加载，返回 var v_sh600000="..."，不受跨域限制）；
+  //   失败时改用东财 push2 的 JSONP（cb=回调函数）。
+  // 盘中（北京 9:15–11:31、12:59–15:01）每 60 秒刷新，其余时间每 10 分钟刷新一次。
+  const QUOTE = { at: null, src: "", fail: 0, timer: null, base: null };
+
+  function loadScript(src, timeoutMs = 8000) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src; s.charset = "gbk"; s.async = true;
+      const done = (ok) => { clearTimeout(t); s.remove(); ok ? resolve() : reject(new Error("load " + src)); };
+      const t = setTimeout(() => done(false), timeoutMs);
+      s.onload = () => done(true); s.onerror = () => done(false);
+      document.head.appendChild(s);
+    });
+  }
+
+  function bjNow() {  // 北京时间的 {day, hm}，与访问者所在时区无关
+    const d = new Date(Date.now() + 8 * 3600e3);
+    return { day: d.getUTCDay(), hm: d.getUTCHours() * 100 + d.getUTCMinutes() };
+  }
+  function inSession() {
+    const { day, hm } = bjNow();
+    return day >= 1 && day <= 5 && ((hm >= 915 && hm <= 1131) || (hm >= 1259 && hm <= 1501));
+  }
+
+  const fmtTs = (s) => (s && s.length >= 12) ? `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)} ${s.slice(8, 10)}:${s.slice(10, 12)}` + (s.length >= 14 ? ":" + s.slice(12, 14) : "") : "";
+
+  async function tencentQuotes(codes) {
+    const out = {};
+    for (let i = 0; i < codes.length; i += 60) {
+      const chunk = codes.slice(i, i + 60);
+      // 末尾加一个不存在的代码当作防缓存参数：腾讯对未知代码只返回 v_pv_none_match，不影响其它结果
+      await loadScript("https://qt.gtimg.cn/q=" + chunk.join(",") + ",t" + Date.now());
+      chunk.forEach((c) => {
+        const raw = window["v_" + c];
+        if (typeof raw !== "string") return;
+        const f = raw.split("~");
+        const price = parseFloat(f[3]), prev = parseFloat(f[4]);
+        if (!(price > 0) || !(prev > 0)) return;  // 停牌或无成交：保留原值
+        out[c] = { price, pct: price / prev - 1, ts: f[30] || "" };
+        try { delete window["v_" + c]; } catch (e) { window["v_" + c] = undefined; }
+      });
+    }
+    return out;
+  }
+
+  async function eastmoneyQuotes(codes) {
+    const secid = (c) => (c.startsWith("sh") ? "1." : "0.") + c.slice(2);
+    const back = {}; codes.forEach((c) => { back[c.slice(2) + "|" + (c.startsWith("sh") ? 1 : 0)] = c; });
+    const cb = "__emq" + Date.now();
+    let js = null;
+    window[cb] = (x) => { js = x; };
+    try {
+      await loadScript("https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f2,f3,f12,f13,f18,f124" +
+        "&secids=" + codes.map(secid).join(",") + "&cb=" + cb + "&_=" + Date.now());
+    } finally { try { delete window[cb]; } catch (e) { window[cb] = undefined; } }
+    const out = {};
+    ((js && js.data && js.data.diff) || []).forEach((r) => {
+      const c = back[r.f12 + "|" + r.f13];
+      const price = Number(r.f2), prev = Number(r.f18);
+      if (!c || !(price > 0) || !(prev > 0)) return;
+      const d = new Date((Number(r.f124) || 0) * 1000 + 8 * 3600e3);
+      const p2 = (n) => String(n).padStart(2, "0");
+      const ts = r.f124 ? `${d.getUTCFullYear()}${p2(d.getUTCMonth() + 1)}${p2(d.getUTCDate())}${p2(d.getUTCHours())}${p2(d.getUTCMinutes())}${p2(d.getUTCSeconds())}` : "";
+      out[c] = { price, pct: price / prev - 1, ts };
+    });
+    return out;
+  }
+
+  function quoteTargets() {
+    const d = state.dash;
+    const stocks = [...(d.picks || []), ...((d.tech || {}).picks || [])];
+    const idx = (d.market || {}).indices || [];
+    return { stocks, idx, codes: [...new Set([...stocks, ...idx].map((x) => x.code).filter((c) => /^(sh|sz|bj)\d{6}$/.test(c)))] };
+  }
+
+  async function refreshQuotes() {
+    if (!state.dash || state.live) return;
+    const { stocks, idx, codes } = quoteTargets();
+    if (!codes.length) return;
+    if (!QUOTE.base) {  // 记住日更数据里的价格，用来推算「入选以来」收益
+      QUOTE.base = {};
+      stocks.forEach((p) => { if (isNum(p.price)) QUOTE.base[p.code] = { price: p.price, ret: isNum(p.ret_since_pick) ? p.ret_since_pick : null }; });
+    }
+    let q = {}, src = "";
+    try { q = await tencentQuotes(codes); src = "腾讯"; } catch (e) { q = {}; }
+    if (Object.keys(q).length < codes.length / 2) {
+      try { const q2 = await eastmoneyQuotes(codes); if (Object.keys(q2).length > Object.keys(q).length) { q = q2; src = "东财"; } } catch (e) { /* 两个都失败 */ }
+    }
+    if (!Object.keys(q).length) { QUOTE.fail++; renderStamp(); return; }
+    QUOTE.fail = 0; QUOTE.src = src;
+    let latest = "";
+    stocks.forEach((p) => {
+      const x = q[p.code]; if (!x) return;
+      p.price = x.price; p.pct_today = x.pct;
+      const b = QUOTE.base[p.code];
+      if (b && b.ret !== null && b.price > 0) p.ret_since_pick = (1 + b.ret) * (x.price / b.price) - 1;
+      if (x.ts > latest) latest = x.ts;
+    });
+    idx.forEach((m) => { const x = q[m.code]; if (x) { m.price = x.price; m.pct = x.pct; if (x.ts > latest) latest = x.ts; } });
+    QUOTE.at = fmtTs(latest) || new Date().toLocaleTimeString("zh-CN", { hour12: false });
+    if (state.dash.market && idx.some((m) => q[m.code])) state.dash.market.time = QUOTE.at;
+    render();
+  }
+
+  function scheduleQuotes() {
+    clearTimeout(QUOTE.timer);
+    const wait = document.hidden ? 300000 : (inSession() ? 60000 : 600000);
+    QUOTE.timer = setTimeout(async () => { await refreshQuotes().catch(() => {}); scheduleQuotes(); }, wait);
+  }
+
   async function load() {
     try {
       state.dash = await getJSON("/api/live");
@@ -45,16 +158,20 @@
         render();
       } catch (e) { /* 保留上一轮 */ }
     }, 30000);
+    if (!state.live) {
+      await refreshQuotes().catch(() => {});
+      scheduleQuotes();
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && inSession()) refreshQuotes().catch(() => {});
+        scheduleQuotes();
+      });
+    }
   }
 
   // ------------------------------------------------------------------ 总渲染
   function render() {
     const d = state.dash;
-    $("#subline").textContent = `数据日期 ${d.data_date} · 更新于 ${d.generated_at} · 本月组合 ${d.month}（${d.pick_date} 收盘后选出）` +
-      (d.picks_note && /不完整|补选/.test(d.picks_note) ? ` · ⚠ ${d.picks_note}` : "");
-    const mb = $("#mode-badge");
-    mb.textContent = state.live ? "● 盘中实时（本地）" : "日更（GitHub）";
-    mb.className = "mode" + (state.live ? " live" : "");
+    renderStamp();
     renderMarket(d.market || {});
     const hasTech = !!(d.tech && d.tech.picks && d.tech.picks.length);
     $('#list-tabs [data-list="tech"]').classList.toggle("hidden", !hasTech);
@@ -65,6 +182,28 @@
     renderNews(d.news || []);
     renderModel();
     renderTechBT();
+    fitHeader();
+  }
+
+  // 顶部两行时间：看好程度（模型分，每天 1–2 次）和涨跌幅（价格，云端实时拉取）
+  function renderStamp() {
+    const d = state.dash;
+    const note = d.picks_note && /不完整|补选/.test(d.picks_note) ? ` · ⚠ ${d.picks_note}` : "";
+    const mb = $("#mode-badge");
+    if (state.live) {
+      $("#subline").textContent = `数据日期 ${d.data_date} · 更新于 ${d.generated_at} · 本月组合 ${d.month}（${d.pick_date} 收盘后选出）` + note;
+      mb.textContent = "● 盘中实时（本地）"; mb.className = "mode live";
+      return;
+    }
+    const px = QUOTE.at
+      ? `涨跌幅更新于 ${QUOTE.at}（${QUOTE.src}行情，${inSession() ? "盘中每分钟刷新" : "非交易时间"}）` + (QUOTE.fail ? " · ⚠ 最近一次刷新失败" : "")
+      : (QUOTE.fail ? `涨跌幅更新于 ${d.generated_at}（⚠ 实时行情获取失败，显示的是日更数据）` : `涨跌幅更新于 ${d.generated_at}（正在获取实时行情…）`);
+    $("#subline").innerHTML = `<span class="stamp">看好程度更新于 ${esc(d.generated_at)}（数据日期 ${esc(d.data_date)}，每天 1–2 次）</span>` +
+      `<span class="stamp">${esc(px)}</span>` +
+      `<span class="stamp">本月组合 ${esc(d.month)}（${esc(d.pick_date)} 收盘后选出）${esc(note)}</span>`;
+    const rt = !!QUOTE.at && !QUOTE.fail;
+    mb.textContent = rt ? (inSession() ? "● 涨跌实时（云端）" : "涨跌已更新（云端）") : "日更（GitHub）";
+    mb.className = "mode" + (rt && inSession() ? " live" : "");
     fitHeader();
   }
 
