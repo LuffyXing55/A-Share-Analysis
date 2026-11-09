@@ -1,5 +1,5 @@
 {
-"generated_at": "2026-11-10 05:31",
+"generated_at": "2026-11-10 06:59",
 "mode": "close",
 "data_date": "2026-11-09",
 "month": "2026-11",
@@ -114,28 +114,28 @@
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"price": 4153.2,
-"pct": 0.01804098441023627,
+"price": 4149.5,
+"pct": 0.017134032748308714,
 "date": "2026-11-09"
 },
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"price": 637.2,
-"pct": 0.017891373801917076,
+"price": 638.05,
+"pct": 0.019249201277955263,
 "date": "2026-11-09"
 },
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"price": 86.9,
-"pct": -0.03807837059995567,
+"price": 86.37,
+"pct": -0.04394509630285581,
 "date": "2026-11-09"
 },
 {
 "symbol": "US10Y",
 "name": "美债10Y(%)",
-"price": 4.86,
+"price": 4.88,
 "pct": null,
 "bp": 2.0
 },
@@ -157,7 +157,7 @@
 "score": -1,
 "text": "全A等权近20日 -6.2%；融资余额5日 -2.6%；涨停54/跌停1。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
 },
-"time": "2026-11-10 05:31"
+"time": "2026-11-10 06:59"
 },
 "picks": [
 {
@@ -604,7 +604,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -757,7 +757,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.03807837059995567,
+"pct": -0.04394509630285581,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -1399,8 +1399,8 @@
 "ind_mom_60": 0.657,
 "rel_ind_60": 0.1793
 },
-"short": 96.6,
-"total": 97.7,
+"short": 96.5,
+"total": 97.6,
 "chains": [
 {
 "id": "industry",
@@ -1411,14 +1411,14 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.03807837059995567,
+"pct": -0.04394509630285581,
 "date": "2026-11-09",
 "suspect": false
 },
 {
 "symbol": "BZ=F",
 "name": "BZ=F",
-"pct": -0.05422794117647056,
+"pct": -0.05739379084967322,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -1426,15 +1426,15 @@
 "beta": 0.108,
 "corr": 0.262,
 "sample": "2412 个交易日（行业等权）",
-"pred_excess_pct": -0.223
+"pred_excess_pct": -0.243
 }
 ],
 "signals": {
-"overseas": -0.45,
-"overseas_pred_pct": -0.223,
+"overseas": -0.49,
+"overseas_pred_pct": -0.243,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": -1.8
+"overseas_points": -1.9
 },
 "news": [],
 "rank": 8,
@@ -1724,7 +1724,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.03807837059995567,
+"pct": -0.04394509630285581,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -1732,12 +1732,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": -0.011
+"pred_excess_pct": -0.013
 }
 ],
 "signals": {
-"overseas": -0.02,
-"overseas_pred_pct": -0.011,
+"overseas": -0.03,
+"overseas_pred_pct": -0.013,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.1
@@ -1877,7 +1877,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.03807837059995567,
+"pct": -0.04394509630285581,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -1885,12 +1885,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": -0.011
+"pred_excess_pct": -0.013
 }
 ],
 "signals": {
-"overseas": -0.02,
-"overseas_pred_pct": -0.011,
+"overseas": -0.03,
+"overseas_pred_pct": -0.013,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.1
@@ -2030,7 +2030,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 },
@@ -2045,12 +2045,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.004
+"pred_excess_pct": -0.005
 }
 ],
 "signals": {
 "overseas": -0.01,
-"overseas_pred_pct": -0.004,
+"overseas_pred_pct": -0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.0
@@ -2190,7 +2190,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.03807837059995567,
+"pct": -0.04394509630285581,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -2198,12 +2198,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": -0.011
+"pred_excess_pct": -0.013
 }
 ],
 "signals": {
-"overseas": -0.02,
-"overseas_pred_pct": -0.011,
+"overseas": -0.03,
+"overseas_pred_pct": -0.013,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.1
@@ -2656,7 +2656,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -2809,7 +2809,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.03807837059995567,
+"pct": -0.04394509630285581,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -2817,12 +2817,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": -0.011
+"pred_excess_pct": -0.013
 }
 ],
 "signals": {
-"overseas": -0.02,
-"overseas_pred_pct": -0.011,
+"overseas": -0.03,
+"overseas_pred_pct": -0.013,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.1
@@ -2962,14 +2962,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": 0.01804098441023627,
+"pct": 0.017134032748308714,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -3428,7 +3428,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 },
@@ -3443,12 +3443,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.004
+"pred_excess_pct": -0.005
 }
 ],
 "signals": {
 "overseas": -0.01,
-"overseas_pred_pct": -0.004,
+"overseas_pred_pct": -0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.0
@@ -3901,7 +3901,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": -0.03807837059995567,
+"pct": -0.04394509630285581,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -3909,12 +3909,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": -0.011
+"pred_excess_pct": -0.013
 }
 ],
 "signals": {
-"overseas": -0.02,
-"overseas_pred_pct": -0.011,
+"overseas": -0.03,
+"overseas_pred_pct": -0.013,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.1
@@ -4214,7 +4214,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 },
@@ -4229,12 +4229,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.004
+"pred_excess_pct": -0.005
 }
 ],
 "signals": {
 "overseas": -0.01,
-"overseas_pred_pct": -0.004,
+"overseas_pred_pct": -0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.0
@@ -4374,14 +4374,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": 0.01804098441023627,
+"pct": 0.017134032748308714,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -4847,7 +4847,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": 0.017891373801917076,
+"pct": 0.019249201277955263,
 "date": "2026-11-09",
 "suspect": false
 }
@@ -5058,9 +5058,9 @@
 ],
 [
 "2026-11-09",
-97.7,
+97.6,
 98.4,
-96.6
+96.5
 ]
 ],
 "sh603150": [
@@ -8533,7 +8533,14 @@
 },
 {
 "title": "海外异动：BZ=F明显下跌",
-"text": "2026-11-09 收盘 -5.42%（约为日常单日波动的 1.8 倍）。关联 A 股产业链：石油石化(上游)。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"text": "2026-11-09 收盘 -5.74%（约为日常单日波动的 1.9 倍）。关联 A 股产业链：石油石化(上游)。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"picks": [],
+"level": 2,
+"when": "美股 2026-11-09"
+},
+{
+"title": "海外异动：WTI原油明显下跌",
+"text": "2026-11-09 收盘 -4.39%（约为日常单日波动的 1.5 倍）。关联 A 股产业链：石油石化(上游)。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
 "picks": [],
 "level": 2,
 "when": "美股 2026-11-09"
@@ -9014,608 +9021,596 @@
 },
 "news": [
 {
-"title": "美国总统特朗普：卡塔尔、沙特阿拉伯、阿联酋、巴林、科威特及其他国家更倾向于维持现状。",
-"time": "2026-11-10 05:31:25",
+"title": "白宫提名克里斯托弗·穆法里格出任联邦贸易委员会委员，任期自9月26日起，为期七年。",
+"time": "2026-11-10 06:59:19",
 "source": "新浪7x24",
-"url": "",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvn9481882.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "美国总统特朗普：如果中东局势有任何变化，美国已“准备就绪”，随时可以行动。但就目前而言，这似乎不太可能。",
-"time": "2026-11-10 05:31:09",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2925431.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：与卡塔尔首相讨论了伊朗问题。",
-"time": "2026-11-10 05:30:39",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2925169.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：结束这场冲突正显现积极势头。",
-"time": "2026-11-10 05:30:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2925054.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：与卡塔尔首相进行了良好对话。",
-"time": "2026-11-10 05:30:08",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpq9584241.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "英伟达介入美国针对Megaspeed芯片走私案的调查。",
-"time": "2026-11-10 05:28:29",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6148502.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "加拿大方面称 将针对美国进口商品的广泛关税宽减措施延长一年",
-"time": "2026-11-10 05:27:25",
+"title": "特朗普称似乎没必要再对伊朗采取军事行动",
+"time": "2026-11-10 06:57:13",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926640324.html",
-"sentiment": -0.866,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "【300万美元对冲周二到期，目标锁定美国CPI发布日的债市抛售】美国国债周度期权（Weekly options）市场出现",
-"time": "2026-11-10 05:27:18",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2924190.d.html",
+"url": "https://finance.eastmoney.com/a/202611103926665717.html",
 "sentiment": -0.5,
-"events": [
-"海外宏观",
-"大宗商品"
-],
+"events": [],
 "picks": []
 },
 {
-"title": "JBS第三财季调整后EBITDA为11.8亿美元 低于预估的13.3亿美元",
-"time": "2026-11-10 05:26:42",
+"title": "乌总统办主任：乌方比任何一方都更愿意尽快结束冲突",
+"time": "2026-11-10 06:56:36",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926639990.html",
-"sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
+"url": "https://finance.eastmoney.com/a/202611103926665637.html",
+"sentiment": -0.866,
+"events": [],
 "picks": []
 },
 {
-"title": "JBS第三季度调整后EBITDA为11.8亿美元，市场预期为13.3亿美元。",
-"time": "2026-11-10 05:23:25",
+"title": "美国总统特朗普提名杰弗里·科利尔出任美国驻阿联酋大使。",
+"time": "2026-11-10 06:55:12",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2933879.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "加拿大工业部长：计划本周召集Unifor工会、斯特兰蒂斯、安大略省政府以及布兰普顿工厂举行会议。",
-"time": "2026-11-10 05:22:46",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6147118.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2832810.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "加拿大工业部长表示，斯特兰蒂斯将布兰普顿工厂出售给Roshel的决定，并不能免除其对工人的承诺。",
-"time": "2026-11-10 05:21:36",
+"title": "【A股上市公司积极回购，机构称市场底部构筑相对充分】随着近期市场连续震荡，A股估值已处于相对低位，上市公司积极开展回购。",
+"time": "2026-11-10 06:54:26",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6146787.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "周二（11月10日）重点关注财经事件和经济数据",
-"time": "2026-11-10 05:20:05",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926636446.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观",
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "【莫德纳第三季度每股盈利0.38美元，上调全年营收增长预期】莫德纳股价在盘后交易中上涨0.41%，此前公司公布第三季度业",
-"time": "2026-11-10 05:18:37",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6146220.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2832673.d.html",
 "sentiment": 1.0,
 "events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "芝加哥期权交易所波动率指数收跌5.72点，报19.92点，创2025年4月14日以来最大单日跌幅。",
-"time": "2026-11-10 05:18:20",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2932636.d.html",
-"sentiment": 1.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【西方石油第三季度净销售额65.7亿美元】西方石油第三季度净销售额为65.7亿美元，预期为67.9亿美元；每股收益为1.",
-"time": "2026-11-10 05:18:07",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6146141.d.html",
-"sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "【泛林集团获批250亿美元股票回购计划，宣布每股0.33美元季度股息】泛林集团董事会批准了一项新的250亿美元股票回购计",
-"time": "2026-11-10 05:17:52",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2922075.d.html",
-"sentiment": 1.0,
-"events": [
-"业绩",
 "回购增持",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "富时中国A50指数期货夜盘收涨1.06%",
-"time": "2026-11-10 05:17:32",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926635887.html",
-"sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "Anthropic据悉计划于下周四或下周五开始上市交易",
-"time": "2026-11-10 05:17:02",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926635745.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "富时A50期指连续夜盘收涨1.06%，报13043点。",
-"time": "2026-11-10 05:15:32",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2932293.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "市场消息：Anthropic计划于下周周四、周五开始交易。",
-"time": "2026-11-10 05:13:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpq9580224.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "特朗普媒体与科技集团第三财季营收为300万美元 调整后EBITDA亏损为1230万美元",
-"time": "2026-11-10 05:11:39",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926633380.html",
-"sentiment": -0.707,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "Hims & Hers Health预计全财年营收为31.3亿至31.5亿美元 低于预估的32.1亿美元",
-"time": "2026-11-10 05:11:09",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926632991.html",
-"sentiment": -0.5,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "加拿大财政部长表示，加拿大正对部分在加拿大市场供应短缺的进口商品给予定向关税减免。加拿大关税减免将涵盖用于采矿、采石或油",
-"time": "2026-11-10 05:11:01",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2921281.d.html",
-"sentiment": -1.0,
-"events": [
 "政策",
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "  特朗普媒体科技公司 2026 年第三季度期末总资产 25 亿美元，金融资产约 23 亿美元。",
-"time": "2026-11-10 05:10:20",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6145238.d.html",
+"title": "坦桑尼亚发生客车与卡车相撞事故 至少21人死亡",
+"time": "2026-11-10 06:49:04",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926665085.html",
 "sentiment": 0.0,
-"events": [
-"海外宏观"
-],
+"events": [],
 "picks": []
 },
 {
-"title": "加拿大财政部长表示，加拿大调整关税减免措施，将对美关税的横向减免延长一年，至2028年6月30日。",
-"time": "2026-11-10 05:09:57",
+"title": "【11月10日隔夜要闻一览】\n1、特朗普表示，美国目前似乎没有必要对伊朗采取军事行动，认为这场冲突很快就会结束。\n2、国",
+"time": "2026-11-10 06:47:59",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6145186.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2824518.d.html",
 "sentiment": -1.0,
 "events": [
 "政策",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "【Rocket Lab预计第四财季营收为2.7亿至2.9亿美元 预估为2.655亿美元】Rocket Lab第三财季营收",
-"time": "2026-11-10 05:09:45",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6145179.d.html",
-"sentiment": -0.707,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "特朗普媒体与科技集团第三季度调整后息税折旧摊销前利润为负1230万美元。",
-"time": "2026-11-10 05:08:00",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpq9579410.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "Lucid第三财季调整后每股亏损为2.30美元 预估为每股亏损2.16美元",
-"time": "2026-11-10 05:06:48",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926632468.html",
-"sentiment": -1.0,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "AMC Global Media第三财季净营收为5.661亿美元，低于预估的5.733亿美元；调整后每股收益为44美分，",
-"time": "2026-11-10 05:06:13",
-"source": "新浪7x24",
-"url": "",
-"sentiment": -0.5,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "Lucid Group三季度营收3.503亿美元，分析师预期3.939亿美元。",
-"time": "2026-11-10 05:06:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2920457.d.html",
-"sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "Lucid预计资金可支撑至2027年第四季度，此前PIF将其贷款增加17.5亿美元。",
-"time": "2026-11-10 05:05:09",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2920354.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "天空之舞在派拉蒙与华纳兄弟探索合并后，每年将削减至少60亿美元成本。",
-"time": "2026-11-10 05:04:33",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpq9578839.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "市场消息：至少四名阿拉伯及穆斯林国家领导人近日致电美国总统特朗普，敦促其避免对伊朗发动新一轮军事打击，给予外交谈判更多时",
-"time": "2026-11-10 05:03:55",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2920219.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "纳斯达克中国金龙指数收跌1.33%",
-"time": "2026-11-10 05:03:10",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926632287.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "英伟达收跌4.3%，创最近七个月收盘新低。",
-"time": "2026-11-10 05:01:12",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2919479.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "纳指收涨2.7% 芯片股大涨",
-"time": "2026-11-10 05:00:53",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926632129.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【美股收盘：三大股指集体收涨】道指涨2.15%，标普500指数涨2.34%，纳指涨2.77%。Coherent Corp",
-"time": "2026-11-10 05:00:48",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpq9578117.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：戴维·麦克尼尔将担任制造业特使。",
-"time": "2026-11-10 05:00:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6143278.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "市场消息：CNN在Skydance合并计划下将实施部分员工买断。",
-"time": "2026-11-10 04:59:53",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2929789.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "巴拿马运河管理局宣布，在巴拿马型船闸增加一个额外预订船位，并提高新巴拿马型船闸的最大吃水深度。",
-"time": "2026-11-10 04:57:24",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2918992.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "在Skydance合并计划下 CNN已出现部分员工通过买断方案离职的情况",
-"time": "2026-11-10 04:57:10",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926631945.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "Fireworks AI：一家托管Fireworks研发机器的第三方云服务提供商于10月23日发生安全事件。",
-"time": "2026-11-10 04:56:56",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2918933.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "胡塞武装：我们的武装力量在焦夫省上空使用适当武器击落了一架正在执行敌对行动的沙特敌方CH4型侦察机。自冲突升级以来，这是",
-"time": "2026-11-10 04:54:15",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6142527.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "埃及列车相撞死伤超百人 调查显示多方存在玩忽职守",
-"time": "2026-11-10 04:46:13",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926631866.html",
-"sentiment": -1.0,
-"events": [],
-"picks": []
-},
-{
-"title": "乌克兰总统泽连斯基表示，乌克兰在战场上的胜利增强了基辅在谈判中的地位。",
-"time": "2026-11-10 04:45:48",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2917635.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "参议员Wyden：将紧盯大型医药公司和保险企业。",
-"time": "2026-11-10 04:45:13",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6141598.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "法国外长巴罗9日称 伊朗对近期法国超市制冷系统受到网络攻击“负有责任”",
-"time": "2026-11-10 04:41:59",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926631697.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "参议员WYDEN：应该继续调查英伟达事件。",
-"time": "2026-11-10 04:39:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6141045.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "被问及是否会利用12月的拨款截止期限来试图结束对伊战争时，美国众议院民主党领导人Hakeem Jeffries表示：拨款",
-"time": "2026-11-10 04:37:04",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2927565.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国众议院民主党领袖杰弗里斯：特使库什纳不可能是一个可靠的伙伴。",
-"time": "2026-11-10 04:33:50",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2916495.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "国际油价9日显著下跌",
-"time": "2026-11-10 04:28:51",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926631036.html",
-"sentiment": -1.0,
-"events": [
 "海外宏观",
 "大宗商品"
 ],
 "picks": []
 },
 {
-"title": "众议院民主党领袖杰弗里斯：英伟达相关情况确实存在需要解决的切实关切。",
-"time": "2026-11-10 04:28:27",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2925931.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【国际油价9日显著下跌】国际油价9日显著下跌。截至当天收盘，纽约商品交易所12月交货的轻质原油期货价格下跌3.98美元，",
-"time": "2026-11-10 04:27:39",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2925721.d.html",
-"sentiment": -1.0,
-"events": [
-"海外宏观",
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "美国众议院民主党领袖杰弗里斯：国会显然需要获取更多关于英伟达情况的信息。",
-"time": "2026-11-10 04:23:51",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2924142.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美元指数9日下跌",
-"time": "2026-11-10 04:23:29",
+"title": "乌克兰谈判代表团抵达阿布扎比参加俄美乌三方会谈",
+"time": "2026-11-10 06:45:37",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926630842.html",
-"sentiment": -0.866,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美国总统特朗普：本周在阿布扎比举行的乌克兰问题会谈存在取得突破的可能。",
-"time": "2026-11-10 04:22:29",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpp2923454.d.html",
-"sentiment": 0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普为国防部长赫格塞斯辩护，反驳针对他的弹劾行动，称“他赢了两场战争”。",
-"time": "2026-11-10 04:21:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6136766.d.html",
+"url": "https://finance.eastmoney.com/a/202611103926664037.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "美国众议院民主党领袖杰弗里斯：移民问题需要以两党合作的方式解决。",
-"time": "2026-11-10 04:21:03",
+"title": "【中证报：公开市场灵活“削峰填谷”，呵护流动性充裕】“近期在公开市场操作上，人民银行在不同期限的净投放出现一定分化。”天",
+"time": "2026-11-10 06:44:45",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpq9570946.d.html",
-"sentiment": 0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2830110.d.html",
+"sentiment": 1.0,
 "events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "市场消息：美国参议院共和党成员蒂利斯称他预计会投票支持弹劾美国国防部长赫格塞斯。",
+"time": "2026-11-10 06:44:05",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6047301.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "AI电力缺口难填！国产燃机迎出海窗口 7股业绩倍增可期(名单)",
+"time": "2026-11-10 06:43:54",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926663866.html",
+"sentiment": 0.0,
+"events": [
+"业绩",
 "订单合作"
 ],
 "picks": []
 },
 {
-"title": "特朗普在与卡塔尔领导人会谈后表示 卡塔尔更希望与伊朗达成和平解决方案",
-"time": "2026-11-10 04:20:57",
+"title": "【特朗普称力挺美防长】当地时间11月9日下午，美国总统特朗普在白宫记者会上表示，如果美国国防部长赫格塞思遭到弹劾，他将力",
+"time": "2026-11-10 06:42:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2822651.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "稳市政策“组合拳”发力 机构强化逆周期布局",
+"time": "2026-11-10 06:39:33",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611103926630779.html",
+"url": "https://finance.eastmoney.com/a/202611103926625740.html",
+"sentiment": 0.671,
+"events": [
+"回购增持",
+"政策"
+],
+"picks": []
+},
+{
+"title": "多方发力稳投资 年末冲刺进行时",
+"time": "2026-11-10 06:38:00",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926625964.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "Skydance预计第四季度电影收入增长放缓。",
+"time": "2026-11-10 06:36:07",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6044340.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【特朗普称似乎没必要再打伊朗】当地时间11月9日下午，美国总统特朗普和终极格斗冠军赛（UFC）总裁达纳·怀特突然出现在白",
+"time": "2026-11-10 06:35:29",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6044100.d.html",
+"sentiment": -0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "【1年期AAA级同业存单收益率创历史新低。政策利率“换锚”传导效应显现】政策利率“换锚”落地后，同业存单市场迎来新变化。",
+"time": "2026-11-10 06:34:31",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2827412.d.html",
+"sentiment": 0.204,
+"events": [
+"回购增持",
+"政策"
+],
+"picks": []
+},
+{
+"title": "【周二重要财经信息提醒（以下均为北京时间）】\n① 07:50 日本央行公布10月货币政策会议审议委员意见摘要，日本9月贸",
+"time": "2026-11-10 06:34:15",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2827285.d.html",
+"sentiment": -1.0,
+"events": [
+"业绩",
+"监管处罚",
+"政策",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "  麦当劳向美国证监会提交文件，拟发行 12 亿美元中期票据，分为两档。",
+"time": "2026-11-10 06:30:01",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2817465.d.html",
+"sentiment": 0.0,
+"events": [
+"政策",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "北交所上市公司增持回购持续升温 产业资本密集出手传递信心",
+"time": "2026-11-10 06:28:36",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926625475.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "美联储12月加息的概率为84.2%",
+"time": "2026-11-10 06:28:01",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926661078.html",
+"sentiment": -1.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "高通申请发行40亿美元债券，分为5档，固定票息5.000%-5.800%。",
+"time": "2026-11-10 06:21:44",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2813175.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "周一（11月9日）纽约尾盘，现货黄金涨1.61%，报4136.20美元/盎司，亚太盘初刷新日低至4054.44美元、随后",
+"time": "2026-11-10 06:21:05",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6036944.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观",
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "【多方发力稳投资，年末冲刺进行时】进入四季度，从中央到地方、从财政资金到社会资本，多路力量正在向“稳投资”这一目标集中发",
+"time": "2026-11-10 06:20:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2812556.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【北交所上市公司增持回购持续升温，产业资本密集出手传递信心】10月以来，北交所上市公司增持回购动作密集：披露增持动向的上",
+"time": "2026-11-10 06:18:56",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6036201.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持",
+"减持解禁"
+],
+"picks": []
+},
+{
+"title": "周二你需要知道的隔夜全球要闻",
+"time": "2026-11-10 06:16:15",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926658060.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "特朗普称将继续实施对伊朗的封锁及“铁门”特遣行动",
+"time": "2026-11-10 06:14:22",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926657297.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【REITs“去不动产化”探路：动力电池批量“化身”金融底层资产】随着底层资产的扩围，“不动产投资信托基金（REITs）",
+"time": "2026-11-10 06:13:45",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2810539.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：米勒干得很出色，他将与民主党人相处融洽。",
+"time": "2026-11-10 06:12:52",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6034255.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【券商明年投资策略密集出炉 分散配置把握结构性机会 AI叙事尚未落幕】进入11月，卖方机构密集发布2027年投资策略。继",
+"time": "2026-11-10 06:09:53",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2808732.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：将支持美国国防部长赫格塞斯。若他遭弹劾，将支持他。",
+"time": "2026-11-10 06:09:20",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2808521.d.html",
+"sentiment": 1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "  贝恩资本专业金融公司截至 2026 年 9 月 30 日总资产 24.3 亿美元。",
+"time": "2026-11-10 06:09:00",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6032459.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【回购增持接力稳市 AI产业链公司频出手】11月9日晚间，A股上市公司回购、增持公告继续密集披露。据不完全统计，超15家",
+"time": "2026-11-10 06:08:52",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6032423.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "波兰克拉科夫举行静默游行悼念枪击事件遇难者",
+"time": "2026-11-10 06:08:35",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926655924.html",
+"sentiment": 0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "周一（11月9日）纽约尾盘（周二北京时间05:59），离岸人民币（CNH）兑美元报6.6694元，较上周五（非农日）纽约",
+"time": "2026-11-10 06:07:17",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2816320.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美国总统特朗普：赫格塞思打赢了委内瑞拉战事，他正在打赢对伊朗这场战争。",
+"time": "2026-11-10 06:06:31",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6031471.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "伊朗最高安全官员：是时候接受伊朗反复提出的七项条件了。",
+"time": "2026-11-10 06:05:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2807083.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "伊朗最高安全官员对美国喊话：“停止制造关于子虚乌有谈判的假新闻。”",
+"time": "2026-11-10 06:04:44",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2815549.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普就委内瑞拉问题表示，选举“将在某个时候”举行。",
+"time": "2026-11-10 06:03:43",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2806403.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普谈伊朗：我们刚刚还以防万一调派了另一艘航空母舰。我们有很多航母。它正驶往中东并刚刚抵达，因此我们目前有三艘",
+"time": "2026-11-10 06:01:30",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvn9462404.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：今天与英伟达CEO进行了交谈。",
+"time": "2026-11-10 06:01:07",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2805141.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【美联储12月加息25个基点的概率为84.2%】美联储到12月累计加息25个基点的概率为84.2%，维持利率不变的概率为",
+"time": "2026-11-10 06:00:55",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2814025.d.html",
+"sentiment": -1.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美国总统特朗普谈黄仁勋：希望没有问题。",
+"time": "2026-11-10 05:58:23",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2813494.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：联邦调查局正在调查此事。",
+"time": "2026-11-10 05:57:50",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2804113.d.html",
+"sentiment": -1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：视黄仁勋为高素质人才。",
+"time": "2026-11-10 05:57:38",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvk2804038.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普表示，他对英伟达首席执行官的指控感到“惊讶”。",
+"time": "2026-11-10 05:57:19",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6027949.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【摩根大通考虑以大幅折价吸引贷款人接手软件债务】由摩根大通牵头的银行财团，可能以折价方式出售Qualtrics Inte",
+"time": "2026-11-10 05:54:02",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvh6026708.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美国总统特朗普谈委内瑞拉：我们完全掌控局面。委内瑞拉人民爱戴我们。",
+"time": "2026-11-10 05:52:24",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2811966.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【SpaceX计划在德州投资240亿美元建设数据中心和天然气发电厂】根据美国德州Starbase市政府网站发布的听证会通",
+"time": "2026-11-10 05:51:23",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyexvm2811770.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【英国最大水务企业推出新一轮债务融资以自救】英国最大水务企业泰晤士水务9日宣布启动新一轮优先级债务融资安排，首期计划落实",
+"time": "2026-11-10 05:49:49",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2932341.d.html",
+"sentiment": -0.5,
+"events": [
+"监管处罚"
+],
+"picks": []
+},
+{
+"title": "特朗普：目前对伊朗采取军事行动似乎没有必要",
+"time": "2026-11-10 05:48:25",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611103926649021.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "卡塔尔首相：已与美国总统特朗普和副总统万斯会面，讨论了推动伊朗谈判取得进展的途径。",
+"time": "2026-11-10 05:47:50",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2931842.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：伊朗正以非常礼貌的态度与我们对话。",
+"time": "2026-11-10 05:47:41",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6155854.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普谈伊朗：我们拭目以待，很有可能就此结束。",
+"time": "2026-11-10 05:47:33",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6155830.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "哥伦比亚正与国际货币基金组织（IMF）就约150亿美元的备用安排进行谈判。",
+"time": "2026-11-10 05:47:26",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6155792.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美国总统特朗普：俄乌在阿布扎比的对话“非常好”。",
+"time": "2026-11-10 05:47:07",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2931651.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "OpenAI：控制室配合失准监测系统运行，在决定介入以停止或暂停任务后35秒内停止模型输出。",
+"time": "2026-11-10 05:46:41",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpq9589888.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：在伊朗的军事上实际上已经结束。",
+"time": "2026-11-10 05:46:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2931499.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：维持伊朗现状。",
+"time": "2026-11-10 05:46:21",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpk6155443.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "OpenAI：控制室是一个中央系统，用于追踪研究基础设施中的模型工作负载，并在出现安全或安保问题时将其停止。",
+"time": "2026-11-10 05:46:02",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-10/detail-iniyetpn2931300.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
