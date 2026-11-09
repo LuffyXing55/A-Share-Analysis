@@ -113,6 +113,38 @@ def trading_calendar(qlib_root: Path | None) -> pd.DatetimeIndex:
     return cal.append(extra)
 
 
+def snapshot_bar_day(snap: pd.DataFrame, last: pd.Timestamp, cal: pd.DatetimeIndex,
+                     now: datetime) -> tuple[pd.Timestamp | None, str]:
+    """判断能否用腾讯全市场快照补一根日线，返回 (要补的日期, 不能补时的原因)。
+
+    快照里的行情时间就是它所属的交易日。GitHub 的定时任务常常拖到第二天凌晨才跑，
+    所以不能用「现在是不是 15 点以后」来判断，而要看快照日期：
+      - 快照日期早于今天 → 那天早已收盘，可以补；
+      - 快照日期就是今天 → 15:00 收盘后才可以补；
+      - 只补上游日线之后紧挨着的那一个交易日，中间缺天就不补（补了会把两天的涨跌算成一天）。
+    """
+    if snap is None or not len(snap) or "time" not in snap:
+        return None, ""
+    ts = snap["time"].astype(str).str[:8]
+    ts = ts[ts.str.fullmatch(r"\d{8}")]
+    if not len(ts):
+        return None, ""
+    day_s = ts.mode().iloc[0]
+    if (ts == day_s).mean() <= 0.5:
+        return None, ""
+    day = pd.Timestamp(day_s)
+    today = pd.Timestamp(now.date())
+    if day <= last:
+        return None, ""
+    if day > today or (day == today and now.hour < 15):
+        return None, ""
+    nxt = cal[cal > last]
+    if not len(nxt) or nxt[0] != day:
+        missing = int(((cal > last) & (cal < day)).sum())
+        return None, f"上游日线停在 {last.date()}，快照是 {day.date()}，中间缺 {missing} 个交易日，无法用快照补齐"
+    return day, ""
+
+
 def is_last_trading_day_of_month(d: pd.Timestamp, cal: pd.DatetimeIndex) -> bool:
     nxt = cal[cal > d]
     return len(nxt) > 0 and nxt[0].month != d.month
@@ -186,14 +218,13 @@ def compute_scores(ctx: Context, qlib_root: Path):
         ctx.note("腾讯全市场快照", len(snap) > 1000, f"{len(snap)} 只")
     except Exception as e:  # noqa: BLE001
         ctx.note("腾讯全市场快照", False, str(e))
-    today = pd.Timestamp(now_bj().date())
-    after_close = now_bj().hour >= 15
-    if len(snap) and after_close and p["close"].index[-1] < today:
-        tstamps = snap["time"].astype(str).str[:8]
-        if (tstamps == today.strftime("%Y%m%d")).mean() > 0.5:
-            p = append_today_bar(p, snap, today)
-            ctx.log.append("用腾讯快照补齐了今日日线")
-            ctx.snapshot_bar = True
+    bar_day, why = snapshot_bar_day(snap, p["close"].index[-1], trading_calendar(qlib_root), now_bj())
+    if bar_day is not None:
+        p = append_today_bar(p, snap, bar_day)
+        ctx.log.append(f"上游日线只到 {p['close'].index[-2].date()}，用腾讯快照补齐了 {bar_day.date()} 的日线")
+        ctx.snapshot_bar = True
+    elif why:
+        ctx.log.append(why)
     if len(snap):
         p.update(basics_from_snapshot(p, snap))
     st = None
