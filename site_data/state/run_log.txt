@@ -5,8 +5,8 @@ OK  科技股周榜 科技股池 985 只，本周 15 只
 补算了 1 个交易日的历史看好分
 OK  K线与历史看好分 41 只，120 个交易日
 OK  海外行情(腾讯美股/新浪期货) 14/15
-OK  新闻快讯 156 条
+OK  新闻快讯 147 条
 OK  指数行情 
 OK  中美国债收益率 
 OK  两融余额 
-OK  涨跌停池 
+ERR 涨跌停池 push2ex.eastmoney.com: HTTPSConnectionPool(host='push2ex.eastmoney.com', port=443): Read timed out. (read timeout=12.0)
