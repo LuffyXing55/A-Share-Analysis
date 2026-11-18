@@ -1,5 +1,5 @@
 {
-"generated_at": "2026-11-19 03:28",
+"generated_at": "2026-11-19 05:24",
 "mode": "close",
 "data_date": "2026-11-18",
 "month": "2026-11",
@@ -65,64 +65,64 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"price": 24458.55,
-"pct": 0.0053505412197605295,
+"price": 24429.88,
+"pct": 0.004172082152613443,
 "date": "2026-11-18"
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"price": 7327.6,
-"pct": -0.0017614531920718823,
+"price": 7323.63,
+"pct": -0.0023022860747111684,
 "date": "2026-11-18"
 },
 {
 "symbol": "^SOX",
 "name": "半导体ETF(SOXX)",
-"price": 141.26,
-"pct": -0.001413827230312581,
+"price": 141.85,
+"pct": 0.002756963099109111,
 "date": "2026-11-18"
 },
 {
 "symbol": "PGJ",
 "name": "中概金龙ETF",
-"price": 20.58,
-"pct": -0.005316578057032562,
+"price": 20.41,
+"pct": -0.013533107781537046,
 "date": "2026-11-18"
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"price": 151.8,
-"pct": -0.023543033577769212,
+"price": 150.96,
+"pct": -0.028946352759552263,
 "date": "2026-11-18"
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"price": 352.44,
-"pct": 0.0015060668921029752,
+"price": 352.45,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18"
 },
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"price": 382.93,
-"pct": 0.007418905053800273,
+"price": 383.72,
+"pct": 0.009497250795822199,
 "date": "2026-11-18"
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"price": 3730.8,
-"pct": -0.031288136473398565,
+"price": 3729.0,
+"pct": -0.0317555111261133,
 "date": "2026-11-18"
 },
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"price": 575.6,
-"pct": -0.05468878305140412,
+"price": 575.85,
+"pct": -0.05427820660206928,
 "date": "2026-11-18"
 },
 {
@@ -157,7 +157,7 @@
 "score": -2,
 "text": "全A等权近20日 -8.6%；融资余额5日 -2.1%；涨停41/跌停40。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
 },
-"time": "2026-11-19 03:28"
+"time": "2026-11-19 05:24"
 },
 "picks": [
 {
@@ -291,7 +291,7 @@
 {
 "symbol": "XRT",
 "name": "XRT",
-"pct": 0.024011779363461105,
+"pct": 0.022765885151206255,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -444,7 +444,7 @@
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.0017614531920718823,
+"pct": -0.0023022860747111684,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -597,7 +597,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -1056,21 +1056,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -1223,21 +1223,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -1390,7 +1390,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -1543,7 +1543,7 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": 0.007418905053800273,
+"pct": 0.009497250795822199,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -1551,12 +1551,12 @@
 "beta": 0.01,
 "corr": 0.07,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.005
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -1849,14 +1849,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": 0.0053505412197605295,
+"pct": 0.004172082152613443,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": 0.003595132743362761,
+"pct": 0.004049462705436158,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -2169,7 +2169,7 @@
 {
 "symbol": "BZ=F",
 "name": "BZ=F",
-"pct": -0.017553248421277923,
+"pct": -0.017767312426415605,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -2322,14 +2322,14 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": 0.007418905053800273,
+"pct": 0.009497250795822199,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "LIT",
 "name": "LIT",
-"pct": -0.015242821694434583,
+"pct": -0.015065579581708621,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -2635,14 +2635,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.0017614531920718823,
+"pct": -0.0023022860747111684,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -2795,7 +2795,7 @@
 {
 "symbol": "PGJ",
 "name": "金龙指数ETF(PGJ)",
-"pct": -0.005316578057032562,
+"pct": -0.013533107781537046,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -2948,14 +2948,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.0017614531920718823,
+"pct": -0.0023022860747111684,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -3261,21 +3261,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -3428,14 +3428,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.0017614531920718823,
+"pct": -0.0023022860747111684,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -3588,14 +3588,14 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": 0.007418905053800273,
+"pct": 0.009497250795822199,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "LIT",
 "name": "LIT",
-"pct": -0.015242821694434583,
+"pct": -0.015065579581708621,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -3748,7 +3748,7 @@
 {
 "symbol": "PGJ",
 "name": "金龙指数ETF(PGJ)",
-"pct": -0.005316578057032562,
+"pct": -0.013533107781537046,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -3901,14 +3901,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": -0.031288136473398565,
+"pct": -0.0317555111261133,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -3916,12 +3916,12 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": -0.28
+"pred_excess_pct": -0.281
 }
 ],
 "signals": {
 "overseas": -0.56,
-"overseas_pred_pct": -0.28,
+"overseas_pred_pct": -0.281,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -2.2
@@ -4061,7 +4061,7 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": 0.007418905053800273,
+"pct": 0.009497250795822199,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -4069,12 +4069,12 @@
 "beta": 0.01,
 "corr": 0.07,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.005
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -4214,14 +4214,14 @@
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.0017614531920718823,
+"pct": -0.0023022860747111684,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "XRT",
 "name": "XRT",
-"pct": 0.024011779363461105,
+"pct": 0.022765885151206255,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -4374,14 +4374,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": -0.031288136473398565,
+"pct": -0.0317555111261133,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -4389,12 +4389,12 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": -0.28
+"pred_excess_pct": -0.281
 }
 ],
 "signals": {
 "overseas": -0.56,
-"overseas_pred_pct": -0.28,
+"overseas_pred_pct": -0.281,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -2.2
@@ -4534,7 +4534,7 @@
 {
 "symbol": "XRT",
 "name": "XRT",
-"pct": 0.024011779363461105,
+"pct": 0.022765885151206255,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -4687,14 +4687,14 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": 0.007418905053800273,
+"pct": 0.009497250795822199,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "LIT",
 "name": "LIT",
-"pct": -0.015242821694434583,
+"pct": -0.015065579581708621,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -4847,7 +4847,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.05468878305140412,
+"pct": -0.05427820660206928,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -7229,21 +7229,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -7396,14 +7396,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": 0.0053505412197605295,
+"pct": 0.004172082152613443,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": 0.003595132743362761,
+"pct": 0.004049462705436158,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -7556,21 +7556,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -7723,14 +7723,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": 0.0053505412197605295,
+"pct": 0.004172082152613443,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": 0.003595132743362761,
+"pct": 0.004049462705436158,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -7883,14 +7883,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": 0.0053505412197605295,
+"pct": 0.004172082152613443,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": 0.003595132743362761,
+"pct": 0.004049462705436158,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -8043,21 +8043,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -8210,21 +8210,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -8377,14 +8377,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": 0.0053505412197605295,
+"pct": 0.004172082152613443,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": 0.003595132743362761,
+"pct": 0.004049462705436158,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -8537,7 +8537,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
@@ -8697,21 +8697,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -8864,21 +8864,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.001413827230312581,
+"pct": 0.002756963099109111,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": 0.0015060668921029752,
+"pct": 0.0015344832485577609,
 "date": "2026-11-18",
 "suspect": false
 }
@@ -9031,7 +9031,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
@@ -9191,7 +9191,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
@@ -9351,7 +9351,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
@@ -9511,7 +9511,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.023543033577769212,
+"pct": -0.028946352759552263,
 "date": "2026-11-18",
 "suspect": false
 },
@@ -9974,14 +9974,14 @@
 "signals": [
 {
 "title": "海外异动：COMEX铜大跌",
-"text": "2026-11-18 收盘 -5.47%（约为日常单日波动的 3.8 倍）。关联 A 股产业链：铜矿/铜冶炼。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"text": "2026-11-18 收盘 -5.43%（约为日常单日波动的 3.8 倍）。关联 A 股产业链：铜矿/铜冶炼。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
 "picks": [],
 "level": 3,
 "when": "美股 2026-11-18"
 },
 {
 "title": "海外异动：COMEX黄金明显下跌",
-"text": "2026-11-18 收盘 -3.13%（约为日常单日波动的 2.1 倍）。关联 A 股产业链：黄金股。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"text": "2026-11-18 收盘 -3.18%（约为日常单日波动的 2.2 倍）。关联 A 股产业链：黄金股。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
 "picks": [],
 "level": 2,
 "when": "美股 2026-11-18"
@@ -10382,301 +10382,198 @@
 },
 "news": [
 {
-"title": "全球头部钛白粉生产商Tronox：公司尚未与债权人团体展开接触，公司流动性充裕，处于有利地位，下一笔重大债务到期时间不早",
-"time": "2026-11-19 03:27:20",
+"title": "美联储卡什卡利：经济韧性势头超越人工智能领域。",
+"time": "2026-11-19 05:22:26",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1334180.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4447154.d.html",
 "sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "NASA与SpaceX因天气原因推迟“龙”飞船货运脱坞",
-"time": "2026-11-19 03:21:18",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381813.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "ICE棉花期货下跌3%",
-"time": "2026-11-19 03:20:49",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381749.html",
-"sentiment": -0.707,
 "events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "NASA与SpaceX因天气原因推迟龙飞船货运舱的脱离对接。",
-"time": "2026-11-19 03:20:14",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4557086.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【10月美联储暂停加息或只是时机考量，而非政策转向】美联储10月FOMC会议纪要显示，暂停加息更多出于大选时间因素，并不",
-"time": "2026-11-19 03:19:22",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4557009.d.html",
-"sentiment": -1.0,
-"events": [
-"政策",
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "联合健康扩大跌幅，最新下跌10.7%。",
-"time": "2026-11-19 03:18:56",
+"title": "也门胡塞武装军事发言人：对沙特阿拉伯多个地点发动了导弹和无人机袭击。",
+"time": "2026-11-19 05:22:07",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4556914.d.html",
-"sentiment": -0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4447090.d.html",
+"sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【对冲基金第三季重新拥抱阿里和富途 传奇投资人清仓百度】对冲基金第三季度重燃对阿里巴巴的兴趣，同时转而减持百度。汇总了1",
-"time": "2026-11-19 03:17:45",
+"title": "美联储卡什卡利：强劲的需求水平有些令人意外，就业市场具有韧性。",
+"time": "2026-11-19 05:20:29",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4556834.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1223264.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美联储卡什卡利：通胀高企源于一系列供给冲击。",
+"time": "2026-11-19 05:20:10",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4446862.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美联储卡什卡利：美联储必须确保通胀预期保持稳定。",
+"time": "2026-11-19 05:20:03",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4446847.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "花旗CEO：对AI系统建立更多信心是一件好事。",
+"time": "2026-11-19 05:19:52",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1223168.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美联储卡什卡利：利率绝对可以影响投资水平。",
+"time": "2026-11-19 05:18:21",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6529496.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "伊朗外交部：在防御性打击中已保持“最大限度克制”。",
+"time": "2026-11-19 05:16:53",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1222925.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【Anthropic据悉IPO发行定价在每股83美元】知情人士称，Anthropic PBC将IPO发行价定为每股83美",
+"time": "2026-11-19 05:16:25",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1222896.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "伊朗外交部：重申要求邻国阻止美国从其领土发动袭击。",
+"time": "2026-11-19 05:14:58",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1222728.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国参议员沃伦：Anthropic未就潜在威胁作出回应。",
+"time": "2026-11-19 05:12:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1222492.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "Palo Alto Networks盘后延续涨势",
+"time": "2026-11-19 05:12:00",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934390915.html",
 "sentiment": 1.0,
 "events": [
-"回购增持",
-"减持解禁"
+"业绩"
 ],
 "picks": []
 },
 {
-"title": "伊朗外长阿拉格齐：在阿曼举行的会谈重点在于防止与美国重启冲突，并建立排除外国军事介入的地区安全框架。",
-"time": "2026-11-19 03:14:43",
+"title": "墨西哥比索兑主要货币汇率下跌2.7%，创下2026年以来的最低水平，受新兴市场整体低迷拖累。",
+"time": "2026-11-19 05:10:10",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4556620.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "惠誉评级：尽管资本投资增加，企业杠杆前景仍稳定。",
-"time": "2026-11-19 03:13:24",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht6636384.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美联储会议纪要公布后 美元指数触及日内高点",
-"time": "2026-11-19 03:12:09",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381517.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "纽约期金失守3730美元/盎司，日内跌3.47%。",
-"time": "2026-11-19 03:11:44",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0752661.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "世界银行：巴巴多斯在一项具有里程碑意义的协作性债务换韧性倡议中获得6亿美元担保。",
-"time": "2026-11-19 03:11:40",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0752633.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "纳斯达克100指数涨幅收窄至0.2%",
-"time": "2026-11-19 03:09:26",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381474.html",
-"sentiment": -0.5,
-"events": [],
-"picks": []
-},
-{
-"title": "墨西哥比索跌幅扩大，兑美元贬值2%。",
-"time": "2026-11-19 03:09:12",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1331311.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "纳斯达克100指数涨幅收窄至0.2%，标普500指数下跌0.2%。",
-"time": "2026-11-19 03:09:02",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4554947.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "美元现货指数在美联储公开市场委员会会议纪要公布后触及日内高点。",
-"time": "2026-11-19 03:08:45",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4554914.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "微软扩大与Factory在AI软件工程领域的合作协议",
-"time": "2026-11-19 03:08:41",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381364.html",
-"sentiment": 0.707,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "微软扩大与Factory在AI软件工程领域的合作。",
-"time": "2026-11-19 03:08:08",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0751224.d.html",
-"sentiment": 0.707,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "【美联储释放信号：通胀持续，不排除加息50个基点】10月美联储会议纪要显示，部分官员支持进一步收紧政策，少数官员认为12",
-"time": "2026-11-19 03:07:24",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4554670.d.html",
-"sentiment": 0.0,
-"events": [
-"政策",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要公布后 美国10年期国债收益率收窄跌幅",
-"time": "2026-11-19 03:06:33",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381257.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：绝大多数官员认为通胀前景存在上行风险。",
-"time": "2026-11-19 03:06:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1330800.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：许多官员指出劳动力市场出现温和收紧的迹象。",
-"time": "2026-11-19 03:05:54",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4554442.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：许多官员认为AI建设是通胀风险的重要来源。",
-"time": "2026-11-19 03:05:44",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1330768.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "两年期美国国债收益率延续涨势；最新上涨1.1个基点，至4.802%。",
-"time": "2026-11-19 03:05:21",
-"source": "新浪7x24",
-"url": "",
-"sentiment": 0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "美联储会议纪要公布后，美国10年期国债收益率缩减跌幅；收益率最新下跌3.67个基点，报5.066%。",
-"time": "2026-11-19 03:05:14",
-"source": "新浪7x24",
-"url": "",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要公布后，美股小幅下跌；标普500指数最新下跌0.01%。",
-"time": "2026-11-19 03:05:09",
-"source": "新浪7x24",
-"url": "",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4445792.d.html",
 "sentiment": -1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "Palo Alto Networks第一财季业绩超预期并上调全年指引",
+"time": "2026-11-19 05:08:14",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934390886.html",
+"sentiment": 1.0,
 "events": [
+"业绩",
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "美联储会议纪要公布后 美国股市小幅走低",
-"time": "2026-11-19 03:05:08",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381164.html",
-"sentiment": -0.5,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "恒生指数主连夜盘收跌0.54%",
-"time": "2026-11-19 03:04:00",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934381037.html",
+"title": "Anthropic将扩大其IPO规模。",
+"time": "2026-11-19 05:07:13",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6528073.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "美联储会议纪要：工作人员的通胀预测与为9月会议准备的预测相似，经济增长前景略强。",
-"time": "2026-11-19 03:03:42",
+"title": "美国法官延长对特朗普凯旋门建设的禁令。",
+"time": "2026-11-19 05:06:51",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4554070.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6528032.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "苹果表示，其所有服务均运行正常。",
+"time": "2026-11-19 05:06:27",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqm0644547.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "纳斯达克中国金龙指数收跌1.35%",
+"time": "2026-11-19 05:02:31",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934389423.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "纳指收涨0.42% 芯片股表现分化",
+"time": "2026-11-19 05:01:38",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934389182.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国长期资本净流入实际为1553亿美元，前值为2792亿美元。",
+"time": "2026-11-19 05:01:36",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4442583.d.html",
 "sentiment": 0.707,
 "events": [
 "海外宏观"
@@ -10684,10 +10581,10 @@
 "picks": []
 },
 {
-"title": "美联储会议纪要：“几位”官员支持暂停加息，但认为这是“险胜”。",
-"time": "2026-11-19 03:03:24",
+"title": "美国整体净资本流入实际值为2610亿美元，前值为1998亿美元。",
+"time": "2026-11-19 05:01:25",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0750234.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6525101.d.html",
 "sentiment": 0.0,
 "events": [
 "海外宏观"
@@ -10695,43 +10592,37 @@
 "picks": []
 },
 {
-"title": "美联储会议纪要：“许多”官员表示，10月暂停加息让委员会能够积累更多信息。",
-"time": "2026-11-19 03:03:16",
+"title": "【美股收盘：三大股指集体涨跌不一】道指跌1.11%，标普500指数跌0.23%，纳指涨0.40%。休曼纳跌13.04%，",
+"time": "2026-11-19 05:00:48",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4553904.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1218472.d.html",
+"sentiment": 0.0,
+"events": [],
 "picks": []
 },
 {
-"title": "美联储会议纪要：几位支持利率不变的与会者表示，这是一个势均力敌的决定。",
-"time": "2026-11-19 03:03:08",
+"title": "纳斯达克首席执行官表示，2026年美国股票价值的40%由散户直接持有。",
+"time": "2026-11-19 05:00:06",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1330216.d.html",
-"sentiment": 0.707,
-"events": [
-"海外宏观"
-],
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1218059.d.html",
+"sentiment": 0.0,
+"events": [],
 "picks": []
 },
 {
-"title": "美联储会议纪要：许多与会者强调，必须传达不加息的决定并不意味着他们对及时将通胀率恢复到2%目标的承诺有所减弱。",
-"time": "2026-11-19 03:03:03",
+"title": "【纳斯达克中国金龙指数收跌1.30%】虎虎科技跌17.86%，爱奇艺跌17.44%，AIFU跌14.42%，世纪互联跌1",
+"time": "2026-11-19 05:00:04",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0750148.d.html",
-"sentiment": 0.707,
-"events": [
-"海外宏观"
-],
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1218046.d.html",
+"sentiment": 0.0,
+"events": [],
 "picks": []
 },
 {
-"title": "美联储会议纪要：少数支持加息的与会者表示，如果市场参与者清楚地理解可能会进一步收紧政策，他们本可以支持维持利率不变。",
-"time": "2026-11-19 03:02:59",
+"title": "美国财政部：截至11月17日，美国政府距离41.1万亿美元的借款上限还差5896亿美元。",
+"time": "2026-11-19 04:59:48",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1330158.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6524409.d.html",
 "sentiment": 0.0,
 "events": [
 "政策",
@@ -10740,33 +10631,133 @@
 "picks": []
 },
 {
-"title": "美联储会议纪要：部分与会者观察到，通胀可能比预期更持久，因此有必要转向更具限制性的政策立场。",
-"time": "2026-11-19 03:02:53",
+"title": "Robinhood首席执行官：提及市场（Mention Markets）容易被操纵。",
+"time": "2026-11-19 04:51:27",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht6633396.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqm0638918.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "Anthropic正考虑将其首次公开募股（IPO）的发行价格定在每股80至85美元左右的区间。",
+"time": "2026-11-19 04:49:37",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqm0638745.d.html",
 "sentiment": 0.0,
 "events": [
-"政策",
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "美联储会议纪要：几位与会者指出，如果即将公布的通胀数据不利，12月会议可能需要考虑加息超过25个基点。",
-"time": "2026-11-19 03:02:29",
+"title": "英伟达临时CEO承诺向员工发放加薪和股权激励",
+"time": "2026-11-19 04:44:52",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934387190.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【英伟达临时CEO承诺向员工发放加薪和股权激励】在黄仁勋卸任首席执行官后英伟达召开的首次全员大会上，公司临时CEO科莱特",
+"time": "2026-11-19 04:43:54",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht6633297.d.html",
-"sentiment": -0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4439276.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "英伟达将提前发放加薪及新股票奖励至12月。",
+"time": "2026-11-19 04:42:46",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4439120.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "英伟达临时首席执行官承诺向员工发放加薪和股权激励。",
+"time": "2026-11-19 04:42:13",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6521068.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "潘兴广场CEO阿克曼表示 仍看好微软 认为其股价被低估",
+"time": "2026-11-19 04:41:20",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934386614.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "潘兴广场CEO阿克曼：继续看好微软，认为该股被低估。",
+"time": "2026-11-19 04:40:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqm0637543.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "Anthropic据悉正考虑将IPO发行价定在每股最高85美元",
+"time": "2026-11-19 04:40:24",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934387046.html",
+"sentiment": 0.0,
 "events": [
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "美联储会议纪要：大多数与会者表示支持在10月会议上不加息。",
-"time": "2026-11-19 03:02:21",
+"title": "美国起诉一名俄罗斯籍人员，指控其充当外国代理人，针对Palantir公司员工开展活动。",
+"time": "2026-11-19 04:39:07",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht6633199.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6520557.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "Anthropic正考虑将IPO定价上限设为每股85美元。",
+"time": "2026-11-19 04:39:00",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1214806.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【美国一支航母打击群驶离波斯湾前往日本 当地仍留两支】两名美国官员表示，为执行对伊朗海上封锁而部署在波斯湾地区的三支美国",
+"time": "2026-11-19 04:33:54",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4437721.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "伊朗武装部队总参谋长：德黑兰对美国任何新袭击的回应将“更具毁灭性”，不仅针对美国，还将波及美国的盟友。",
+"time": "2026-11-19 04:30:52",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1213609.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【美元指数18日上涨】衡量美元对六种主要货币的美元指数当天上涨0.36%，在汇市尾市收于103.862。截至纽约汇市尾市",
+"time": "2026-11-19 04:30:01",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4437162.d.html",
 "sentiment": 1.0,
 "events": [
 "海外宏观"
@@ -10774,144 +10765,20 @@
 "picks": []
 },
 {
-"title": "美联储会议纪要：一些官员称12月加息超过25个基点或是合理的",
-"time": "2026-11-19 03:02:08",
+"title": "胡塞武装：沙特主导的联军空袭也门伊卜省一村镇 已致3死2伤",
+"time": "2026-11-19 04:29:41",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934380933.html",
-"sentiment": -0.866,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：与会者就人工智能建设相关问题进行了广泛讨论，包括对金融稳定的影响以及潜在的生产率提升。",
-"time": "2026-11-19 03:02:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0749823.d.html",
+"url": "https://finance.eastmoney.com/a/202611193934384780.html",
 "sentiment": 0.0,
-"events": [
-"海外宏观"
-],
+"events": [],
 "picks": []
 },
 {
-"title": "美联储会议纪要：“部分”官员担忧普遍的价格压力可能会延长抗击通胀的进程。",
-"time": "2026-11-19 03:01:51",
+"title": "【国际油价18日显著下跌】截至当天收盘，纽约商品交易所12月交货的轻质原油期货价格下跌2.75美元，收于每桶83.26美",
+"time": "2026-11-19 04:27:25",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0749691.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：“几位”官员表示，10月暂停加息将有助于经济适应更高的利率。",
-"time": "2026-11-19 03:01:44",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht6632955.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：部分与会者倾向于在10月会议上加息25个基点，强调通胀过高，且几乎没有迹象表明通胀正在缓解。",
-"time": "2026-11-19 03:01:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4553324.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：在美联储10月27-28日的会议上，几乎所有与会者都认为，进一步加息与决策者9月份的预测大致一致，可能是",
-"time": "2026-11-19 03:01:22",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4553227.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储工作人员对通胀的预测与为9月会议准备的预测大致相同，而对经济增长的预期则略强。",
-"time": "2026-11-19 03:01:11",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4553151.d.html",
-"sentiment": 0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：几位支持不改变利率的与会者表示，这一决定是势均力敌的。",
-"time": "2026-11-19 03:00:54",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4553036.d.html",
-"sentiment": 0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：多位与会者强调，必须对外传达这样的信息：不加息的决定并不代表他们对及时将通胀率拉回2%目标的承诺有所减弱",
-"time": "2026-11-19 03:00:46",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4552995.d.html",
-"sentiment": 0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储会议纪要：几位支持加息的与会者表示，如果市场参与者清楚地了解可能会进一步收紧政策，他们本可以支持不改变利率。",
-"time": "2026-11-19 03:00:41",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht6632610.d.html",
-"sentiment": 0.0,
-"events": [
-"政策",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储官员在10月会议上聚焦通胀风险，部分官员认为需要更大幅度加息。",
-"time": "2026-11-19 03:00:37",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4552956.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4436967.d.html",
 "sentiment": -1.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "恒指期货夜盘收跌0.44%，报23111.62点，低水183.13点。",
-"time": "2026-11-19 03:00:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1329068.d.html",
-"sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "美国天然气期货上涨逾5%，至每百万英热单位3.371美元。",
-"time": "2026-11-19 02:56:44",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4551902.d.html",
-"sentiment": 0.707,
 "events": [
 "海外宏观",
 "大宗商品"
@@ -10919,105 +10786,176 @@
 "picks": []
 },
 {
-"title": "美国天然气价格跳涨5%",
-"time": "2026-11-19 02:55:09",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934380834.html",
+"title": "哥伦比亚副总统：哥伦比亚获得企业和多边银行总额432亿美元的投资。",
+"time": "2026-11-19 04:26:53",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1213248.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "哥伦比亚总统：缺乏支持与美国合作禁毒计划所需的选票。",
+"time": "2026-11-19 04:24:39",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1213050.d.html",
+"sentiment": 1.0,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "哥伦比亚拒绝与美国联合打击贩毒集团计划。",
+"time": "2026-11-19 04:22:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqm0635157.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "巴西雷亚尔现货贬值1.2%，汇率跌破1美元兑5.85雷亚尔。",
-"time": "2026-11-19 02:55:07",
+"title": "惠誉评级指出，美国消费者购车负担压力持续存在，拖累汽车资产支持证券（ABS）表现。",
+"time": "2026-11-19 04:21:54",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0747206.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储巴尔讲话后 美国国债收益率收窄跌幅",
-"time": "2026-11-19 02:46:37",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934380678.html",
-"sentiment": -0.5,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储理事巴尔发表讲话后，美国国债收益率收窄跌幅；10年期美债收益率最新下跌3.87个基点，报5.064%。",
-"time": "2026-11-19 02:45:00",
-"source": "新浪7x24",
-"url": "",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "  秘鲁索尔汇率下跌 0.53%，收盘报 1 美元兑 3.432/3.433 索尔。",
-"time": "2026-11-19 02:40:30",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexht1326268.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "加拿大央行副行长格拉维尔：能源价格通胀正在蔓延。",
-"time": "2026-11-19 02:38:24",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhr4549632.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "美联储理事巴尔表示，通胀“过高”，正给许多家庭带来压力，称若经济表现符合预期，支持进一步加息",
-"time": "2026-11-19 02:36:39",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934380533.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4436315.d.html",
 "sentiment": -0.408,
-"events": [
-"海外宏观"
-],
+"events": [],
 "picks": []
 },
 {
-"title": "据报道 英伟达董事会在物色CEO过程中已接触Arm首席执行官Rene Haas",
-"time": "2026-11-19 02:36:05",
+"title": "英伟达董事会主席在员工大会上表示 黄仁勋不会回归",
+"time": "2026-11-19 04:16:18",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611193934380483.html",
+"url": "https://finance.eastmoney.com/a/202611193934384013.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "美联储理事巴尔：及时将通胀率降至2%对美联储至关重要。",
-"time": "2026-11-19 02:35:43",
+"title": "PayPal股价迅速转跌。",
+"time": "2026-11-19 04:15:32",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0744686.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1211851.d.html",
 "sentiment": 0.0,
-"events": [
-"海外宏观"
-],
+"events": [],
 "picks": []
 },
 {
-"title": "美联储理事巴尔：将关注数据以确定美联储下一步行动。",
-"time": "2026-11-19 02:35:38",
+"title": "英伟达董事长在员工大会上表示：黄仁勋不会回归。",
+"time": "2026-11-19 04:14:08",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizexhp0744677.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr6517020.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国联邦众议员穆勒纳尔：美国科技企业不应在人工智能竞赛中两头下注。",
+"time": "2026-11-19 04:13:56",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4435135.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "胡塞武装：已使用大量巡航导弹精准打击了沙特敌方首都利雅得的哈立德国王国际机场及金融区。此次袭击直接且精确。此举是对沙特敌",
+"time": "2026-11-19 04:08:46",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4434126.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "伊朗陆军：三艘油轮在霍尔木兹海峡以东海域触雷后起火并停航，此前这些船只无视了海军的警告。",
+"time": "2026-11-19 04:08:07",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1210193.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "三艘违规油轮在霍尔木兹海峡东部起火。",
+"time": "2026-11-19 04:07:25",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1209915.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "纳斯达克中国金龙指数跌幅扩大",
+"time": "2026-11-19 04:06:12",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934384219.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "纳斯达克中国金龙指数跌超1%，虎虎科技跌17.38%，爱奇艺跌14.91%，世纪互联跌11.33%，JDZG跌7.54%",
+"time": "2026-11-19 04:06:08",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1209617.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国驻巴林大使馆敦促美国公民提高警惕，警告称胡塞武装及伊朗方面正试图针对该地区的美国官员和设施。",
+"time": "2026-11-19 04:01:56",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1208408.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "英国海上贸易行动办公室：一艘油轮在霍尔木兹海峡遭袭 一海员失踪",
+"time": "2026-11-19 04:00:11",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611193934384344.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国司法部针对阿拉斯加州参议员的调查涉及刑事目标，且范围覆盖多个州。",
+"time": "2026-11-19 03:58:57",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4431051.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "美国司法部在阿拉斯加州参议员选举调查中共发出约200份传票。",
+"time": "2026-11-19 03:57:57",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqr1207116.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "希腊总理米佐塔基斯表示，预计塞浦路斯将于7月1日正式加入申根区，这将是希腊担任欧盟轮值主席国期间作出的首项实质性决定。",
+"time": "2026-11-19 03:55:14",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqm0627067.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "华纳音乐集团控股股东、Access Industries创始人莱恩·布拉瓦特尼克已积累价值50亿美元的SpaceX股份。",
+"time": "2026-11-19 03:53:17",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-19/detail-inizfcqp4429999.d.html",
 "sentiment": 0.0,
 "events": [
 "海外宏观"
