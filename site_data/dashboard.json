@@ -1,5 +1,5 @@
 {
-"generated_at": "2026-11-21 03:12",
+"generated_at": "2026-11-21 05:04",
 "mode": "close",
 "data_date": "2026-11-20",
 "month": "2026-11",
@@ -65,71 +65,71 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"price": 22985.03,
-"pct": -0.03744555931521998,
+"price": 22617.73,
+"pct": -0.052827146638078415,
 "date": "2026-11-20"
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"price": 7008.83,
-"pct": -0.023272569166214896,
+"price": 6910.54,
+"pct": -0.036969939365899096,
 "date": "2026-11-20"
 },
 {
 "symbol": "^SOX",
 "name": "半导体ETF(SOXX)",
-"price": 126.3,
-"pct": -0.08445088800289957,
+"price": 123.4,
+"pct": -0.10547299746284877,
 "date": "2026-11-20"
 },
 {
 "symbol": "PGJ",
 "name": "中概金龙ETF",
-"price": 19.65,
-"pct": -0.02043868394815551,
+"price": 19.38,
+"pct": -0.03389830508474578,
 "date": "2026-11-20"
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"price": 133.67,
-"pct": -0.08432662008494318,
+"price": 125.53,
+"pct": -0.14008768324428,
 "date": "2026-11-20"
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"price": 344.91,
-"pct": -0.012313507631510956,
+"price": 342.56,
+"pct": -0.019042982732453195,
 "date": "2026-11-20"
 },
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"price": 349.33,
-"pct": -0.06698539034748019,
+"price": 345.82,
+"pct": -0.07636013995352697,
 "date": "2026-11-20"
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"price": 3535.0,
-"pct": -0.025580241468658782,
+"price": 3523.9,
+"pct": -0.02863994707536255,
 "date": "2026-11-20"
 },
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"price": 558.45,
-"pct": -0.01603382961853561,
+"price": 554.85,
+"pct": -0.022376883094000433,
 "date": "2026-11-20"
 },
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"price": 83.22,
-"pct": 0.0007215007215006786,
+"price": 83.94,
+"pct": 0.009379509379509487,
 "date": "2026-11-20"
 },
 {
@@ -157,7 +157,7 @@
 "score": -3,
 "text": "全A等权近20日 -14.3%；融资余额5日 -3.6%；涨停28/跌停58。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
 },
-"time": "2026-11-21 03:12"
+"time": "2026-11-21 05:04"
 },
 "picks": [
 {
@@ -291,7 +291,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.0007215007215006786,
+"pct": 0.009379509379509487,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -444,7 +444,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.0007215007215006786,
+"pct": 0.009379509379509487,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -452,12 +452,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.0
+"pred_excess_pct": 0.003
 }
 ],
 "signals": {
-"overseas": 0.0,
-"overseas_pred_pct": 0.0,
+"overseas": 0.01,
+"overseas_pred_pct": 0.003,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -597,7 +597,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.0007215007215006786,
+"pct": 0.009379509379509487,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -605,12 +605,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.0
+"pred_excess_pct": 0.003
 }
 ],
 "signals": {
-"overseas": 0.0,
-"overseas_pred_pct": 0.0,
+"overseas": 0.01,
+"overseas_pred_pct": 0.003,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -750,21 +750,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -917,7 +917,7 @@
 {
 "symbol": "XRT",
 "name": "XRT",
-"pct": -0.004672897196261627,
+"pct": -0.014018691588784882,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -1070,7 +1070,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -1223,14 +1223,14 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": -0.06698539034748019,
+"pct": -0.07636013995352697,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "LIT",
 "name": "LIT",
-"pct": -0.028345297257500457,
+"pct": -0.04454260997607218,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -1383,14 +1383,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.023272569166214896,
+"pct": -0.036969939365899096,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -1398,12 +1398,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.006
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.006,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -1543,7 +1543,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.0007215007215006786,
+"pct": 0.009379509379509487,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -1551,12 +1551,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.0
+"pred_excess_pct": 0.003
 }
 ],
 "signals": {
-"overseas": 0.0,
-"overseas_pred_pct": 0.0,
+"overseas": 0.01,
+"overseas_pred_pct": 0.003,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -1696,7 +1696,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.0007215007215006786,
+"pct": 0.009379509379509487,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -1704,12 +1704,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.0
+"pred_excess_pct": 0.003
 }
 ],
 "signals": {
-"overseas": 0.0,
-"overseas_pred_pct": 0.0,
+"overseas": 0.01,
+"overseas_pred_pct": 0.003,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -1849,7 +1849,7 @@
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.023272569166214896,
+"pct": -0.036969939365899096,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -2002,7 +2002,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -2155,7 +2155,7 @@
 {
 "symbol": "PGJ",
 "name": "金龙指数ETF(PGJ)",
-"pct": -0.02043868394815551,
+"pct": -0.03389830508474578,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -2308,21 +2308,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -2475,7 +2475,7 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": -0.06698539034748019,
+"pct": -0.07636013995352697,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -2483,12 +2483,12 @@
 "beta": 0.01,
 "corr": 0.07,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.034
+"pred_excess_pct": -0.039
 }
 ],
 "signals": {
-"overseas": -0.07,
-"overseas_pred_pct": -0.034,
+"overseas": -0.08,
+"overseas_pred_pct": -0.039,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.3
@@ -2628,14 +2628,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.023272569166214896,
+"pct": -0.036969939365899096,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -2643,12 +2643,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.006
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.006,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -2776,8 +2776,8 @@
 "ind_mom_60": 0.0151,
 "rel_ind_60": 0.5255
 },
-"short": 81.6,
-"total": 87.1,
+"short": 81.3,
+"total": 87.0,
 "chains": [
 {
 "id": "industry",
@@ -2788,14 +2788,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": -0.025580241468658782,
+"pct": -0.02863994707536255,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -2803,15 +2803,15 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": -0.153
+"pred_excess_pct": -0.183
 }
 ],
 "signals": {
-"overseas": -0.31,
-"overseas_pred_pct": -0.153,
+"overseas": -0.37,
+"overseas_pred_pct": -0.183,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": -1.2
+"overseas_points": -1.5
 },
 "news": [],
 "rank": 17,
@@ -2948,21 +2948,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -3103,8 +3103,8 @@
 "ind_mom_60": 0.7163,
 "rel_ind_60": 0.1019
 },
-"short": 98.2,
-"total": 85.7,
+"short": 98.5,
+"total": 85.8,
 "chains": [
 {
 "id": "industry",
@@ -3115,14 +3115,14 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.0007215007215006786,
+"pct": 0.009379509379509487,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "BZ=F",
 "name": "BZ=F",
-"pct": -0.0048606610499027925,
+"pct": 0.004428602289911376,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -3130,15 +3130,15 @@
 "beta": 0.108,
 "corr": 0.262,
 "sample": "2412 个交易日（行业等权）",
-"pred_excess_pct": -0.012
+"pred_excess_pct": 0.031
 }
 ],
 "signals": {
-"overseas": -0.02,
-"overseas_pred_pct": -0.012,
+"overseas": 0.06,
+"overseas_pred_pct": 0.031,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": -0.1
+"overseas_points": 0.2
 },
 "news": [],
 "rank": 19,
@@ -3275,14 +3275,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": -0.03744555931521998,
+"pct": -0.052827146638078415,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": -0.01729881597431271,
+"pct": -0.02765402368051384,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -3435,14 +3435,14 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": -0.06698539034748019,
+"pct": -0.07636013995352697,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "LIT",
 "name": "LIT",
-"pct": -0.028345297257500457,
+"pct": -0.04454260997607218,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -3595,7 +3595,7 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": -0.06698539034748019,
+"pct": -0.07636013995352697,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -3603,12 +3603,12 @@
 "beta": 0.01,
 "corr": 0.07,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": -0.034
+"pred_excess_pct": -0.039
 }
 ],
 "signals": {
-"overseas": -0.07,
-"overseas_pred_pct": -0.034,
+"overseas": -0.08,
+"overseas_pred_pct": -0.039,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": -0.3
@@ -3748,7 +3748,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.0007215007215006786,
+"pct": 0.009379509379509487,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -3756,12 +3756,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.0
+"pred_excess_pct": 0.003
 }
 ],
 "signals": {
-"overseas": 0.0,
-"overseas_pred_pct": 0.0,
+"overseas": 0.01,
+"overseas_pred_pct": 0.003,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -3901,7 +3901,7 @@
 {
 "symbol": "PGJ",
 "name": "金龙指数ETF(PGJ)",
-"pct": -0.02043868394815551,
+"pct": -0.03389830508474578,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -4054,14 +4054,14 @@
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.023272569166214896,
+"pct": -0.036969939365899096,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "XRT",
 "name": "XRT",
-"pct": -0.004672897196261627,
+"pct": -0.014018691588784882,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -4214,14 +4214,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "^GSPC",
 "name": "标普500",
-"pct": -0.023272569166214896,
+"pct": -0.036969939365899096,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -4229,12 +4229,12 @@
 "beta": 0.013,
 "corr": 0.034,
 "sample": "2671 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.006
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.006,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -4374,7 +4374,7 @@
 {
 "symbol": "XRT",
 "name": "XRT",
-"pct": -0.004672897196261627,
+"pct": -0.014018691588784882,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -4515,8 +4515,8 @@
 "ind_mom_60": 0.0151,
 "rel_ind_60": 0.5028
 },
-"short": 66.4,
-"total": 58.6,
+"short": 66.1,
+"total": 58.5,
 "chains": [
 {
 "id": "industry",
@@ -4527,14 +4527,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": -0.025580241468658782,
+"pct": -0.02863994707536255,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -4542,15 +4542,15 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": -0.153
+"pred_excess_pct": -0.183
 }
 ],
 "signals": {
-"overseas": -0.31,
-"overseas_pred_pct": -0.153,
+"overseas": -0.37,
+"overseas_pred_pct": -0.183,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": -1.2
+"overseas_points": -1.5
 },
 "news": [],
 "rank": 28,
@@ -4687,14 +4687,14 @@
 {
 "symbol": "TSLA",
 "name": "特斯拉",
-"pct": -0.06698539034748019,
+"pct": -0.07636013995352697,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "LIT",
 "name": "LIT",
-"pct": -0.028345297257500457,
+"pct": -0.04454260997607218,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -4847,7 +4847,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.01603382961853561,
+"pct": -0.022376883094000433,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -5296,9 +5296,9 @@
 ],
 [
 "2026-11-20",
-58.6,
+58.5,
 53.4,
-66.4
+66.1
 ]
 ],
 "sz002986": [
@@ -5382,9 +5382,9 @@
 ],
 [
 "2026-11-20",
-85.7,
+85.8,
 77.3,
-98.2
+98.5
 ]
 ],
 "sh603150": [
@@ -6758,9 +6758,9 @@
 ],
 [
 "2026-11-20",
-87.1,
+87.0,
 90.8,
-81.6
+81.3
 ]
 ],
 "sh600736": [
@@ -7589,21 +7589,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -7756,14 +7756,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": -0.03744555931521998,
+"pct": -0.052827146638078415,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": -0.01729881597431271,
+"pct": -0.02765402368051384,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -7916,21 +7916,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -8083,14 +8083,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": -0.03744555931521998,
+"pct": -0.052827146638078415,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": -0.01729881597431271,
+"pct": -0.02765402368051384,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -8243,14 +8243,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": -0.03744555931521998,
+"pct": -0.052827146638078415,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": -0.01729881597431271,
+"pct": -0.02765402368051384,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -8403,7 +8403,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
@@ -8563,21 +8563,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -8730,21 +8730,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -8897,21 +8897,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -9064,14 +9064,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": -0.03744555931521998,
+"pct": -0.052827146638078415,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": -0.01729881597431271,
+"pct": -0.02765402368051384,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -9224,7 +9224,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
@@ -9384,21 +9384,21 @@
 {
 "symbol": "^SOX",
 "name": "费城半导体",
-"pct": -0.08445088800289957,
+"pct": -0.10547299746284877,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "AAPL",
 "name": "苹果",
-"pct": -0.012313507631510956,
+"pct": -0.019042982732453195,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -9551,7 +9551,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
@@ -9711,7 +9711,7 @@
 {
 "symbol": "NVDA",
 "name": "英伟达",
-"pct": -0.08432662008494318,
+"pct": -0.14008768324428,
 "date": "2026-11-20",
 "suspect": false
 },
@@ -9871,14 +9871,14 @@
 {
 "symbol": "^IXIC",
 "name": "纳斯达克",
-"pct": -0.03744555931521998,
+"pct": -0.052827146638078415,
 "date": "2026-11-20",
 "suspect": false
 },
 {
 "symbol": "MSFT",
 "name": "MSFT",
-"pct": -0.01729881597431271,
+"pct": -0.02765402368051384,
 "date": "2026-11-20",
 "suspect": false
 }
@@ -10064,35 +10064,49 @@
 "signals": [
 {
 "title": "海外异动：英伟达大跌",
-"text": "2026-11-20 收盘 -8.43%（约为日常单日波动的 3.0 倍）。关联 A 股产业链：AI服务器/算力、光模块/CPO、AI PCB/高速覆铜板、液冷/温控。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"text": "2026-11-20 收盘 -14.01%（约为日常单日波动的 5.0 倍）。关联 A 股产业链：AI服务器/算力、光模块/CPO、AI PCB/高速覆铜板、液冷/温控。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
 "picks": [],
 "level": 3,
 "when": "美股 2026-11-20"
 },
 {
 "title": "海外异动：特斯拉大跌",
-"text": "2026-11-20 收盘 -6.70%（约为日常单日波动的 2.3 倍）。关联 A 股产业链：特斯拉链(汽零/锂电)、人形机器人、智能驾驶。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"text": "2026-11-20 收盘 -7.64%（约为日常单日波动的 2.6 倍）。关联 A 股产业链：特斯拉链(汽零/锂电)、人形机器人、智能驾驶。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"picks": [],
+"level": 3,
+"when": "美股 2026-11-20"
+},
+{
+"title": "海外异动：标普500大跌",
+"text": "2026-11-20 收盘 -3.70%（约为日常单日波动的 3.7 倍）。关联 A 股产业链：出口链(家电/跨境/光伏)。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"picks": [],
+"level": 3,
+"when": "美股 2026-11-20"
+},
+{
+"title": "海外异动：纳斯达克大跌",
+"text": "2026-11-20 收盘 -5.28%（约为日常单日波动的 3.8 倍）。",
 "picks": [],
 "level": 3,
 "when": "美股 2026-11-20"
 },
 {
 "title": "海外异动：费城半导体大跌",
-"text": "2026-11-20 收盘 -8.45%（约为日常单日波动的 2.8 倍）。",
+"text": "2026-11-20 收盘 -10.55%（约为日常单日波动的 3.5 倍）。",
 "picks": [],
 "level": 3,
 "when": "美股 2026-11-20"
 },
 {
-"title": "海外异动：标普500明显下跌",
-"text": "2026-11-20 收盘 -2.33%（约为日常单日波动的 2.3 倍）。关联 A 股产业链：出口链(家电/跨境/光伏)。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"title": "海外异动：LIT明显下跌",
+"text": "2026-11-20 收盘 -4.45%（约为日常单日波动的 3.0 倍）。关联 A 股产业链：锂矿/盐湖提锂。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
 "picks": [],
 "level": 2,
 "when": "美股 2026-11-20"
 },
 {
-"title": "海外异动：纳斯达克明显下跌",
-"text": "2026-11-20 收盘 -3.74%（约为日常单日波动的 2.7 倍）。",
+"title": "海外异动：金龙指数ETF(PGJ)明显下跌",
+"text": "2026-11-20 收盘 -3.39%（约为日常单日波动的 2.6 倍）。关联 A 股产业链：中概映射(金龙指数)。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
 "picks": [],
 "level": 2,
 "when": "美股 2026-11-20"
@@ -10423,66 +10437,160 @@
 },
 "news": [
 {
-"title": "【特朗普特使会见卡塔尔官员 商讨推动重启美伊停火、恢复核谈判】据报道援引两名知情人士消息，特朗普的特使史蒂夫・威特科夫与",
-"time": "2026-11-21 03:11:04",
+"title": "标普将SNAP评级上调至“BB”；展望稳定。",
+"time": "2026-11-21 05:03:41",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3790999.d.html",
+"url": "",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "多伦多股票指数周跌幅达8.1%，为2020年3月以来最大跌幅。",
+"time": "2026-11-21 05:03:35",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3701749.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "消息人士称，美国证券交易委员会对英伟达的调查正在探索潜在的会计问题。",
-"time": "2026-11-21 03:09:45",
+"title": "本周，罗素2000小盘股指数下跌7.48%，创下自2025年4月4日当周以来的最大单周跌幅。",
+"time": "2026-11-21 05:03:32",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0110315.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3701717.d.html",
+"sentiment": 0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "纳斯达克100指数暴跌5.6%，市值蒸发2.1万亿美元。",
+"time": "2026-11-21 05:03:27",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3701657.d.html",
+"sentiment": -1.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "标普确认巴林“B/B”评级；展望稳定。",
+"time": "2026-11-21 05:03:22",
+"source": "新浪7x24",
+"url": "",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "KBW银行指数本周下跌9.5%，创2025年4月以来最大跌幅。",
+"time": "2026-11-21 05:02:45",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3701275.d.html",
 "sentiment": -0.707,
 "events": [],
 "picks": []
 },
 {
-"title": "【美方审计FAA对波音及其供应商监管情况】据监察机构官网消息，美国交通部监察长办公室已启动一项审计，核查美国联邦航空管理",
-"time": "2026-11-21 03:09:18",
+"title": "标普确认科威特“AA-/A-1+”评级；展望稳定。",
+"time": "2026-11-21 05:02:38",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3790492.d.html",
+"url": "",
 "sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "摩根士丹利：会计变更导致截至2026年9月30日的留存收益减少7.19亿美元。",
+"time": "2026-11-21 05:02:33",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruv0017604.d.html",
+"sentiment": -0.707,
 "events": [
-"监管处罚"
+"海外宏观"
 ],
 "picks": []
 },
 {
-"title": "OpenAI向Plus用户推出ChatGPT Space。",
-"time": "2026-11-21 03:07:28",
+"title": "标普500指数和道琼斯指数收盘均进入回调区间。",
+"time": "2026-11-21 05:01:39",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7013585.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6924392.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "特朗普：自己心目中的黄仁勋接任人选仍是苹果执行董事长库克。",
-"time": "2026-11-21 03:05:19",
+"title": "标普/TSX综合指数进入回调区间。",
+"time": "2026-11-21 05:01:34",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5329174.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5237142.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "OpenAI推出MedChemBench 评估AI模型在源自药物化学研究的推理任务上的表现",
-"time": "2026-11-21 03:04:52",
+"title": "【特朗普：中俄美元首会晤“史无前例”“意义重大”】美国总统特朗普20日在白宫举行的新闻发布会上表示，日前在中国深圳举行的",
+"time": "2026-11-21 05:01:29",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5237125.d.html",
+"sentiment": 0.5,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "ANTHROPICO股票在第二个交易日收盘下跌9.1%。",
+"time": "2026-11-21 05:01:11",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6924157.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【美股收盘：三大股指集体收跌】道指跌1.92%，标普500指数跌3.68%，纳指跌5.37%。闪迪跌16.34%，NBI",
+"time": "2026-11-21 05:00:48",
+"source": "新浪7x24",
+"url": "",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "英伟达股价本周下跌23%，为2008年10月以来最大单周跌幅。",
+"time": "2026-11-21 05:00:47",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6923992.d.html",
+"sentiment": 0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "英伟达暴跌14% “AI交易”抛售加剧使得美股进入回调区间",
+"time": "2026-11-21 05:00:21",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936563774.html",
+"url": "https://finance.eastmoney.com/a/202611213936574780.html",
+"sentiment": -1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【纳斯达克中国金龙指数收跌3.45%】阿特斯跌25.37%，虎虎科技跌22.19%，JDZG跌20.70%，逸仙电商跌1",
+"time": "2026-11-21 05:00:03",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3700076.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "在岸人民币兑美元（CNY）北京时间03:00收报6.6714元，较周四夜盘收盘涨236点。成交量693.80亿美元。",
-"time": "2026-11-21 03:04:16",
+"title": "截至11月19日，美国政府距离41.1万亿美元的借款上限还差5965亿美元。",
+"time": "2026-11-21 05:00:01",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7012498.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3700074.d.html",
 "sentiment": 0.0,
 "events": [
 "海外宏观"
@@ -10490,70 +10598,76 @@
 "picks": []
 },
 {
-"title": "【“大空头”卖掉了半数英伟达和半导体ETF看跌期权】电影《大空头》的华尔街原型、备受关注的著名投资人Michael Bu",
-"time": "2026-11-21 03:04:13",
+"title": "【万斯：袭击伊朗的决定由总统特朗普作出，自己的职责是支持总统】美国副总统万斯周五在白宫记者会上拒绝明确表示，若伊朗继续推",
+"time": "2026-11-21 04:59:43",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7012471.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6923658.d.html",
+"sentiment": 0.866,
+"events": [],
+"picks": []
+},
+{
+"title": "纳斯达克100指数尾盘跌幅扩大至6% 较10月高点下跌20%",
+"time": "2026-11-21 04:58:23",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611213936574230.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "纳斯达克100指数跌幅扩大至6%，即将进入熊市，较10月份创下的纪录下跌20%。",
+"time": "2026-11-21 04:56:40",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6922902.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "英伟达股价跌幅扩大至14%。",
+"time": "2026-11-21 04:56:37",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3699239.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "OPENAI：MEDCHEMBENCH 评估人工智能模型在药物化学研究推理任务中的表现。",
-"time": "2026-11-21 03:03:15",
+"title": "标普500指数跌4.01%，现报6888.230点；道指跌2.17%，现报48032.148点；纳指跌5.57%，现报2",
+"time": "2026-11-21 04:56:05",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7012036.d.html",
+"url": "",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "阿根廷液化天然气项目计划到2050年投资508亿美元，其中到2030年投资250亿美元。",
-"time": "2026-11-21 03:02:29",
+"title": "【国际油价20日微涨】国际油价20日微涨。截至当天收盘，纽约商品交易所12月交货的轻质原油期货价格上涨77美分，收于每桶",
+"time": "2026-11-21 04:55:44",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0108300.d.html",
-"sentiment": 0.0,
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5235757.d.html",
+"sentiment": 0.866,
 "events": [
-"海外宏观"
+"海外宏观",
+"大宗商品"
 ],
 "picks": []
 },
 {
-"title": "OpenAI推出MedChemBench。",
-"time": "2026-11-21 03:02:24",
+"title": "道指跌2.09%，现报48071.191点；纳指跌5.57%，现报22549.726点；标普500指数跌3.92%，现报",
+"time": "2026-11-21 04:55:35",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0108276.d.html",
+"url": "",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【全国人大常委会副委员长肖捷率团访问毛里求斯】应毛里求斯国民议会邀请，全国人大常委会副委员长、中国民间组织国际交流促进会",
-"time": "2026-11-21 03:01:35",
+"title": "纳斯达克指数期货跌6.01%，现报25002.002点；道琼斯指数期货跌2.15%，现报48121.340点；标普500",
+"time": "2026-11-21 04:55:25",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7011520.d.html",
-"sentiment": 0.707,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "阿根廷经济部长表示，507.5亿美元的阿根廷液化天然气项目已获批纳入大型投资计划。",
-"time": "2026-11-21 03:01:30",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0107926.d.html",
-"sentiment": 0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "恒指期货夜盘收跌0.89%，报22212.20点，低水198.60点。",
-"time": "2026-11-21 03:00:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3787303.d.html",
+"url": "",
 "sentiment": 0.0,
 "events": [
 "大宗商品"
@@ -10561,19 +10675,169 @@
 "picks": []
 },
 {
-"title": "市场消息：美国中东问题特使威特科夫与特朗普女婿库什纳会见卡塔尔调解人，讨论伊朗问题。",
-"time": "2026-11-21 02:57:16",
+"title": "标普500指数期货跌4.00%，现报6909.225点；道琼斯指数期货跌2.15%，现报48123.200点；纳斯达克指",
+"time": "2026-11-21 04:55:24",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7010113.d.html",
+"url": "",
+"sentiment": 0.0,
+"events": [
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "【费城半导体指数日内跌11%】费城半导体指数日内跌11.00%，现报8383.48点。英伟达跌13.68%，博通跌12.",
+"time": "2026-11-21 04:55:18",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3698881.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "WTI原油日内涨1%，现报83.27美元/桶。",
-"time": "2026-11-21 02:57:15",
+"title": "拜耳ADR股价转涨。",
+"time": "2026-11-21 04:54:32",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3786465.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3698725.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "道琼斯指数期货跌2.01%，现报48191.000点；标普500指数期货跌3.76%，现报6926.613点；纳斯达克指",
+"time": "2026-11-21 04:54:30",
+"source": "新浪7x24",
+"url": "",
+"sentiment": 0.0,
+"events": [
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "市场消息：美国总统特朗普与UFC首席执行官达纳·怀特在新白宫直升机停机坪首次活动中，向军乐队音乐家们赠送50万美元惊喜礼",
+"time": "2026-11-21 04:53:13",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5235269.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【新兴市场-拉美股市暴跌至一年低点，汇率因利率担忧而走低】拉美股市跌至一年多来的低点。此前，Anthropic公司IPO",
+"time": "2026-11-21 04:49:40",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruv0014438.d.html",
+"sentiment": -1.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "拜耳ADR股价迅速收窄跌幅。",
+"time": "2026-11-21 04:49:37",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6920982.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "AI初创公司Cognition在新一轮融资中洽谈估值750亿美元",
+"time": "2026-11-21 04:49:12",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611213936573221.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美国法官批准拜耳72.5亿美元Roundup除草剂和解协议",
+"time": "2026-11-21 04:47:50",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611213936573155.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "Cognition考虑融资20亿美元，距上一轮融资仅两个月。",
+"time": "2026-11-21 04:47:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6920403.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "Cognition正就新一轮融资进行谈判，估值达750亿美元。",
+"time": "2026-11-21 04:47:32",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruv0013928.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "布伦特原油突破93美元/桶，日内涨1.14%。",
+"time": "2026-11-21 04:47:19",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6920277.d.html",
+"sentiment": 0.707,
+"events": [
+"海外宏观",
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "WTI原油突破84美元/桶，日内涨1.89%。",
+"time": "2026-11-21 04:47:16",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5233859.d.html",
+"sentiment": 0.707,
+"events": [
+"海外宏观",
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "美国法官批准拜耳72.5亿美元Roundup和解协议。",
+"time": "2026-11-21 04:47:10",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3696601.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "特朗普谈伊朗：我们保持耐心。",
+"time": "2026-11-21 04:46:58",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruv0013794.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "布伦特原油日内涨1%，现报92.90美元/桶。",
+"time": "2026-11-21 04:45:59",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruv0013544.d.html",
 "sentiment": 0.0,
 "events": [
 "海外宏观",
@@ -10582,435 +10846,192 @@
 "picks": []
 },
 {
-"title": "Anthropic较早些时候的低点有所反弹 最新下跌10%",
-"time": "2026-11-21 02:55:53",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936563344.html",
-"sentiment": 0.0,
+"title": "【国际金价创一年多新低 专家：背后原因是美元走强以及美国加息预期的抬升】11月20日亚洲交易时段，伦敦现货黄金跌破360",
+"time": "2026-11-21 04:40:15",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3694475.d.html",
+"sentiment": -0.452,
 "events": [
-"海外宏观"
+"海外宏观",
+"大宗商品"
 ],
 "picks": []
 },
 {
-"title": "Anthropic午后早段触及低点后反弹，最新下跌10%，报87.25美元。",
-"time": "2026-11-21 02:54:57",
+"title": "芝加哥期权交易所波动率指数延续涨势，最新上涨9.05点，报37.49。",
+"time": "2026-11-21 04:39:33",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5326371.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美国运输部监察长将审查联邦航空管理局对波音及其他飞机制造商的监管情况。",
-"time": "2026-11-21 02:49:33",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3783890.d.html",
-"sentiment": 0.0,
-"events": [
-"监管处罚"
-],
-"picks": []
-},
-{
-"title": "市场消息：CloudFerro 正考虑最早于明年在华沙上市。CloudFerro 选定摩根大通、裕信银行以及 Trigo",
-"time": "2026-11-21 02:48:53",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7007284.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：未对美国商务部长卢特尼克失去信心。",
-"time": "2026-11-21 02:45:39",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0103832.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国参议员蒂姆·斯科特表示：英伟达前CEO黄仁勋将在公开听证会上作证",
-"time": "2026-11-21 02:43:31",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936560621.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国参议员蒂姆·斯科特表示，英伟达前首席执行官黄仁勋将在公开听证会上作证。",
-"time": "2026-11-21 02:41:55",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7004755.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国副总统万斯：阻止伊朗获得核弹的目标值得坚持。我的职责是支持总统。",
-"time": "2026-11-21 02:41:48",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3781064.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6917939.d.html",
 "sentiment": 0.707,
 "events": [],
 "picks": []
 },
 {
-"title": "截至11月17日当周：布伦特原油投机者将净多头头寸削减225份合约，至133,635份",
-"time": "2026-11-21 02:41:30",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936560526.html",
-"sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "现货黄金失守3510美元/盎司，日内跌3.18%。",
-"time": "2026-11-21 02:41:09",
+"title": "纳斯达克100指数跌幅扩大至5.5%。",
+"time": "2026-11-21 04:36:20",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3780836.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观",
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "美国总统特朗普赞扬伊拉克总理。",
-"time": "2026-11-21 02:39:35",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7003966.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3693393.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "美联储保尔森：投资者似乎理解美联储的沟通。",
-"time": "2026-11-21 02:35:11",
+"title": "【特朗普为其与普京的关系辩护 坚称俄总统希望结束俄乌冲突】尽管俄罗斯发动了最新一轮致命袭击，美国总统唐纳德·特朗普仍为自",
+"time": "2026-11-21 04:34:51",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5320679.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美国总统特朗普就脏弹威胁报道表示：如果存在，我们会查明的。",
-"time": "2026-11-21 02:34:52",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5320574.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国国务卿鲁比奥今日与阿联酋副总理通话。讨论了苏丹战争。",
-"time": "2026-11-21 02:34:36",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3778422.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "据洲际交易所数据，布伦特原油投机者在截至11月17日当周将净多头头寸减少225份合约至133,635份。",
-"time": "2026-11-21 02:34:06",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3778195.d.html",
-"sentiment": -0.707,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "截至11月17日当周，洲际交易所柴油投机者净多头头寸减少3419份合约至50611份。",
-"time": "2026-11-21 02:33:53",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5320227.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "美联储保尔森：倾向于以审慎的方式加息。",
-"time": "2026-11-21 02:33:38",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5320174.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "费城联储行长保尔森表示，对连续加息持开放态度，倾向于以审慎有序的方式加息",
-"time": "2026-11-21 02:33:20",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936560459.html",
-"sentiment": -1.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美联储保尔森表示，对考虑连续加息持开放态度。",
-"time": "2026-11-21 02:32:33",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7001178.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美国总统特朗普表示，我对优质医疗持开放态度。如果民主党人想要办成事情，我也希望如此。美国众议院少数党领袖杰弗瑞斯与美国参",
-"time": "2026-11-21 02:32:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0099532.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "据报道：私募股权公司GTCR正考虑以约500亿美元收购Global Payments",
-"time": "2026-11-21 02:31:08",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936560336.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美国总统特朗普表示，或许我们可以妥协并就医疗保健展开工作。",
-"time": "2026-11-21 02:31:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3776838.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美联储“鹰派”阴云压顶 金价连失四大整数关口",
-"time": "2026-11-21 02:30:42",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936558853.html",
-"sentiment": -0.5,
-"events": [
-"海外宏观",
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "上期所原油期货夜盘收跌0.36%，报588.20元人民币/桶。沪金夜盘收跌2.61%，沪银收跌6.60%。",
-"time": "2026-11-21 02:30:02",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns7000122.d.html",
-"sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "纽约期金失守3510美元/盎司，日内跌4.76%。",
-"time": "2026-11-21 02:28:53",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0098711.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美国总统特朗普在被问及网络主管离职一事时表示，他认为此人不够称职。",
-"time": "2026-11-21 02:26:10",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns6998985.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：空中交通管制系统已使用50至55年，已经过时。国会必须为我们提供资金用于新空中交通管制系统。",
-"time": "2026-11-21 02:25:32",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3775175.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruv0010802.d.html",
 "sentiment": -1.0,
 "events": [],
 "picks": []
 },
 {
-"title": "美国总统特朗普：我们的空中交通管制系统已经过时，但它是安全的。",
-"time": "2026-11-21 02:24:28",
+"title": "新西兰元兑美元汇率跌至2009年以来的最低水平。",
+"time": "2026-11-21 04:34:19",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns6998529.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "  消息人士：哥斯达黎加候选人格林斯潘在联合国安理会非正式意向投票中，得到两张常任理事国反对票。",
-"time": "2026-11-21 02:24:09",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns6998411.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6916517.d.html",
 "sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普表示，空中交通管制系统的问题源于老化。",
-"time": "2026-11-21 02:23:11",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5317401.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：所有停运事故均为独立事件。",
-"time": "2026-11-21 02:21:59",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3774063.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普在回应故障问题时表示：当企业进行升级时，重大变化就会发生。",
-"time": "2026-11-21 02:20:55",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0096643.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：英伟达如果明智，就应接受道歉并让黄仁勋回归。",
-"time": "2026-11-21 02:20:09",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0096352.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：英伟达对美国而言是一家非常重要的公司。",
-"time": "2026-11-21 02:19:51",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0096270.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "特朗普表示：希望黄仁勋道个歉并回归",
-"time": "2026-11-21 02:19:22",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936558647.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：我希望看到黄仁勋回来。",
-"time": "2026-11-21 02:19:21",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnu3772942.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：杰出人才必须受到保护。",
-"time": "2026-11-21 02:18:43",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns6996377.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：希望黄仁勋道歉并回归。",
-"time": "2026-11-21 02:18:32",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0095792.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国总统特朗普：黄仁勋非常出色，但做了一些糟糕的决定。",
-"time": "2026-11-21 02:17:44",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns6995945.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "法国央行行长穆兰表示，将法国退休年龄提高至其他欧洲国家的水平将降低赤字。",
-"time": "2026-11-21 02:17:15",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnr5315165.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "花旗调查显示，墨西哥2026年CPI预期为3.96%，此前预期为3.90%。",
-"time": "2026-11-21 02:16:51",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmnx0095019.d.html",
-"sentiment": -0.707,
 "events": [
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "   美国总统特朗普：普京很想结束这场战争。",
-"time": "2026-11-21 02:16:24",
+"title": "英伟达服务器供应商暂停东南亚发货。",
+"time": "2026-11-21 04:34:13",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns6995219.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6916484.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "纳斯达克综合指数向下跌破23000点 最新报22985.09点 日内下跌3.74%",
-"time": "2026-11-21 02:16:19",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611213936558196.html",
-"sentiment": -1.0,
+"title": "标普/多伦多证交所综合指数较8月创下的纪录高点下跌10%。",
+"time": "2026-11-21 04:34:08",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6916448.d.html",
+"sentiment": -0.707,
 "events": [],
 "picks": []
 },
 {
-"title": "周五（11月20日），美联储隔夜逆回购协议（RRP）使用规模为4.01亿美元（交易对手2家），上个交易日报4.05亿美元",
-"time": "2026-11-21 02:16:10",
+"title": "VIX 指数突破 36，创下 2025 年 4 月以来的最高盘中水平。",
+"time": "2026-11-21 04:32:25",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmmns6995112.d.html",
-"sentiment": 1.0,
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5230203.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "美国商品期货交易委员会数据显示，截至11月17日当周，洲际交易所原糖投机客净多头仓位减少8109手至71914手。",
+"time": "2026-11-21 04:32:06",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5230080.d.html",
+"sentiment": -0.707,
 "events": [
-"回购增持",
-"海外宏观"
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "纳指尾盘跌幅扩大至5% 恐慌指数升破36",
+"time": "2026-11-21 04:32:04",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611213936572295.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国商品期货交易委员会数据显示，截至11月17日当周，股票基金经理将标普500指数芝加哥商业交易所净多头头寸削减1824",
+"time": "2026-11-21 04:31:47",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5229994.d.html",
+"sentiment": 0.0,
+"events": [
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "标普500指数跌幅扩大至3.5%。",
+"time": "2026-11-21 04:31:44",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5229985.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国商品期货交易委员会数据显示，截至11月17日当周，股票基金投机客将标普500指数芝加哥商业交易所净空头头寸削减65,",
+"time": "2026-11-21 04:31:35",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3691954.d.html",
+"sentiment": 0.0,
+"events": [
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "美国商品期货交易委员：会投机者11月17日当周将芝加哥期货交易所美国2年期国债期货净空头头寸削减129126份合约至98",
+"time": "2026-11-21 04:31:23",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrus3691861.d.html",
+"sentiment": 0.0,
+"events": [
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "美国商品期货交易委员会（CFTC）：截至11月17日当周，投机者将芝加哥期货交易所（CBOT）美国超长期国债期货净空头头",
+"time": "2026-11-21 04:31:04",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmrup5229752.d.html",
+"sentiment": 0.0,
+"events": [
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "美国商品期货交易委员会：截至11月17日当周，投机者将CBOT美国国债期货净空头头寸减少5,922手，至3,347手。",
+"time": "2026-11-21 04:30:59",
+"source": "新浪7x24",
+"url": "",
+"sentiment": -0.707,
+"events": [
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "CFTC：截至2026年11月17日当周日元净多头头寸为116,317份合约，截至2026年11月17日当周欧元净空头头",
+"time": "2026-11-21 04:30:54",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruq6915286.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "纳指跌5.01%，现报22684.011点；道指跌1.57%，现报48325.121点；标普500指数跌3.30%，现报",
+"time": "2026-11-21 04:30:38",
+"source": "新浪7x24",
+"url": "",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国商品期货交易委员会：截至2026年11月17日当周，英镑净空头头寸为32,304份合约。",
+"time": "2026-11-21 04:30:30",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-21/detail-inizmruv0009622.d.html",
+"sentiment": 0.0,
+"events": [
+"大宗商品"
 ],
 "picks": []
 }
