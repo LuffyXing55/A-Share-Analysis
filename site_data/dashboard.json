@@ -1,5 +1,5 @@
 {
-"generated_at": "2026-11-25 05:25",
+"generated_at": "2026-11-25 07:01",
 "mode": "close",
 "data_date": "2026-11-24",
 "month": "2026-11",
@@ -86,8 +86,8 @@
 {
 "symbol": "PGJ",
 "name": "中概金龙ETF",
-"price": 19.92,
-"pct": 0.0035264483627204246,
+"price": 19.88,
+"pct": 0.0015113350125943725,
 "date": "2026-11-24"
 },
 {
@@ -114,22 +114,22 @@
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"price": 3578.5,
-"pct": -0.02376145787865558,
+"price": 3583.7,
+"pct": -0.022342863378437383,
 "date": "2026-11-24"
 },
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"price": 548.2,
-"pct": -0.036893886156008415,
+"price": 548.35,
+"pct": -0.036630358397751306,
 "date": "2026-11-24"
 },
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"price": 81.42,
-"pct": 0.014579439252336401,
+"price": 81.67,
+"pct": 0.0176947040498443,
 "date": "2026-11-24"
 },
 {
@@ -157,7 +157,7 @@
 "score": -1,
 "text": "全A等权近20日 -8.4%；融资余额5日 -4.2%；涨停55/跌停2。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
 },
-"time": "2026-11-25 05:25"
+"time": "2026-11-25 07:01"
 },
 "picks": [
 {
@@ -444,7 +444,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.014579439252336401,
+"pct": 0.0176947040498443,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -452,12 +452,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.005
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -597,7 +597,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.014579439252336401,
+"pct": 0.0176947040498443,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -605,12 +605,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.005
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -750,7 +750,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -903,7 +903,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.014579439252336401,
+"pct": 0.0176947040498443,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -1209,7 +1209,7 @@
 {
 "symbol": "PGJ",
 "name": "金龙指数ETF(PGJ)",
-"pct": 0.0035264483627204246,
+"pct": 0.0015113350125943725,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -1689,7 +1689,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.014579439252336401,
+"pct": 0.0176947040498443,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -1697,12 +1697,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.005
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -1983,7 +1983,7 @@
 "ind_mom_60": 0.4805,
 "rel_ind_60": 0.1189
 },
-"short": 99.6,
+"short": 99.7,
 "total": 92.4,
 "chains": [
 {
@@ -1995,14 +1995,14 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.014579439252336401,
+"pct": 0.0176947040498443,
 "date": "2026-11-24",
 "suspect": false
 },
 {
 "symbol": "BZ=F",
 "name": "BZ=F",
-"pct": 0.018223760092272112,
+"pct": 0.01903114186851207,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -2010,15 +2010,15 @@
 "beta": 0.108,
 "corr": 0.262,
 "sample": "2412 个交易日（行业等权）",
-"pred_excess_pct": 0.078
+"pred_excess_pct": 0.087
 }
 ],
 "signals": {
-"overseas": 0.16,
-"overseas_pred_pct": 0.078,
+"overseas": 0.17,
+"overseas_pred_pct": 0.087,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 0.6
+"overseas_points": 0.7
 },
 "news": [],
 "rank": 12,
@@ -2155,7 +2155,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 },
@@ -2468,7 +2468,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.014579439252336401,
+"pct": 0.0176947040498443,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -2476,12 +2476,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.005
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -2776,7 +2776,7 @@
 "ind_mom_60": 0.015,
 "rel_ind_60": 0.5518
 },
-"short": 69.5,
+"short": 69.6,
 "total": 84.0,
 "chains": [
 {
@@ -2788,14 +2788,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": -0.02376145787865558,
+"pct": -0.022342863378437383,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -2803,15 +2803,15 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": -0.2
+"pred_excess_pct": -0.193
 }
 ],
 "signals": {
-"overseas": -0.4,
-"overseas_pred_pct": -0.2,
+"overseas": -0.39,
+"overseas_pred_pct": -0.193,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": -1.6
+"overseas_points": -1.5
 },
 "news": [],
 "rank": 17,
@@ -3115,7 +3115,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 },
@@ -3435,7 +3435,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -3588,7 +3588,7 @@
 {
 "symbol": "PGJ",
 "name": "金龙指数ETF(PGJ)",
-"pct": 0.0035264483627204246,
+"pct": 0.0015113350125943725,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -3741,7 +3741,7 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.014579439252336401,
+"pct": 0.0176947040498443,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -3749,12 +3749,12 @@
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.004
+"pred_excess_pct": 0.005
 }
 ],
 "signals": {
 "overseas": 0.01,
-"overseas_pred_pct": 0.004,
+"overseas_pred_pct": 0.005,
 "news": 0.0,
 "news_points": 0.0,
 "overseas_points": 0.0
@@ -3894,7 +3894,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 },
@@ -4202,7 +4202,7 @@
 "ind_mom_60": 0.015,
 "rel_ind_60": 0.6652
 },
-"short": 78.3,
+"short": 78.4,
 "total": 64.6,
 "chains": [
 {
@@ -4214,14 +4214,14 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": -0.02376145787865558,
+"pct": -0.022342863378437383,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -4229,15 +4229,15 @@
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": -0.2
+"pred_excess_pct": -0.193
 }
 ],
 "signals": {
-"overseas": -0.4,
-"overseas_pred_pct": -0.2,
+"overseas": -0.39,
+"overseas_pred_pct": -0.193,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": -1.6
+"overseas_points": -1.5
 },
 "news": [],
 "rank": 26,
@@ -4687,7 +4687,7 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.036893886156008415,
+"pct": -0.036630358397751306,
 "date": "2026-11-24",
 "suspect": false
 }
@@ -5358,7 +5358,7 @@
 "2026-11-24",
 64.6,
 55.4,
-78.3
+78.4
 ]
 ],
 "sz002986": [
@@ -5456,7 +5456,7 @@
 "2026-11-24",
 92.4,
 87.5,
-99.6
+99.7
 ]
 ],
 "sh603150": [
@@ -7024,7 +7024,7 @@
 "2026-11-24",
 84.0,
 93.6,
-69.5
+69.6
 ]
 ],
 "sh600736": [
@@ -10619,7 +10619,7 @@
 },
 {
 "title": "海外异动：COMEX铜明显下跌",
-"text": "2026-11-24 收盘 -3.69%（约为日常单日波动的 2.2 倍）。关联 A 股产业链：铜矿/铜冶炼。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
+"text": "2026-11-24 收盘 -3.66%（约为日常单日波动的 2.2 倍）。关联 A 股产业链：铜矿/铜冶炼。历史统计显示这类异动对相关 A 股次日开盘影响最明显（样本外相关 0.22），对全天超额影响较弱（0.13）。",
 "picks": [],
 "level": 2,
 "when": "美股 2026-11-24"
@@ -10996,132 +10996,105 @@
 },
 "news": [
 {
-"title": "【惠普发布盈利指引 盘后涨超15%】惠普周二公告，新财年（自本月起）非通用会计准则每股收益区间3.15–3.45美元，统",
-"time": "2026-11-25 05:23:44",
+"title": "现货黄金突破3560美元/盎司，日内涨0.16%。",
+"time": "2026-11-25 07:00:57",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8611097.d.html",
-"sentiment": 0.224,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "惠普盘后股价涨幅扩大至15%。",
-"time": "2026-11-25 05:20:49",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1963767.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "富时A50期指连续夜盘收跌0.58%",
-"time": "2026-11-25 05:20:30",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938874372.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "惠普第四财季净营收160.0亿美元",
-"time": "2026-11-25 05:20:09",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938874447.html",
-"sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "荷兰议员敦促政府抵制美国针对阿斯麦的MATCH法案。",
-"time": "2026-11-25 05:19:39",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8739530.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "惠普盘后股价涨超7%。",
-"time": "2026-11-25 05:17:50",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1962332.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "惠普第四财季净营收160.0亿美元，预期152.6亿美元。",
-"time": "2026-11-25 05:16:42",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1961955.d.html",
-"sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "惠普公司第四财季自由现金流为8亿美元，预期为6.006亿美元。",
-"time": "2026-11-25 05:15:59",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1961714.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "惠普第四财季调整后每股收益83美分，预估74美分。",
-"time": "2026-11-25 05:15:29",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1961595.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "戴尔将AI优化服务器全年营收预期由740亿美元上调至780亿美元",
-"time": "2026-11-25 05:15:17",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938873425.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1893778.d.html",
 "sentiment": 0.707,
 "events": [
-"业绩",
-"海外宏观"
+"海外宏观",
+"大宗商品"
 ],
 "picks": []
 },
 {
-"title": "惠普公司预计第一财季调整后每股收益为66美分至76美分，预期为72美分。",
-"time": "2026-11-25 05:15:14",
+"title": "美国联邦航空管理局取消芝加哥奥黑尔机场的地面延误管控。",
+"time": "2026-11-25 06:59:26",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1961478.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "戴尔盘后交易中回吐涨幅，最新下跌1.9%。",
-"time": "2026-11-25 05:14:19",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8737627.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1892735.d.html",
 "sentiment": -0.707,
 "events": [],
 "picks": []
 },
 {
-"title": "戴尔预计第四季度传统服务器营收增长将达三位数百分比。",
-"time": "2026-11-25 05:13:47",
+"title": "美国总统特朗普：黄仁勋应向国会说实话。",
+"time": "2026-11-25 06:59:05",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9745107.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8668953.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：黄仁勋即使没有获得赦免可能也没问题。",
+"time": "2026-11-25 06:58:08",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1892146.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普：如有必要，愿意赦免黄仁勋。",
+"time": "2026-11-25 06:57:48",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1891982.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "马斯克预言：2027年云厂商“大洗牌” 差距在营运资金缺口",
+"time": "2026-11-25 06:57:45",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611243938816833.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国国务院发布新建议，敦促在中东的美国公民“提高警惕”，因胡塞武装发动武装袭击的威胁增加，且伊朗正试图针对该地区美国政府",
+"time": "2026-11-25 06:56:57",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1891515.d.html",
+"sentiment": 0.0,
+"events": [
+"政策"
+],
+"picks": []
+},
+{
+"title": "Nscale首席执行官已向员工表示，公司拥有充足资本，在可预见的未来可保持私有状态。",
+"time": "2026-11-25 06:53:59",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1889719.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "韩国将于11月27日宣布电动汽车扶持措施。",
+"time": "2026-11-25 06:49:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1887255.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "标普道琼斯指数：Centuri将于12月1日起被纳入标普小型股600指数。",
+"time": "2026-11-25 06:35:55",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnv4434635.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【首批主动ETF迎“私募首秀”，业内看好多元配置逻辑】本周，首批主动ETF的上市成为市场关注焦点。私募排排网数据显示，共",
+"time": "2026-11-25 06:34:14",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8654914.d.html",
 "sentiment": 0.707,
 "events": [
 "业绩"
@@ -11129,167 +11102,105 @@
 "picks": []
 },
 {
-"title": "戴尔预计第四季度调整后运营支出环比持平，低于营收的7%。",
-"time": "2026-11-25 05:13:38",
+"title": "【周三财经信息提醒（以下均为北京时间）】\n① 08:30 澳大利亚10月CPI；\n② 15:00 德国三季度GDP终值；",
+"time": "2026-11-25 06:30:49",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1961049.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnv4431494.d.html",
 "sentiment": 0.0,
 "events": [
-"业绩"
+"业绩",
+"订单合作",
+"政策",
+"海外宏观",
+"大宗商品"
 ],
 "picks": []
 },
 {
-"title": "截至11月13日 所有纳斯达克证券的空头持仓总计229.9亿股",
-"time": "2026-11-25 05:13:21",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938872793.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "惠誉评级：投资经理将在2027年面临充满挑战的环境。",
-"time": "2026-11-25 05:12:42",
+"title": "【8000亿元MLF+5000亿元7天期逆回购 央行组合操作呵护跨月流动性】中国人民银行11月24日公告：11月25日将",
+"time": "2026-11-25 06:29:46",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1960783.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "纳斯达克：截至11月13日，所有纳斯达克证券的空头持仓总计229.9亿股。",
-"time": "2026-11-25 05:12:00",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1960566.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "Wonder否认正在出售外卖平台Grubhub。",
-"time": "2026-11-25 05:11:45",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwsex4524595.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "新西兰联储助理行长西尔克表示，新西兰的支付系统仍然可靠。",
-"time": "2026-11-25 05:09:50",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1959811.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "新西兰联储助理行长西尔克表示，新西兰需要建立一条路径，以提供现代经济所需的零售支付能力。",
-"time": "2026-11-25 05:09:35",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9743897.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "戴尔预计2027财年营收2020亿美元 高于市场预期",
-"time": "2026-11-25 05:09:33",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938871690.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnp9650633.d.html",
 "sentiment": 1.0,
 "events": [
-"业绩",
-"回购增持",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "【戴尔上调AI服务器营收指引 Q3业绩大幅超预期 盘后股价上涨】戴尔2027财年第三季度业绩大增，总营收549.4亿美元",
-"time": "2026-11-25 05:09:10",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8735983.d.html",
-"sentiment": 1.0,
-"events": [
-"业绩",
 "回购增持",
 "订单合作",
-"海外宏观"
+"政策"
 ],
 "picks": []
 },
 {
-"title": "戴尔美股盘后涨近4%。",
-"time": "2026-11-25 05:06:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8734992.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "纳斯达克中国金龙指数收涨0.12%",
-"time": "2026-11-25 05:06:18",
+"title": "半导体 基本面未变订单足 沿光互连外溢上游",
+"time": "2026-11-25 06:29:18",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938871580.html",
+"url": "https://finance.eastmoney.com/a/202611253938856862.html",
+"sentiment": 0.707,
+"events": [
+"业绩",
+"订单合作",
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "【技术故障频发引起美国人恐慌 末日避难物资价格飙升】一系列技术故障导致惶恐的美国消费者开始囤积避难所需物资，发电机、厕纸",
+"time": "2026-11-25 06:26:35",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1872241.d.html",
+"sentiment": 0.289,
+"events": [],
+"picks": []
+},
+{
+"title": "从逆势加仓到结构调仓 险资寻求资产配置再平衡",
+"time": "2026-11-25 06:25:12",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938855886.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "戴尔第三季度人工智能优化服务器营收为220.3亿美元，预期为193亿美元。",
-"time": "2026-11-25 05:06:04",
+"title": "韩国首尔地铁工会取消原定罢工。",
+"time": "2026-11-25 06:22:29",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1958442.d.html",
-"sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnp9645849.d.html",
+"sentiment": -0.707,
+"events": [],
 "picks": []
 },
 {
-"title": "戴尔预计全年营收2020亿美元，此前中点预期为1920亿美元，市场预期为1935亿美元。",
-"time": "2026-11-25 05:05:44",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9742717.d.html",
-"sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
+"title": "半导体ETF接连举牌上市公司 机构看好科技板块配置价值",
+"time": "2026-11-25 06:22:17",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938856520.html",
+"sentiment": 1.0,
+"events": [],
 "picks": []
 },
 {
-"title": "戴尔预计全年调整后每股收益29.68美元，此前中点预期为25.5美元，市场预期为25.88美元。",
-"time": "2026-11-25 05:05:37",
+"title": "巴克莱：油价仍面临压力，但市场叙事已从美伊冲突可能即将缓和转向更广泛的避险情绪。",
+"time": "2026-11-25 06:20:29",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9742668.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1867704.d.html",
+"sentiment": -1.0,
+"events": [],
 "picks": []
 },
 {
-"title": "戴尔预计本财年人工智能优化服务器营收为780亿美元，此前预期为740亿美元。",
-"time": "2026-11-25 05:05:26",
+"title": "也门荷台达港遇袭。",
+"time": "2026-11-25 06:20:14",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1958200.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8643925.d.html",
 "sentiment": 0.0,
-"events": [
-"业绩",
-"海外宏观"
-],
+"events": [],
 "picks": []
 },
 {
-"title": "戴尔第三季度人工智能服务器积压订单为1323亿美元，预期为1173亿美元。",
-"time": "2026-11-25 05:05:14",
+"title": "美国国家航空航天局授予约翰斯·霍普金斯应用物理实验室一份价值3930万美元的SR-1项目合同。",
+"time": "2026-11-25 06:16:55",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8734505.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1865501.d.html",
 "sentiment": 0.0,
 "events": [
 "订单合作",
@@ -11298,10 +11209,50 @@
 "picks": []
 },
 {
-"title": "Workday公司：第三季度业绩反映出我们的人工智能产品组合持续获得采用。",
-"time": "2026-11-25 05:04:27",
+"title": "订单排到2029年！又一国产“神器” 爆单了",
+"time": "2026-11-25 06:16:07",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938886119.html",
+"sentiment": 0.5,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "以媒：以防长称伊朗“正在研发化学武器”",
+"time": "2026-11-25 06:15:45",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938886062.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【中方强调应妥善使用和治理新兴科技】中国常驻联合国代表傅聪24日在安理会“快速技术变革时代的冲突解决”公开辩论会上发言，",
+"time": "2026-11-25 06:14:59",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1957796.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1864345.d.html",
+"sentiment": -0.224,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "胡塞武装：如果敌人实施轰炸荷台达港的威胁，吉达港以及红海沿岸所有敌方沙特港口都将成为我方部队的打击目标。警告这些港口附近",
+"time": "2026-11-25 06:13:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnp9641230.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "奇富科技：预计2026年第四季度净利润在2.1亿元至3.1亿元之间。",
+"time": "2026-11-25 06:13:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1863087.d.html",
 "sentiment": 0.0,
 "events": [
 "业绩"
@@ -11309,28 +11260,48 @@
 "picks": []
 },
 {
-"title": "【胡塞武装称沙特主导联军空袭萨那国际机场所在区域】也门胡塞武装24日夜间消息称，沙特主导的联军空袭了也门首都萨那国际机场",
-"time": "2026-11-25 05:04:11",
+"title": "周三你需要知道的隔夜全球要闻：AI板块疲软费半指数重挫近8%；趋势追踪量化基金削减美债空头头寸；美国消费者信心升至近两年最高",
+"time": "2026-11-25 06:12:11",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938885828.html",
+"sentiment": -0.866,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "美国联邦航空管理局表示，飞往奥黑尔机场的航班平均延误47分钟。",
+"time": "2026-11-25 06:09:52",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1957630.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8637317.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "市场资讯：OpenAI GPT-6无需专用生物模型即可完成蛋白质设计。",
-"time": "2026-11-25 05:03:21",
+"title": "美国联邦航空管理局表示，芝加哥奥黑尔机场的地面停飞令已解除。",
+"time": "2026-11-25 06:09:44",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8733703.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1860846.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "Anthropic股价下跌6.5%，收盘价跌破83美元的IPO发行价。",
-"time": "2026-11-25 05:02:56",
+"title": "【神二十四航天员汤洪波进入飞船返回舱】神舟二十四号载人飞船瞄准北京时间11月25日8时18分发射。神二十四航天员汤洪波进",
+"time": "2026-11-25 06:09:27",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8733495.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1860650.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美联储12月加息25个基点的概率为97.4%",
+"time": "2026-11-25 06:05:45",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938884659.html",
 "sentiment": -1.0,
 "events": [
 "海外宏观"
@@ -11338,264 +11309,284 @@
 "picks": []
 },
 {
-"title": "Workday展望财年订阅收入为99.58亿美元。",
-"time": "2026-11-25 05:02:29",
+"title": "【神二十四航天员穆罕默德·齐尚·阿里进入飞船返回舱】神舟二十四号载人飞船瞄准北京时间11月25日8时18分发射。神二十四",
+"time": "2026-11-25 06:05:13",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9741614.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美三大指数表现分化 费城半导体指数跌近8% 医疗、消费板块走高",
-"time": "2026-11-25 05:02:15",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938869285.html",
-"sentiment": -0.5,
-"events": [],
-"picks": []
-},
-{
-"title": "DeepHealth获得FDA批准，推出首款基于3D乳腺X光影像预测五年乳腺癌风险的人工智能技术。",
-"time": "2026-11-25 05:02:05",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1956623.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "神舟二十四号载人飞船瞄准今天8点18分发射，飞船将搭乘长征二号F遥二十四火箭在酒泉卫星发射中心升空。航天员汤洪波、武毅以",
-"time": "2026-11-25 05:01:38",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1956445.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1857761.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【美股收盘：三大股指集体涨跌不一】道指涨0.88%，标普500指数跌0.47%，纳指跌1.46%。亚德诺跌17.37%，",
-"time": "2026-11-25 05:00:48",
+"title": "波音盘后股价上涨0.25%。",
+"time": "2026-11-25 06:04:51",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8732453.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "纽约证交所表示，11月中旬的空头头寸下降0.8%，至229.9亿股。",
-"time": "2026-11-25 05:00:46",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8732443.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "美国加州金融保护与创新部：责令Afterpay因非法“先买后付”贷款支付268万美元罚款。",
-"time": "2026-11-25 05:00:34",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1955953.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "【纳斯达克中国金龙指数收涨0.19%】震坤行涨7.34%，AIFU涨6.25%，MAAS涨4.76%，爱奇艺涨4.95%",
-"time": "2026-11-25 05:00:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8732147.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "截至11月23日，美国政府距离41.1万亿美元的借款上限还差5756亿美元。",
-"time": "2026-11-25 04:59:36",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwsex4520626.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "俄气公司表示 别洛戈尔斯克-哈巴罗夫斯克天然气管道建设完成近99%",
-"time": "2026-11-25 04:57:46",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938868840.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【以媒：以防长称伊朗“正在研发化学武器”】据以色列媒体24日报道，以国防部长卡茨当天称伊朗“正在研发化学武器”，但他未提",
-"time": "2026-11-25 04:55:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8730553.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【世卫组织向古巴提供200万美元医疗援助】世界卫生组织总干事谭德塞24日宣布，将向古巴提供200万美元资金，用于加强免疫",
-"time": "2026-11-25 04:54:17",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9739001.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "阿根廷总统米莱阵营参议院党团领袖布利奇称，她已拿到足够票数推动选举改革法案通过。",
-"time": "2026-11-25 04:50:36",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwsex4517885.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "摩根大通预计标普500指数2027年底将达到8200点",
-"time": "2026-11-25 04:47:38",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938868685.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "ADM股价下跌4.5%。",
-"time": "2026-11-25 04:44:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8726716.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "邦吉将跌幅扩大至8.9%。",
-"time": "2026-11-25 04:44:21",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9736082.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "日媒：日本政府或删除武器出口文件中“无核三原则”相关表述",
-"time": "2026-11-25 04:38:54",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253938866572.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【伊朗军队防空部队在波斯湾上空击落两架无人机】当地时间24日，伊朗军队宣布，不久前其防空系统在霍尔木兹海峡西部上空，击落",
-"time": "2026-11-25 04:37:20",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1947449.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "皇家加勒比邮轮最新上涨3.0%。",
-"time": "2026-11-25 04:33:15",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1945623.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8633999.d.html",
 "sentiment": 0.707,
 "events": [],
 "picks": []
 },
 {
-"title": "惠普公司成交量激增，最新下跌 2.9%。",
-"time": "2026-11-25 04:31:24",
+"title": "波音将额外为美国空军建造15架KC-46A加油机",
+"time": "2026-11-25 06:04:21",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8721245.d.html",
-"sentiment": -0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1857295.d.html",
+"sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "现货黄金失守3550美元/盎司，日内跌2.36%。",
-"time": "2026-11-25 04:29:31",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwsex4510529.d.html",
-"sentiment": 0.0,
+"title": "CME“美联储观察”数据显示 美联储12月加息25个基点的概率为97.4%",
+"time": "2026-11-25 06:03:08",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938884278.html",
+"sentiment": -0.707,
 "events": [
-"海外宏观",
-"大宗商品"
+"海外宏观"
 ],
 "picks": []
 },
 {
-"title": "沙特领导的联军表示，将对也门胡塞武装针对平民的袭击做出“果断”回应。",
-"time": "2026-11-25 04:25:00",
+"title": "据CME“美联储观察”：美联储12月加息25个基点的概率为97.4%。",
+"time": "2026-11-25 06:01:51",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9728125.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8632212.d.html",
+"sentiment": -0.707,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【乌匈就能源和基础设施合作达成协议】乌克兰总统泽连斯基24日晚在社交媒体发文称，他当天与匈牙利总理毛焦尔·彼得在乌西部城",
+"time": "2026-11-25 06:01:37",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnv4414761.d.html",
+"sentiment": 0.866,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "沙特领导的多国联军司令部：要求平民按照位置地图所示撤离荷台达港，以保障自身安全。",
+"time": "2026-11-25 06:00:26",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1854899.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "沙特领导的联军称，周二对利雅得金融区一座塔楼的袭击是使用无人机实施的。",
-"time": "2026-11-25 04:24:11",
+"title": "也门消息人士：也门荷台达传出爆炸声。",
+"time": "2026-11-25 05:57:14",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwseu8717951.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnp9633040.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【国际油价24日上涨】截至当天收盘，纽约商品交易所1月交货的轻质原油期货价格上涨1.88美元，收于每桶82.05美元，涨",
-"time": "2026-11-25 04:23:06",
+"title": "戴尔表示 客户短期内将预算优先投向服务器和存储 选择推迟部分PC相关更新",
+"time": "2026-11-25 05:50:00",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938878798.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【神二十四航天员到达发射塔架 等待进舱】11月25日，搭载神舟二十四号载人飞船的长征二号F遥二十四运载火箭将在酒泉卫星发",
+"time": "2026-11-25 05:49:26",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1940945.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1848763.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "戴尔：客户近期将预算优先用于服务器和存储，选择推迟部分与PC相关的更新。",
+"time": "2026-11-25 05:47:26",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1847606.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "戴尔：在行业适应更高价格点的疲软市场中，第三季度个人电脑部门营收增长3%。",
+"time": "2026-11-25 05:47:22",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1847543.d.html",
+"sentiment": 0.0,
+"events": [
+"业绩"
+],
+"picks": []
+},
+{
+"title": "【复职次日召开“最艰难的公司会议” 黄仁勋致歉并说每天接受心理治疗】英伟达首席执行官黄仁勋周二在公司全体大会上用沉重的语",
+"time": "2026-11-25 05:47:07",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnp9628950.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "法国将建立稀土及关键金属战略储备 约20种原材料纳入计划",
+"time": "2026-11-25 05:43:52",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611243938827583.html",
+"sentiment": -0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "小米三季报出炉 卢伟冰：“从业以来最难的一个季度”",
+"time": "2026-11-25 05:42:56",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611243938812756.html",
+"sentiment": -1.0,
+"events": [
+"业绩"
+],
+"picks": []
+},
+{
+"title": "利比亚国民军表示，在周日贝宁港遭到袭击导致两名人员死亡后，将在“适当的时间和地点”作出回应。",
+"time": "2026-11-25 05:41:16",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnp9626736.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "长鑫科技 最新流通股东榜大变样",
+"time": "2026-11-25 05:38:46",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611243938812322.html",
 "sentiment": 1.0,
 "events": [
-"海外宏观",
+"回购增持",
+"减持解禁"
+],
+"picks": []
+},
+{
+"title": "惠普股价盘后转跌 最新下跌4%",
+"time": "2026-11-25 05:38:40",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938877517.html",
+"sentiment": -0.289,
+"events": [],
+"picks": []
+},
+{
+"title": "惠普股价在盘后交易中转跌，最新下跌4%。",
+"time": "2026-11-25 05:37:28",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1842161.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "高通首席执行官奖励计划的条件是要求股价上涨超过三倍。",
+"time": "2026-11-25 05:37:07",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnv4405156.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【美国上周API原油库存增超12万桶】美国石油协会（API）数据显示，上周，美国API原油库存 +12.6万桶，之前一周",
+"time": "2026-11-25 05:36:46",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnr1841833.d.html",
+"sentiment": 0.0,
+"events": [
 "大宗商品"
 ],
 "picks": []
 },
 {
-"title": "伊朗革命卫队海军表示，第四艘油轮在霍尔木兹海峡以东触雷后发生爆炸，其他船只在收到关于未经授权航线的警告后折返。",
-"time": "2026-11-25 04:22:32",
+"title": "高通授予首席执行官价值5000万美元的价值创造限制性股票奖励。",
+"time": "2026-11-25 05:36:13",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwsex4507196.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8618007.d.html",
 "sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "思科系统股价最新跌幅达3.0%。",
-"time": "2026-11-25 04:22:13",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwser9727008.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "野村证券：预计加拿大央行将在12月加息，此前预测为明年1月。",
-"time": "2026-11-25 04:20:12",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwset1939560.d.html",
-"sentiment": -0.707,
 "events": [
-"政策",
 "海外宏观"
+],
+"picks": []
+},
+{
+"title": "高通授予首席财务官兼首席运营官帕尔基瓦拉1500万美元限制性股票奖励。",
+"time": "2026-11-25 05:35:55",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnp9624824.d.html",
+"sentiment": 0.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "高通：董事会批准为首席执行官和首席财务官颁发特别长期股权激励奖励。",
+"time": "2026-11-25 05:35:25",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnv4404652.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "美国总统特朗普称过去两周汽油价格下跌20%“有点奇怪”，并表示降价恰好发生在11月中期选举之后。",
+"time": "2026-11-25 05:32:15",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwnv4403471.d.html",
+"sentiment": -1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "AI服务器制造商慧与科技（HPE）收跌16.31%",
+"time": "2026-11-25 05:31:49",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938875542.html",
+"sentiment": 1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【出发！汤洪波、武毅和穆罕默德·齐尚·阿里三名航天员领命出征】11月25日，神舟二十四号载人飞行任务航天员乘组出征仪式在",
+"time": "2026-11-25 05:30:54",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-25/detail-inizwwns8615146.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "OpenAI推出“雅典娜”数据工具 使其智能体更精准",
+"time": "2026-11-25 05:27:55",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938875231.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "惠普股价盘后上涨14.5%",
+"time": "2026-11-25 05:25:22",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611253938874988.html",
+"sentiment": 1.0,
+"events": [
+"业绩"
 ],
 "picks": []
 }
