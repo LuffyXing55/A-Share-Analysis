@@ -1,6 +1,6 @@
 {
-"generated_at": "2026-11-26 06:29",
-"mode": "close",
+"generated_at": "2026-11-26 16:57",
+"mode": "premarket",
 "data_date": "2026-11-25",
 "month": "2026-11",
 "pick_date": "2026-11-04",
@@ -15,50 +15,50 @@
 {
 "code": "sh000001",
 "name": "上证指数",
-"price": 3476.47,
-"pct": -0.0203
+"price": 3476.88,
+"pct": 0.0001
 },
 {
 "code": "sz399001",
 "name": "深证成指",
-"price": 10086.36,
-"pct": -0.032400000000000005
+"price": 10084.04,
+"pct": -0.0002
 },
 {
 "code": "sz399006",
 "name": "创业板指",
-"price": 2183.58,
-"pct": -0.04190000000000001
+"price": 2189.82,
+"pct": 0.0029
 },
 {
 "code": "sh000688",
 "name": "科创50",
-"price": 1186.14,
-"pct": -0.0512
+"price": 1169.99,
+"pct": -0.013600000000000001
 },
 {
 "code": "sh000300",
 "name": "沪深300",
-"price": 3898.24,
-"pct": -0.0165
+"price": 3900.55,
+"pct": 0.0006
 },
 {
 "code": "sh000905",
 "name": "中证500",
-"price": 5890.41,
-"pct": -0.0363
+"price": 5863.34,
+"pct": -0.0046
 },
 {
 "code": "sh000852",
 "name": "中证1000",
-"price": 5541.55,
-"pct": -0.0444
+"price": 5531.84,
+"pct": -0.0018
 },
 {
 "code": "sh000985",
 "name": "中证全指",
-"price": 4676.89,
-"pct": -0.0282
+"price": 4672.96,
+"pct": -0.0008
 }
 ],
 "global": [
@@ -114,30 +114,30 @@
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"price": 3617.4,
-"pct": 0.009403688924854325,
-"date": "2026-11-25"
+"price": 3600.0,
+"pct": -0.004810084591142849,
+"date": "2026-11-26"
 },
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"price": 548.05,
-"pct": -0.0005470958329535369,
-"date": "2026-11-25"
+"price": 548.0,
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26"
 },
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"price": 84.15,
-"pct": 0.030366107505816142,
-"date": "2026-11-25"
+"price": 83.8,
+"pct": -0.004159239453357166,
+"date": "2026-11-26"
 },
 {
 "symbol": "US10Y",
 "name": "美债10Y(%)",
-"price": 4.91,
+"price": 4.85,
 "pct": null,
-"bp": -1.0
+"bp": -6.0
 },
 {
 "symbol": "CN10Y",
@@ -155,9 +155,9 @@
 "regime": {
 "level": "偏弱",
 "score": -2,
-"text": "全A等权近20日 -13.7%；融资余额5日 -3.4%；涨停51/跌停43。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
+"text": "全A等权近20日 -13.7%；融资余额5日 -3.9%；涨停51/跌停43。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
 },
-"time": "2026-11-26 06:29"
+"time": "2026-11-26 16:57"
 },
 "picks": [
 {
@@ -432,7 +432,7 @@
 "ind_mom_60": 0.3783,
 "rel_ind_60": 0.1517
 },
-"short": 98.9,
+"short": 98.8,
 "total": 99.1,
 "chains": [
 {
@@ -444,27 +444,27 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.030366107505816142,
-"date": "2026-11-25",
+"pct": -0.004159239453357166,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.009
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
-"overseas": 0.02,
-"overseas_pred_pct": 0.009,
+"overseas": -0.0,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 0.1
+"overseas_points": -0.0
 },
 "news": [],
 "rank": 2,
-"prev_rank": 10
+"prev_rank": 2
 },
 {
 "code": "sz301028",
@@ -597,8 +597,8 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
 "suspect": false
 },
 {
@@ -624,7 +624,7 @@
 },
 "news": [],
 "rank": 3,
-"prev_rank": 13
+"prev_rank": 3
 },
 {
 "code": "sh603681",
@@ -745,8 +745,8 @@
 "ind_mom_60": 0.3783,
 "rel_ind_60": 0.1947
 },
-"short": 100.0,
-"total": 97.8,
+"short": 99.9,
+"total": 97.7,
 "chains": [
 {
 "id": "industry",
@@ -757,27 +757,27 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.030366107505816142,
-"date": "2026-11-25",
+"pct": -0.004159239453357166,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.009
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
-"overseas": 0.02,
-"overseas_pred_pct": 0.009,
+"overseas": -0.0,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 0.1
+"overseas_points": -0.0
 },
 "news": [],
 "rank": 4,
-"prev_rank": 3
+"prev_rank": 4
 },
 {
 "code": "sh600475",
@@ -910,8 +910,8 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.030366107505816142,
-"date": "2026-11-25",
+"pct": -0.004159239453357166,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
@@ -1250,7 +1250,7 @@
 },
 "news": [],
 "rank": 7,
-"prev_rank": 16
+"prev_rank": 7
 },
 {
 "code": "sz301329",
@@ -1417,7 +1417,7 @@
 },
 "news": [],
 "rank": 8,
-"prev_rank": 9
+"prev_rank": 8
 },
 {
 "code": "sh603285",
@@ -1538,7 +1538,7 @@
 "ind_mom_60": 0.3783,
 "rel_ind_60": 0.2253
 },
-"short": 99.0,
+"short": 98.9,
 "total": 93.3,
 "chains": [
 {
@@ -1550,27 +1550,27 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.030366107505816142,
-"date": "2026-11-25",
+"pct": -0.004159239453357166,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.009
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
-"overseas": 0.02,
-"overseas_pred_pct": 0.009,
+"overseas": -0.0,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 0.1
+"overseas_points": -0.0
 },
 "news": [],
 "rank": 9,
-"prev_rank": 23
+"prev_rank": 9
 },
 {
 "code": "sz301568",
@@ -1703,8 +1703,8 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
 "suspect": false
 },
 {
@@ -1730,7 +1730,7 @@
 },
 "news": [],
 "rank": 10,
-"prev_rank": 24
+"prev_rank": 10
 },
 {
 "code": "sh688291",
@@ -1890,7 +1890,7 @@
 },
 "news": [],
 "rank": 11,
-"prev_rank": 20
+"prev_rank": 11
 },
 {
 "code": "sh603017",
@@ -2023,8 +2023,8 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
@@ -2043,7 +2043,7 @@
 },
 "news": [],
 "rank": 12,
-"prev_rank": 4
+"prev_rank": 12
 },
 {
 "code": "sh603150",
@@ -2164,8 +2164,8 @@
 "ind_mom_60": 0.3783,
 "rel_ind_60": 0.2014
 },
-"short": 97.3,
-"total": 90.0,
+"short": 97.2,
+"total": 89.9,
 "chains": [
 {
 "id": "industry",
@@ -2176,27 +2176,27 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.030366107505816142,
-"date": "2026-11-25",
+"pct": -0.004159239453357166,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.009
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
-"overseas": 0.02,
-"overseas_pred_pct": 0.009,
+"overseas": -0.0,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 0.1
+"overseas_points": -0.0
 },
 "news": [],
 "rank": 13,
-"prev_rank": 15
+"prev_rank": 13
 },
 {
 "code": "sh603257",
@@ -2329,8 +2329,8 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
@@ -2349,7 +2349,7 @@
 },
 "news": [],
 "rank": 14,
-"prev_rank": 21
+"prev_rank": 14
 },
 {
 "code": "sh603335",
@@ -2502,7 +2502,7 @@
 },
 "news": [],
 "rank": 15,
-"prev_rank": 14
+"prev_rank": 15
 },
 {
 "code": "sh688330",
@@ -2662,7 +2662,7 @@
 },
 "news": [],
 "rank": 16,
-"prev_rank": 8
+"prev_rank": 16
 },
 {
 "code": "sh600784",
@@ -2783,7 +2783,7 @@
 "ind_mom_60": 0.3782,
 "rel_ind_60": 0.213
 },
-"short": 77.7,
+"short": 77.6,
 "total": 87.6,
 "chains": [
 {
@@ -2795,27 +2795,27 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.030366107505816142,
-"date": "2026-11-25",
+"pct": -0.004159239453357166,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
 "beta": 0.006,
 "corr": 0.039,
 "sample": "2616 个交易日（行业等权）",
-"pred_excess_pct": 0.009
+"pred_excess_pct": -0.001
 }
 ],
 "signals": {
-"overseas": 0.02,
-"overseas_pred_pct": 0.009,
+"overseas": -0.0,
+"overseas_pred_pct": -0.001,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 0.1
+"overseas_points": -0.0
 },
 "news": [],
 "rank": 17,
-"prev_rank": 2
+"prev_rank": 17
 },
 {
 "code": "sh600841",
@@ -2968,7 +2968,7 @@
 },
 "news": [],
 "rank": 18,
-"prev_rank": 11
+"prev_rank": 18
 },
 {
 "code": "sz000045",
@@ -3135,7 +3135,7 @@
 },
 "news": [],
 "rank": 19,
-"prev_rank": 18
+"prev_rank": 19
 },
 {
 "code": "sz002986",
@@ -3256,8 +3256,8 @@
 "ind_mom_60": 0.5867,
 "rel_ind_60": 0.11
 },
-"short": 94.4,
-"total": 86.6,
+"short": 93.2,
+"total": 86.1,
 "chains": [
 {
 "id": "industry",
@@ -3268,34 +3268,34 @@
 {
 "symbol": "CL=F",
 "name": "WTI原油",
-"pct": 0.030366107505816142,
-"date": "2026-11-25",
+"pct": -0.004159239453357166,
+"date": "2026-11-26",
 "suspect": false
 },
 {
 "symbol": "BZ=F",
 "name": "BZ=F",
-"pct": 0.02727787209960386,
-"date": "2026-11-25",
+"pct": -0.002425578831312003,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
 "beta": 0.108,
 "corr": 0.262,
 "sample": "2412 个交易日（行业等权）",
-"pred_excess_pct": 0.135
+"pred_excess_pct": -0.015
 }
 ],
 "signals": {
-"overseas": 0.27,
-"overseas_pred_pct": 0.135,
+"overseas": -0.03,
+"overseas_pred_pct": -0.015,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 1.1
+"overseas_points": -0.1
 },
 "news": [],
 "rank": 20,
-"prev_rank": 12
+"prev_rank": 20
 },
 {
 "code": "sh600736",
@@ -3448,167 +3448,7 @@
 },
 "news": [],
 "rank": 21,
-"prev_rank": 7
-},
-{
-"code": "sz301323",
-"name": "新莱福",
-"industry": "有色金属",
-"value": 77.2,
-"short_model": 90.2,
-"total_base": 87.8,
-"price": 46.67,
-"pct_today": -0.0786,
-"suspended": false,
-"ret_since_pick": -0.1515,
-"is_st": false,
-"reasons_value": [
-{
-"factor": "intra_20",
-"contrib": 0.0894,
-"pct": 90.1,
-"name": "日内未追高"
-},
-{
-"factor": "amihud_20",
-"contrib": 0.0555,
-"pct": 86.6,
-"name": "非流动性溢价"
-},
-{
-"factor": "pv_corr_20",
-"contrib": -0.0476,
-"pct": 23.3,
-"name": "量价背离"
-},
-{
-"factor": "rev_20",
-"contrib": 0.0342,
-"pct": 79.9,
-"name": "20日回调"
-},
-{
-"factor": "ivol_20",
-"contrib": -0.0254,
-"pct": 24.4,
-"name": "低特质波动"
-},
-{
-"factor": "dist_ma20",
-"contrib": 0.0233,
-"pct": 71.3,
-"name": "低于20日均线"
-}
-],
-"reasons_short": [
-{
-"factor": "ivol_20",
-"name": "低特质波动",
-"contrib": -0.0634,
-"pct": 24.4
-},
-{
-"factor": "vol_20",
-"name": "20日低波动",
-"contrib": 0.0496,
-"pct": 20.0
-},
-{
-"factor": "amihud_20",
-"name": "非流动性溢价",
-"contrib": 0.049,
-"pct": 86.6
-},
-{
-"factor": "rev_1",
-"name": "昨日回调",
-"contrib": 0.0193,
-"pct": 88.6
-},
-{
-"factor": "turn_5",
-"name": "5日低换手",
-"contrib": 0.0131,
-"pct": 58.8
-}
-],
-"pe_ttm": 30.64,
-"pb": 2.14,
-"total_mv_yi": 49.7,
-"mv_bucket": 2,
-"feat_ranks": {
-"rev_1": 0.8865,
-"rev_5": 0.5631,
-"rev_20": 0.799,
-"mom_250_20": 0.2322,
-"vol_20": 0.1995,
-"vol_60": 0.298,
-"ivol_20": 0.2445,
-"maxret_20": 0.0592,
-"amihud_20": 0.8658,
-"turn_20": 0.537,
-"turn_5": 0.5878,
-"abn_turn": 0.6672,
-"vol_ratio_5": 0.6278,
-"pv_corr_20": 0.2334,
-"ovn_20": 0.8776,
-"intra_20": 0.9008,
-"gap_1": 0.9574,
-"close_pos_1": 0.723,
-"dist_ma20": 0.7131,
-"high52": 0.7152,
-"limit_up_5": 0.5266,
-"ep": 0.6547,
-"bp": 0.5127,
-"roe": 0.6596,
-"e_growth": null,
-"e_revision": null,
-"size": 0.5721,
-"ind_mom_20": 0.1491,
-"rel_ind_20": 0.3312,
-"ind_mom_60": 0.015,
-"rel_ind_60": 0.5923
-},
-"short": 90.5,
-"total": 82.5,
-"chains": [
-{
-"id": "industry",
-"name": "行业参照：有色金属",
-"strength": "行业层面",
-"logic": "该股不在具体产业链映射中，用所属申万一级行业整体与海外标的的历史联动作参照（权重减半）。",
-"overseas": [
-{
-"symbol": "HG=F",
-"name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
-"suspect": false
-},
-{
-"symbol": "GC=F",
-"name": "COMEX黄金",
-"pct": 0.009403688924854325,
-"date": "2026-11-25",
-"suspect": false
-}
-],
-"beta": 0.173,
-"corr": 0.182,
-"sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": 0.039
-}
-],
-"signals": {
-"overseas": 0.08,
-"overseas_pred_pct": 0.039,
-"news": 0.0,
-"news_points": 0.0,
-"overseas_points": 0.3
-},
-"news": [],
-"rank": 22,
-"prev_rank": 26
+"prev_rank": 21
 },
 {
 "code": "sh601702",
@@ -3729,8 +3569,8 @@
 "ind_mom_60": 0.015,
 "rel_ind_60": 0.5918
 },
-"short": 66.9,
-"total": 82.4,
+"short": 66.4,
+"total": 82.3,
 "chains": [
 {
 "id": "industry",
@@ -3741,34 +3581,194 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
 "suspect": false
 },
 {
 "symbol": "GC=F",
 "name": "COMEX黄金",
-"pct": 0.009403688924854325,
-"date": "2026-11-25",
+"pct": -0.004810084591142849,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
 "beta": 0.173,
 "corr": 0.182,
 "sample": "2413 个交易日（行业等权）",
-"pred_excess_pct": 0.039
+"pred_excess_pct": -0.021
 }
 ],
 "signals": {
-"overseas": 0.08,
-"overseas_pred_pct": 0.039,
+"overseas": -0.04,
+"overseas_pred_pct": -0.021,
 "news": 0.0,
 "news_points": 0.0,
-"overseas_points": 0.3
+"overseas_points": -0.2
+},
+"news": [],
+"rank": 22,
+"prev_rank": 23
+},
+{
+"code": "sz301323",
+"name": "新莱福",
+"industry": "有色金属",
+"value": 77.2,
+"short_model": 90.2,
+"total_base": 87.8,
+"price": 46.67,
+"pct_today": -0.0786,
+"suspended": false,
+"ret_since_pick": -0.1515,
+"is_st": false,
+"reasons_value": [
+{
+"factor": "intra_20",
+"contrib": 0.0894,
+"pct": 90.1,
+"name": "日内未追高"
+},
+{
+"factor": "amihud_20",
+"contrib": 0.0555,
+"pct": 86.6,
+"name": "非流动性溢价"
+},
+{
+"factor": "pv_corr_20",
+"contrib": -0.0476,
+"pct": 23.3,
+"name": "量价背离"
+},
+{
+"factor": "rev_20",
+"contrib": 0.0342,
+"pct": 79.9,
+"name": "20日回调"
+},
+{
+"factor": "ivol_20",
+"contrib": -0.0254,
+"pct": 24.4,
+"name": "低特质波动"
+},
+{
+"factor": "dist_ma20",
+"contrib": 0.0233,
+"pct": 71.3,
+"name": "低于20日均线"
+}
+],
+"reasons_short": [
+{
+"factor": "ivol_20",
+"name": "低特质波动",
+"contrib": -0.0634,
+"pct": 24.4
+},
+{
+"factor": "vol_20",
+"name": "20日低波动",
+"contrib": 0.0496,
+"pct": 20.0
+},
+{
+"factor": "amihud_20",
+"name": "非流动性溢价",
+"contrib": 0.049,
+"pct": 86.6
+},
+{
+"factor": "rev_1",
+"name": "昨日回调",
+"contrib": 0.0193,
+"pct": 88.6
+},
+{
+"factor": "turn_5",
+"name": "5日低换手",
+"contrib": 0.0131,
+"pct": 58.8
+}
+],
+"pe_ttm": 30.64,
+"pb": 2.14,
+"total_mv_yi": 49.7,
+"mv_bucket": 2,
+"feat_ranks": {
+"rev_1": 0.8865,
+"rev_5": 0.5631,
+"rev_20": 0.799,
+"mom_250_20": 0.2322,
+"vol_20": 0.1995,
+"vol_60": 0.298,
+"ivol_20": 0.2445,
+"maxret_20": 0.0592,
+"amihud_20": 0.8658,
+"turn_20": 0.537,
+"turn_5": 0.5878,
+"abn_turn": 0.6672,
+"vol_ratio_5": 0.6278,
+"pv_corr_20": 0.2334,
+"ovn_20": 0.8776,
+"intra_20": 0.9008,
+"gap_1": 0.9574,
+"close_pos_1": 0.723,
+"dist_ma20": 0.7131,
+"high52": 0.7152,
+"limit_up_5": 0.5266,
+"ep": 0.6547,
+"bp": 0.5127,
+"roe": 0.6596,
+"e_growth": null,
+"e_revision": null,
+"size": 0.5721,
+"ind_mom_20": 0.1491,
+"rel_ind_20": 0.3312,
+"ind_mom_60": 0.015,
+"rel_ind_60": 0.5923
+},
+"short": 90.0,
+"total": 82.3,
+"chains": [
+{
+"id": "industry",
+"name": "行业参照：有色金属",
+"strength": "行业层面",
+"logic": "该股不在具体产业链映射中，用所属申万一级行业整体与海外标的的历史联动作参照（权重减半）。",
+"overseas": [
+{
+"symbol": "HG=F",
+"name": "COMEX铜",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
+"suspect": false
+},
+{
+"symbol": "GC=F",
+"name": "COMEX黄金",
+"pct": -0.004810084591142849,
+"date": "2026-11-26",
+"suspect": false
+}
+],
+"beta": 0.173,
+"corr": 0.182,
+"sample": "2413 个交易日（行业等权）",
+"pred_excess_pct": -0.021
+}
+],
+"signals": {
+"overseas": -0.04,
+"overseas_pred_pct": -0.021,
+"news": 0.0,
+"news_points": 0.0,
+"overseas_points": -0.2
 },
 "news": [],
 "rank": 23,
-"prev_rank": 17
+"prev_rank": 22
 },
 {
 "code": "sz301151",
@@ -3901,8 +3901,8 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
 "suspect": false
 },
 {
@@ -3928,7 +3928,7 @@
 },
 "news": [],
 "rank": 24,
-"prev_rank": 19
+"prev_rank": 24
 },
 {
 "code": "sz300932",
@@ -4241,7 +4241,7 @@
 },
 "news": [],
 "rank": 26,
-"prev_rank": 22
+"prev_rank": 26
 },
 {
 "code": "sz002394",
@@ -4687,8 +4687,8 @@
 {
 "symbol": "HG=F",
 "name": "COMEX铜",
-"pct": -0.0005470958329535369,
-"date": "2026-11-25",
+"pct": -9.123255177434508e-05,
+"date": "2026-11-26",
 "suspect": false
 }
 ],
@@ -8490,7 +8490,7 @@
 },
 "news": [],
 "rank": 3,
-"prev_rank": 7
+"prev_rank": 3
 },
 {
 "code": "sz301208",
@@ -8650,7 +8650,7 @@
 },
 "news": [],
 "rank": 4,
-"prev_rank": 3
+"prev_rank": 4
 },
 {
 "code": "sh688291",
@@ -8810,7 +8810,7 @@
 },
 "news": [],
 "rank": 5,
-"prev_rank": 8
+"prev_rank": 5
 },
 {
 "code": "sz300650",
@@ -8977,7 +8977,7 @@
 },
 "news": [],
 "rank": 6,
-"prev_rank": 4
+"prev_rank": 6
 },
 {
 "code": "sz300545",
@@ -9144,7 +9144,7 @@
 },
 "news": [],
 "rank": 7,
-"prev_rank": 11
+"prev_rank": 7
 },
 {
 "code": "sz000045",
@@ -9311,7 +9311,7 @@
 },
 "news": [],
 "rank": 8,
-"prev_rank": 10
+"prev_rank": 8
 },
 {
 "code": "sz002296",
@@ -9471,7 +9471,7 @@
 },
 "news": [],
 "rank": 9,
-"prev_rank": 5
+"prev_rank": 9
 },
 {
 "code": "sz300884",
@@ -9631,7 +9631,7 @@
 },
 "news": [],
 "rank": 10,
-"prev_rank": 6
+"prev_rank": 10
 },
 {
 "code": "sh688182",
@@ -9791,7 +9791,7 @@
 },
 "news": [],
 "rank": 11,
-"prev_rank": 14
+"prev_rank": 11
 },
 {
 "code": "sz300711",
@@ -9951,7 +9951,7 @@
 },
 "news": [],
 "rank": 12,
-"prev_rank": 9
+"prev_rank": 12
 },
 {
 "code": "sz300563",
@@ -10111,7 +10111,7 @@
 },
 "news": [],
 "rank": 13,
-"prev_rank": 12
+"prev_rank": 13
 },
 {
 "code": "sz300551",
@@ -10271,7 +10271,7 @@
 },
 "news": [],
 "rank": 14,
-"prev_rank": 13
+"prev_rank": 14
 },
 {
 "code": "sz002106",
@@ -10882,7 +10882,7 @@
 "signals": [
 {
 "title": "美债10年期收益率下行",
-"text": "最新 4.91%，1 日 -1bp，5 日 -19bp。收益率上行通常压制成长股估值、利好银行保险；下行则相反。",
+"text": "最新 4.85%，1 日 -6bp，5 日 -22bp。收益率上行通常压制成长股估值、利好银行保险；下行则相反。",
 "picks": [
 "sh688307",
 "sz301329",
@@ -10901,14 +10901,14 @@
 "sz002106"
 ],
 "level": 2,
-"when": "2026-11-24"
+"when": "2026-11-25"
 },
 {
-"title": "融资余额 5 日减少 3.4%",
-"text": "最新融资余额 2.14 万亿元。融资盘持续流出时，高融资占比的科技成长板块承压；止跌回升往往伴随超跌反弹。",
+"title": "融资余额 5 日减少 3.9%",
+"text": "最新融资余额 2.12 万亿元。融资盘持续流出时，高融资占比的科技成长板块承压；止跌回升往往伴随超跌反弹。",
 "picks": [],
 "level": 1,
-"when": "2026-11-24"
+"when": "2026-11-25"
 }
 ],
 "events": [
@@ -10991,8 +10991,8 @@
 "sz301329",
 "sh688291",
 "sz000045",
-"sz301323",
 "sh601702",
+"sz301323",
 "sz002970",
 "sz301208",
 "sz300650",
@@ -11049,8 +11049,8 @@
 "sz301329",
 "sh688291",
 "sz000045",
-"sz301323",
 "sh601702",
+"sz301323",
 "sz002970",
 "sz301208",
 "sz300650",
@@ -11116,8 +11116,8 @@
 "sh688307",
 "sz301329",
 "sz000045",
-"sz301323",
 "sh601702",
+"sz301323",
 "sz300650",
 "sz300545",
 "sz002106"
@@ -11208,8 +11208,8 @@
 "sh688307",
 "sz301329",
 "sz000045",
-"sz301323",
 "sh601702",
+"sz301323",
 "sz300650",
 "sz300545",
 "sz002106"
@@ -11245,30 +11245,54 @@
 },
 "news": [
 {
-"title": "【Anthropic股票引发华尔街同一家机构内部罕见分歧】Hedgeye Risk Management的两名股票分析师",
-"time": "2026-11-26 06:27:57",
+"title": "【商务部：将不断完善外资研发中心支持政策，推动外资企业提高产供链本地化水平】11月26日，商务部新闻发言人何亚东在例行新",
+"time": "2026-11-26 16:56:47",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizzftp1407369.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国参议院民主党成员Warren呼吁证券交易委员会（SEC）撤销关于“监管加密资产”的制度。",
-"time": "2026-11-26 06:27:19",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizzftm9031252.d.html",
-"sentiment": 0.0,
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaawz8953684.d.html",
+"sentiment": 1.0,
 "events": [
-"监管处罚"
+"政策"
 ],
 "picks": []
 },
 {
-"title": "委内瑞拉财政部长：委内瑞拉正与美洲开发银行进行深入谈判。",
-"time": "2026-11-26 06:22:35",
+"title": "【天津：大力发展银发经济，支持养老服务与医疗、文化、旅游、教育等深度融合，推动养老产业规模化、标准化、集群化、品牌化发展",
+"time": "2026-11-26 16:56:22",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmv3939929.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8204656.d.html",
+"sentiment": 0.866,
+"events": [],
+"picks": []
+},
+{
+"title": "【南山铝业：完成股份回购 拟注销1.05%股份】南山铝业公告称，公司完成以集中竞价方式回购股份事项，实际回购股份1.21",
+"time": "2026-11-26 16:55:59",
+"source": "新浪7x24",
+"url": "",
+"sentiment": 1.0,
+"events": [
+"回购增持",
+"减持解禁",
+"大宗商品"
+],
+"picks": []
+},
+{
+"title": "【沪光股份：首次回购36.01万股 耗资约499.85万元】沪光股份公告称，公司回购股份方案拟使用5000万元-1000",
+"time": "2026-11-26 16:55:52",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaawz8953084.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【天智航：发行股份购买资产事项正推进审计评估工作】天智航公告称，公司拟发行股份购买上海微创骨科医疗科技有限公司62%股权",
+"time": "2026-11-26 16:55:46",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaawz8953039.d.html",
 "sentiment": 0.0,
 "events": [
 "政策"
@@ -11276,257 +11300,303 @@
 "picks": []
 },
 {
-"title": "【白宫推进超加工食品定义提案，约六成美国食品将被划入】据报道，白宫正推进 “让美国再次健康”（MAHA）议程的核心举措，",
-"time": "2026-11-26 06:21:37",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmp9159523.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "委内瑞拉代总统罗德里格斯：与西门子的协议对委内瑞拉经济增长至关重要。",
-"time": "2026-11-26 06:19:56",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmv3938722.d.html",
-"sentiment": 0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "市场消息：白宫拟将约 60% 的美国食品划定为超加工食品。超加工食品相关措施即将发布。",
-"time": "2026-11-26 06:16:34",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1531103.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "周三（11月25日）纽约尾盘（周四北京时间05:59），离岸人民币（CNH）兑美元报6.6686元，较周二纽约尾盘跌38",
-"time": "2026-11-26 06:14:58",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1529842.d.html",
-"sentiment": 0.0,
+"title": "商务部：望美中推动对等降税安排尽快落地实施",
+"time": "2026-11-26 16:55:27",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940655778.html",
+"sentiment": 0.5,
 "events": [
 "海外宏观"
 ],
 "picks": []
 },
 {
-"title": "委内瑞拉国家石油公司与西门子能源签署电力系统合作协议。",
-"time": "2026-11-26 06:10:57",
+"title": "【辰安科技子公司中标芜湖市江北新区城市生命线安全工程项目】据辰安科技消息，近日，辰安科技子公司合肥泽众成功中标芜湖市江北",
+"time": "2026-11-26 16:55:04",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1527127.d.html",
-"sentiment": 0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1427163.d.html",
+"sentiment": 1.0,
 "events": [
 "订单合作"
 ],
 "picks": []
 },
 {
-"title": "穆迪维持英伟达评级及展望不变",
-"time": "2026-11-26 06:10:49",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939962895.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "穆迪：鉴于公司对首席执行官领导力的高度依赖，英伟达仍面临关键人物风险，同时存在更广泛的公司治理担忧。",
-"time": "2026-11-26 06:07:22",
+"title": "【恒通股份：完成股份回购 累计耗资9999.38万元】恒通股份公告称，公司完成股份回购，通过集中竞价交易方式累计回购股份",
+"time": "2026-11-26 16:54:48",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8301505.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "穆迪：英伟达面临的监管与政府审查压力仍处于高位，可能分散管理层业务精力。",
-"time": "2026-11-26 06:07:07",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8301360.d.html",
-"sentiment": -0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8203356.d.html",
+"sentiment": 1.0,
 "events": [
-"监管处罚"
+"回购增持"
 ],
 "picks": []
 },
 {
-"title": "穆迪：Aa1评级及稳定展望反映英伟达异常强劲的竞争和财务状况。",
-"time": "2026-11-26 06:06:47",
+"title": "【华润双鹤：重大资产重组进展 签署股份转让补充协议】华润双鹤公告称，公司拟支付现金购买交易对方合计持有的利尔化学23.5",
+"time": "2026-11-26 16:54:39",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1524781.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "穆迪对英伟达的评级和稳定展望也考虑了新出口管制规则对先进半导体销售的潜在影响。",
-"time": "2026-11-26 06:06:32",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmv3930963.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "穆迪：英伟达首席执行官回归恢复了战略连续性，但一些治理问题仍未解决；评级和展望维持不变。",
-"time": "2026-11-26 06:05:49",
-"source": "新浪7x24",
-"url": "",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "惠誉预计，2027年澳大利亚和新西兰的地方和地区政府将维持总体稳定的运营状况。",
-"time": "2026-11-26 06:05:36",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8300474.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "市场消息：美国总统特朗普将于明年1月邀请参议院舒默和众议院民主党领袖杰弗里斯参加会晤。",
-"time": "2026-11-26 06:05:04",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8300130.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【报道：美国评估政策选项 回应其所称韩国对Coupang的歧视性待遇】据报道，美国国务院正在评估一系列政策选项，以回应其",
-"time": "2026-11-26 06:02:25",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmv3928792.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "【国际金价涨超0.7%】周三（11月25日）纽约尾盘，现货黄金涨0.72%，报3580.93美元/盎司，全天实现V形反转",
-"time": "2026-11-26 06:00:23",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1520466.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观",
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "【美联储12月加息25个基点的概率为97.2%】据CME“美联储观察”，美联储12月加息25个基点的概率为97.2%，维",
-"time": "2026-11-26 06:00:17",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8296797.d.html",
-"sentiment": -1.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "周四你需要知道的隔夜全球要闻",
-"time": "2026-11-26 06:00:13",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939960859.html",
-"sentiment": -0.289,
-"events": [],
-"picks": []
-},
-{
-"title": "巴西央行：禁止金融机构增加对无担保债务逾期超过90天客户的无担保贷款产品敞口。",
-"time": "2026-11-26 05:55:07",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8293844.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "美国汽车零售企业America's Car-Mart因提交破产申请，将从纳斯达克退市，相关文件已提交美国证券交易委员会备",
-"time": "2026-11-26 05:54:28",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8293526.d.html",
-"sentiment": -1.0,
-"events": [],
-"picks": []
-},
-{
-"title": "网红券商Robinhood没能在体彩集体诉讼中实现强迫仲裁。",
-"time": "2026-11-26 05:53:18",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8292884.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "为科技创新输送金融活水 科创债年内发行规模达1.7万亿元",
-"time": "2026-11-26 05:52:45",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939929188.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国三季度GDP增速大幅上修至4.3% AI投资成经济增长核心引擎",
-"time": "2026-11-26 05:50:54",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253939913989.html",
-"sentiment": 0.289,
-"events": [],
-"picks": []
-},
-{
-"title": "巴西央行：信用卡发行机构将被要求逐步降低未全额还款客户的信用额度。",
-"time": "2026-11-26 05:50:38",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmp9143377.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "  哥伦比亚对内特・莫里斯获批准出任美国驻该国大使表示欢迎。",
-"time": "2026-11-26 05:50:07",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmp9143160.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxi3732240.d.html",
 "sentiment": 0.707,
 "events": [],
 "picks": []
 },
 {
-"title": "现货黄金下破3500美元、白银失守40美元 什么原因？",
-"time": "2026-11-26 05:48:30",
+"title": "巴克莱策略师认为回购将支撑欧洲股市",
+"time": "2026-11-26 16:53:35",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611253939867318.html",
-"sentiment": -0.5,
+"url": "https://finance.eastmoney.com/a/202611263940656110.html",
+"sentiment": 1.0,
 "events": [
-"海外宏观",
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【联合国维和人员助埃博拉防疫人员撤离刚果（金）战火】在联合国维和人员协助下，10名被战火困在刚果（金）东部一家医院的埃博",
+"time": "2026-11-26 16:52:55",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1425323.d.html",
+"sentiment": -0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "【天津：持续营造市场化、法治化、国际化一流营商环境，深化与亚太经合组织成员经济体在经贸、投资等领域务实合作】11月26日",
+"time": "2026-11-26 16:52:50",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8201617.d.html",
+"sentiment": 0.866,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "【中国人民银行上海总部：10月末，长三角地区本外币各项贷款余额81.3万亿元，同比增长6.9%】10月末，长三角地区本外",
+"time": "2026-11-26 16:51:10",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxi3729956.d.html",
+"sentiment": 1.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "法国日前基荷电力价格上涨9.8%",
+"time": "2026-11-26 16:50:16",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940655139.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【中国人民银行上海总部：10月末，长三角地区本外币各项存款余额92.89万亿元，同比增长8%】10月末，长三角地区本外币",
+"time": "2026-11-26 16:50:02",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8199372.d.html",
+"sentiment": 0.567,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【国星光电：可折叠产品主要采用OLED柔性屏 公司暂不涉及OLED产品】有投资者在互动平台向国星光电提问，请问公司的折叠",
+"time": "2026-11-26 16:49:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1422692.d.html",
+"sentiment": 0.866,
+"events": [
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "【埃森哲调研：近八成中国企业加注AI投入 仅两成高管看到广泛业务价值】埃森哲最新“变革脉动”（Pulse of Chan",
+"time": "2026-11-26 16:48:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1421890.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "德国DAX指数上涨2%",
+"time": "2026-11-26 16:47:51",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940652141.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【我国成功自主研制首台金属粉末燃料加力涡喷发动机原理样机 并顺利完成地面点火试车】南昌航空大学动力与能源学院（航空发动机",
+"time": "2026-11-26 16:47:41",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8197406.d.html",
+"sentiment": 0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "AMS-OSRAM股票复牌后上涨7.3%。",
+"time": "2026-11-26 16:47:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxi3727572.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "德国DAX指数上涨2%，至25196.47点。",
+"time": "2026-11-26 16:46:38",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8196446.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【荣昌生物：11月26日回购1.37万股A股股份】荣昌生物公告称，公司于2026年11月26日通过上海证券交易所集中竞价",
+"time": "2026-11-26 16:46:16",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1419604.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【恒坤新材：拟以5000万元-1亿元回购股份并注销】恒坤新材公告称，公司拟通过集中竞价交易方式回购股份，全部用于注销并减",
+"time": "2026-11-26 16:45:47",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1419140.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【联芸科技：取得4500万元股票回购专项贷款承诺函】联芸科技公告称，公司此前审议通过回购股份方案，拟以不超62.65元/",
+"time": "2026-11-26 16:45:24",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1418742.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持",
+"订单合作"
+],
+"picks": []
+},
+{
+"title": "黔源电力：11月18日至25日国新产业资本增持1%公司股份",
+"time": "2026-11-26 16:44:38",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940649836.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【ST金鸿：拟转让威海燃气100%股权 构成重大资产重组】ST金鸿公告称，公司全资子公司中油金鸿华南投资管理有限公司拟以",
+"time": "2026-11-26 16:44:35",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1418014.d.html",
+"sentiment": -1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【红蜻蜓：500万元认购创业投资基金份额】红蜻蜓公告称，公司于2026年11月25日签订《共青城力积曜能创业投资合伙企业",
+"time": "2026-11-26 16:44:28",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8194289.d.html",
+"sentiment": -0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "市场消息：俄罗斯法院逮捕空军副司令。",
+"time": "2026-11-26 16:44:24",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1417806.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "重大突破！我国首次开展省间省内绿电联合交易",
+"time": "2026-11-26 16:44:21",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940648848.html",
+"sentiment": 1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【三利谱：回购股份注销完成 总股本减少37.76万股】三利谱公告称，公司此前将原用于员工持股计划或股权激励的已回购股份用",
+"time": "2026-11-26 16:44:09",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1417530.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【黔源电力：国新产业资本增持1%股份 持股比例达8%】黔源电力公告称，公司持股5%以上股东国新产业资本管理有限公司于20",
+"time": "2026-11-26 16:43:38",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8193475.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "德国日前基荷电力价格上涨8.2%",
+"time": "2026-11-26 16:43:37",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940649214.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【关于对部分客户采取限制开仓监管措施的公告】2026年11月26日，4组实际控制关系账户在相关合约上账户组日内开仓交易量",
+"time": "2026-11-26 16:43:08",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaawz8944027.d.html",
+"sentiment": 0.0,
+"events": [
+"监管处罚",
 "大宗商品"
 ],
 "picks": []
 },
 {
-"title": "巴西央行批准了一项旨在防止频繁使用循环信用卡债务的规则。",
-"time": "2026-11-26 05:47:05",
+"title": "【中国汽车制造商在欧洲市场销量增长一倍】市场研究公司Dataforce数据显示，中国品牌汽车注册量同比增长103%，达到",
+"time": "2026-11-26 16:42:31",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8289316.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1415942.d.html",
+"sentiment": 0.816,
+"events": [],
+"picks": []
+},
+{
+"title": "突尼斯央行将关键利率维持在7%不变",
+"time": "2026-11-26 16:41:26",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940647256.html",
 "sentiment": 0.0,
 "events": [
 "政策"
@@ -11534,300 +11604,255 @@
 "picks": []
 },
 {
-"title": "巴西中央银行与国家货币委员会批准有关信贷发放相关风险审慎处理的措施。",
-"time": "2026-11-26 05:45:22",
+"title": "【*ST航图：前三季度营收同比降80.90% 净亏损4.61亿元】*ST航图公告称，2026年前三季度实现营业收入768",
+"time": "2026-11-26 16:40:53",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmv3921074.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "黄金储备公司对委内瑞拉认定Siembra Minera为该国最具战略价值矿业资产之一表示欢迎；确认已准备好重启运营并解决",
-"time": "2026-11-26 05:43:41",
-"source": "新浪7x24",
-"url": "",
-"sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "SEC文件显示：美股AI医疗公司Tempus AI于2026年11月25日签订3.85亿美元定期贷款及1.15亿美元循环信贷额度",
-"time": "2026-11-26 05:39:39",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939953473.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "美国能源基础设施公司Targa据悉正洽谈收购Kinetik 以进行重大管道整合",
-"time": "2026-11-26 05:23:46",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939952973.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "沙特领导的联军称，拦截并摧毁了也门胡塞武装向利雅得发射的两枚弹道导弹。",
-"time": "2026-11-26 05:21:46",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8274268.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【瑞士：对朝鲜关闭瑞士驻平壤外交办事处表示遗憾】瑞士外交部25日表示，已于当日正式获悉朝鲜关闭瑞士驻平壤外交办事处的决定",
-"time": "2026-11-26 05:20:38",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmv3911032.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "游戏驿站：特拉华州法院驳回股东集体诉讼，将支付350万美元了结股东诉讼。",
-"time": "2026-11-26 05:19:48",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8273194.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaawz8942187.d.html",
 "sentiment": -1.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "富时A50期指连续夜盘收涨0.56% 报12689点",
-"time": "2026-11-26 05:17:02",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939949714.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "乌克兰首都基辅遭弹道导弹袭击",
-"time": "2026-11-26 05:16:29",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939949444.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "沙特首都利雅得传出爆炸声",
-"time": "2026-11-26 05:15:23",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939949353.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "AI债务风险骤升：CoreWeave、英伟达、甲骨文等头部企业CDS集体刷新纪录",
-"time": "2026-11-26 05:13:22",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939950156.html",
-"sentiment": -0.866,
-"events": [],
-"picks": []
-},
-{
-"title": "巴西政府：将继续寻求谈判解决方案，不排除采取对等措施的可能性。",
-"time": "2026-11-26 05:12:04",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8268165.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "巴西政府：很明显，这项新建议意在向政府施压，迫使其对国家监管措施作出改变。",
-"time": "2026-11-26 05:11:42",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1491444.d.html",
-"sentiment": 0.0,
-"events": [
-"监管处罚"
-],
-"picks": []
-},
-{
-"title": "巴西政府发表声明，对美国决定建议对进口飞机和糖征收新关税表示愤慨。",
-"time": "2026-11-26 05:10:23",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8266672.d.html",
-"sentiment": -0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "  美国财政部称，截至 11 月 24 日，美国政府距离 41.1 万亿美元的债务上限尚有 5111 亿美元举债空间。",
-"time": "2026-11-26 05:09:11",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1489351.d.html",
-"sentiment": 0.0,
-"events": [
-"政策",
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "沙特民防部门表示，利雅得省的危险已经过去。",
-"time": "2026-11-26 05:06:04",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8263582.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "纳斯达克中国金龙指数收涨1.87% 哔哩哔哩涨近3%",
-"time": "2026-11-26 05:05:26",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939948167.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "  美国消费品安全委员会：美国法院驳回亚马逊针对该委员会召回令提起的诉讼。",
-"time": "2026-11-26 05:05:08",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmp9121984.d.html",
-"sentiment": -1.0,
-"events": [],
-"picks": []
-},
-{
-"title": "英伟达股价收跌，两日跌幅扩大至9.5%。",
-"time": "2026-11-26 05:01:46",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1484825.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【美股收盘：三大股指集体涨跌不一】道指涨0.33%，标普500指数跌0.25%，纳指跌0.62%。泛林集团跌5.71%，",
-"time": "2026-11-26 05:00:48",
-"source": "新浪7x24",
-"url": "",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "据称Targa正在洽谈收购Kinetik，以进行大规模管道整合。",
-"time": "2026-11-26 05:00:46",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1484336.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美股收盘：道指翻红 芯片股继续调整 英伟达跌近4%",
-"time": "2026-11-26 05:00:06",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939947513.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【纳斯达克中国金龙指数收涨1.91%】JDZG涨27.93%，BOSS直聘涨12.60%，阿特斯涨12.60%，亿航涨1",
-"time": "2026-11-26 05:00:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1484061.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "沙特民防部门就利雅得省潜在危险发布警报。",
-"time": "2026-11-26 04:58:57",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzms8260180.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "马斯克旗下脑机接口公司Neuralink已获得FDA批准推出Link 这是美国首个植入式脑机接口的关键性试验",
-"time": "2026-11-26 04:57:05",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939947418.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "深圳A股上市公司前三季度营收净利增速创五年新高",
-"time": "2026-11-26 04:56:41",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611263939928537.html",
-"sentiment": 1.0,
 "events": [
 "业绩"
 ],
 "picks": []
 },
 {
-"title": "  Neuralink：已获得美国食品药品监督管理局批准，推出 Link 脑机设备，在美国开展关键性临床试验。",
-"time": "2026-11-26 04:56:12",
+"title": "【中国气象局部署“十五五”低空气象基础设施建设 70个重点城市将按需加密布设低空气象基础设施】11月26日，中国气象局发",
+"time": "2026-11-26 16:40:10",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmp9118983.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1413397.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "特朗普女婿库什纳宣布俄罗斯与乌克兰将开展大规模战俘交换，交换将于年底前实施。",
-"time": "2026-11-26 04:53:07",
+"title": "突尼斯央行称，将关键利率维持在7%不变。",
+"time": "2026-11-26 16:39:54",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmv3898248.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1413186.d.html",
 "sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "道明银行预计加拿大央行将在12月加息。",
-"time": "2026-11-26 04:52:09",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmp9117923.d.html",
-"sentiment": -0.707,
 "events": [
-"政策",
-"海外宏观"
+"政策"
 ],
 "picks": []
 },
 {
-"title": "斯泰兰蒂斯：将继续致力于开展建设性谈判。",
-"time": "2026-11-26 04:51:43",
+"title": "日本财务省高级官员：如果增加日历发行量，短期债券将是最适合扩大发行的品种。",
+"time": "2026-11-26 16:39:41",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1481511.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8189398.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "  斯泰兰蒂斯与加拿大联邦政府、安大略省政府以及 Unifor 工会会面，商讨业务前景。",
-"time": "2026-11-26 04:51:19",
+"title": "【凯伦股份：持股5%以上股东增持股份触及1%】凯伦股份公告称，公司持股5%以上股东矽彩光电及其一致行动人陈显锋，于202",
+"time": "2026-11-26 16:39:03",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inizyzmr1481334.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxi3720892.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【复星医药：控股子公司注射用那库巴坦药品注册申请获受理】复星医药公告，公司控股子公司复红康合医药（重庆）有限公司就注射用",
+"time": "2026-11-26 16:38:45",
+"source": "新浪7x24",
+"url": "",
 "sentiment": 0.0,
 "events": [],
+"picks": []
+},
+{
+"title": "【金融街证券：银国宏代为履行董事长职务】金融街证券公告，为确保本公司及本公司董事会工作的有序进行，根据法律法规及本公司公",
+"time": "2026-11-26 16:38:23",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1411949.d.html",
+"sentiment": -0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "【复星医药：控股子公司HLX109注射液获临床试验批准】复星医药公告，公司控股子公司复宏汉霖收到国家药品监督管理局关于同",
+"time": "2026-11-26 16:38:15",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8188215.d.html",
+"sentiment": 1.0,
+"events": [],
+"picks": []
+},
+{
+"title": "复星医药：控股子公司药品注册申请获受理",
+"time": "2026-11-26 16:38:07",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940643427.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "汇丰于11月25日在其他交易所回购20万股，总额250万英镑。",
+"time": "2026-11-26 16:37:46",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1411341.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【力聚热能：股票交易异常波动 无应披露未披露重大事项】力聚热能公告称，公司股票于2026年11月24日、11月25日、1",
+"time": "2026-11-26 16:37:37",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1411203.d.html",
+"sentiment": -0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "【恒林股份：拟5000万元-1亿元回购股份用于员工持股或股权激励】恒林股份公告称，公司拟以集中竞价交易方式回购股份，回购",
+"time": "2026-11-26 16:37:32",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1411131.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持",
+"减持解禁"
+],
+"picks": []
+},
+{
+"title": "【高能时代：拟1亿元-2亿元回购股份用于股权激励】高能时代公告称，公司拟以集中竞价交易方式回购股份，回购金额不低于1亿元",
+"time": "2026-11-26 16:37:29",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8187470.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持",
+"减持解禁"
+],
+"picks": []
+},
+{
+"title": "长源东谷：取得1.8亿元股票回购专项贷款承诺函",
+"time": "2026-11-26 16:37:16",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940642472.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "【汇川技术：完成回购股份 累计耗资2.00亿元】汇川技术公告称，公司已完成股份回购，2026年4月29日至11月25日通",
+"time": "2026-11-26 16:37:14",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxi3719463.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持"
+],
+"picks": []
+},
+{
+"title": "联合机械航空航天公司通过约4.5亿印度卢比（约合3240万元人民币）交易进军表面工程领域。",
+"time": "2026-11-26 16:37:03",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1410639.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "意大利联合信贷银行表示，如果德国商业银行保留董事会，将考虑发起不信任投票。",
+"time": "2026-11-26 16:36:57",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1410571.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "日本财务省高级官员：短期债券需求可能保持强劲。",
+"time": "2026-11-26 16:35:38",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1409520.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【中化国际：拟发行股份购买南通星辰100%股权】中化国际公告称，公司拟以发行股份的方式向关联方中国蓝星(集团)股份有限公",
+"time": "2026-11-26 16:35:29",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxi3718321.d.html",
+"sentiment": -0.5,
+"events": [
+"业绩"
+],
+"picks": []
+},
+{
+"title": "埃森哲调研：近八成中国企业加注AI投入 仅两成高管看到广泛业务价值",
+"time": "2026-11-26 16:35:24",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940642694.html",
+"sentiment": 0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "【柳钢股份：拟5000万元-1亿元回购股份用于股权激励】柳钢股份公告称，公司拟通过集中竞价交易方式回购股份，用于实施股权",
+"time": "2026-11-26 16:35:24",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaawz8938226.d.html",
+"sentiment": 1.0,
+"events": [
+"回购增持",
+"减持解禁"
+],
+"picks": []
+},
+{
+"title": "日本财务省高官：在与一级交易商的会议上表示，超长期日本国债领域的供需平衡已有所改善。",
+"time": "2026-11-26 16:35:21",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1409242.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "巴基斯坦、沙特和土耳其将在伊斯兰堡举行麦加会议。",
+"time": "2026-11-26 16:35:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxe8185492.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "中化国际：发行股份购买资产获证监会同意注册批复",
+"time": "2026-11-26 16:35:08",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611263940642350.html",
+"sentiment": 0.0,
+"events": [
+"政策"
+],
+"picks": []
+},
+{
+"title": "【国芳集团：股票交易异常波动 无应披露未披露重大事项】国芳集团公告称，公司股票于2026年11月24日、11月25日、1",
+"time": "2026-11-26 16:34:05",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-26/detail-inkaaaxc1408130.d.html",
+"sentiment": -0.5,
+"events": [
+"政策"
+],
 "picks": []
 }
 ],
@@ -11842,17 +11867,11 @@
 }
 ],
 "sources": {
-"GitHub 日线数据": "ok",
-"腾讯全市场快照": "ok",
-"尾部加权因子": "ok",
-"科技股周榜": "ok",
-"K线与历史看好分": "ok",
 "海外行情(腾讯美股/新浪期货)": "ok",
 "新闻快讯": "ok",
 "指数行情": "ok",
 "中美国债收益率": "ok",
-"两融余额": "ok",
-"涨跌停池": "ok"
+"两融余额": "ok"
 },
 "method": "\n<p><b>股票池</b>：沪深主板、创业板、科创板；剔除 ST/*ST/退市整理、上市不满约 1 年、近 60 日交易不足 80%、日均成交额低于 2000 万元或处于全市场最低 15%、股价低于 2 元的股票。</p>\n<p><b>价值投资分（中期，约 1 个月）</b>：「尾部加权合成」。逐个因子统计其「全市场前 5% 股票」在随后 20 个交易日的超额收益，每月只用过去 36 个月标签已实现的数据，选出 t 值 ≥ 0.5 的因子并按 t 值加权（不保证每个时段都为正）。目前入选的是日内未追高、非流动性溢价、低于 20 日均线、量价背离、20 日回调、换手未异常放大。<b>不使用「小市值」因子</b>，不会因为市值小直接加分；并且价值分在 5 个市值组内各自取分位（大盘股和大盘股比、小盘股和小盘股比），避免「非流动性」等因子间接偏向小盘股。选股时还要求公司盈利、且 PE 低于盈利公司 PE 的 70 分位（排除盈利公司里最贵的 30%）。</p>\n<p><b>短线分（约 1 周）</b>：LightGBM 模型，用 24 个量价与估值因子（不含市值）预测未来 5 个交易日的相对收益。在此基础上叠加两项实时调整：①海外联动——所在产业链（或所属行业）的海外标的隔夜涨跌 × 历史回归系数，只使用 2016–2022 年样本内 t 值绝对值 ≥ 2 的配对（这类配对在 2023 年以后的检验中整体有效），最多 ±10 分；②新闻情绪——快讯的词典法情绪，最多 ±6 分（未经回测，仅作提示）。</p>\n<p><b>综合分</b> = 0.6 × 价值投资分 + 0.4 × 短线分。每月最后一个交易日收盘后选出下月 30 只（同一申万一级行业最多 5 只；上月持仓若仍在股票池前 430 名则保留，以降低换手），整月固定；月内每天重新打分、重新排名。</p>\n<p><b>回测</b>（截至 2026-11，扣交易成本，一字涨跌停无法成交）：现行规则（价值分市值中性化，市值数据从 2020 年才有，所以从 2020 年起算），换用 6 个短线模型版本分别回测：2020 年以来年化超额中位数 <b>+9.6%</b>（各版本 +7.6% ~ +12.3%），信息比中位数 0.93；2025 年以来中位数 +6.2%（+4.1% ~ +11.1%）。Top30 对短线模型的细微差别很敏感，单个版本的数字可能偏高或偏低（此前公布的 +14.8% 就是偏高的一个版本），请以范围为准。我们也测试过每周重选：长期略差于每月（中位数 +7.5%）、换手约翻倍，所以保持每月重选。这些数字是乐观的上限：部分参数和「去掉小市值加分」「市值中性化」等决定是在看过全部历史数据后做出的，不是严格的样本外检验，请以上线后的「实盘跟踪」为准。最大回撤：2016 年起 −47%、2020 年起 −28%（不择时，大盘下跌时会一起下跌）。完整报告见仓库 docs/方法与回测报告.md。</p>\n<p><b>科技股周榜</b>：独立于 30 强，只在申万一级 电子/计算机/通信/传媒 的股票池里选，每周最后一个交易日收盘后选出下周 15 只（同行业最多 6 只，上周名单仍在前 115 名则保留）。综合分 = 0.5 × 价值分 + 0.5 × 短线分（科技股池内分位）。回测 2016–2024 年年化超额 +12.9%，2025 年以来 +7.9%（信息比 0.44，不显著）。需要注意：第一轮参数网格按同样规则选出的组合 2025 年以来年化跑输科技股池 3.0%，全部 90 组只有 57% 跑赢；现用参数来自看过第一轮后设计的第二轮，且缓冲 100 处在网格边界。这类因子在科技股内部的优势不稳定，请谨慎参考。</p>\n<p><b>局限</b>：入选股仍偏中小盘（短线分偏小盘；2020 年以来平均约 41% 低于 50 亿）、成交不算活跃；不做择时；2020 年以前没有估值数据；行业分类为当前快照；新闻情绪与事件影响为规则判断。</p>\n",
 "factor_labels": {
