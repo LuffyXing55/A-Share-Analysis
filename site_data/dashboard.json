@@ -1,5 +1,5 @@
 {
-"generated_at": "2026-11-27 04:20",
+"generated_at": "2026-11-27 06:18",
 "mode": "close",
 "data_date": "2026-11-26",
 "month": "2026-11",
@@ -157,7 +157,7 @@
 "score": -1,
 "text": "全A等权近20日 -11.7%；融资余额5日 -3.9%；涨停65/跌停5。状态偏弱时短线分的参考价值下降，宜更看重价值分。"
 },
-"time": "2026-11-27 04:20"
+"time": "2026-11-27 06:18"
 },
 "picks": [
 {
@@ -11504,326 +11504,368 @@
 },
 "news": [
 {
-"title": "【美元指数26日上涨】衡量美元对六种主要货币的美元指数当天上涨0.09%，在汇市尾市收于103.763。截至纽约汇市尾市",
-"time": "2026-11-27 04:18:06",
+"title": "【固态冲刺量产，场景抢先卡位，锂电产业寻找新增长极】1月26日，2026（第十六届）高工锂电年会的固态电池专场座无虚席。",
+"time": "2026-11-27 06:16:29",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5758982.d.html",
-"sentiment": 1.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "【Stellantis将暂停更多欧洲工厂】欧洲车企斯泰兰蒂斯Stellantis NV正计划未来几周内在欧洲进一步暂停工",
-"time": "2026-11-27 04:14:47",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3428865.d.html",
-"sentiment": 0.0,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "【世界黄金协会：黄金在不同经济周期中均具配置韧性】11月26日，世界黄金协会发布关于不同经济周期中黄金配置比例最新研究报",
-"time": "2026-11-27 04:14:16",
-"source": "新浪7x24",
-"url": "",
-"sentiment": 0.5,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "现货白银上涨4%，至42.99美元/盎司。",
-"time": "2026-11-27 04:05:30",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3424958.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1117144.d.html",
 "sentiment": 0.707,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "泛欧交易所雅典控股股份有限公司将与泛欧交易所股份有限公司合并。",
-"time": "2026-11-27 04:00:21",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7962002.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "【几内亚比绍将总统和议会选举推迟至2028年11月】几内亚比绍总统府11月26日发布通报说，过渡总统奥尔塔·因塔阿当天颁",
-"time": "2026-11-27 03:54:33",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7959585.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "美国地质调查局：日本小笠原群岛地区发生5.1级地震。",
-"time": "2026-11-27 03:52:45",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1182416.d.html",
-"sentiment": -0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "伦铜自11个月低点反弹 科技股上涨提振工业金属",
-"time": "2026-11-27 03:50:58",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941013753.html",
-"sentiment": 1.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "委内瑞拉代总统罗德里格斯表示，鉴于宏观经济状况，此次降息幅度是适当的。",
-"time": "2026-11-27 03:49:48",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5748272.d.html",
-"sentiment": 1.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "委内瑞拉代总统罗德里格斯：新兴市场与美国的经波动率调整后的利率差处于高位。",
-"time": "2026-11-27 03:49:11",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5748081.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "伊朗外长阿拉格齐就与科威特和意大利外长的通话发表声明称，该事件是旨在点燃战争的预谋剧本的一部分。在与意大利和科威特外长的",
-"time": "2026-11-27 03:48:51",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3419143.d.html",
-"sentiment": 0.0,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "阿根廷央行今日外汇储备为487.3亿美元。",
-"time": "2026-11-27 03:46:50",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7956448.d.html",
-"sentiment": 0.0,
 "events": [
 "政策",
-"海外宏观"
+"大宗商品"
 ],
 "picks": []
 },
 {
-"title": "法国总统马克龙表示 若今年未达成协议 欧盟预算谈判将于2027年下半年重启",
-"time": "2026-11-27 03:45:42",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941012856.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "沙特阿拉伯与土耳其签署谅解备忘录以加强防务合作。",
-"time": "2026-11-27 03:44:30",
+"title": "【欧洲央行将迎“稳健之手”：欧元区成员国已同意推荐德科斯担任欧央行行长】欧洲央行将迎来首位西班牙籍掌门人。欧盟领导人周四",
+"time": "2026-11-27 06:16:25",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1179083.d.html",
-"sentiment": 0.707,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "委内瑞拉议会拟废除西蒙·玻利瓦尔组织法。",
-"time": "2026-11-27 03:44:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1178799.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "法国总统马克龙：若今年未达成协议，欧盟预算谈判将于2027年下半年重启。",
-"time": "2026-11-27 03:41:54",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3416995.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "《新一代通信网建设实施方案》发布 适时开展6G网络建设 二〇三〇年建成新一代通信网",
-"time": "2026-11-27 03:38:43",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941007295.html",
-"sentiment": 0.5,
-"events": [],
-"picks": []
-},
-{
-"title": "委内瑞拉代总统罗德里格斯表示，更快的经济增长不会影响消费者价格指数预测。",
-"time": "2026-11-27 03:35:13",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7951912.d.html",
-"sentiment": 0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "法国总统马克龙表示，由于法国大选，他将无法在12月31日后签署任何协议。",
-"time": "2026-11-27 03:34:14",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7951524.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "泽连斯基表示，乌克兰掌握的信息显示，俄罗斯正准备在未来几天发动新的大规模袭击。",
-"time": "2026-11-27 03:34:08",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1175079.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "委内瑞拉代总统罗德里格斯：经济增速加快不会影响消费者价格指数预测。",
-"time": "2026-11-27 03:34:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5743777.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "法国总统马克龙：不会签署不平衡的欧盟预算协议。",
-"time": "2026-11-27 03:33:56",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3414899.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "以色列国防军打击黎巴嫩南部数十枚真主党火箭弹及发射器。",
-"time": "2026-11-27 03:31:30",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1173752.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "法国总统马克龙：法国希望欧盟数字税与欧盟预算一同在2028年生效。",
-"time": "2026-11-27 03:25:35",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7947512.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "法国总统马克龙表示，如果欧盟削减预算，那将是一个战略性错误。",
-"time": "2026-11-27 03:22:37",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3410330.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "乌克兰总统泽连斯基：目前，我们正在与欧洲及其他地区的伙伴积极合作，为乌克兰提供额外的武器。",
-"time": "2026-11-27 03:19:45",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3408679.d.html",
-"sentiment": 0.707,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "土耳其央行：决定将里拉存款法定准备金适用的报酬率从央行加权平均资金成本的86%上调至90%。",
-"time": "2026-11-27 03:18:34",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5737003.d.html",
-"sentiment": 0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkackst3342217.d.html",
+"sentiment": 1.0,
 "events": [
 "政策"
 ],
 "picks": []
 },
 {
-"title": "土耳其央行暂停一周期回购拍卖",
-"time": "2026-11-27 03:18:01",
+"title": "沙特阿拉伯：哈米斯穆希特地区的危险已经过去。",
+"time": "2026-11-27 06:15:33",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7893189.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "沙特阿拉伯：艾卜哈地区危险已过。",
+"time": "2026-11-27 06:15:01",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1116583.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "澳大利亚任命杰森·布莱恩领导国防销售办公室。",
+"time": "2026-11-27 06:13:31",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7892201.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "袁记食品预计12月7日开始交易。",
+"time": "2026-11-27 06:11:14",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7890990.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "袁记食品拟以每股23至28港元发行港股上市股份。",
+"time": "2026-11-27 06:11:02",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7890903.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "沙特阿拉伯发布警报，称艾卜哈市、海米斯穆谢特市可能面临危险。",
+"time": "2026-11-27 06:10:46",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1114386.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "日本正考虑制定56.3万亿日元的五年防卫预算。",
+"time": "2026-11-27 06:10:42",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7890739.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "袁记食品拟在港交所IPO发行1600万股。",
+"time": "2026-11-27 06:10:34",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkackst3340001.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "中国神华：H股配售价为每股38.10港元。",
+"time": "2026-11-27 06:10:02",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkackst3339723.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "中国神华H股配售所得款项总额为67.437亿港元（约合57.3亿元人民币）。",
+"time": "2026-11-27 06:09:55",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7890239.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "周五你需要知道的隔夜全球要闻：特朗普指责政府低报经济增长并要求调查；联合国预计今年全球海运贸易“零增长”；欧央行迎来新任掌门人",
+"time": "2026-11-27 06:03:08",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941012514.html",
+"url": "https://finance.eastmoney.com/a/202611273941028398.html",
+"sentiment": 0.354,
+"events": [
+"政策"
+],
+"picks": []
+},
+{
+"title": "【巴西航空工业公司：美国对巴产飞机征收新关税或推高机票价格】11月26日，巴西航空工业公司首席执行官弗朗西斯科·戈麦斯·",
+"time": "2026-11-27 06:02:22",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1109692.d.html",
+"sentiment": -1.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "Parex获准在哥伦比亚证券交易所上市股票。",
+"time": "2026-11-27 06:01:54",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1109473.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "日本能源集团JERA计划在电厂附近建设Anthropic、Meta数据中心",
+"time": "2026-11-27 05:58:35",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611273941025968.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "JERA GLOBAL首席执行官兼董事长表示，该能源集团也在与亚马逊、微软和谷歌进行讨论。",
+"time": "2026-11-27 05:56:14",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkackst3333936.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "日本JERA计划在发电厂附近建设Anthropic和Meta数据中心。",
+"time": "2026-11-27 05:54:15",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7882578.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "惠誉评级：高评级超大规模云服务商发行重塑美国投资级公司债券市场。",
+"time": "2026-11-27 05:49:22",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkackst3331864.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "荷兰首相：欧洲理事会主席科斯塔必须提出更好的提案。",
+"time": "2026-11-27 05:49:12",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1104250.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "荷兰首相：今天的欧盟预算谈判进展甚微。",
+"time": "2026-11-27 05:49:07",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7880606.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "BETASHARES全球金属与矿业ETF获准上市并开始交易。",
+"time": "2026-11-27 05:47:18",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7879990.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "强风暴袭击美国东海岸 致数十万用户停电 数千航班受扰",
+"time": "2026-11-27 05:44:33",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611273941023842.html",
+"sentiment": -0.5,
+"events": [],
+"picks": []
+},
+{
+"title": "巴西2026/27年度玉米总产量预计为1.492亿吨。",
+"time": "2026-11-27 05:38:36",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7876579.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "富时A50期指连续夜盘收跌0.02% 报12511点",
+"time": "2026-11-27 05:34:22",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611273941023222.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "沙特领导的联军：拦截并摧毁了也门胡塞武装向南部地区发射的无人机。",
+"time": "2026-11-27 05:33:38",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7874529.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "加拿大标普/TSX综合指数收涨0.72%，报34426.88点。",
+"time": "2026-11-27 05:33:31",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkackst3327065.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "巴西2026/27年度大豆产量预计为1.823亿吨。",
+"time": "2026-11-27 05:31:16",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7873090.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "马斯克将每年向美国儿童再捐赠一份SpaceX股份",
+"time": "2026-11-27 05:30:24",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611273941022938.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "【通胀数据低于预期提振巴西资产，领涨拉美市场】巴西圣保罗证交所指数收涨4.26%，报逼近17.4万点，连续两个交易日反弹",
+"time": "2026-11-27 05:30:19",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7872373.d.html",
+"sentiment": 1.0,
+"events": [
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "摩根大通分析师在一份报告中写道：在两位数盈利增长、低廉估值、超卖起点以及结构性人工智能（AI）资本支出顺风的支撑下，新兴",
+"time": "2026-11-27 05:29:31",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1095568.d.html",
 "sentiment": 1.0,
 "events": [
 "回购增持",
+"海外宏观"
+],
+"picks": []
+},
+{
+"title": "【德国两年期国债收益率涨超3个基点】周四（11月26日）欧市尾盘，德国10年期国债收益率涨2.3个基点，报3.250%，",
+"time": "2026-11-27 05:28:32",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1095069.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "埃隆·马斯克：我将每年向美国所有儿童捐赠另一部分SpaceX股份。",
+"time": "2026-11-27 05:27:29",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1094496.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "市场消息：巴西布拉德斯科银行的路易斯·卡洛斯·特拉布科接受了卢拉的邀请，将出任巴西财政部长。",
+"time": "2026-11-27 05:23:02",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksq7868660.d.html",
+"sentiment": 0.0,
+"events": [
 "政策"
 ],
 "picks": []
 },
 {
-"title": "雪莉集团董事会重申支持施耐德每股70欧元的收购要约。",
-"time": "2026-11-27 03:16:46",
+"title": "麦格理集团：艾米·马奥尼将出任麦格理银行首席执行官；托尼·格雷厄姆将出任首席信息官。",
+"time": "2026-11-27 05:19:35",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1166560.d.html",
-"sentiment": 0.707,
-"events": [],
-"picks": []
-},
-{
-"title": "Starlink发布黑色星期五优惠：在11月30日网络星期一之前注册，Starlink住宅服务可享6个月五折优惠。体验快",
-"time": "2026-11-27 03:16:37",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7942900.d.html",
+"url": "",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【哈萨克斯坦深化与俄罗斯的AI合作】哈萨克斯坦总统周四在俄罗斯人工智能（AI）大会上推进了该国的人工智能雄心，他告诉俄罗",
-"time": "2026-11-27 03:13:29",
+"title": "麦格理集团宣布麦格理银行首席执行官斯图尔特·格林和集团首席运营官妮可·索巴拉退休。",
+"time": "2026-11-27 05:19:28",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5735272.d.html",
-"sentiment": 0.707,
-"events": [
-"订单合作"
-],
-"picks": []
-},
-{
-"title": "沙特主导联军：摧毁50个胡塞武装军事目标。",
-"time": "2026-11-27 03:13:07",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1165201.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1090540.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "在岸人民币兑美元北京时间03:00收报6.6609元",
-"time": "2026-11-27 03:09:33",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941012035.html",
+"title": "麦格理银行首席执行官格林将于3月31日卸任。",
+"time": "2026-11-27 05:19:20",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksu5649629.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "伊朗外长阿拉格齐周四在接受电视采访时表示，卡塔尔和巴基斯坦正继续开展调解工作，但德黑兰的要求必须得到满足，霍尔木兹海峡才",
+"time": "2026-11-27 05:17:52",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1089460.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "加拿大原住民商业投资公司为不列颠哥伦比亚省原住民投资沿海天然气管道项目提供1.68亿美元贷款担保。",
+"time": "2026-11-27 05:17:08",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksu5648594.d.html",
 "sentiment": 0.0,
 "events": [
 "海外宏观"
@@ -11831,30 +11873,93 @@
 "picks": []
 },
 {
-"title": "恒生指数主连夜盘收跌0.38% 恒生科技指数主连夜盘收跌0.50%",
-"time": "2026-11-27 03:04:55",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941011957.html",
+"title": "【卢拉拟宣布布拉德斯科银行的特拉布科出任财政部长】知情人士透露，巴西总统卢拉将任命布拉德斯科银行董事长路易斯・卡洛斯・特",
+"time": "2026-11-27 05:10:04",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacksp1085678.d.html",
+"sentiment": 0.0,
+"events": [
+"政策"
+],
+"picks": []
+},
+{
+"title": "阿根廷参议院批准米莱的选举改革方案。",
+"time": "2026-11-27 05:08:56",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7992483.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "【美洲开发银行将在四年内向秘鲁提供 100 亿美元贷款】美洲开发银行集团同意未来四年向秘鲁提供 100 亿美元融资，其中",
-"time": "2026-11-27 03:01:34",
+"title": "法国总统马克龙就乌克兰问题表示：我们帮助乌克兰是出于责任感，也符合我们的利益。",
+"time": "2026-11-27 05:06:25",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7936531.d.html",
-"sentiment": 0.5,
-"events": [
-"海外宏观"
-],
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3446862.d.html",
+"sentiment": 0.0,
+"events": [],
 "picks": []
 },
 {
-"title": "墨西哥央行将比索兑美元官方汇率设定为19.7203。",
-"time": "2026-11-27 03:00:17",
+"title": "多伦多股票指数收盘上涨246.89点 涨幅0.72% 报34426.88点",
+"time": "2026-11-27 05:04:30",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611273941020094.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "德国总理默茨：在缩减下一份预算总体规模方面出现了新的进展。",
+"time": "2026-11-27 05:01:20",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5730683.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1212822.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "多伦多股票指数 .GSPTSE 非官方收盘上涨 246.89 点，或 0.72%，报 34,426.88 点。",
+"time": "2026-11-27 05:00:51",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1212639.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "国际原子能机构表示 正与俄罗斯和乌克兰就第九次局部停火的安排进行接触",
+"time": "2026-11-27 05:00:35",
+"source": "东方财富快讯",
+"url": "https://finance.eastmoney.com/a/202611273941019364.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "新西兰11月消费者信心指数升至100.2。",
+"time": "2026-11-27 05:00:27",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekv3444990.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "新西兰11月消费者信心环比增长4.2%。",
+"time": "2026-11-27 05:00:11",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7988781.d.html",
+"sentiment": 0.707,
+"events": [],
+"picks": []
+},
+{
+"title": "美国财政部数据显示，截至11月24日，美国政府距离41.1万亿美元的债务上限还有5111亿美元。",
+"time": "2026-11-27 04:59:55",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1212285.d.html",
 "sentiment": 0.0,
 "events": [
 "政策",
@@ -11863,207 +11968,77 @@
 "picks": []
 },
 {
-"title": "恒指期货夜盘收跌0.31%，报22135.96点，低水90.92点。",
-"time": "2026-11-27 03:00:03",
+"title": "德国总理默茨：欧盟领导人将力争在今年就欧盟预算达成协议。",
+"time": "2026-11-27 04:59:40",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7935919.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1212194.d.html",
+"sentiment": 0.0,
+"events": [],
+"picks": []
+},
+{
+"title": "巴西总统卢拉将宣布任命布拉德斯科银行高管特拉布科为财政部长。",
+"time": "2026-11-27 04:59:35",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5773620.d.html",
 "sentiment": 0.0,
 "events": [
-"大宗商品"
+"政策"
 ],
 "picks": []
 },
 {
-"title": "币安表示 我们的提现恢复工作已完成 10月安全事件导致的提现暂停已全面解除",
-"time": "2026-11-27 02:50:51",
+"title": "巴西雷亚尔大涨2.7% 因市场押注特拉布科将加入卢拉政府担任财政部长",
+"time": "2026-11-27 04:59:14",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941011775.html",
+"url": "https://finance.eastmoney.com/a/202611273941019039.html",
+"sentiment": 0.0,
+"events": [
+"政策"
+],
+"picks": []
+},
+{
+"title": "德国总理默茨：欧盟领导人将在午夜左右再次召开会议，随后结束峰会。",
+"time": "2026-11-27 04:58:56",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7988233.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "公募深耕ESG投资 打通长期资金入市通道",
-"time": "2026-11-27 02:49:43",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941007697.html",
+"title": "巴西雷亚尔飙升2.7%，因市场押注特拉布科将加入巴西总统卢拉政府。",
+"time": "2026-11-27 04:58:29",
+"source": "新浪7x24",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5773297.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "币安：部分网络的提现服务因维护或计划升级而暂时暂停。",
-"time": "2026-11-27 02:49:33",
+"title": "德国总理默茨：欧盟峰会周五不会继续举行。",
+"time": "2026-11-27 04:57:54",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayax3529260.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1211486.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "币安：我们的提款恢复工作已完成，因10月安全事件而暂停的提款已全面解除。",
-"time": "2026-11-27 02:49:20",
+"title": "德国总理默茨：明年大选或使欧盟预算谈判更难。",
+"time": "2026-11-27 04:57:01",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayau8062240.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7987514.d.html",
 "sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "国际原子能机构：扎波罗热核电站正依靠应急柴油发电机维持必要的核安全与安保功能。",
-"time": "2026-11-27 02:46:46",
+"title": "【乌拉圭国家石油公司（Ancap）称 APA 公司将于 2027 年 9 月开展海上钻井作业】乌拉圭国有石油公司 Anc",
+"time": "2026-11-27 04:55:03",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayau8061013.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "国际原子能机构：在扎波罗热核电站再次失去场外电力供应后，国际原子能机构正与俄罗斯和乌克兰就第九次局部停火安排进行接触。",
-"time": "2026-11-27 02:45:04",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayat1283878.d.html",
-"sentiment": 0.0,
-"events": [],
-"picks": []
-},
-{
-"title": "墨西哥央行表示，将基准利率在较长时期内维持在6.25%，将有助于通胀回归目标水平。",
-"time": "2026-11-27 02:44:46",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayat1283745.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行：经济增长风险仍偏向下行，通胀风险仍偏向上行。美墨加协定（USMCA）审查的不确定性预计将使投资保持相对疲软。",
-"time": "2026-11-27 02:44:35",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayat1283667.d.html",
-"sentiment": -0.707,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行表示，美国经济政策变化及地缘政治冲突可能延长，继续给前景增添不确定性。",
-"time": "2026-11-27 02:41:34",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayat1282073.d.html",
-"sentiment": -0.707,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行表示，在预测期内，通胀风险平衡仍偏向上行。",
-"time": "2026-11-27 02:41:15",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayau8058256.d.html",
-"sentiment": -0.707,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行预计通胀率将于2027年第四季度达到3%的目标水平。",
-"time": "2026-11-27 02:39:51",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayau8057577.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行预计2027年第四季度整体通胀率为3.0%，此前预期为3.0%。预计2027年第四季度核心通胀率为3.0%，与",
-"time": "2026-11-27 02:39:22",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayay5854205.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行预计2026年第四季度核心通胀率为3.7%，高于此前的3.5%。",
-"time": "2026-11-27 02:39:06",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayat1280832.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行预计2026年第四季度整体通胀率为3.7%，此前预期为3.5%。",
-"time": "2026-11-27 02:38:44",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayau8057076.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行预计2027年GDP增速为2.0%，此前预期为2.0%。",
-"time": "2026-11-27 02:38:01",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayat1280275.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行将2026年GDP增速预期从1.5%上调至1.9%。",
-"time": "2026-11-27 02:37:55",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayax3524799.d.html",
-"sentiment": 0.707,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "墨西哥央行递交季度通胀报告。",
-"time": "2026-11-27 02:36:03",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayau8055792.d.html",
-"sentiment": 0.0,
-"events": [
-"政策"
-],
-"picks": []
-},
-{
-"title": "秘鲁总统藤森宣布，美洲开发银行将在四年内向秘鲁提供 100 亿美元贷款。",
-"time": "2026-11-27 02:34:59",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayay5852633.d.html",
-"sentiment": 0.0,
-"events": [
-"海外宏观"
-],
-"picks": []
-},
-{
-"title": "SpaceX获准部署太空数据中心星座 新一轮太空算力竞赛开启",
-"time": "2026-11-27 02:30:48",
-"source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941005219.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekw5772309.d.html",
 "sentiment": 0.0,
 "events": [
 "监管处罚"
@@ -12071,40 +12046,29 @@
 "picks": []
 },
 {
-"title": "上期所原油期货夜盘收涨0.13%，报594.80元人民币/桶。沪金夜盘收涨1.28%，沪银收涨3.59%。",
-"time": "2026-11-27 02:30:03",
+"title": "Mercuria、沙特阿美和Inpasa正在评估Raízen的燃料业务收购选项。",
+"time": "2026-11-27 04:37:05",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayau8052391.d.html",
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkacekr1203227.d.html",
 "sentiment": 0.0,
-"events": [
-"大宗商品"
-],
-"picks": []
-},
-{
-"title": "【欧盟上调玉米产量预估 但总量仍处于数十年来最低点附近】欧盟委员会周四上调了今年欧洲玉米收成的月度预估，但在严重夏季高温",
-"time": "2026-11-27 02:27:36",
-"source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayay5849294.d.html",
-"sentiment": 1.0,
 "events": [],
 "picks": []
 },
 {
-"title": "光伏行业并购升温 中小厂商整合提速",
-"time": "2026-11-27 02:24:56",
+"title": "巴西基准股指涨超5% 触及盘中高点",
+"time": "2026-11-27 04:36:04",
 "source": "东方财富快讯",
-"url": "https://finance.eastmoney.com/a/202611273941007053.html",
-"sentiment": 0.707,
+"url": "https://finance.eastmoney.com/a/202611273941016813.html",
+"sentiment": 0.0,
 "events": [],
 "picks": []
 },
 {
-"title": "伊朗外长阿拉格齐：伊朗准备与意大利、科威特共同调查袭击来源。",
-"time": "2026-11-27 02:19:38",
+"title": "伊朗驻罗马大使馆发表声明，坚决否认有关伊朗参与在科威特一处军事基地发生的所谓无人机袭击并导致两名意大利公民死亡的指控，称",
+"time": "2026-11-27 04:30:00",
 "source": "新浪7x24",
-"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaayax3515832.d.html",
-"sentiment": -0.707,
+"url": "https://finance.sina.cn/7x24/2026-11-27/detail-inkaceks7976686.d.html",
+"sentiment": 0.0,
 "events": [],
 "picks": []
 }
